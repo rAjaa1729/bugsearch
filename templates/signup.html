@@ -44,7 +44,7 @@
                 <rect class="sign-up-page-rectangle80"></rect>
                 <div class="mb-3">
                   <label for="exampleFormControlTextarea1 " class="form-label sign-up-page-text06">Username</label>
-                  <input name="username" class="form-control sign-up-page-rectangle80" id="exampleFormControlTextarea1" ></input>
+                  <input name="username" class="form-control sign-up-page-rectangle80" id="exampleFormControlTextarea1" value="{{request.form['username']}}" ></input>
                 </div>
                 <!-- <img
                   src="/playground_assets/rectangle801532-2mzc-200h.png"
@@ -60,7 +60,7 @@
                 <rect class="sign-up-page-rectangle801"></rect>
                 <div class="mb-3">
                   <label for="exampleFormControlInput1 " class="form-label sign-up-page-text10">Email address</label>
-                  <input type="email" name="email_id" class="form-control sign-up-page-rectangle801" id="exampleFormControlInput1" placeholder="name@example.com" ></input>
+                  <input type="email" name="email_id" class="form-control sign-up-page-rectangle801" id="exampleFormControlInput1" placeholder="name@example.com" value="{{request.form['email_id']}}" ></input>
                 </div>
                 <!-- <div class="mb-3">
                   <label for="exampleFormControlTextarea1 " class="form-label">Email Address</label>
@@ -80,7 +80,7 @@
                 <div class="sign-up-page-group226">
                     <rect class="sign-up-page-rectangle802" ></rect>
                     <label for="inputPassword5" class="form-label sign-up-page-text14">New Password</label>
-            <input type="password" name="passcode" id="inputPassword5" class="form-control sign-up-page-rectangle802" aria-labelledby="passwordHelpBlock" ></input>
+            <input type="password" name="passcode" id="inputPassword5" class="form-control sign-up-page-rectangle802" aria-labelledby="passwordHelpBlock" value="{{request.form['passcode']}}"></input>
                     <!-- <div class="mb-3">
                       <label for="exampleFormControlTextarea1 " class="form-label">Password</label>
                       <textarea class="form-control sign-up-page-rectangle802" id="exampleFormControlTextarea1" rows="1"></textarea>

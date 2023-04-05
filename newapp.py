@@ -1,5 +1,5 @@
 import mysql.connector
-from flask import Flask, render_template, request, url_for, flash, redirect
+from flask import Flask, render_template, request, session, url_for, flash, redirect
 from werkzeug.exceptions import abort
 from flask_bcrypt import Bcrypt  
 bcrypt = Bcrypt()
@@ -13,6 +13,7 @@ def get_db_connection():
     )
     return mydb
 
+
 def get_user(user_id=None,email_id=None,username=None,passcode=None):
     conn = get_db_connection()
     cur = conn.cursor(dictionary=True)
@@ -22,31 +23,32 @@ def get_user(user_id=None,email_id=None,username=None,passcode=None):
         cur.execute('SELECT * FROM Users WHERE email_id = %s',(email_id,))
     if username:
         if passcode:
-            cur.execute("SELECT * FROM Users WHERE username=%s AND passcode=%s", (username, passcode))
+            password  = bcrypt.generate_password_hash(password)
+            cur.execute("SELECT * FROM Users WHERE username=%s AND passcode=%s", (username, password))
         else:
             cur.execute('SELECT * FROM Users WHERE username = %s',(username,))
     user = cur.fetchone()
+    cur.close()
     conn.close()
     return user 
 
+def get_userid(user_id=None,email_id=None,username=None,passcode=None):
+    user=get_user()
+    return user['user_id']
+
+
+
 newapp = Flask(__name__)
 
-newapp.config['SECRET_KEY'] = '142857'
+newapp.config['SECRET_KEY'] = 'sql@Prism1920'
 
-if __name__=="__main__":
-    newapp.run(debug=True)
-
-@newapp.route('/',methods=["GET",])
+    
+@newapp.route('/',methods=["GET"])
 def login_home():
     return render_template('login_home.html')
 
-# in case user login
-# @newapp.route('/users/<int:user_id>/user_home')
-# def user_home(user_id):
-#     user = get_user(user_id, None)
-#     return render_template('user_home.html')
 
-@newapp.route('/users/<int:user_id>/home')
+@newapp.route('/users/<int:user_id>/user_home',methods=["GET",])
 def user_home(user_id):
     user = get_user(user_id=user_id)
     conn = get_db_connection()
@@ -77,16 +79,15 @@ def signup():
         else:
             conn = get_db_connection()
             cur = conn.cursor()
-            passcode = bcrypt.generate_password_hash(password)
-            cur.execute('INSERT INTO Users (email_id, username, passcode) VALUES (%s, %s, %s)',
-                            (email_id, username, passcode))
+            password  = bcrypt.generate_password_hash(password)
+            cur.execute('INSERT INTO Users (email_id, username, passcode) VALUES (%s, %s, %s)',(email_id, username, password))
             cur.execute('SELECT LAST_INSERT_ID()')
             user_id = cur.fetchone()[0]
             conn.commit()
             conn.close()
             return redirect(url_for('user_home', user_id=user_id))
     return render_template('signup.html')
- 
+
 
 @newapp.route("/login",methods=["GET","POST"])
 def userlogin():
@@ -98,17 +99,17 @@ def userlogin():
         if not password:
             flash("Password is required")
         else:
-            conn = get_db_connection()
-            cur = conn.cursor(dictionary=True)
-            cur.execute("SELECT user_id FROM Users WHERE username=%s AND passcode=%s", (username, password))
-            user = cur.fetchone()
-            conn.close()
-            cur.close()
+            user=get_user(username=username,passcode=password)
             if user is None:
                 flash("Incorrect password or username")
                 return render_template('login.html')
-            user_id = user[0]
-            return redirect(url_for('user_home', user_id=user_id))
+            elif (session[user["user_id"]]==user['user_id']):
+                flash("Already login")
+                return redirect(url_for('user_home',user_id=user['user_id']))
+            else:
+                flash("Login successfully")
+                session[user['user_id']] = user['user_id'] 
+                return redirect(url_for('user_home',user_id=user['user_id']))
     return render_template("login.html")
 
             
@@ -125,3 +126,6 @@ def forgot_password():
 
 
 
+
+if __name__=="__main__":
+    newapp.run(debug=True)
