@@ -55,13 +55,13 @@ def signup():
         password = request.form['password']
         if not email_id:
             flash('Email address is required!')
-        elif not username:
+        if not username:
             flash('Username is required!')
-        elif not password:
+        if not password:
             flash('Please set password!')
-        elif user1 is not None :
+        if user1 is not None :
             flash('This email address is already registered, please login!')
-        elif user2 is not None :
+        if user2 is not None :
             flash('Username already exists please enter other username!')
         else:
             conn = get_db_connection()
