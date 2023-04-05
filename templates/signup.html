@@ -44,7 +44,7 @@
                 <rect class="sign-up-page-rectangle80"></rect>
                 <div class="mb-3">
                   <label for="exampleFormControlTextarea1 " class="form-label sign-up-page-text06">Username</label>
-                  <input name="username" class="form-control sign-up-page-rectangle80" id="exampleFormControlTextarea1" value="{{request.form['username'] or post['username']}}"></input>
+                  <input name="username" class="form-control sign-up-page-rectangle80" id="exampleFormControlTextarea1" value="{{request.form['username']}}"></input>
                 </div>
                 <!-- <img
                   src="/playground_assets/rectangle801532-2mzc-200h.png"
@@ -60,7 +60,7 @@
                 <rect class="sign-up-page-rectangle801"></rect>
                 <div class="mb-3">
                   <label for="exampleFormControlInput1 " class="form-label sign-up-page-text10">Email address</label>
-                  <input type="email" name="email_id" class="form-control sign-up-page-rectangle801" id="exampleFormControlInput1" placeholder="name@example.com" value="{{request.form['email_id'] or post['email_id']}}"></input>
+                  <input type="email" name="email_id" class="form-control sign-up-page-rectangle801" id="exampleFormControlInput1" placeholder="name@example.com" value="{{request.form['email_id']}}"></input>
                 </div>
                 <!-- <div class="mb-3">
                   <label for="exampleFormControlTextarea1 " class="form-label">Email Address</label>
@@ -80,7 +80,7 @@
                 <div class="sign-up-page-group226">
                     <rect class="sign-up-page-rectangle802" ></rect>
                     <label for="inputPassword5" class="form-label sign-up-page-text14">New Password</label>
-            <input type="password" name="passcode" id="inputPassword5" class="form-control sign-up-page-rectangle802" aria-labelledby="passwordHelpBlock" value="{{request.form['passcode'] or post['password']}}"></input>
+            <input type="password" name="password" id="inputPassword5" class="form-control sign-up-page-rectangle802" aria-labelledby="passwordHelpBlock" value="{{request.form['password']}}"></input>
                     <!-- <div class="mb-3">
                       <label for="exampleFormControlTextarea1 " class="form-label">Password</label>
                       <textarea class="form-control sign-up-page-rectangle802" id="exampleFormControlTextarea1" rows="1"></textarea>
@@ -135,20 +135,18 @@
             <nav class="navbar navbar-expand-lg navcolor navbar-dark cont">
               <div class="container-fluid">
                   <img class = "logo" src = "https://www.figma.com/file/7KFxGA0vLIeYhf85DahLUR/image/b9c586039aa60204d819a86debfa978b37fbf6fd">
-                  <a class="navbar-brand" href="{{url_for('login_home')}}">BugSearch</a>
-                 
+                  <a class="navbar-brand" href="#">BugSearch</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                   <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                   <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="{{url_for('login_home')}}">Home</a>
+                      <a class="nav-link active" aria-current="page" href="#">Home</a>
                     </li>
                     <form class="d-flex search" role="search">
                       <input class="form-control me-2 searchbar" type="search" placeholder="Search" aria-label="Search">
                       <button class="btn btn-outline-success search_btn" type="submit">Search</button>
-                     <!-- need to see here later for search -->
                     </form>
                     <!-- <li class="nav-item badges-vector">
                       <i class="fa-solid fa-user fa-2x user_icon_nav "></i>
@@ -157,13 +155,13 @@
                       <a class="nav-link-active userfont" aria-current="page" href="#">Username</a>
                     </li> -->
                     <li class="nav-item signup">
-                      <a class="nav-link active" aria-current="page" href="{{url_for('signup')}}">SignUp</a>
+                      <a class="nav-link active" aria-current="page" href="#">SignUp</a>
                     </li>
                     <li class="nav-item logout">
-                      <a class="nav-link active" aria-current="page" href="{{url_for('userlogin')}}">Login</a>
+                      <a class="nav-link active" aria-current="page" href="#">Login</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="{{url_for('help_page')}}">Help</a>
+                      <a class="nav-link active" aria-current="page" href="#">Help</a>
                     </li>
                   </ul>       
                 </div>
