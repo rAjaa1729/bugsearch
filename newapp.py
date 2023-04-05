@@ -30,19 +30,23 @@ def get_user(user_id=None,email_id=None,username=None,passcode=None):
     return user 
 
 newapp = Flask(__name__)
+
 newapp.config['SECRET_KEY'] = '142857'
+
+if __name__=="__main__":
+    newapp.run(debug=True)
 
 @newapp.route('/',methods=["GET",])
 def login_home():
     return render_template('login_home.html')
 
 # in case user login
-@newapp.route('/users/<int:user_id>/user_home')
-def user_home(user_id):
-    user = get_user(user_id, None)
-    return render_template('user_home.html')
+# @newapp.route('/users/<int:user_id>/user_home')
+# def user_home(user_id):
+#     user = get_user(user_id, None)
+#     return render_template('user_home.html')
 
-@newapp.route('/<int:user_id>/home')
+@newapp.route('/users/<int:user_id>/home')
 def user_home(user_id):
     user = get_user(user_id=user_id)
     conn = get_db_connection()
@@ -59,7 +63,7 @@ def signup():
         user1 = get_user(email_id=email_id)
         username = request.form['username']
         user2 = get_user(username=username)
-        password = request.form['password']
+        password = request.form['passcode']
         if not email_id:
             flash('Email address is required!')
         if not username:
@@ -116,8 +120,7 @@ def help_page():
 def forgot_password():  
     return render_template('forgot_password.html')
 
-if __name__=="__main__":
-    newapp.run(debug=True)
+
 
 
 
