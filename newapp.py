@@ -29,19 +29,20 @@ def get_user(user_id=None,email_id=None,username=None,passcode=None):
     conn.close()
     return user 
 
-app = Flask(__name__)
-app.config['SECRET_KEY'] = '142857'
+newapp = Flask(__name__)
+newapp.config['SECRET_KEY'] = '142857'
 
-@app.route('/',methods=["GET",])
+@newapp.route('/',methods=["GET",])
 def login_home():
     return render_template('login_home.html')
 
-@app.route('/users/<int:user_id>/user_home')
+# in case user login
+@newapp.route('/users/<int:user_id>/user_home')
 def user_home(user_id):
     user = get_user(user_id, None)
     return render_template('user_home.html')
 
-@app.route('/<int:user_id>/home')
+@newapp.route('/<int:user_id>/home')
 def user_home(user_id):
     user = get_user(user_id=user_id)
     conn = get_db_connection()
@@ -51,7 +52,7 @@ def user_home(user_id):
     conn.close()
     return render_template('user_home.html', user=user, questions=questions)
 
-@app.route('/signup', methods=('GET', 'POST'))
+@newapp.route('/signup', methods=('GET', 'POST'))
 def signup():
     if request.method == 'POST':
         email_id = request.form['email_id']
@@ -83,7 +84,7 @@ def signup():
     return render_template('signup.html')
  
 
-@app.route("/login",methods=["GET","POST"])
+@newapp.route("/login",methods=["GET","POST"])
 def userlogin():
     if (request.method=="POST"):
         username=request.form["username"]
@@ -107,16 +108,16 @@ def userlogin():
     return render_template("login.html")
 
             
-@app.route("/help",methods=["GET",])
+@newapp.route("/help",methods=["GET",])
 def help_page():
     return render_template("help_page.html")
 
-@app.route("/forgot_password",methods=["GET"])
+@newapp.route("/forgot_password",methods=["GET"])
 def forgot_password():  
     return render_template('forgot_password.html')
 
 if __name__=="__main__":
-    app.run(debug=True)
+    newapp.run(debug=True)
 
 
 
