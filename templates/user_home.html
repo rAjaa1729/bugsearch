@@ -17,7 +17,16 @@
     <div>
       <div class="user-home-page-user-home-page">
         <span class="user-home-page-text"><span>Recent Activity</span></span>
-        <span class="user-home-page-text02">
+        {% for i in range(0,(questions|length)) %}
+            <a href="#">
+              <span class="recent-questions-title" style="top:220px">
+                <span>{{questions[i]['title']}}</span>
+              </span>
+            </a>
+            <hr>
+        {% endfor %}
+        
+        <!-- <span class="user-home-page-text02">
           <span>Local Maxima of an Array</span>
         </span>
         <span class="user-home-page-text04">
@@ -82,7 +91,7 @@
             objects. const comments = [ &#123; id: 1, text: &quot;First
             comment!&quot;, parentId: null, comments: [ &#123; ...
           </span>
-        </span>
+        </span> -->
         <div class="user-home-page-group427319020">
             <span><button type="button" class="btn btn-primary user-home-page-rectangle114">Question 1</button></span>
           <span><button type="button" class="btn btn-primary user-home-page-rectangle115">Question 1</button></span>
@@ -121,14 +130,14 @@
           <nav class="navbar navbar-expand-lg navcolor navbar-dark cont">
             <div class="container-fluid">
                 <img class = "logo" src = "https://www.figma.com/file/7KFxGA0vLIeYhf85DahLUR/image/b9c586039aa60204d819a86debfa978b37fbf6fd">
-                <a class="navbar-brand" href="{{url_for('login_home')}}">BugSearch</a>
+                <a class="navbar-brand" href="#">BugSearch</a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                   <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{url_for('user_home(user_id)')}}">Home</a>
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
                   </li>
                   <form class="d-flex search" role="search">
                     <input class="form-control me-2 searchbar" type="search" placeholder="Search" aria-label="Search">
@@ -138,13 +147,13 @@
                     <i class="fa-solid fa-user fa-2x user_icon_nav "></i>
                   </li>
                   <li class="nav-item username">
-                    <a class="nav-link-active userfont" aria-current="page" href="#">Username</a>
+                    <a class="nav-link-active userfont" aria-current="page" href="#">{{ user['username'] }}</a>
                   </li>
                   <li class="nav-item logout">
-                    <a class="nav-link active" aria-current="page" href="{{url_for('login_home')}}">Logout</a>
+                    <a class="nav-link active" aria-current="page" href="#">Logout</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{url_for('help_page')}}">Help</a>
+                    <a class="nav-link active" aria-current="page" href="#">Help</a>
                   </li>
                 </ul>       
               </div>
