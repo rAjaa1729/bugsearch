@@ -29,22 +29,31 @@
             />
             <div class="login-page-group230">
               <div class="login-page-group223">
-                <div class="login-page-group222">
-                    <button type="button" class="btn btn-primary login-page-rectangle79 login-page-text ">Login</button>
+                <!-- <div class="login-page-group222"> -->
+                    <!-- <button type="button" class="btn btn-primary login-page-rectangle79 login-page-text ">Login</button> -->
                   <!-- <span class="login-page-text"><span>Login</span></span> -->
-                  <button type="button" class="btn btn-primary login-page-rectangle79 login-page-text02 ">Register</button>
+                  <!-- <button type="button" class="btn btn-primary login-page-rectangle79 login-page-text02 ">Register</button> -->
                   <!-- <span class="login-page-text02"><span>Register</span></span> -->
-                </div>
+                <!-- </div> -->
+                <div class="login-page-alert">
+                <div class="container">
+                  {% for message in get_flashed_messages() %} 
+                      <div class="alert alert-danger">{{ message }}</div>
+                  {% endfor %} 
+                  {% block content %} {% endblock %}
+              </div>
+            </div>
                 <span class="login-page-text04">
                   <span>Welcome to BugSearch !</span>
                 </span>
               </div>
+              <form method="post">
               <div class="login-page-group228">
                 <div class="login-page-group225">
                   <rect class="login-page-rectangle80"></rect>
                   <div class="mb-3">
                     <label for="exampleFormControlTextarea1 " class="form-label login-page-text06">Username</label>
-                    <textarea class="form-control login-page-rectangle80" id="exampleFormControlTextarea1" rows="1"></textarea>
+                    <input name="username" class="form-control login-page-rectangle80" id="exampleFormControlTextarea1" value="{{request.form['username']}}"></input>
                   </div>
                   <!-- <img
                     src="/playground_assets/rectangle801532-7qqc-200h.png"
@@ -60,7 +69,7 @@
                   <div class="login-page-group226">
                     <rect class="login-page-rectangle801"></rect>
                     <label for="inputPassword5" class="form-label login-page-text10">Password</label>
-            <input type="password" id="inputPassword5" class="form-control login-page-rectangle801" aria-labelledby="passwordHelpBlock">
+            <input name="password" type="password" id="inputPassword5" class="form-control login-page-rectangle801" aria-labelledby="passwordHelpBlock" value="{{request.form['password']}}"></input>
                     <!-- <img
                       src="/playground_assets/rectangle801532-kgrl-200h.png"
                       alt="Rectangle801532"
@@ -110,24 +119,25 @@
                   class="login-page-rectangle5"
                 /> -->
                 <!-- <span class="login-page-text14"><span>Rememebr me</span></span> -->
-                <a  class="login-page-text16" href="{{url_for('forgot_password')}}"><span>Forgot Password ?</span></a>
+                <a  class="login-page-text16" href="#"><span>Forgot Password ?</span></a>
               </div>
               <div class="login-page-group229">
-                <button type="button" class="btn btn-primary login-page-group229 login-page-text18 ">Login</button>
+                <button type="submit" class="btn btn-primary login-page-group229 login-page-text18 ">Login</button>
                 <!-- <span class="login-page-text18"><span>Login</span></span> -->
               </div>
+            </form>
             </div>
             <nav class="navbar navbar-expand-lg navcolor navbar-dark cont">
               <div class="container-fluid">
                   <img class = "logo" src = "https://www.figma.com/file/7KFxGA0vLIeYhf85DahLUR/image/b9c586039aa60204d819a86debfa978b37fbf6fd">
-                  <a class="navbar-brand" href="{{url_for('login_home')}}">BugSearch</a>
+                  <a class="navbar-brand" href="#">BugSearch</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                   <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                   <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="{{url_for('login_home')}}">Home</a>
+                      <a class="nav-link active" aria-current="page" href="#">Home</a>
                     </li>
                     <form class="d-flex search" role="search">
                       <input class="form-control me-2 searchbar" type="search" placeholder="Search" aria-label="Search">
@@ -140,13 +150,13 @@
                       <a class="nav-link-active userfont" aria-current="page" href="#">Username</a>
                     </li> -->
                     <li class="nav-item signup">
-                      <a class="nav-link active" aria-current="page" href="{{url_for('signup')}}">SignUp</a>
+                      <a class="nav-link active" aria-current="page" href="#">SignUp</a>
                     </li>
                     <li class="nav-item logout">
-                      <a class="nav-link active" aria-current="page" href="{{url_for('userlogin')}}">Login</a>
+                      <a class="nav-link active" aria-current="page" href="#">Login</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="{{url_for('help_page')}}">Help</a>
+                      <a class="nav-link active" aria-current="page" href="#">Help</a>
                     </li>
                   </ul>       
                 </div>
