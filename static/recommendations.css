@@ -1,0 +1,741 @@
+.container-fluid{
+  padding-left: 0%;
+}
+.logout{
+  margin-left:427px;
+  margin-right:29px;
+}
+.logo{
+  height:62px;
+  width:67px;
+}
+.search{
+  margin:auto;
+}
+.searchbar{
+  padding-left: 10px;
+  margin-left: 338px
+}
+.sidehover:hover{
+  text-decoration: underline;
+}
+.nav-item{
+  font-family: Poppins;
+  font-size:18px;
+  margin-top: 8px;
+}
+.navcolor{
+  background-color: rgba(73, 187, 189, 1);
+  width: 1624.89px;
+}
+.navbar-brand{
+  margin-left: 10px;
+  font-family: Poppins;
+  color: white;
+  font-weight: 700;
+  font-size: 35px;
+}
+.username {
+  margin-left: 930px;
+  margin-right: -59px;
+  position: absolute;
+  margin-top: 8px;
+  color:white;
+}
+.userfont{
+  color:black;
+  margin-top: 5px;
+  position:absolute
+}
+.search_btn{
+  border-color: white;
+  border-width: 2px;
+  color: white;
+}
+.search_btn:hover{
+  border-color: white;
+  background-color: white;
+  color: rgba(73, 187, 189, 1);
+}
+.user_icon_nav{
+  margin-left: 193px;
+  position: absolute;
+}
+.ques1{
+    top: 249px;
+    left: 507px;
+    width: 902px;
+    height: 70px;
+    opacity: 0.20;
+}
+.recommendations-recommendations {
+    width: 100%;
+    height: 1024px;
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    align-items: flex-start;
+    flex-shrink: 0;
+    border-color: transparent;
+    background-color: rgba(255, 255, 255, 1);
+  }
+  .recommendations-recommendation1 {
+    top: 191px;
+    left: 473px;
+    width: 915px;
+    height: 780px;
+    opacity: 0.20;
+    position: absolute;
+    border-color: transparent;
+  }
+  .recommendations-group427319013 {
+    top: 0px;
+    left: 0px;
+    width: 1440px;
+    height: 92px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    margin-right: 0;
+    border-radius: 0px 0px 0px 0px;
+    margin-bottom: 0;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: rgba(73, 187, 189, 1);
+  }
+  .recommendations-text {
+    top: 34px;
+    left: 337px;
+    color: rgba(91, 91, 91, 1);
+    height: auto;
+    position: absolute;
+    font-size: 22px;
+    align-self: auto;
+    font-style: Regular;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .recommendations-search-bar {
+    top: 33px;
+    left: 454px;
+    width: 53px;
+    height: 34px;
+    position: absolute;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1599999964237213) ;
+  }
+  .recommendations-group455 {
+    top: 28px;
+    left: 1156px;
+    width: 131px;
+    height: 36px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 15px 15px 15px 15px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: rgba(255, 255, 255, 1);
+  }
+  .recommendations-group229 {
+    top: 0px;
+    left: 15px;
+    width: 100px;
+    height: 17.714284896850586px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 0px 0px 0px 0px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+  }
+  .recommendations-text02 {
+    color: rgba(73, 187, 189, 1);
+    width: 100px;
+    height: auto;
+    position: absolute;
+    font-size: 24px;
+    align-self: auto;
+    font-style: Bold;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 700;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .recommendations-text07 {
+    top: 28px;
+    left: 1337px;
+    color: rgba(91, 91, 91, 1);
+    height: auto;
+    position: absolute;
+    font-size: 22px;
+    align-self: auto;
+    font-style: Regular;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .recommendations-untitleddesign51 {
+    top: 19px;
+    left: 0px;
+    width: 67px;
+    height: 62px;
+    position: absolute;
+    border-color: transparent;
+  }
+  .recommendations-text09 {
+    top: 19px;
+    left: 62px;
+    color: rgba(255, 255, 255, 1);
+    height: auto;
+    position: absolute;
+    font-size: 41px;
+    align-self: auto;
+    font-style: Bold;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 700;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .recommendations-group427319020 {
+    top: 115px;
+    left: 15px;
+    width: 375px;
+    height: 168px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    margin-right: 0;
+    border-radius: 0px 0px 0px 0px;
+    margin-bottom: 0;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+  }
+  .recommendations-group427318991 {
+    top: 138px;
+    left: 0px;
+    width: 375px;
+    height: 30px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 0px 0px 0px 0px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+  }
+  .recommendations-text11 {
+    left: 31px;
+    color: rgba(37, 38, 65, 1);
+    width: 344px;
+    height: auto;
+    position: absolute;
+    font-size: 20px;
+    align-self: auto;
+    font-style: SemiBold;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 600;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .recommendations-bookmarks {
+    top: 6px;
+    left: 0px;
+    width: 25px;
+    height: 25px;
+    position: absolute;
+  }
+  .recommendations-group427318990 {
+    top: 94px;
+    left: 0px;
+    width: 375px;
+    height: 30px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 0px 0px 0px 0px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+  }
+  .recommendations-text13 {
+    left: 31px;
+    color: rgba(37, 38, 65, 1);
+    width: 344px;
+    height: auto;
+    position: absolute;
+    font-size: 20px;
+    align-self: auto;
+    font-style: SemiBold;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 600;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .recommendations-lightbulb {
+    top: 6px;
+    left: 0px;
+    width: 25px;
+    height: 25px;
+    position: absolute;
+  }
+  .recommendations-group427318989 {
+    top: 46px;
+    left: 0px;
+    width: 375px;
+    height: 30px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 0px 0px 0px 0px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+  }
+  .recommendations-text15 {
+    left: 31px;
+    color: rgba(37, 38, 65, 1);
+    width: 344px;
+    height: auto;
+    position: absolute;
+    font-size: 20px;
+    align-self: auto;
+    font-style: SemiBold;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 600;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .recommendations-question {
+    top: 6px;
+    left: 0px;
+    width: 25px;
+    height: 25px;
+    position: absolute;
+  }
+  .recommendations-group427318987 {
+    top: 0px;
+    left: 0px;
+    width: 375px;
+    height: 30px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 0px 0px 0px 0px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+  }
+  .recommendations-text17 {
+    left: 31px;
+    color: rgba(37, 38, 65, 1);
+    width: 344px;
+    height: auto;
+    position: absolute;
+    font-size: 20px;
+    align-self: auto;
+    font-style: SemiBold;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 600;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .recommendations-user-circle {
+    top: 6px;
+    left: 0px;
+    width: 25px;
+    height: 25px;
+    position: absolute;
+  }
+  .recommendations-text19 {
+    top: 97px;
+    left: 473px;
+    color: rgba(37, 38, 65, 1);
+    width: 683px;
+    height: auto;
+    position: absolute;
+    font-size: 64px;
+    align-self: auto;
+    font-style: SemiBold;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 600;
+    line-height: normal;
+    font-stretch: normal;
+    margin-right: 0;
+    margin-bottom: 0;
+    text-decoration: none;
+  }
+  .recommendations-text21 {
+    top: 261px;
+    left: 481px;
+    color: rgba(105, 105, 131, 1);
+    width: 907px;
+    height: auto;
+    position: absolute;
+    font-size: 18px;
+    align-self: auto;
+    font-style: SemiBold;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 600;
+    line-height: normal;
+    font-stretch: normal;
+    margin-right: 0;
+    margin-bottom: 0;
+    text-decoration: none;
+  }
+  .recommendations-group427319025 {
+    top: 308px;
+    left: 17px;
+    width: 435px;
+    height: 311px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    margin-right: 0;
+    border-radius: 0px 0px 0px 0px;
+    margin-bottom: 0;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+  }
+  .recommendations-rectangle114 {
+    top: 104px;
+    left: 0px;
+    width: 417px;
+    height: 63px;
+    position: absolute;
+    background-color: #FFF4D2;
+    border-color: #FFF4D2;
+    border-radius: 12px;
+    font-size: 16px;
+    align-self: auto;
+    font-style: Regular;
+    text-align: left;
+    font-family: Poppins;
+    color: black;
+  }
+  .recommendations-rectangle114:hover{
+    border-color: #fce8ab;;
+    background-color: #fce8ab;;
+  }
+  .recommendations-text52 {
+    top: 127px;
+    left: 25px;
+    color: rgba(37, 38, 65, 1);
+    height: auto;
+    position: absolute;
+    font-size: 20px;
+    align-self: auto;
+    font-style: Solid;
+    text-align: left;
+    font-family: Font Awesome 5 Free;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .recommendations-text53 {
+    top: 128px;
+    left: 63px;
+    color: rgba(37, 38, 65, 1);
+    width: 372px;
+    height: auto;
+    position: absolute;
+    font-size: 16px;
+    align-self: auto;
+    font-style: Regular;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .recommendations-rectangle115 {
+    top: 176px;
+    left: 0px;
+    width: 417px;
+    height: 63px;
+    position: absolute;
+    background-color: #F7C8E0;
+    border-color: #F7C8E0;
+    border-radius: 12px;
+    font-size: 16px;
+    align-self: auto;
+    font-style: Regular;
+    text-align: left;
+    font-family: Poppins;
+    color: black;
+  }
+  .recommendations-rectangle115:hover{
+    border-color: #f5bbd8;
+    background-color: #f5bbd8;
+  }
+  .recommendations-text55 {
+    top: 197px;
+    left: 25px;
+    color: rgba(37, 38, 65, 1);
+    height: auto;
+    position: absolute;
+    font-size: 20px;
+    align-self: auto;
+    font-style: Solid;
+    text-align: left;
+    font-family: Font Awesome 5 Free;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .recommendations-text56 {
+    top: 201px;
+    left: 63px;
+    color: rgba(37, 38, 65, 1);
+    width: 263px;
+    height: auto;
+    position: absolute;
+    font-size: 16px;
+    align-self: auto;
+    font-style: Regular;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .recommendations-rectangle116 {
+    top: 248px;
+    left: 4px;
+    width: 413px;
+    height: 63px;
+    position: absolute;
+    background-color:  #DFFFD8;
+    border-color: #DFFFD8;
+    border-radius: 12px;
+    font-size: 16px;
+    align-self: auto;
+    font-style: Regular;
+    text-align: left;
+    font-family: Poppins;
+    color: black;
+  }
+  .recommendations-rectangle116:hover{
+    border-color: #affd9e;
+    background-color: #affd9e;
+  }
+  .recommendations-rectangle121 {
+    top: 36px;
+    left: 0px;
+    width: 417px;
+    height: 63px;
+    background-color: #E5D1FA;
+    position: absolute;
+    border-color:  #E5D1FA;
+    border-radius: 12px;
+    font-size: 16px;
+    align-self: auto;
+    font-style: Regular;
+    text-align: left;
+    font-family: Poppins;
+    color: black;
+  }
+  .recommendations-rectangle121:hover{
+    border-color: #d7b7f9;
+    background-color: #d7b7f9;
+  }
+  .recommendations-text58 {
+    top: 271px;
+    left: 29px;
+    color: rgba(37, 38, 65, 1);
+    height: auto;
+    position: absolute;
+    font-size: 20px;
+    align-self: auto;
+    font-style: Solid;
+    text-align: left;
+    font-family: Font Awesome 5 Free;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .recommendations-text59 {
+    top: 59px;
+    left: 25px;
+    color: rgba(37, 38, 65, 1);
+    height: auto;
+    position: absolute;
+    font-size: 20px;
+    align-self: auto;
+    font-style: Solid;
+    text-align: left;
+    font-family: Font Awesome 5 Free;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .recommendations-text60 {
+    top: 273px;
+    left: 67px;
+    color: rgba(37, 38, 65, 1);
+    width: 263px;
+    height: auto;
+    position: absolute;
+    font-size: 16px;
+    align-self: auto;
+    font-style: Regular;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .recommendations-text62 {
+    top: 61px;
+    left: 63px;
+    color: rgba(37, 38, 65, 1);
+    width: 263px;
+    height: auto;
+    position: absolute;
+    font-size: 16px;
+    align-self: auto;
+    font-style: Regular;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .recommendations-group427318992 {
+    top: 0px;
+    left: 4px;
+    width: 371px;
+    height: 30px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 0px 0px 0px 0px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+  }
+  .recommendations-text64 {
+    left: 27px;
+    color: rgba(37, 38, 65, 1);
+    width: 344px;
+    height: auto;
+    position: absolute;
+    font-size: 20px;
+    align-self: auto;
+    font-style: SemiBold;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 600;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .recommendations-globe-stand {
+    top: 6px;
+    left: 0px;
+    width: 25px;
+    height: 25px;
+    position: absolute;
+  }
+  

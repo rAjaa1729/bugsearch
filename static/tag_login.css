@@ -1,0 +1,299 @@
+.container-fluid{
+  padding-left: 0%;
+}
+.logout{
+  margin-left:427px;
+  margin-right:29px;
+}
+.logo{
+  height:62px;
+  width:67px;
+}
+.search{
+  margin:auto;
+}
+.searchbar{
+  padding-left: 10px;
+  margin-left: 338px
+}
+.sidehover:hover{
+  text-decoration: underline;
+}
+.nav-item{
+  font-family: Poppins;
+  font-size:18px;
+  margin-top: 8px;
+}
+.navcolor{
+  background-color: rgba(73, 187, 189, 1);
+  width: 1624.89px;
+}
+.navbar-brand{
+  margin-left: 10px;
+  font-family: Poppins;
+  color: white;
+  font-weight: 700;
+  font-size: 35px;
+}
+.username {
+  margin-left: 930px;
+  margin-right: -59px;
+  position: absolute;
+  margin-top: 8px;
+  color:white;
+}
+.userfont{
+  color:black;
+  margin-top: 5px;
+  position:absolute
+}
+.search_btn{
+  border-color: white;
+  border-width: 2px;
+  color: white;
+}
+.search_btn:hover{
+  border-color: white;
+  background-color: white;
+  color: rgba(73, 187, 189, 1);
+}
+.user_icon_nav{
+  margin-left: 193px;
+  position: absolute;
+}
+.taglogin-taglogin {
+    width: 100%;
+    height: 1024px;
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    align-items: flex-start;
+    flex-shrink: 0;
+    border-color: transparent;
+    background-color: rgba(255, 255, 255, 1);
+  }
+  .taglogin-group427318998 {
+    top: 145px;
+    left: 631px;
+    width: 266px;
+    height: 46px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    margin-right: 0;
+    border-radius: 0px 0px 0px 0px;
+    margin-bottom: 0;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+  }
+  .taglogin-status {
+    top: 0px;
+    left: 0px;
+    width: 266px;
+    height: 46px;
+    display: flex;
+    overflow: hidden;
+    position: absolute;
+    flex-grow: 1;
+    align-items: flex-start;
+    flex-shrink: 0;
+    border-color: transparent;
+    border-radius: 11.666666984558105px;
+    background-color: var(--dl-color-primary-blue);
+  }
+  .taglogin-text {
+    top: 146px;
+    left: 667px;
+    color: rgba(37, 38, 65, 1);
+    width: 383px;
+    height: auto;
+    position: absolute;
+    font-size: 30px;
+    align-self: auto;
+    font-style: SemiBold;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 600;
+    line-height: normal;
+    font-stretch: normal;
+    margin-right: 0;
+    margin-bottom: 0;
+    text-decoration: none;
+  }
+  .taglogin-text02 {
+    top: 299px;
+    left: 691px;
+    color: rgba(0, 0, 0, 1);
+    width: 763px;
+    height: auto;
+    position: absolute;
+    font-size: 18px;
+    align-self: auto;
+    font-style: Regular;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    margin-right: 0;
+    margin-bottom: 0;
+    text-decoration: none;
+  }
+  .taglogin-tag1 {
+    top: 191px;
+    left: 20px;
+    width: 592px;
+    height: 648px;
+    position: absolute;
+    border-color: transparent;
+  }
+  .taglogin-group427319017 {
+    top: 0px;
+    left: 0px;
+    width: 1440px;
+    height: 92px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    margin-right: 0;
+    border-radius: 0px 0px 0px 0px;
+    margin-bottom: 0;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: rgba(73, 187, 189, 1);
+  }
+  .taglogin-text04 {
+    top: 34px;
+    left: 337px;
+    color: rgba(91, 91, 91, 1);
+    height: auto;
+    position: absolute;
+    font-size: 22px;
+    align-self: auto;
+    font-style: Regular;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .taglogin-search-bar {
+    top: 33px;
+    left: 454px;
+    width: 53px;
+    height: 34px;
+    position: absolute;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1599999964237213) ;
+  }
+  .taglogin-group455 {
+    top: 28px;
+    left: 1156px;
+    width: 131px;
+    height: 36px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius:15px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: rgba(255, 255, 255, 1);
+  }
+  .taglogin-group229 {
+    top: 0px;
+    left: 15px;
+    width: 100px;
+    height: 17.714284896850586px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 0px 0px 0px 0px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+  }
+  .taglogin-text06 {
+    color: rgba(73, 187, 189, 1);
+    width: 100px;
+    height: auto;
+    position: absolute;
+    font-size: 24px;
+    align-self: auto;
+    font-style: Bold;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 700;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .taglogin-text11 {
+    top: 28px;
+    left: 1337px;
+    color: rgba(91, 91, 91, 1);
+    height: auto;
+    position: absolute;
+    font-size: 22px;
+    align-self: auto;
+    font-style: Regular;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .taglogin-untitleddesign51 {
+    top: 19px;
+    left: 0px;
+    width: 67px;
+    height: 62px;
+    position: absolute;
+    border-color: transparent;
+  }
+  .taglogin-text13 {
+    top: 19px;
+    left: 62px;
+    color: rgba(255, 255, 255, 1);
+    height: auto;
+    position: absolute;
+    font-size: 41px;
+    align-self: auto;
+    font-style: Bold;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 700;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  

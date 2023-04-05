@@ -1,0 +1,1176 @@
+.container-fluid{
+  padding-left: 0%;
+}
+.logout{
+  margin-left:427px;
+  margin-right:29px;
+}
+.logo{
+  height:62px;
+  width:67px;
+}
+.search{
+  margin:auto;
+}
+.searchbar{
+  padding-left: 10px;
+  margin-left: 338px
+}
+.sidehover:hover{
+  text-decoration: underline;
+}
+.nav-item{
+  font-family: Poppins;
+  font-size:18px;
+  margin-top: 8px;
+}
+.navcolor{
+  background-color: rgba(73, 187, 189, 1);
+  width: 1624.89px;
+}
+.navbar-brand{
+  margin-left: 10px;
+  font-family: Poppins;
+  color: white;
+  font-weight: 700;
+  font-size: 35px;
+}
+.username {
+  margin-left: 930px;
+  margin-right: -59px;
+  position: absolute;
+  margin-top: 8px;
+  color:white;
+}
+.userfont{
+  color:black;
+  margin-top: 5px;
+  position:absolute
+}
+.search_btn{
+  border-color: white;
+  border-width: 2px;
+  color: white;
+}
+.search_btn:hover{
+  border-color: white;
+  background-color: white;
+  color: rgba(73, 187, 189, 1);
+}
+.user_icon_nav{
+  margin-left: 193px;
+  position: absolute;
+}
+.ques1{
+    top: 249px;
+    left: 507px;
+    width: 902px;
+    height: 70px;
+    opacity: 0.20;
+}
+
+.bookmarks-bookmarks {
+    width: 100%;
+    height: 1024px;
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    align-items: flex-start;
+    flex-shrink: 0;
+    border-color: transparent;
+    background-color: rgba(255, 255, 255, 1);
+  }
+  .bookmarks-group427319019 {
+    top: 0px;
+    left: 0px;
+    width: 1440px;
+    height: 92px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    margin-right: 0;
+    border-radius: 0px 0px 0px 0px;
+    margin-bottom: 0;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+  }
+  .bookmarks-group427319016 {
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 92px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 0px 0px 0px 0px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: rgba(73, 187, 189, 1);
+  }
+  .bookmarks-text {
+    top: 34px;
+    left: 337px;
+    color: rgba(91, 91, 91, 1);
+    height: auto;
+    position: absolute;
+    font-size: 22px;
+    align-self: auto;
+    font-style: Regular;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .bookmarks-search-bar {
+    top: 33px;
+    left: 454px;
+    width: 53px;
+    height: 34px;
+    position: absolute;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1599999964237213) ;
+  }
+  .bookmarks-group455 {
+    top: 28px;
+    left: 1156px;
+    width: 131px;
+    height: 36px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 15px 15px 15px 15px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: rgba(255, 255, 255, 1);
+  }
+  .bookmarks-group229 {
+    top: 0px;
+    left: 15px;
+    width: 100px;
+    height: 17.714284896850586px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 0px 0px 0px 0px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+  }
+  .bookmarks-text02 {
+    color: rgba(73, 187, 189, 1);
+    width: 100px;
+    height: auto;
+    position: absolute;
+    font-size: 24px;
+    align-self: auto;
+    font-style: Bold;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 700;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .bookmarks-text07 {
+    top: 28px;
+    left: 1337px;
+    color: rgba(91, 91, 91, 1);
+    height: auto;
+    position: absolute;
+    font-size: 22px;
+    align-self: auto;
+    font-style: Regular;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .bookmarks-untitleddesign51 {
+    top: 19px;
+    left: 0px;
+    width: 67px;
+    height: 62px;
+    position: absolute;
+    border-color: transparent;
+  }
+  .bookmarks-text09 {
+    top: 19px;
+    left: 62px;
+    color: rgba(255, 255, 255, 1);
+    height: auto;
+    position: absolute;
+    font-size: 41px;
+    align-self: auto;
+    font-style: Bold;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 700;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .bookmarks-group427319018 {
+    top: 28px;
+    left: 938px;
+    width: 138px;
+    height: 36px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 0px 0px 0px 0px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+  }
+  .bookmarks-vector {
+    top: 0px;
+    left: 0px;
+    width: 36px;
+    height: 36px;
+    position: absolute;
+  }
+  .bookmarks-text11 {
+    top: 10px;
+    left: 46px;
+    color: rgba(31, 56, 76, 1);
+    width: 92px;
+    height: auto;
+    position: absolute;
+    font-size: 16px;
+    align-self: auto;
+    font-style: Regular;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 400;
+    line-height: 13px;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .bookmarks-text13 {
+    top: 117px;
+    left: 470px;
+    color: rgba(37, 38, 65, 1);
+    width: 383px;
+    height: auto;
+    position: absolute;
+    font-size: 36px;
+    align-self: auto;
+    font-style: SemiBold;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 600;
+    line-height: normal;
+    font-stretch: normal;
+    margin-right: 0;
+    margin-bottom: 0;
+    text-decoration: none;
+  }
+  .bookmarks-text15 {
+    top: 183px;
+    left: 494px;
+    color: rgba(37, 38, 65, 1);
+    width: 151px;
+    height: auto;
+    position: absolute;
+    font-size: 28px;
+    align-self: auto;
+    font-style: SemiBold;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 600;
+    line-height: normal;
+    font-stretch: normal;
+    margin-right: 0;
+    margin-bottom: 0;
+    text-decoration: none;
+  }
+  .bookmarks-rectangle {
+    top: 249px;
+    left: 507px;
+    width: 902px;
+    height: 70px;
+    background-color: #c5c5c5;
+    position: absolute;
+    border-color: #c5c5c5;
+    border-radius: 50px;
+  }
+  .bookmarks-rectangle:hover {
+    background-color: #919391; /* Green */
+    border-color: #919391;
+    color: white;
+  }
+  .bookmarks-rectangle1 {
+    top: 577px;
+    left: 507px;
+    width: 902px;
+    height: 70px;
+    background-color: #c5f7f8;
+    position: absolute;
+    border-color: #c5f7f8;
+    border-radius: 50px;
+  }
+  .bookmarks-rectangle1:hover {
+    background-color: #68c8c9; /* Green */
+    border-color: #68c8c9;
+    color: white;
+  }
+  .bookmarks-rectangle2 {
+    top: 666px;
+    left: 507px;
+    width: 902px;
+    height: 70px;
+    background-color: #c5f7f8;
+    position: absolute;
+    border-color: #c5f7f8;
+    border-radius: 50px;
+  }
+  .bookmarks-rectangle2:hover {
+    background-color: #68c8c9; /* Green */
+    border-color: #68c8c9;
+    color: white;
+  }
+  .bookmarks-rectangle3 {
+    top: 755px;
+    left: 507px;
+    width: 902px;
+    height: 70px;
+    background-color: #c5f7f8;
+    position: absolute;
+    border-color: #c5f7f8;
+    border-radius: 50px;
+  }
+  .bookmarks-rectangle3:hover {
+    background-color: #68c8c9; /* Green */
+    border-color: #68c8c9;
+    color: white;
+  }
+  .bookmarks-rectangle4 {
+    top: 844px;
+    left: 507px;
+    width: 902px;
+    height: 70px;
+    background-color: #c5f7f8;
+    position: absolute;
+    border-color: #c5f7f8;
+    border-radius: 50px;
+  }
+  .bookmarks-rectangle4:hover {
+    background-color: #68c8c9; /* Green */
+    border-color: #68c8c9;
+    color: white;
+  }
+  .bookmarks-rectangle5 {
+    top: 338px;
+    left: 507px;
+    width: 902px;
+    height: 70px;
+    background-color: #c5c5c5;
+    position: absolute;
+    border-color: #c5c5c5;
+    border-radius: 50px;
+  }
+  .bookmarks-rectangle5:hover {
+    background-color: #919391; /* Green */
+    border-color: #919391;
+    color: white;
+  }
+  .bookmarks-rectangle6 {
+    top: 427px;
+    left: 507px;
+    width: 902px;
+    height: 70px;
+    background-color: #c5c5c5;
+    position: absolute;
+    border-color: #c5c5c5;
+    border-radius: 50px;
+  }
+  .bookmarks-rectangle6:hover {
+    background-color: #919391; /* Green */
+    border-color: #919391;
+    color: white;
+  }
+  .bookmarks-text17 {
+    top: 516px;
+    left: 498px;
+    color: rgba(37, 38, 65, 1);
+    width: 151px;
+    height: auto;
+    position: absolute;
+    font-size: 28px;
+    align-self: auto;
+    font-style: SemiBold;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 600;
+    line-height: normal;
+    font-stretch: normal;
+    margin-right: 0;
+    margin-bottom: 0;
+    text-decoration: none;
+  }
+  .bookmarks-group427319020 {
+    top: 110px;
+    left: 27px;
+    width: 467px;
+    height: 855px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    margin-right: 0;
+    border-radius: 0px 0px 0px 0px;
+    margin-bottom: 0;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+  }
+  .bookmarks-rectangle118 {
+    top: 646px;
+    left: 21px;
+    width: 413px;
+    height: 63px;
+    position: absolute;
+    background-color: #FFF4D2;
+    border-color: #FFF4D2;
+    border-radius: 12px;
+    font-size: 16px;
+    align-self: auto;
+    font-style: Regular;
+    text-align: left;
+    font-family: Poppins;
+    color: black;
+  }
+  .bookmarks-rectangle118:hover{
+    border-color: #fce8ab;;
+    background-color: #fce8ab;;
+  }
+  .bookmarks-text19 {
+    top: 669px;
+    left: 46px;
+    color: rgba(37, 38, 65, 1);
+    height: auto;
+    position: absolute;
+    font-size: 20px;
+    align-self: auto;
+    font-style: Solid;
+    text-align: left;
+    font-family: Font Awesome 5 Free;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .bookmarks-text20 {
+    top: 671px;
+    left: 84px;
+    color: rgba(37, 38, 65, 1);
+    width: 383px;
+    height: auto;
+    position: absolute;
+    font-size: 16px;
+    align-self: auto;
+    font-style: Regular;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .bookmarks-rectangle119 {
+    top: 719px;
+    left: 21px;
+    width: 413px;
+    height: 63px;
+    position: absolute;
+    background-color: #f9dbea;
+    border-color: #f9dbea;
+    border-radius: 12px;
+    font-size: 16px;
+    align-self: auto;
+    font-style: Regular;
+    text-align: left;
+    font-family: Poppins;
+    color: black;
+  }
+  .bookmarks-rectangle119:hover{
+    border-color: #f5bbd8;
+    background-color: #f5bbd8;
+  }
+  
+  .bookmarks-text22 {
+    top: 742px;
+    left: 46px;
+    color: rgba(37, 38, 65, 1);
+    height: auto;
+    position: absolute;
+    font-size: 20px;
+    align-self: auto;
+    font-style: Solid;
+    text-align: left;
+    font-family: Font Awesome 5 Free;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .bookmarks-text23 {
+    top: 744px;
+    left: 84px;
+    color: rgba(37, 38, 65, 1);
+    width: 374px;
+    height: auto;
+    position: absolute;
+    font-size: 16px;
+    align-self: auto;
+    font-style: Regular;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .bookmarks-rectangle120 {
+    top: 792px;
+    left: 21px;
+    width: 413px;
+    height: 63px;
+    position: absolute;
+    background-color:  #DFFFD8;
+    border-color: #DFFFD8;
+    border-radius: 12px;
+    font-size: 16px;
+    align-self: auto;
+    font-style: Regular;
+    text-align: left;
+    font-family: Poppins;
+    color: black;
+  }
+  .bookmarks-rectangle120:hover{
+    border-color: #affd9e;
+    background-color: #affd9e;
+  }
+
+  .bookmarks-rectangle122 {
+    top: 573px;
+    left: 21px;
+    width: 413px;
+    height: 63px;
+    position: absolute;
+    background-color:  #E5D1FA;
+    border-color:  #E5D1FA;
+    border-radius: 12px;
+    font-size: 16px;
+    align-self: auto;
+    font-style: Regular;
+    text-align: left;
+    font-family: Poppins;
+    color: black;
+  }
+  .bookmarks-rectangle122:hover{
+    border-color: #d7b7f9;
+    background-color: #d7b7f9;
+  }
+  .bookmarks-text25 {
+    top: 817px;
+    left: 84px;
+    color: rgba(37, 38, 65, 1);
+    width: 366px;
+    height: auto;
+    position: absolute;
+    font-size: 16px;
+    align-self: auto;
+    font-style: Regular;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .bookmarks-text27 {
+    top: 598px;
+    left: 84px;
+    color: rgba(37, 38, 65, 1);
+    width: 366px;
+    height: auto;
+    position: absolute;
+    font-size: 16px;
+    align-self: auto;
+    font-style: Regular;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .bookmarks-text29 {
+    top: 815px;
+    left: 46px;
+    color: rgba(37, 38, 65, 1);
+    height: auto;
+    position: absolute;
+    font-size: 20px;
+    align-self: auto;
+    font-style: Solid;
+    text-align: left;
+    font-family: Font Awesome 5 Free;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .bookmarks-text30 {
+    top: 596px;
+    left: 46px;
+    color: rgba(37, 38, 65, 1);
+    height: auto;
+    position: absolute;
+    font-size: 20px;
+    align-self: auto;
+    font-style: Solid;
+    text-align: left;
+    font-family: Font Awesome 5 Free;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .bookmarks-group427318991 {
+    top: 138px;
+    left: 0px;
+    width: 375px;
+    height: 30px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 0px 0px 0px 0px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+  }
+  .bookmarks-text31 {
+    left: 31px;
+    color: rgba(37, 38, 65, 1);
+    width: 344px;
+    height: auto;
+    position: absolute;
+    font-size: 20px;
+    align-self: auto;
+    font-style: SemiBold;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 600;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .bookmarks-bookmarks1 {
+    top: 2px;
+    left: 0px;
+    width: 25px;
+    height: 25px;
+    position: absolute;
+  }
+  .bookmarks-group427318990 {
+    top: 94px;
+    left: 0px;
+    width: 375px;
+    height: 30px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 0px 0px 0px 0px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+  }
+  .bookmarks-text33 {
+    left: 31px;
+    color: rgba(37, 38, 65, 1);
+    width: 344px;
+    height: auto;
+    position: absolute;
+    font-size: 20px;
+    align-self: auto;
+    font-style: SemiBold;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 600;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .bookmarks-lightbulb {
+    top: 6px;
+    left: 0px;
+    width: 25px;
+    height: 25px;
+    position: absolute;
+  }
+  .bookmarks-group427318989 {
+    top: 46px;
+    left: 0px;
+    width: 375px;
+    height: 30px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 0px 0px 0px 0px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+  }
+  .bookmarks-text35 {
+    left: 31px;
+    color: rgba(37, 38, 65, 1);
+    width: 344px;
+    height: auto;
+    position: absolute;
+    font-size: 20px;
+    align-self: auto;
+    font-style: SemiBold;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 600;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .bookmarks-question {
+    top: 6px;
+    left: 0px;
+    width: 25px;
+    height: 25px;
+    position: absolute;
+  }
+  .bookmarks-group427319024 {
+    top: 184px;
+    left: 0px;
+    width: 452px;
+    height: 322px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 0px 0px 0px 0px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+  }
+  .bookmarks-rectangle114 {
+    top: 115px;
+    left: 17px;
+    width: 417px;
+    height: 63px;
+    position: absolute;
+    background-color: #FFF4D2;
+    border-color: #FFF4D2;
+    border-radius: 12px;
+    font-size: 16px;
+    align-self: auto;
+    font-style: Regular;
+    text-align: left;
+    font-family: Poppins;
+    color: black;
+  }
+  .bookmarks-rectangle114:hover{
+    border-color: #fce8ab;;
+    background-color: #fce8ab;;
+  }
+  .bookmarks-text37 {
+    top: 138px;
+    left: 42px;
+    color: rgba(37, 38, 65, 1);
+    height: auto;
+    position: absolute;
+    font-size: 20px;
+    align-self: auto;
+    font-style: Solid;
+    text-align: left;
+    font-family: Font Awesome 5 Free;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .bookmarks-text38 {
+    top: 139px;
+    left: 80px;
+    color: rgba(37, 38, 65, 1);
+    width: 372px;
+    height: auto;
+    position: absolute;
+    font-size: 16px;
+    align-self: auto;
+    font-style: Regular;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .bookmarks-rectangle115 {
+    top: 187px;
+    left: 17px;
+    width: 417px;
+    height: 63px;
+    position: absolute;
+    background-color: #F7C8E0;
+    border-color: #F7C8E0;
+    border-radius: 12px;
+    font-size: 16px;
+    align-self: auto;
+    font-style: Regular;
+    text-align: left;
+    font-family: Poppins;
+    color: black;
+  }
+  .bookmarks-rectangle115:hover{
+    border-color: #f5bbd8;
+    background-color: #f5bbd8;
+  }
+  .bookmarks-text40 {
+    top: 208px;
+    left: 42px;
+    color: rgba(37, 38, 65, 1);
+    height: auto;
+    position: absolute;
+    font-size: 20px;
+    align-self: auto;
+    font-style: Solid;
+    text-align: left;
+    font-family: Font Awesome 5 Free;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .bookmarks-text41 {
+    top: 212px;
+    left: 80px;
+    color: rgba(37, 38, 65, 1);
+    width: 263px;
+    height: auto;
+    position: absolute;
+    font-size: 16px;
+    align-self: auto;
+    font-style: Regular;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .bookmarks-rectangle116 {
+    top: 259px;
+    left: 21px;
+    width: 413px;
+    height: 63px;
+    position: absolute;
+    background-color: #DFFFD8;
+    border-color: #DFFFD8;
+    border-radius: 12px;
+    font-size: 16px;
+    align-self: auto;
+    font-style: Regular;
+    text-align: left;
+    font-family: Poppins;
+    color: black;
+  }
+  .bookmarks-rectangle116:hover{
+    border-color: #affd9e;
+    background-color: #affd9e;   
+  }
+  .bookmarks-rectangle121 {
+    top: 47px;
+    left: 17px;
+    width: 417px;
+    height: 63px;
+    background-color: #E5D1FA;
+    position: absolute;
+    border-color:  #E5D1FA;
+    border-radius: 12px;
+    font-size: 16px;
+    align-self: auto;
+    font-style: Regular;
+    text-align: left;
+    font-family: Poppins;
+    color: black;
+  }
+  .bookmarks-rectangle121:hover{
+    border-color: #d7b7f9;
+    background-color: #d7b7f9;
+  }
+  .bookmarks-text43 {
+    top: 282px;
+    left: 46px;
+    color: rgba(37, 38, 65, 1);
+    height: auto;
+    position: absolute;
+    font-size: 20px;
+    align-self: auto;
+    font-style: Solid;
+    text-align: left;
+    font-family: Font Awesome 5 Free;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .bookmarks-text44 {
+    top: 70px;
+    left: 42px;
+    color: rgba(37, 38, 65, 1);
+    height: auto;
+    position: absolute;
+    font-size: 20px;
+    align-self: auto;
+    font-style: Solid;
+    text-align: left;
+    font-family: Font Awesome 5 Free;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .bookmarks-text45 {
+    top: 284px;
+    left: 84px;
+    color: rgba(37, 38, 65, 1);
+    width: 263px;
+    height: auto;
+    position: absolute;
+    font-size: 16px;
+    align-self: auto;
+    font-style: Regular;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .bookmarks-text47 {
+    top: 72px;
+    left: 80px;
+    color: rgba(37, 38, 65, 1);
+    width: 263px;
+    height: auto;
+    position: absolute;
+    font-size: 16px;
+    align-self: auto;
+    font-style: Regular;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .bookmarks-group427318992 {
+    top: 0px;
+    left: 0px;
+    width: 375px;
+    height: 30px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 0px 0px 0px 0px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+  }
+  .bookmarks-text49 {
+    left: 31px;
+    color: rgba(37, 38, 65, 1);
+    width: 344px;
+    height: auto;
+    position: absolute;
+    font-size: 20px;
+    align-self: auto;
+    font-style: SemiBold;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 600;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .bookmarks-globe-stand {
+    top: 6px;
+    left: 0px;
+    width: 25px;
+    height: 25px;
+    position: absolute;
+  }
+  .bookmarks-group427318987 {
+    top: 0px;
+    left: 0px;
+    width: 375px;
+    height: 30px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 0px 0px 0px 0px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+  }
+  .bookmarks-text51 {
+    left: 31px;
+    color: rgba(37, 38, 65, 1);
+    width: 344px;
+    height: auto;
+    position: absolute;
+    font-size: 20px;
+    align-self: auto;
+    font-style: SemiBold;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 600;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .bookmarks-user-circle {
+    top: 6px;
+    left: 0px;
+    width: 25px;
+    height: 25px;
+    position: absolute;
+  }
+  .bookmarks-group427318988 {
+    top: 529px;
+    left: 0px;
+    width: 358px;
+    height: 30px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 0px 0px 0px 0px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+  }
+  .bookmarks-text53 {
+    left: 35px;
+    color: rgba(37, 38, 65, 1);
+    width: 323px;
+    height: auto;
+    position: absolute;
+    font-size: 20px;
+    align-self: auto;
+    font-style: SemiBold;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 600;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .bookmarks-magic-wand {
+    top: 2px;
+    left: 0px;
+    width: 25px;
+    height: 25px;
+    position: absolute;
+  }
+  

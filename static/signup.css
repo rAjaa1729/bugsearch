@@ -1,0 +1,797 @@
+.container-fluid{
+  padding-left: 0%;
+}
+.signup{
+  margin-left: 173px;
+  margin-right: -405px;
+}
+.logout{
+  margin-left:427px;
+  margin-right:221px;
+}
+.sign-up-page-rectangle80 {
+  padding-top: 19px;
+  padding-bottom: 16px;
+}
+.logo{
+  height:62px;
+  width:67px;
+}
+.search{
+  margin:auto;
+}
+.searchbar{
+  padding-left: 10px;
+  margin-left: 338px
+}
+.sidehover:hover{
+  text-decoration: underline;
+}
+.nav-item{
+  font-family: Poppins;
+  font-size:18px;
+  margin-top: 8px;
+}
+.navcolor{
+  background-color: rgba(73, 187, 189, 1);
+  width: 1624.89px;
+}
+.navbar-brand{
+  margin-left: 10px;
+  font-family: Poppins;
+  color: white;
+  font-weight: 700;
+  font-size: 35px;
+}
+.username {
+  margin-left: 930px;
+  margin-right: -59px;
+  position: absolute;
+  margin-top: 8px;
+  color:white;
+}
+.userfont{
+  color:black;
+  margin-top: 5px;
+  position:absolute
+}
+.search_btn{
+  border-color: white;
+  border-width: 2px;
+  color: white;
+}
+.search_btn:hover{
+  border-color: white;
+  background-color: white;
+  color: rgba(73, 187, 189, 1);
+}
+.user_icon_nav{
+  margin-left: 193px;
+  position: absolute;
+}
+.sign-up-page-sign-up-page {
+    width: 100%;
+    height: 1024px;
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    align-items: flex-start;
+    flex-shrink: 0;
+    border-color: transparent;
+    background-color: rgba(255, 255, 255, 1);
+  }
+  .sign-up-page-group233 {
+    top: 119px;
+    left: 796px;
+    width: 599px;
+    height: 606.2301025390625px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    margin-right: 0;
+    border-radius: 0px 0px 0px 0px;
+    margin-bottom: 0;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+  }
+  .sign-up-page-group223 {
+    top: 0px;
+    left: 72.98139190673828px;
+    width: 453.0367736816406px;
+    height: 114.44718170166016px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 0px 0px 0px 0px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+  }
+  .sign-up-page-group222 {
+    top: 47.591796875px;
+    left: 0px;
+    width: 453.0367736816406px;
+    height: 66.85528564453125px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 15px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: rgba(73, 187, 189, 0.6000000238418579);
+  }
+  .sign-up-page-alert {
+    top: 47.591796875px;
+    left: 0px;
+    width: 453.0367736816406px;
+    height: 66.85528564453125px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 15px;
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+  .sign-up-page-text {
+    top: 22.1953125px;
+    left: 99.1450424194336px;
+    color: rgba(255, 255, 255, 1);
+    width: 59px;
+    height: auto;
+    position: absolute;
+    font-size: 16px;
+    align-self: auto;
+    font-style: Medium;
+    text-align: center;
+    font-family: Poppins;
+    font-weight: 500;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .sign-up-page-text:hover{
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+  .sign-up-page-rectangle79 {
+    top: 14.33154296875px;
+    left: 36.46868896484375px;
+    width: 139px;
+    height: 40px;
+    position: absolute;
+    background-color: rgba(57, 148, 149, 0.6);
+    border: none;
+    border-radius: 15px;
+  }
+  .sign-up-page-text02 {
+    top: 14.1953125px;
+    left: 255.5498046875px;
+    color: rgba(255, 255, 255, 1);
+    width: 161px;
+    height: 40px;
+    position: absolute;
+    font-size: 16px;
+    align-self: auto;
+    font-style: Medium;
+    text-align: center;
+    font-family: Poppins;
+    font-weight: 500;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .sign-up-page-text02:hover{
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+  .sign-up-page-text04 {
+    left: 118.42332458496094px;
+    color: rgba(0, 0, 0, 1);
+    width: 266px;
+    height: auto;
+    position: absolute;
+    font-size: 16px;
+    align-self: auto;
+    font-style: Regular;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .sign-up-page-group225 {
+    top: 281.01904296875px;
+    left: 3.637978807091713e-12px;
+    width: 599px;
+    height: 95.18379211425781px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 0px 0px 0px 0px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+  }
+  .sign-up-page-rectangle80 {
+    top: 33.99420928955078px;
+    left: 0px;
+    width: 599px;
+    height: 61px;
+    position: absolute;
+    border-color: rgba(73, 187, 189, 1);
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 15px;
+  }
+  .sign-up-page-text06 {
+    color: rgba(0, 0, 0, 1);
+    width: 120px;
+    height: auto;
+    position: absolute;
+    font-size: 16px;
+    align-self: auto;
+    font-style: Regular;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .sign-up-page-text08 {
+    top: 57.7900390625px;
+    left: 42.68711853027344px;
+    color: rgba(172, 172, 172, 1);
+    width: 219px;
+    height: auto;
+    position: absolute;
+    font-size: 15px;
+    align-self: auto;
+    font-style: Light;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 300;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .sign-up-page-group232 {
+    top: 158.6396484375px;
+    left: 1.8189894035458565e-12px;
+    width: 599px;
+    height: 95.18379211425781px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 0px 0px 0px 0px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+  }
+  .sign-up-page-rectangle801 {
+    top: 33.99421691894531px;
+    left: 1.8189894035458565e-12px;
+    width: 599px;
+    height: 61px;
+    position: absolute;
+    border-color: rgba(73, 187, 189, 1);
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 15px;
+  }
+  .sign-up-page-text10 {
+    color: rgba(0, 0, 0, 1);
+    width: 156px;
+    height: auto;
+    position: absolute;
+    font-size: 16px;
+    align-self: auto;
+    font-style: Regular;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .sign-up-page-text12 {
+    top: 57.7900390625px;
+    left: 42.68711853027344px;
+    color: rgba(172, 172, 172, 1);
+    width: 252px;
+    height: auto;
+    position: absolute;
+    font-size: 15px;
+    align-self: auto;
+    font-style: Light;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 300;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .sign-up-page-group227 {
+    top: 403.3979797363281px;
+    left: 1.8189894035458565e-12px;
+    width: 599px;
+    height: 95.18379211425781px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 0px 0px 0px 0px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+  }
+  .sign-up-page-group226 {
+    top: 0px;
+    left: 0px;
+    width: 599px;
+    height: 95.18379211425781px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 0px 0px 0px 0px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+  }
+  .sign-up-page-rectangle802 {
+    top: 33.99423599243164px;
+    left: 1.8189894035458565e-12px;
+    width: 599px;
+    height: 61px;
+    position: absolute;
+    border-color: rgba(73, 187, 189, 1);
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 15px;
+  }
+  .sign-up-page-text14 {
+    color: rgba(0, 0, 0, 1);
+    width: 120px;
+    height: auto;
+    position: absolute;
+    font-size: 16px;
+    align-self: auto;
+    font-style: Regular;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .sign-up-page-text16 {
+    top: 57.7900390625px;
+    left: 42.68711853027344px;
+    color: rgba(172, 172, 172, 1);
+    width: 207px;
+    height: auto;
+    position: absolute;
+    font-size: 15px;
+    align-self: auto;
+    font-style: Light;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 300;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .sign-up-page-invisible1 {
+    top: 54.390625px;
+    left: 535.6577758789062px;
+    width: 24.78620719909668px;
+    height: 20.396526336669922px;
+    display: flex;
+    overflow: hidden;
+    position: absolute;
+    align-items: flex-start;
+    flex-shrink: 0;
+    border-color: transparent;
+  }
+  .sign-up-page-group {
+    top: 1.3927247524261475px;
+    left: 0px;
+    width: 24.786258697509766px;
+    height: 17.611164093017578px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    margin-right: 0;
+    border-radius: 0px 0px 0px 0px;
+    margin-bottom: 0;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+  }
+  .sign-up-page-group1 {
+    top: 0px;
+    left: 0px;
+    width: 24.786258697509766px;
+    height: 17.611164093017578px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 0px 0px 0px 0px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+  }
+  .sign-up-page-group2 {
+    top: 2px;
+    left: 4px;
+    width: 24.786258697509766px;
+    height: 17.611164093017578px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 0px 0px 0px 0px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+  }
+  .sign-up-page-vector {
+    top: 5.561377048492432px;
+    left: 12.20442008972168px;
+    width: 4px;
+    height: 3px;
+    position: absolute;
+  }
+  .sign-up-page-vector1 {
+    top: 1.390224814414978px;
+    left: 7.901702880859375px;
+    width: 17px;
+    height: 11px;
+    position: absolute;
+  }
+  .sign-up-page-vector2 {
+    top: 0px;
+    left: 0px;
+    width: 23px;
+    height: 18px;
+    position: absolute;
+  }
+  .sign-up-page-group229 {
+    top: 550.7062377929688px;
+    left: 1.8189894035458565e-12px;
+    width: 599px;
+    height: 55.52388000488281px;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 15px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: rgba(73, 187, 189, 1);
+  }
+  .sign-up-page-text18 {
+    top: 0.396484375px;
+    left: 1.40216064453125px;
+    color: rgba(255, 255, 255, 1);
+    width: 599px;
+    height: 55.52388000488281px;
+    position: absolute;
+    font-size: 16px;
+    align-self: auto;
+    font-style: Regular;
+    text-align: center;
+    font-family: Poppins;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .sign-up-page-text18:hover{
+    background-color: rgb(3, 7, 7);
+  }
+  .sign-up-page-login1 {
+    top: 225px;
+    left: 76px;
+    width: 667px;
+    height: 561px;
+    position: absolute;
+    border-color: transparent;
+  }
+  .sign-up-page-group427319013 {
+    top: 0px;
+    left: 0px;
+    width: 1440px;
+    height: 92px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    margin-right: 0;
+    border-radius: 0px 0px 0px 0px;
+    margin-bottom: 0;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: rgba(73, 187, 189, 1);
+  }
+  .sign-up-page-text20 {
+    top: 34px;
+    left: 337px;
+    color: rgba(91, 91, 91, 1);
+    height: auto;
+    position: absolute;
+    font-size: 22px;
+    align-self: auto;
+    font-style: Regular;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .sign-up-page-search-bar {
+    top: 33px;
+    left: 454px;
+    width: 53px;
+    height: 34px;
+    position: absolute;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1599999964237213) ;
+  }
+  .sign-up-page-group454 {
+    top: 28px;
+    left: 1017px;
+    width: 119px;
+    height: 36px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 0px 0px 0px 0px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+  }
+  .sign-up-page-group456 {
+    top: 0px;
+    left: 0px;
+    width: 119px;
+    height: 36px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 0px 0px 0px 0px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: rgba(255, 255, 255, 1);
+  }
+  .sign-up-page-group2291 {
+    top: 0px;
+    left: 21px;
+    width: 76px;
+    height: 17.714284896850586px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 0px 0px 0px 0px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+  }
+  .sign-up-page-text22 {
+    color: rgba(73, 187, 189, 1);
+    width: 76px;
+    height: auto;
+    position: absolute;
+    font-size: 24px;
+    align-self: auto;
+    font-style: Bold;
+    text-align: center;
+    font-family: Poppins;
+    font-weight: 700;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .sign-up-page-group455 {
+    top: 28px;
+    left: 1156px;
+    width: 131px;
+    height: 36px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 0px 0px 0px 0px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: rgba(255, 255, 255, 1);
+  }
+  .sign-up-page-group2292 {
+    top: 0px;
+    left: 15px;
+    width: 100px;
+    height: 17.714284896850586px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 0px 0px 0px 0px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+  }
+  .sign-up-page-text24 {
+    color: rgba(73, 187, 189, 1);
+    width: 100px;
+    height: auto;
+    position: absolute;
+    font-size: 24px;
+    align-self: auto;
+    font-style: Bold;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 700;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .sign-up-page-text26 {
+    top: 28px;
+    left: 1337px;
+    color: rgba(91, 91, 91, 1);
+    height: auto;
+    position: absolute;
+    font-size: 22px;
+    align-self: auto;
+    font-style: Regular;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .sign-up-page-untitleddesign51 {
+    top: 19px;
+    left: 0px;
+    width: 67px;
+    height: 62px;
+    position: absolute;
+    border-color: transparent;
+  }
+  .sign-up-page-text28 {
+    top: 19px;
+    left: 62px;
+    color: rgba(255, 255, 255, 1);
+    height: auto;
+    position: absolute;
+    font-size: 41px;
+    align-self: auto;
+    font-style: Bold;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 700;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  
