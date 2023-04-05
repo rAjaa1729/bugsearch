@@ -24,7 +24,7 @@ def get_user(user_id,email_id):
     return user 
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = '142857'
+app.config['SECRET_KEY'] = 'sql@Prism1920'
 
 @app.route('/',methods=["GET",])
 def login_home():
