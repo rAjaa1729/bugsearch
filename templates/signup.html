@@ -27,8 +27,10 @@
                   <!-- <span class="sign-up-page-text02"><span>Register</span></span> -->
                 
                 <div class="container">
-                  {% for message in get_flashed_messages() %} 
+                  {% for message in get_flashed_messages() %}
+                  {% if message is defined %}  
                       <div class="alert alert-danger">{{ message }}</div>
+                  {% endif %}
                   {% endfor %} 
                   {% block content %} {% endblock %}
               </div>
