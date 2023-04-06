@@ -1,18 +1,82 @@
 import mysql.connector
-from flask import Flask, render_template, request, session, url_for, flash, redirect
+from flask import Flask, render_template, request, url_for, flash, redirect
 from werkzeug.exceptions import abort
 from flask_bcrypt import Bcrypt  
-bcrypt = Bcrypt()
+from flask_login import  UserMixin, login_user, LoginManager, login_required, current_user, logout_user
+
+
+newapp = Flask(__name__)
+bcrypt = Bcrypt(newapp)
+newapp.config['SECRET_KEY'] = 'sql@Prism1920'
 
 def get_db_connection():
     mydb = mysql.connector.connect(
         host = "localhost",
         user = "root",
-        password = "sql@Prism1920",
+        password= "sql@Prism1920",
         database = "BugSearch"
     )
     return mydb
+my_db=get_db_connection()
+# create login manager
+login_manager = LoginManager()
+login_manager.init_app(newapp)
 
+# user class with usermixin
+class User(UserMixin):
+    def __init__(self,user_id, email_id, passcode, username):
+        self.user_id = user_id
+        self.email_id = email_id
+        self.passcode = passcode
+        self.username = username
+
+    @staticmethod
+    def find_by_email_id(email_id):
+        cursor = my_db.cursor(dictionay=True)
+        query = "SELECT * FROM users WHERE email_id = %s"
+        cursor.execute(query, (email_id,))
+        row = cursor.fetchone()
+        cursor.close()
+        if row:
+            return User(*row)
+        return None
+
+    @staticmethod
+    def get(user_id):
+        cursor = my_db.cursor()
+        query = "SELECT * FROM users WHERE user_id = %s"
+        cursor.execute(query, (user_id,))
+        row = cursor.fetchone()
+        if row:
+            return User(*row)
+        return None
+
+    @staticmethod
+    def create(email_id, passcode, username):
+        cursor = my_db.cursor()
+        hashed_passcode =bcrypt.generate_password_hash(passcode)
+        query = "INSERT INTO users (email_id, passcode, name) VALUES (%s, %s, %s)"
+        cursor.execute(query, (email_id, hashed_passcode, username))
+        user_id=cursor.lastrowid
+        my_db.commit()
+        cursor.close()
+        return User(user_id=user_id, email_id=email_id,passcode=hashed_passcode, username=username)
+
+    def check_passcode(self, passcode):
+        return bcrypt.check_password_hash(self.passcode, passcode)
+
+
+
+
+
+
+
+
+
+# create user loader function
+@login_manager.user_loader
+def load_user(user_id):
+    return User.get(int(user_id))
 
 def get_user(user_id=None,email_id=None,username=None,passcode=None):
     conn = get_db_connection()
@@ -23,8 +87,8 @@ def get_user(user_id=None,email_id=None,username=None,passcode=None):
         cur.execute('SELECT * FROM Users WHERE email_id = %s',(email_id,))
     if username:
         if passcode:
-            password  = bcrypt.generate_password_hash(password)
-            cur.execute("SELECT * FROM Users WHERE username=%s AND passcode=%s", (username, password))
+            passcode  = bcrypt.generate_passcode_hash(passcode)
+            cur.execute("SELECT * FROM Users WHERE username=%s AND passcode=%s", (username, passcode))
         else:
             cur.execute('SELECT * FROM Users WHERE username = %s',(username,))
     user = cur.fetchone()
@@ -35,12 +99,6 @@ def get_user(user_id=None,email_id=None,username=None,passcode=None):
 def get_userid(user_id=None,email_id=None,username=None,passcode=None):
     user=get_user()
     return user['user_id']
-
-
-
-newapp = Flask(__name__)
-
-newapp.config['SECRET_KEY'] = 'sql@Prism1920'
 
     
 @newapp.route('/',methods=["GET"])
@@ -65,22 +123,22 @@ def signup():
         user1 = get_user(email_id=email_id)
         username = request.form['username']
         user2 = get_user(username=username)
-        password = request.form['passcode']
+        passcode = request.form['passcode']
         if not email_id:
-            flash('Email address is required!')
+            flash('email_id address is required!')
         if not username:
             flash('Username is required!')
-        if not password:
-            flash('Please set password!')
+        if not passcode:
+            flash('Please set passcode!')
         if user1 is not None :
-            flash('This email address is already registered, please login!')
+            flash('This email_id address is already registered, please login!')
         if user2 is not None :
             flash('Username already exists please enter other username!')
         else:
             conn = get_db_connection()
             cur = conn.cursor()
-            password  = bcrypt.generate_password_hash(password)
-            cur.execute('INSERT INTO Users (email_id, username, passcode) VALUES (%s, %s, %s)',(email_id, username, password))
+            passcode  = bcrypt.generate_password_hash(passcode)
+            cur.execute('INSERT INTO Users (email_id, username, passcode) VALUES (%s, %s, %s)',(email_id, username, passcode))
             cur.execute('SELECT LAST_INSERT_ID()')
             user_id = cur.fetchone()[0]
             conn.commit()
@@ -93,15 +151,15 @@ def signup():
 def userlogin():
     if (request.method=="POST"):
         username=request.form["username"]
-        password=request.form["password"]
+        passcode=request.form["passcode"]
         if not username:
             flash("Username is required")
-        if not password:
+        if not passcode:
             flash("Password is required")
         else:
-            user=get_user(username=username,passcode=password)
+            user=get_user(username=username,passcode=passcode)
             if user is None:
-                flash("Incorrect password or username")
+                flash("Incorrect passcode or username")
                 return render_template('login.html')
             elif (session[user["user_id"]]==user['user_id']):
                 flash("Already login")
@@ -117,9 +175,9 @@ def userlogin():
 def help_page():
     return render_template("help_page.html")
 
-@newapp.route("/forgot_password",methods=["GET"])
-def forgot_password():  
-    return render_template('forgot_password.html')
+@newapp.route("/forgot_passcode",methods=["GET"])
+def forgot_passcode():  
+    return render_template('forgot_passcode.html')
 
 
 
