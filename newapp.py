@@ -3,7 +3,7 @@ from flask import Flask, render_template, request, url_for, flash, redirect
 from werkzeug.exceptions import abort
 from flask_bcrypt import Bcrypt  
 from flask_login import  UserMixin, login_user, LoginManager, login_required, current_user, logout_user
-from datetime import datetime
+
 
 newapp = Flask(__name__)
 bcrypt = Bcrypt(newapp)
@@ -22,7 +22,7 @@ my_db=get_db_connection()
 login_manager = LoginManager()
 login_manager.init_app(newapp)
 login_manager.login_view = 'login'
-login_manager.id_attribute = 'get_id'
+login_manager.id_attribute ='get_id'
 
 #-------different class object---------------
 # user class with usermixin
@@ -124,6 +124,12 @@ class Question():
         else:
             return "Successfully posted",200
         
+    # for deleting question by question_id
+    # @staticmethod
+    # def delete_question_by_id(question_id):
+        
+    
+    #finding question by using its question_id
     @staticmethod
     def find_by_question_id(question_id):
         query="SELECT * FROM Questions WHERE question_id=%s"
@@ -133,7 +139,44 @@ class Question():
         if row:
             return Question(*row)
         return None
-
+    
+    #sorted by creation date finding comments of question
+    @staticmethod
+    def get_comments_by_question_id(question_id):
+        query = "SELECT * FROM Comments WHERE post_id = %s AND post_type = %s ORDER BY creation_date ASC LIMIT 5"
+        cursor=my_db.cursor(dictionary=True)
+        cursor.execute(query,(question_id,"question"))
+        comments=cursor.fetchall()
+        cursor.close()
+        if comments:
+            return comments
+        return None
+        
+    #sorted by creation_date finding answers of question_id
+    @staticmethod
+    def find_answers_by_question_id(question_id):
+        query = "SELECT * FROM Answers WHERE question_id = %s ORDER BY creation_date ASC LIMIT 5"
+        cursor=my_db.cursor(dictionary=True)
+        cursor.execute(query,question_id)
+        answers=cursor.fetchall()
+        cursor.close()
+        if answers:
+            return answers
+        return None
+    
+    #finding accepted answer of that question using question object
+    @staticmethod
+    def get_accepted_answer_of_question_id(question):
+        answer_id=question.answer_id
+        query = "SELECT * FROM Answers WHERE answer_id = %s "
+        cursor=my_db.cursor(dictionary=True)
+        cursor.execute(query,answer_id)
+        answer=cursor.fetchone()
+        cursor.close()
+        if answer:
+            return Answer(*answer)
+        return None
+    
         
 # -----class for Answer object--------------
 class Answer():
@@ -169,12 +212,41 @@ class Answer():
         if row:
             return Answer(*row)
         return None
-
+    
+    # sorted by creation_date finding comments of answer using using answer_id
+    @staticmethod
+    def get_comments_by_answer_id(answer_id):
+        query = "SELECT * FROM Comments WHERE post_id = %s AND post_type = %s ORDER BY creation_date ASC LIMIT 5"
+        cursor=my_db.cursor(dictionary=True)
+        cursor.execute(query,(answer_id,"answer"))
+        comments=cursor.fetchall()
+        cursor.close()
+        if comments:
+            return comments
+        return None 
 # ----comments class-----------------
 
 class Comment():
-    def __init__(self):
-        pass
+    def __init__(self,comment_id,body,creation_date,user_id,post_id,post_type):
+        self.comment_id=comment_id
+        self.body=body
+        self.user_id=user_id
+        self.creation_date=creation_date
+        self.post_id=post_id
+        self.post_type=post_type
+
+    @staticmethod
+    def post_comment(post_id,post_type,body):
+        cursor=my_db.cursor(dictionary=True)
+        query="INSERT INTO Comments (body,user_id,post_id,post_type) VALUES(%s,%s,%s,%s)"
+        cursor=my_db.execute(query,(body,current_user.current_user.user_id,post_id,post_type))
+        comment_id=cursor.lastrowid
+        cursor.close()
+        if comment_id is None:
+            return "failed", 400
+        else:
+            return "Successfully posted",200 
+    
 
 
 # create user loader function
@@ -189,12 +261,11 @@ def load_user(user_id):
 
 @login_required
 @newapp.route('/users/user_home',methods=["GET",])
-def user_home():
-    user=current_user
+def user_home(user):
     # cur = my_db.cursor(dictionary=True)
     # cur.execute('SELECT * FROM Questions')
     # questions = cur.fetchall()
-    return render_template('user_home.html')
+    return render_template('user_home.html',user=user)
 
 @login_required
 @newapp.route('/logout',methods=['GET',])
@@ -234,74 +305,74 @@ def logout():
 
 @login_required
 @newapp.route('/users/all_users',methods=["GET",])
-def all_users():
-    return render_template('all_users.html')
+def all_users(user):
+    return render_template('all_users.html',user=user)
 
 @login_required
 @newapp.route("/users/badges",methods=["GET",])
-def badges():
-    return render_template('badges.html')
+def badges(user):
+    return render_template('badges.html',user=user)
 
 @login_required
 @newapp.route('/users/bookmarks',methods=['GET',])
-def user_bookmarks():
-    return render_template('bookmarks.html')
+def bookmarks(user):
+    return render_template('bookmarks.html',user=user)
 
 @login_required
 @newapp.route("/users/complete_your_profile",methods=["GET",'POST'])
-def complete_your_profile():
-    return render_template("complete_your_profile.html")
+def complete_your_profile(user):
+    return render_template("complete_your_profile.html",user=user)
 
 @login_required
 @newapp.route('/users/dashboard', methods=['GET',])
-def dashboard():
-    return render_template("dashboard.html")
+def dashboard(user):
+    return render_template("dashboard.html",user=user)
 
 @login_required
 @newapp.route("/users/followers", methods=["GET",])
-def followers():
-    return render_template("followers.html")
+def followers(user):
+    return render_template("followers.html",user=user)
 
 @login_required
 @newapp.route("/users/following", methods=["GET",])
-def following():
-    return render_template("following.html")
+def following(user):
+    return render_template("following.html",user)
 
 
 @login_required
 @newapp.route('/users/help_with_login',methods=['GET',])
-def help_with_login():
-    return render_template('help_with_login.html')
+def help_with_login(user):
+    return render_template('help_with_login.html',user=user)
 
 @login_required
 @newapp.route("/users/questions",methods=["GET","POST","DELETE"])
-def questions():
-    return render_template('posted_questions.html')
+def questions(user):
+    return render_template('posted_questions.html',user=user)
 
 @login_required
 @newapp.route("/users/comments",methods=["GET","POST","DELETE"])
-def comments():
-    return render_template('posted_comments.html')
+def comments(user):
+    return render_template('posted_comments.html',user)
 
 @login_required
 @newapp.route("/users/answers",methods=["GET","POST","DELETE"])
-def answers():
-    return render_template('posted_answers.html')
+def answers(user):
+    return render_template('posted_answers.html',user=user)
 
 @login_required
 @newapp.route('/users/recommendations',methods=['GET',])
-def recommendations():
-    return render_template('recommendations.html')
+def recommendations(user):
+    return render_template('recommendations.html',user=user)
 
 @login_required
 @newapp.route('/users/tags',methods=['GET',])
-def tags_login():
-    return render_template('tag_login.html')
+def tags_login(user):
+    return render_template('tag_login.html',user=user)
 
 @login_required
 @newapp.route('/users/trending',methods=['GET',])
-def trending():
-    return render_template('trending.html')
+def trending(user):
+    return render_template('trending.html',user=user)
 
 @newapp.route('/signup', methods=('GET', 'POST'))
 def signup():
@@ -324,7 +395,7 @@ def signup():
         else:
             user=User.create(username=username,email_id=email_id,passcode=passcode)
             login_user(user)
-            return redirect(url_for('user_home'))
+            return redirect(url_for('complete_your_profile',user=user))
     return render_template('signup.html')
 
 
