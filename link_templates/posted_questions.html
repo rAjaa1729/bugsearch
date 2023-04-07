@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- @login_required -->
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&family=Ubuntu:wght@700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter&family=Poppins:wght@400;600;700&display=swap"
+        rel="stylesheet">
+
+    <title>Scholar - Online School HTML5 Template</title>
+
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/css/fontawesome.css">
+    <link rel="stylesheet" href="assets/css/templatemo-scholar.css">
+    <link rel="stylesheet" href="assets/css/owl.css">
+    <link rel="stylesheet" href="assets/css/animate.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="assets/css/our_c.css">
+    <link rel="stylesheet" href="assets/css/side.css">
+
+</head>
+</head>
+<body>
+<div class="wrapper">
+    <nav id="sidebar">
+        <div class="sidebar-header">
+            <!-- <h3>BBBOOTSTRAP</h3> -->
+            <hr>
+        </div>
+        <ul class="list-unstyled components navbar-nav mr-auto">
+          <p>Username</p>
+          <li> <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="navtab">User Profile</a></li>
+          <li> <a href="{{url_for('user_home')}}">User Home</a> </li>
+          <li> <a href="{{url_for('complete_your_profile')}}">Edit Profile</a> </li>
+          <li> <a href="{{url_for('followers')}}">Followers</a> </li>
+          <li> <a href="{{url_for('following')}}">Following</a> </li>
+          <li> <a href="{{url_for('badges')}}">Badges</a> </li>
+          <li> <a href="{{url_for('trending')}}">Trending</a> </li>
+          <li> <a href="{{url_for('recommendations')}}">Recommendations</a> </li>
+          <li> <a href="{{url_for('all_users')}}">All Users</a> </li>
+          <li> <a href="{{url_for('bookmarks')}}">Bookmarks</a> </li>
+          <li> <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Post</a>
+              <ul class="collapse list-unstyled" id="pageSubmenu">
+                  <li> <a href="#">Post Question</a> </li>
+                  <li> <a href="#">Post Answer</a> </li>
+                  <li> <a href="#">Post Comment</a> </li>
+              </ul>
+          </li>
+          <li> <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Posted</a>
+              <ul class="collapse list-unstyled" id="pageSubmenu">
+                  <li> <a href="{{url_for('posted_questions')}}">Posted Questions</a> </li>
+                  <li> <a href="{{url_for('posted_answers')}}">Posted Answers</a> </li>
+                  <li> <a href="{{url_for('posted_comments')}}">Posted Comments</a> </li>
+              </ul>
+          </li>
+    </nav>
+    <div class="content">
+        <header class="header-area header-sticky background-header fixed-topp">
+            <nav class="main-nav navcolor navbar-dark">
+             <button type="button" id="sidebarCollapse" class="btn btn-info info"> <i class="fa fa-align-justify"></i> </button> 
+             <a href="{{ url_for('user_home')}}" class="logo">
+                <h1 id="title">BugSearch</h1>
+            </a>
+             <div class="search-input">
+                <form id="search" action="#">
+                  <input type="text" placeholder="Type Something" id='searchText' name="searchKeyword" onkeypress="handle" />
+                  <i class="fa fa-search"></i>
+                </form>
+              </div>
+            <ul class="nav"> 
+                <li class="scroll-to-section"><a href="{{ url_for('user_home')}}">Home</a></li>
+                <li class="scroll-to-section"><a href="{{ url_for('dashboard')}}">Username</a></li>
+                <li class="scroll-to-section"><a href="{{ url_for('logout')}}">Logout</a></li>
+                <li class="scroll-to-section"><a href="{{ url_for('help_with_login')}}">Help</a></li>
+            </ul>   
+              <a class='menu-trigger'>
+                  <span>Menu</span>
+              </a> 
+
+        </nav>
+    </header>
+
+    <div class="section events" id="events">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <div class="section-heading">
+            <!-- <h6>Schedule</h6> -->
+            <h2>Posted Questions</h2>
+          </div>
+        </div>
+        <div class="col-lg-12 col-md-6">
+          <div class="item">
+            <div class="row">
+              <div class="col-lg-12">
+                <ul>
+                  <li class>
+                    <span class="category"><button type="button" class="btn btn-secondary">Delete</button></span>
+                    <!-- <a href="#"><span class="category">Question</span></a> -->
+                    <h4>Application run using RunOnce registry key does not start when logged in using Enter-PSSession</h4>
+                  </li>
+                </ul>
+                <a href="#"><i class="fa fa-angle-right"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-12 col-md-6">
+            <div class="item">
+              <div class="row">
+                <div class="col-lg-12">
+                  <ul>
+                    <li>
+                        <span class="category"><button type="button" class="btn btn-secondary">Delete</button></span>
+                        <h4>Application run using RunOnce registry key does not start when logged in using Enter-PSSession</h4>
+                    </li>
+                  </ul>
+                  <a href="#"><i class="fa fa-angle-right"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-12 col-md-6">
+            <div class="item">
+              <div class="row">
+                <div class="col-lg-12">
+                  <ul>
+                    <li>
+                        <span class="category"><button type="button" class="btn btn-secondary">Delete</button></span>
+                        <h4>Application run using RunOnce registry key does not start when logged in using Enter-PSSession</h4>
+                    </li>
+                  </ul>
+                  <a href="#"><i class="fa fa-angle-right"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+
+        <div class="content-wrapper">
+            <div class="line"></div>
+        </div>
+    </div>
+</div>
+</body>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="assets/js/isotope.min.js"></script>
+<script src="assets/js/owl-carousel.js"></script>
+<script src="assets/js/counter.js"></script>
+<script src="assets/js/custom.js"></script>
+<script src="assets/js/our.js"></script>
+
+
+</body>
+</html>
