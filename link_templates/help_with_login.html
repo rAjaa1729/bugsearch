@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&family=Ubuntu:wght@700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter&family=Poppins:wght@400;600;700&display=swap"
+        rel="stylesheet">
+
+    <title>Scholar - Online School HTML5 Template</title>
+
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/css/fontawesome.css">
+    <link rel="stylesheet" href="assets/css/templatemo-scholar.css">
+    <link rel="stylesheet" href="assets/css/owl.css">
+    <link rel="stylesheet" href="assets/css/animate.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="assets/css/our_c.css">
+    <link rel="stylesheet" href="assets/css/side.css">
+
+</head>
+</head>
+<div class="wrapper">
+    <nav id="sidebar">
+        <div class="sidebar-header">
+            <h3>BBBOOTSTRAP</h3>
+            <hr>
+        </div>
+        <ul class="list-unstyled components navbar-nav mr-auto">
+            <p>Username</p>
+            <li> <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="navtab">User Profile</a></li>
+            <li> <a href="{{url_for('user_home')}}">User Home</a> </li>
+            <li> <a href="{{url_for('complete_your_profile')}}">Edit Profile</a> </li>
+            <li> <a href="{{url_for('followers')}}">Followers</a> </li>
+            <li> <a href="{{url_for('following')}}">Following</a> </li>
+            <li> <a href="{{url_for('badges')}}">Badges</a> </li>
+            <li> <a href="{{url_for('trending')}}">Trending</a> </li>
+            <li> <a href="{{url_for('recommendations')}}">Recommendations</a> </li>
+            <li> <a href="{{url_for('all_users')}}">All Users</a> </li>
+            <li> <a href="{{url_for('bookmarks')}}">Bookmarks</a> </li>
+            <li> <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Post</a>
+                <ul class="collapse list-unstyled" id="pageSubmenu">
+                    <li> <a href="#">Post Question</a> </li>
+                    <li> <a href="#">Post Answer</a> </li>
+                    <li> <a href="#">Post Comment</a> </li>
+                </ul>
+            </li>
+            <li> <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Posted</a>
+                <ul class="collapse list-unstyled" id="pageSubmenu">
+                    <li> <a href="{{url_for('posted_questions')}}">Posted Questions</a> </li>
+                    <li> <a href="{{url_for('posted_answers')}}">Posted Answers</a> </li>
+                    <li> <a href="{{url_for('posted_comments')}}">Posted Comments</a> </li>
+                </ul>
+            </li>
+    </nav>
+    <div class="content">
+        <header class="header-area header-sticky background-header fixed-topp">
+            <nav class="main-nav navcolor navbar-dark">
+                <button type="button" id="sidebarCollapse" class="btn btn-info info"> <i
+                        class="fa fa-align-justify"></i> </button>
+                <a href="{{url_for('homepage')}}" class="logo ">
+                    <h1 id="title">BugSearch</h1>
+                </a>
+                <div class="search-input">
+                    <form id="search" action="#">
+                        <input type="text" placeholder="Type Something" id='searchText' name="searchKeyword"
+                            onkeypress="handle" />
+                        <i class="fa fa-search"></i>
+                    </form>
+                </div>
+                <ul class="nav">
+                    <li class="scroll-to-section"><a href="{{url_for('homepage')}}">Home</a></li>
+                    <li class="scroll-to-section"><a href="{{url_for('userlogin')}}">Login</a></li>
+                    <li class="scroll-to-section"><a href="{{url_for('signup')}}">Sign Up</a></li>
+                    <li class="scroll-to-section"><a href="{{url_for('help_with_login')}}">Help</a></li>
+                </ul>
+                <a class='menu-trigger'>
+                    <span>Menu</span>
+                </a>
+
+            </nav>
+        </header>
+        <div class="col-lg-7 align-self-center">
+            <div class="sh_help content-wrapper">
+              <!-- <h6>About Us</h6> -->
+              <h2>Frequently Asked Questions ( FAQs ) </h2><br>
+              <p>1.What is Bug Search?<br>
+                  Bug Search is a question and answer website for professional and enthusiast programmers. Users can post questions related to programming, and other users can provide answers and suggestions.</p>
+                  <br>
+               <p>  2. How do I ask a good question on Bug Search?<br>
+                  To ask a good question on Bug Search, make sure to do your research first, be specific about your problem, provide code examples and error messages, and format your question properly.
+              </p> <br>
+              <p>  3. How do I answer a question on Bug Search?<br>
+                  To answer a question on Bug Search, make sure to read the question carefully, provide a clear and concise answer, and provide supporting evidence such as code examples or references.
+              </p> <br>
+              <p>   4.What are tags in Bug Search?<br>
+                  Tags are keywords or labels that are attached to a question on Bug Search. They help categorize questions and make them easier to find for other users who are interested in that particular topic.
+              </p> <br>    
+              <p>   5. How do I earn reputation points on Bug Search?<br>
+                  Users can earn reputation points on Bug Search by asking and answering questions, editing posts
+                  .</p> <br>
+              <p>    6. Are there any rules or guidelines for using Bug Search?<br>
+                  Yes, Bug Search has a code of conduct that all users are expected to follow. This includes guidelines for respectful and constructive communication, avoiding spam and self-promotion, and maintaining a helpful and welcoming community.
+              </p>   <br>
+               <p>7. How can I improve my experience on Bug Search?<br>
+                  To improve your experience on Bug Search, be respectful to other users, ask clear and specific questions, and provide helpful and informative answers. Additionally, actively participating in the community and learning from others can help you improve your skills and knowledge as a programmer</p>
+              </p>   
+                  <div class="main-button">
+                <!-- <a href="#">Join Now</a> -->
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+
+        <!-- <footer>
+            <div class="container">
+              <div class="col-lg-12">
+                <p>Copyright © 2036 Scholar Organization. All rights reserved. &nbsp;&nbsp;&nbsp; Design: <a href="https://templatemo.com" rel="nofollow" target="_blank">TemplateMo</a></p>
+              </div>
+            </div>
+          </footer> -->
+        
+          <!-- Scripts -->
+          <!-- Bootstrap core JavaScript -->
+          <script src="vendor/jquery/jquery.min.js"></script>
+          <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+          <script src="assets/js/isotope.min.js"></script>
+          <script src="assets/js/owl-carousel.js"></script>
+          <script src="assets/js/counter.js"></script>
+          <script src="assets/js/custom.js"></script>
+          <!-- <script src="assets/js/our.jss"></script> -->
+        
+          </body>
+        </html>
