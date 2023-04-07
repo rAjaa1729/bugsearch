@@ -5,7 +5,7 @@ from flask_bcrypt import Bcrypt
 from flask_login import  UserMixin, login_user, LoginManager, login_required, current_user, logout_user
 
 
-newapp = Flask(__name__,template_folder='./responsive_frontend')
+newapp = Flask(__name__,template_folder='responsive_frontend')
 bcrypt = Bcrypt(newapp)
 newapp.config['SECRET_KEY'] = 'sql@Prism1920'
 
