@@ -94,9 +94,11 @@ CREATE TABLE Tags
 
 CREATE TABLE Followertags
 (
+    fid INT AUTO_INCREMENT NOT NULL,
     follower_id INT NOT NULL,
     following_id INT NOT NULL,
-    PRIMARY KEY (follower_id,following_id),
+    creation_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY(fid),
     FOREIGN KEY (follower_id) REFERENCES Users(user_id),
     FOREIGN KEY (following_id) REFERENCES Users(user_id)
 );
@@ -118,3 +120,17 @@ CREATE TABLE Questiontags
     FOREIGN KEY (tag_id) REFERENCES Tags(tag_id),
     FOREIGN KEY (question_id) REFERENCES Questions(question_id)
 );
+
+CREATE TABLE Bookmarks
+(
+    Bookmark_id INT AUTO_INCREMENT NOT NULL,
+    creation_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    user_id INT NOT NULL,
+    post_id INT NOT NULL,
+    post_type ENUM('question', 'answer') NOT NULL,
+    PRIMARY KEY(Bookmark_id),
+    FOREIGN KEY (user_id) REFERENCES Users(user_id),
+    FOREIGN KEY (post_id) REFERENCES Questions(question_id) ,
+    FOREIGN KEY (post_id) REFERENCES Answers(answer_id) 
+);
+
