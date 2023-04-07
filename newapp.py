@@ -167,13 +167,13 @@ def dashboard():
     return render_template("dashboard.html")
 
 @login_required
-@newapp("/users/followers", methods=["GET",])
-def dashboard():
+@newapp.route("/users/followers", methods=["GET",])
+def followers():
     return render_template("followers.html")
 
 @login_required
-@newapp("/users/following", methods=["GET",])
-def dashboard():
+@newapp.route("/users/following", methods=["GET",])
+def following():
     return render_template("following.html")
 
 
@@ -198,7 +198,7 @@ def answers():
     return render_template('posted_answers.html')
 
 @login_required
-@newapp('/users/recommendations',methods=['GET',])
+@newapp.route('/users/recommendations',methods=['GET',])
 def recommendations():
     return render_template('recommendations.html')
 
@@ -265,7 +265,7 @@ def userlogin():
 def help():
     return render_template("help.html")
             
-@newapp.route('tags',methods=['GET',])
+@newapp.route('/tags',methods=['GET',])
 def tags():
     return render_template('tags.html')
 
