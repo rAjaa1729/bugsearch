@@ -27,14 +27,14 @@ login_manager.id_attribute ='get_id'
 #-------different class object---------------
 # user class with usermixin
 class User(UserMixin):
-    def __init__(self, user_id , email_id, passcode, username,creation_date,profile_image,reputation_points,about,badge,nfollowing,nfollower):
+    def __init__(self, user_id , email_id, passcode, username,creation_date,profile_image_url,reputation_points,about,badge,nfollowing,nfollower):
         
         self.user_id = user_id
         self.email_id = email_id
         self.passcode = passcode
         self.username = username
         self.creation_date=creation_date
-        self.profile_image=profile_image
+        self.profile_image_url=profile_image_url
         self.reputation_points=reputation_points
         self.about=about
         self.badge=badge
@@ -83,6 +83,7 @@ class User(UserMixin):
         hashed_passcode =bcrypt.generate_password_hash(passcode)
         query = "INSERT INTO users (email_id, passcode, username) VALUES (%s, %s, %s)"
         cursor.execute(query, (email_id, hashed_passcode, username))
+        my_db.commit()
         user_id=cursor.lastrowid
         query="SELECT * FROM USERS WHERE user_id=%s"
         cursor.execute(query,(user_id,))
@@ -90,7 +91,20 @@ class User(UserMixin):
         my_db.commit()
         cursor.close()
         return User(*row)
-
+    
+    @staticmethod
+    def update_profile(user,about,profile_image_url,tags):
+        cursor=my_db.cursor(dictionary=True)
+        query="UPDATE Users SET about=%s,profile_image_url=%s WHERE user_id=%s"
+        val=(about,profile_image_url,user.user_id)
+        cursor.execute(query,val) 
+        my_db.commit()
+        cursor.execute("SELECT * FROM Users WHERE user_id=%s",(user.user_id,))
+        row=cursor.fetchone()
+        cursor.close()
+        # i am not handling tags till now
+        return User(*row)
+    
     def check_passcode(self, passcode):
         return bcrypt.check_password_hash(self.passcode, passcode)
 
@@ -115,10 +129,12 @@ class Question():
         query="INSERT INTO QUESTIONS (title,body,user_id) VALUES(%s,%s,%s)"
         cursor=my_db.execute(query,(title,body,current_user.user_id))
         question_id=cursor.lastrowid
+        my_db.commit()
         for tag in tags:
             query="INSERT INTO Questiontags (tag_id,question_id) VALUES(%s,%s)"
             cursor.execute(query,(tag.tag_id,question_id))
         cursor.close()
+        my_db.commit()
         if question_id is None:
             return "failed", 400
         else:
@@ -197,6 +213,7 @@ class Answer():
         query="INSERT INTO Answers (body,user_id,question_id) VALUES(%s,%s,%s)"
         cursor=my_db.execute(query,(body,current_user.current_user.user_id,question_id))
         answer_id=cursor.lastrowid
+        my_db.commit()
         cursor.close()
         if answer_id is None:
             return "failed", 400
@@ -241,6 +258,7 @@ class Comment():
         query="INSERT INTO Comments (body,user_id,post_id,post_type) VALUES(%s,%s,%s,%s)"
         cursor=my_db.execute(query,(body,current_user.current_user.user_id,post_id,post_type))
         comment_id=cursor.lastrowid
+        my_db.commit()
         cursor.close()
         if comment_id is None:
             return "failed", 400
@@ -261,11 +279,11 @@ def load_user(user_id):
 
 @login_required
 @newapp.route('/users/user_home',methods=["GET",])
-def user_home(user):
+def user_home():
     # cur = my_db.cursor(dictionary=True)
     # cur.execute('SELECT * FROM Questions')
     # questions = cur.fetchall()
-    return render_template('user_home.html',user=user)
+    return render_template('user_home.html',user=current_user)
 
 @login_required
 @newapp.route('/logout',methods=['GET',])
@@ -320,10 +338,15 @@ def bookmarks(user):
 
 @login_required
 @newapp.route("/users/complete_your_profile",methods=["GET",'POST'])
-def complete_your_profile(user):
-    # if request.method=='POST':
-
-    return render_template("complete_your_profile.html",user=user)
+def complete_your_profile():
+    if request.method=='POST':
+        # image_url=request.form['profile_image_url']
+        profile_image_url = request.form.get('profile_image_url', '')
+        about=request.form['about']
+        tags=request.form['tags']
+        user=User.update_profile(user=current_user,profile_image_url  = profile_image_url,tags=tags,about=about)
+        return redirect(url_for('user_home',user=user))
+    return render_template("complete_your_profile.html",user=current_user)
 
 @login_required
 @newapp.route('/users/dashboard', methods=['GET',])
@@ -378,9 +401,9 @@ def trending(user):
 
 @newapp.route('/signup', methods=('GET', 'POST'))
 def signup():
-    if(current_user.is_authenticated):
-        return redirect(url_for('user_home'))
-    elif request.method == 'POST':
+    # if(current_user.is_authenticated):
+    #     return redirect(url_for('user_home'))
+    if request.method == 'POST':
         email_id = request.form['email_id']
         username = request.form['username']
         passcode = request.form['passcode']
@@ -397,7 +420,7 @@ def signup():
         else:
             user=User.create(username=username,email_id=email_id,passcode=passcode)
             login_user(user)
-            return redirect(url_for('complete_your_profile',user=user))
+            return redirect(url_for('complete_your_profile'))
     return render_template('signup.html')
 
 

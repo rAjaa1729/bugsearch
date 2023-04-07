@@ -59,7 +59,7 @@ https://templatemo.com/tm-586-scholar
             <div class="col-12">
                 <nav class="main-nav navcolor navbar-dark">
                     <!-- ***** Logo Start ***** -->
-                    <a href="index.html" class="logo">
+                    <a href="{{url_for('homepage')}}" class="logo">
                         <h1 id="title">BugSearch</h1>
                     </a>
                     <!-- ***** Logo End ***** -->
@@ -75,10 +75,10 @@ https://templatemo.com/tm-586-scholar
                     <ul class="nav">
                       <!-- <li class="scroll-to-section"><a href="#top" class="active">Home</a></li> -->
                       <!-- <li class="scroll-to-section"><a href="#services">Login</a></li> -->
-                      <li class="scroll-to-section"><a href="#courses">Home</a></li>
-                      <li class="scroll-to-section"><a href="#team">Login</a></li>
-                      <li class="scroll-to-section"><a href="#events">Sign Up</a></li>
-                      <li class="scroll-to-section"><a href="#contact">Help</a></li>
+                      <li class="scroll-to-section"><a href="{{url_for('homepage')}}">Home</a></li>
+                      <li class="scroll-to-section"><a href="{{url_for('userlogin')}}">Login</a></li>
+                      <li class="scroll-to-section"><a href="{{url_for('signup')}}">Sign Up</a></li>
+                      <li class="scroll-to-section"><a href="{{url_for('help')}}">Help</a></li>
                   </ul>   
                     <a class='menu-trigger'>
                         <span>Menu</span>
@@ -117,14 +117,14 @@ https://templatemo.com/tm-586-scholar
                 <div class="col-lg-12">
                   <span class="tagline">Username</span>
                   <fieldset>
-                    <input type="name" name="name" id="name" placeholder="Your Username..." autocomplete="on" required>
+                    <input type="name" name="username" id="username" placeholder="Your Username..." autocomplete="on" required value="{{request.form['username']}}">
                   </fieldset>
                 </div>
                 <br>
                 <div class="col-lg-12">
                   <span class="tagline">Password</span>
                   <fieldset>
-                    <input type="password" name="email" id="email" pattern="[^ @]*@[^ @]*" placeholder="Your Password..." required="">
+                    <input type="password" name="passcode" id="passcode"  placeholder="Your Password..." required="" value="{{request.form['passcode']}}">
                   </fieldset>
                 </div>
                 <!-- <div class="col-lg-12">
@@ -134,7 +134,7 @@ https://templatemo.com/tm-586-scholar
                 </div> -->
                 <div class="col-lg-12">
                   <fieldset>
-                    <button type="submit" id="form-submit" class="orange-button">Login</button>
+                    <button type="submit" id="form-submit" class="orange-button" ">Login</button>
                   </fieldset>
                 </div>
               </div>
