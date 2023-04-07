@@ -22,7 +22,7 @@ my_db=get_db_connection()
 login_manager = LoginManager()
 login_manager.init_app(newapp)
 login_manager.login_view = 'login'
-login_manager.id_attribute = 'user_id'
+login_manager.id_attribute = 'get_id'
 
 
 # user class with usermixin
@@ -33,9 +33,9 @@ class User(UserMixin):
         self.email_id = email_id
         self.passcode = passcode
         self.username = username
-        
+
     def get_id(self):
-        return  str(self.user_id)
+        return str(self.user_id)
     
     @staticmethod
     def find_by_email_id(email_id):
@@ -45,7 +45,6 @@ class User(UserMixin):
         row = cursor.fetchone()
         cursor.close()
         if row:
-            # return User(user_id=row[0],passcode=row[1],username=row[2],email_id=row[3])
             return User(*row)
         return None
 
@@ -58,19 +57,17 @@ class User(UserMixin):
         row = cursor.fetchone()
         cursor.close()
         if row:
-            # return User(user_id=row[0],passcode=row[1],username=row[2],email_id=row[3])
             return User(*row)
         return None
 
     
     @staticmethod
-    def get_id(user_id):
+    def get(user_id):
         cursor = my_db.cursor()
         query = "SELECT user_id,passcode,username,email_id FROM users WHERE user_id = %s"
         cursor.execute(query, (user_id,))
         row = cursor.fetchone()
         if row:
-            # return User(user_id=row[0],passcode=row[1],username=row[2],email_id=row[3])
             return User(*row)
 
     @staticmethod
@@ -95,21 +92,43 @@ def load_user(user_id):
     return User.get(int(user_id))
 
     
-@newapp.route('/',methods=["GET"])
-def login_home():
-    return render_template('login_home.html')
+# -------------logged user--------------------------------
 
 @login_required
-@newapp.route('/user_home',methods=["GET",])
-def user_home(user):
-    cur = my_db.cursor(dictionary=True)
-    cur.execute('SELECT * FROM Questions')
-    questions = cur.fetchall()
-    return render_template('user_home.html', user=user)
+@newapp.route('/users/user_home',methods=["GET",])
+def user_home():
+    user=current_user
+    # cur = my_db.cursor(dictionary=True)
+    # cur.execute('SELECT * FROM Questions')
+    # questions = cur.fetchall()
+    return render_template('user_home.html')
+
+@login_required
+@newapp.route('/logout',methods=['GET',])
+def logout():
+    logout_user()
+    return redirect(url_for('userlogin'))
+
+@login_required
+@newapp.route("/users/help",methods=["GET",])
+def user_help():
+    return render_template("user_help.html")
+
+
+
+@login_required
+@newapp.route('/users/bookmarks')
+def user_bookmarks():
+    return render_template('bookmarks.html')
+
+
+
 
 @newapp.route('/signup', methods=('GET', 'POST'))
 def signup():
-    if request.method == 'POST':
+    if(current_user.is_authenticated):
+        return redirect(url_for('user_home'))
+    elif request.method == 'POST':
         email_id = request.form['email_id']
         username = request.form['username']
         passcode = request.form['passcode']
@@ -126,40 +145,49 @@ def signup():
         else:
             user=User.create(username=username,email_id=email_id,passcode=passcode)
             login_user(user)
-            return redirect(url_for('user_home', user=user))
+            return redirect(url_for('user_home'))
     return render_template('signup.html')
+
 
 
 @newapp.route("/login",methods=["GET","POST"])
 def userlogin():
-    if (request.method=="POST"):
+    if(current_user.is_authenticated):
+        return redirect(url_for('user_home'))
+    elif (request.method=="POST"):
         username=request.form["username"]
         passcode=request.form["passcode"]
+        remember = True if request.form.get('remember') else False
         if not username:
             flash("Username is required")
         if not passcode:
             flash("Password is required")
         else:
             user=User.find_by_username(username=username)
-            if (user is None) or user.check_passcode(passcode=passcode) :
+            if (user is None) or (user.check_passcode(passcode=passcode)) :
                 flash("Incorrect passcode or username")
                 return render_template('login.html')
             else:
                 flash("Login successfully")
-                login_user(user) 
-                return redirect(url_for('user_home',user))
+                login_user(user,remember=remember) 
+                return redirect(url_for('user_home'))
     return render_template("login.html")
 
+@newapp.route('/help',methods=["GET",])
+def logout_help():
+    if(current_user.is_authenticated):
+        return redirect(url_for('user_help'))
+    return render_template("logout_help.html")
             
-@newapp.route("/help",methods=["GET",])
-def help_page():
-    return render_template("help_page.html")
+
 
 @newapp.route("/forgot_password",methods=["GET"])
 def forgot_password():  
     return render_template('forgot_password.html')
 
-
+@newapp.route('/',methods=["GET"])
+def login_home():
+    return render_template('login_home.html')
 
 
 
