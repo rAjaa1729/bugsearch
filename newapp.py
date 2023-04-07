@@ -139,20 +139,7 @@ def logout():
 #             flash('Question posted successfully!', 'success')
 #             return redirect(url_for('main.home'))
 
-@login_required
-@newapp.route("/users/questions",methods=["GET","POST","DELETE"])
-def questions():
-    return render_template('posted_questions.html')
 
-@login_required
-@newapp.route("/users/comments",methods=["GET","POST","DELETE"])
-def comments():
-    return render_template('posted_comments.html')
-
-@login_required
-@newapp.route("/users/answers",methods=["GET","POST","DELETE"])
-def answers():
-    return render_template('posted_answers.html')
 
 @login_required
 @newapp.route('/users/all_users',methods=["GET",])
@@ -163,6 +150,11 @@ def all_users():
 @newapp.route("/users/badges",methods=["GET",])
 def badges():
     return render_template('badges.html')
+
+@login_required
+@newapp.route('/users/bookmarks',methods=['GET',])
+def user_bookmarks():
+    return render_template('bookmarks.html')
 
 @login_required
 @newapp.route("/users/complete_your_profile",methods=["GET",'POST'])
@@ -184,12 +176,41 @@ def dashboard():
 def dashboard():
     return render_template("following.html")
 
+
 @login_required
-@newapp.route('/users/bookmarks')
-def user_bookmarks():
-    return render_template('bookmarks.html')
+@newapp.route('/users/help_with_login',methods=['GET',])
+def help_with_login():
+    return render_template('help_with_login.html')
 
+@login_required
+@newapp.route("/users/questions",methods=["GET","POST","DELETE"])
+def questions():
+    return render_template('posted_questions.html')
 
+@login_required
+@newapp.route("/users/comments",methods=["GET","POST","DELETE"])
+def comments():
+    return render_template('posted_comments.html')
+
+@login_required
+@newapp.route("/users/answers",methods=["GET","POST","DELETE"])
+def answers():
+    return render_template('posted_answers.html')
+
+@login_required
+@newapp('/users/recommendations',methods=['GET',])
+def recommendations():
+    return render_template('recommendations.html')
+
+@login_required
+@newapp.route('/users/tags',methods=['GET',])
+def tags_login():
+    return render_template('tag_login.html')
+
+@login_required
+@newapp.route('/users/trending',methods=['GET',])
+def trending():
+    return render_template('trending.html')
 
 @newapp.route('/signup', methods=('GET', 'POST'))
 def signup():
@@ -244,7 +265,9 @@ def userlogin():
 def help():
     return render_template("help.html")
             
-
+@newapp.route('tags',methods=['GET',])
+def tags():
+    return render_template('tags.html')
 
 @newapp.route("/forgot_password",methods=["GET"])
 def forgot_password():  
@@ -254,9 +277,13 @@ def forgot_password():
 def reset_password():
     return render_template('password_reset_2.html')
 
+@newapp.route('/search',methods=["GET"])
+def search_without_login():
+    return render_template('search_without_login.html')
+
 @newapp.route('/',methods=["GET"])
-def login_home():
-    return render_template('login_home.html')
+def homepage():
+    return render_template('index.html')
 
 
 
