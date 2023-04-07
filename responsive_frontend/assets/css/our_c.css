@@ -150,3 +150,10 @@ input::-webkit-input-placeholder {
     color: #49BBBD;
     font-style: normal;
   }
+.sh_help{
+  margin-left: 52px;
+  margin-top: 93px;
+  padding-top: 26px;
+  width: 150%;
+  padding-bottom: 26px;
+}
