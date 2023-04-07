@@ -1,0 +1,152 @@
+#title{
+    font-family: Poppins;
+}
+.tagline{
+    font-size: 23px;
+    font-family: Montserrat; 
+    font-weight:700;
+    color: white;
+}
+.title1{
+    line-height: 28px;
+}
+.brand{
+    font-size: 32px;
+    font-family: Montserrat; 
+    font-weight:700;
+    color: white;
+    text-decoration: underline;
+}
+.fixed-topp{
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    padding-left: 0px;
+    z-index: 1030;
+}
+.sec-head{
+color: #49BBBD;
+font-size: 28px;
+text-transform: none;
+font-weight: 600;
+}
+.ch {
+    margin-top: 119px;
+    position: relative;
+    padding: 50px 0px;
+}
+.eg{
+    margin-left: -234px;
+    margin-right: 276px;
+    /* margin-top: 10px; */
+}
+.abus{
+    margin-top: 184px;
+}
+.abus1{
+    margin-top: 145px;
+}
+.tagi{
+    border-radius: 50px;
+}
+.sh{
+    margin-left:-140px;
+    padding-top: 26px;
+    padding-bottom: 26px;
+}
+.hp{
+    margin-top: 202px;
+}
+.guide{
+    font-size: 14px;
+    color: white;
+}
+.box2{
+    margin-top:43px;
+}
+input#image,input#store_name, input#store_type,input#owner_type, input#website,input#contact_number,input#contact_email {
+    padding:0 40px;
+    width:40%;
+    height:55px;
+    border: 1px solid #dadada;
+    color: grey;
+    text-align:justify;
+    outline: none;
+    letter-spacing: 1px;
+    font-size: 16px;
+    font-weight:normal;
+    font-family: 'Muli', sans-serif;
+    border-radius:30px;
+    -webkit-border-radius:30px;
+    -moz-border-radius:30px;
+    -o-border-radius:30px;
+    -ms-border-radius:30px; 
+    width: 100%;
+    height: 120px;
+    border-radius: 25px;
+    background-color: rgba(249, 235, 255, 0.15);
+    border: none;
+    outline: none;
+    font-weight: 300;
+    padding: 20px;
+    font-size: 14px;
+    color: #000000;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 3;
+}
+.chi{
+    background-color: #49BBBD;
+    border-width: 0px;
+}
+/* input#image:focus,input#store_name:focus, input#store_type:focus,input#owner_type:focus, input#website:focus,input#contact_number:focus,input#contact_email:focus  {
+    /* background-color:white; !important; */
+    /* border:1px solid #dadada; */
+/* } */ 
+input::-webkit-input-placeholder {
+    color: grey;
+    } 
+    input:-moz-placeholder { /* Firefox 18- */
+    color: grey;  
+    } 
+    input::-moz-placeholder {  /* Firefox 19+ */
+    color: grey;  
+    } 
+    input:-ms-input-placeholder {  
+    color: grey;  
+    }
+    label.header {
+        font-size: 16px;
+        font-weight: 500;
+        width: 215px;
+        color: rgb(255, 255, 255);
+        margin-right:10px;
+        text-align:justify;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        display: inline-block;
+        font-family: 'Nunito', sans-serif;
+    }
+#choose_file{
+    padding-top: 11px;
+}
+/* #form-control input{
+    padding-top: 11px;
+} */
+/* #hi{
+    padding-top: 11px;
+} */
+
+.section-heading_home h2 {
+    font-size: 47px;
+    font-weight: 600;
+    text-transform: capitalize;
+    margin: 20px 0;
+    line-height: 44px;
+  }
+  
+  .section-heading_home h2 em {
+    color: #49BBBD;
+    font-style: normal;
+  }
