@@ -118,10 +118,6 @@ def logout():
 
 
 
-@login_required
-@newapp.route('/users/bookmarks')
-def user_bookmarks():
-    return render_template('bookmarks.html')
 
 # @login_required
 # @newapp.route('/users/questions',methods=['GET','POST','UPDATE','DELETE'])
@@ -157,6 +153,36 @@ def comments():
 @newapp.route("/users/answers",methods=["GET","POST","DELETE"])
 def answers():
     return render_template('posted_answers.html')
+
+@login_required
+@newapp.route('/users/all_users',methods=["GET",])
+def all_users():
+    return render_template('all_users.html')
+
+@login_required
+@newapp.route("/users/badges",methods=["GET",])
+def badges():
+    return render_template('badges.html')
+
+@login_required
+@newapp.route("/users/complete_your_profile",methods=["GET",'POST'])
+def complete_your_profile():
+    return render_template("complete_your_profile.html")
+
+@login_required
+@newapp.route('/users/dashboard', methods=['GET',])
+def dashboard():
+    return render_template("dashboard.html")
+
+@login_required
+@newapp("/users/dashboard", methods=["GET",])
+def dashboard():
+    return render_template("dashboard.html")
+
+@login_required
+@newapp.route('/users/bookmarks')
+def user_bookmarks():
+    return render_template('bookmarks.html')
 
 
 
