@@ -111,16 +111,29 @@ class Question():
         self.downvotes=downvotes
     @staticmethod
     def post_question(title,body,tags):
+        cursor=my_db.cursor(dictionary=True)
         query="INSERT INTO QUESTIONS (title,body,user_id) VALUES(%s,%s,%s)"
         cursor=my_db.execute(query,(title,body,current_user.user_id))
         question_id=cursor.lastrowid
         for tag in tags:
             query="INSERT INTO Questiontags (tag_id,question_id) VALUES(%s,%s)"
             cursor.execute(query,(tag.tag_id,question_id))
+        cursor.close()
         if question_id is None:
             return "failed", 400
         else:
             return "Successfully posted",200
+        
+    @staticmethod
+    def find_by_question_id(question_id):
+        query="SELECT * FROM Questions WHERE question_id=%s"
+        cursor=my_db.cursor(dictionary=True)
+        cursor.execute(query,(question_id))
+        row=cursor.fetchone()
+        if row:
+            return Question(*row)
+        return None
+
         
 # -----class for Answer object--------------
 class Answer():
@@ -136,8 +149,33 @@ class Answer():
         self.downvotes=downvotes
 
     @staticmethod
-    def post_answer():
-        
+    def post_answer(question_id,body):
+        cursor=my_db.cursor(dictionary=True)
+        query="INSERT INTO Answers (body,user_id,question_id) VALUES(%s,%s,%s)"
+        cursor=my_db.execute(query,(body,current_user.current_user.user_id,question_id))
+        answer_id=cursor.lastrowid
+        cursor.close()
+        if answer_id is None:
+            return "failed", 400
+        else:
+            return "Successfully posted",200
+    
+    @staticmethod
+    def find_by_answer_id(answer_id):
+        query="SELECT * FROM Answers WHERE answer_id=%s"
+        cursor=my_db.cursor(dictionary=True)
+        cursor.execute(query,(answer_id))
+        row=cursor.fetchone()
+        if row:
+            return Answer(*row)
+        return None
+
+# ----comments class-----------------
+
+class Comment():
+    def __init__(self):
+        pass
+
 
 # create user loader function
 @login_manager.user_loader
