@@ -175,9 +175,14 @@ def dashboard():
     return render_template("dashboard.html")
 
 @login_required
-@newapp("/users/dashboard", methods=["GET",])
+@newapp("/users/followers", methods=["GET",])
 def dashboard():
-    return render_template("dashboard.html")
+    return render_template("followers.html")
+
+@login_required
+@newapp("/users/following", methods=["GET",])
+def dashboard():
+    return render_template("following.html")
 
 @login_required
 @newapp.route('/users/bookmarks')
@@ -243,7 +248,11 @@ def help():
 
 @newapp.route("/forgot_password",methods=["GET"])
 def forgot_password():  
-    return render_template('forgot_password.html')
+    return render_template('password_reset_1.html')
+
+@newapp.route("/reset_password",methods=["GET",'POST'])
+def reset_password():
+    return render_template('password_reset_2.html')
 
 @newapp.route('/',methods=["GET"])
 def login_home():
