@@ -111,10 +111,10 @@ def logout():
     logout_user()
     return redirect(url_for('userlogin'))
 
-@login_required
-@newapp.route("/users/help",methods=["GET",])
-def user_help():
-    return render_template("user_help.html")
+# @login_required
+# @newapp.route("/users/help",methods=["GET",])
+# def user_help():
+#     return render_template("user_help.html")
 
 
 
@@ -142,7 +142,22 @@ def user_bookmarks():
 #             db.session.commit()
 #             flash('Question posted successfully!', 'success')
 #             return redirect(url_for('main.home'))
-        
+
+@login_required
+@newapp.route("/users/questions",methods=["GET","POST","DELETE"])
+def questions():
+    return render_template('posted_questions.html')
+
+@login_required
+@newapp.route("/users/comments",methods=["GET","POST","DELETE"])
+def comments():
+    return render_template('posted_comments.html')
+
+@login_required
+@newapp.route("/users/answers",methods=["GET","POST","DELETE"])
+def answers():
+    return render_template('posted_answers.html')
+
 
 
 @newapp.route('/signup', methods=('GET', 'POST'))
@@ -195,10 +210,8 @@ def userlogin():
     return render_template("login.html")
 
 @newapp.route('/help',methods=["GET",])
-def logout_help():
-    if(current_user.is_authenticated):
-        return redirect(url_for('user_help'))
-    return render_template("logout_help.html")
+def help():
+    return render_template("help.html")
             
 
 
