@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- @login_required not necessary-->
+
   <head>
 
     <meta charset="utf-8">
@@ -14,18 +14,16 @@
     <title>Scholar - Online School HTML5 Template</title>
 
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}">
-
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 
     <!-- Additional CSS Files -->
-    <!-- <link rel="stylesheet" href="./assets/css/fontawesome.css"> -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/fontawesome.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/templatemo-scholar.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/owl.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/animate.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/our_c.css') }}">
+    <link rel="stylesheet" href="assets/css/fontawesome.css">
+    <link rel="stylesheet" href="assets/css/templatemo-scholar.css">
+    <link rel="stylesheet" href="assets/css/owl.css">
+    <link rel="stylesheet" href="assets/css/animate.css">
     <link rel="stylesheet"href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="assets/css/our_c.css">
     
 
 <!--
@@ -59,7 +57,7 @@ https://templatemo.com/tm-586-scholar
             <div class="col-12">
                 <nav class="main-nav navcolor navbar-dark">
                     <!-- ***** Logo Start ***** -->
-                    <a href="{{url_for('homepage')}}" class="logo">
+                    <a href="index.html" class="logo">
                         <h1 id="title">BugSearch</h1>
                     </a>
                     <!-- ***** Logo End ***** -->
@@ -75,10 +73,10 @@ https://templatemo.com/tm-586-scholar
                     <ul class="nav">
                       <!-- <li class="scroll-to-section"><a href="#top" class="active">Home</a></li> -->
                       <!-- <li class="scroll-to-section"><a href="#services">Login</a></li> -->
-                      <li class="scroll-to-section"><a href="{{url_for('homepage')}}">Home</a></li>
-                      <li class="scroll-to-section"><a href="{{url_for('userlogin')}}">Login</a></li>
-                      <li class="scroll-to-section"><a href="{{url_for('signup')}}">Sign Up</a></li>
-                      <li class="scroll-to-section"><a href="{{url_for('help')}}">Help</a></li>
+                      <li class="scroll-to-section"><a href="#courses">Home</a></li>
+                      <li class="scroll-to-section"><a href="#team">Login</a></li>
+                      <li class="scroll-to-section"><a href="#events">Sign Up</a></li>
+                      <li class="scroll-to-section"><a href="#contact">Help</a></li>
                   </ul>   
                     <a class='menu-trigger'>
                         <span>Menu</span>
@@ -90,7 +88,6 @@ https://templatemo.com/tm-586-scholar
     </div>
   </header>
   <!-- ***** Header Area End ***** --> 
-  
 
   <div class="contact-us ch section" id="contact">
     <div class="container">
@@ -109,7 +106,6 @@ https://templatemo.com/tm-586-scholar
               <h4>Special Offer <em>50%</em> OFF!</h4>
               <a href="#"><i class="fa fa-angle-right"></i></a>
             </div> -->
-            
           </div>
         </div>
         <div class="col-lg-6">
@@ -119,14 +115,14 @@ https://templatemo.com/tm-586-scholar
                 <div class="col-lg-12">
                   <span class="tagline">Username</span>
                   <fieldset>
-                    <input type="name" name="username" id="username" placeholder="Your Username..." autocomplete="on" required value="{{request.form['username']}}">
+                    <input type="name" name="name" id="name" placeholder="Your Username..." autocomplete="on" required>
                   </fieldset>
                 </div>
                 <br>
                 <div class="col-lg-12">
                   <span class="tagline">Password</span>
                   <fieldset>
-                    <input type="password" name="passcode" id="passcode"  placeholder="Your Password..." required="" value="{{request.form['passcode']}}">
+                    <input type="password" name="email" id="email" pattern="[^ @]*@[^ @]*" placeholder="Your Password..." required="">
                   </fieldset>
                 </div>
                 <!-- <div class="col-lg-12">
@@ -136,7 +132,7 @@ https://templatemo.com/tm-586-scholar
                 </div> -->
                 <div class="col-lg-12">
                   <fieldset>
-                    <button type="submit" id="form-submit" class="orange-button" ">Login</button>
+                    <button type="submit" id="form-submit" class="orange-button">Login</button>
                   </fieldset>
                 </div>
               </div>
@@ -155,16 +151,14 @@ https://templatemo.com/tm-586-scholar
     </div>
   </footer>
 
-
-  
   <!-- Scripts -->
   <!-- Bootstrap core JavaScript -->
-  <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='assets/js/isotope.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='assets/js/owl-carousel.js') }}"></script>
-  <script src="{{ url_for('static', filename='assets/js/counter.js') }}"></script>
-  <script src="{{ url_for('static', filename='assets/js/custom.js') }}"></script>
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+  <script src="assets/js/isotope.min.js"></script>
+  <script src="assets/js/owl-carousel.js"></script>
+  <script src="assets/js/counter.js"></script>
+  <script src="assets/js/custom.js"></script>
   <!-- <script src="assets/js/our.jss"></script> -->
 
   </body>
