@@ -95,6 +95,49 @@ class User(UserMixin):
         return bcrypt.check_password_hash(self.passcode, passcode)
 
 
+#---questions class----
+class Question():
+    def __init__(self,question_id,title,body,answer_id,user_id,score,creation_date,upvotes,downvotes,answer_count,comment_count):
+        self.question_id=question_id 
+        self.title=title 
+        self.body=body 
+        self.answer_id=answer_id 
+        self.user_id=user_id 
+        self.score=score 
+        self.creation_date=creation_date 
+        self.comment_count=comment_count 
+        self.answer_count=answer_count 
+        self.upvotes=upvotes 
+        self.downvotes=downvotes
+    @staticmethod
+    def post_question(title,body,tags):
+        query="INSERT INTO QUESTIONS (title,body,user_id) VALUES(%s,%s,%s)"
+        cursor=my_db.execute(query,(title,body,current_user.user_id))
+        question_id=cursor.lastrowid
+        for tag in tags:
+            query="INSERT INTO Questiontags (tag_id,question_id) VALUES(%s,%s)"
+            cursor.execute(query,(tag.tag_id,question_id))
+        if question_id is None:
+            return "failed", 400
+        else:
+            return "Successfully posted",200
+        
+# -----class for Answer object--------------
+class Answer():
+    def __init__(self,question_id,body,answer_id,user_id,score,creation_date,upvotes,downvotes,comment_count):
+        self.question_id=question_id 
+        self.body=body 
+        self.answer_id=answer_id 
+        self.user_id=user_id 
+        self.score=score 
+        self.creation_date=creation_date 
+        self.comment_count=comment_count 
+        self.upvotes=upvotes 
+        self.downvotes=downvotes
+
+    @staticmethod
+    def post_answer():
+        
 
 # create user loader function
 @login_manager.user_loader
