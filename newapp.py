@@ -85,7 +85,7 @@ class User(UserMixin):
         cursor.execute(query, (email_id, hashed_passcode, username))
         user_id=cursor.lastrowid
         query="SELECT * FROM USERS WHERE user_id=%s"
-        cursor.execute(query,(user_id))
+        cursor.execute(query,(user_id,))
         row=cursor.fetchone()
         my_db.commit()
         cursor.close()
@@ -321,6 +321,8 @@ def bookmarks(user):
 @login_required
 @newapp.route("/users/complete_your_profile",methods=["GET",'POST'])
 def complete_your_profile(user):
+    # if request.method=='POST':
+
     return render_template("complete_your_profile.html",user=user)
 
 @login_required
@@ -420,7 +422,7 @@ def userlogin():
             else:
                 flash("Login successfully")
                 login_user(user,remember=remember) 
-                return redirect(url_for('user_home'))
+                return redirect(url_for('user_home',user=user))
     return render_template("login.html")
 
 @newapp.route('/help',methods=["GET",])
