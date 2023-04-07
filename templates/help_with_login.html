@@ -22,9 +22,9 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/templatemo-scholar.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/owl.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/animate.css') }}">
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/our_c.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/side.css') }}">
-    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
 
 </head>
 </head>
@@ -38,15 +38,16 @@
             <p>Username</p>
             <li> <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="navtab">User Profile</a>
             </li>
-            <li> <a href="#">User Home</a> </li>
-            <li> <a href="#">Edit Profile</a> </li>
-            <li> <a href="#">Followers</a> </li>
-            <li> <a href="#">Following</a> </li>
-            <li> <a href="#">Badges</a> </li>
-            <li> <a href="#">Trending</a> </li>
-            <li> <a href="#">Recommendations</a> </li>
-            <li> <a href="#">All Users</a> </li>
-            <li> <a href="#">Bookmarks</a> </li>
+
+            <li> <a href="{{url_for('user_home',user=current_user)}}">User Home</a> </li>
+            <li> <a href="{{url_for('complete_your_profile',user=current_user)}}">Edit Profile</a> </li>
+            <li> <a href="{{url_for('followers',user=current_user)}}">Followers</a> </li>
+            <li> <a href="{{url_for('followers',user=current_user)}}">Following</a> </li>
+            <li> <a href="{{url_for('badges',user=current_user)}}">Badges</a> </li>
+            <li> <a href="{{url_for('trending',user=current_user)}}">Trending</a> </li>
+            <li> <a href="{{url_for('recommendations',user=current_user)}}">Recommendations</a> </li>
+            <li> <a href="{{url_for('all_users',user=current_user)}}">All Users</a> </li>
+            <li> <a href="{{url_for('bookmarks',user=current_user)}}">Bookmarks</a> </li>
             <li> <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Post</a>
                 <ul class="collapse list-unstyled" id="pageSubmenu">
                     <li> <a href="#">Post Question</a> </li>

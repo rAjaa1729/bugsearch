@@ -80,7 +80,7 @@ class User(UserMixin):
     @staticmethod
     def create(email_id, passcode, username):
         cursor = my_db.cursor()
-        hashed_passcode =bcrypt.generate_password_hash(passcode)
+        hashed_passcode =bcrypt.generate_password_hash(passcode).decode('utf-8')
         query = "INSERT INTO users (email_id, passcode, username) VALUES (%s, %s, %s)"
         cursor.execute(query, (email_id, hashed_passcode, username))
         my_db.commit()
@@ -104,9 +104,6 @@ class User(UserMixin):
         cursor.close()
         # i am not handling tags till now
         return User(*row)
-    
-    def check_passcode(self, passcode):
-        return bcrypt.check_password_hash(self.passcode, passcode)
 
 
 #---questions class----
@@ -366,8 +363,8 @@ def following(user):
 
 @login_required
 @newapp.route('/users/help_with_login',methods=['GET',])
-def help_with_login(user):
-    return render_template('help_with_login.html',user=user)
+def help_with_login():
+    return render_template('help_with_login.html',user=current_user)
 
 @login_required
 @newapp.route("/users/questions",methods=["GET","POST","DELETE"])
@@ -439,8 +436,11 @@ def userlogin():
             flash("Password is required")
         else:
             user=User.find_by_username(username=username)
-            if (user is None) or (user.check_passcode(passcode=passcode)) :
-                flash("Incorrect passcode or username")
+            if (user is None):
+                flash("Incorrect passcode ")
+                return render_template('login.html')
+            elif (bcrypt.check_password_hash(user.passcode,passcode)):
+                flash("Incorrect password ")
                 return render_template('login.html')
             else:
                 flash("Login successfully")

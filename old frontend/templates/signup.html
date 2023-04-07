@@ -26,14 +26,14 @@
                   <!-- <button type="button" class="btn btn-primary sign-up-page-rectangle79 sign-up-page-text02 ">Register</button> -->
                   <!-- <span class="sign-up-page-text02"><span>Register</span></span> -->
                 
-                <div class="container">
-                  {% for message in get_flashed_messages() %}
-                  {% if message is defined %}  
-                      <div class="alert alert-danger">{{ message }}</div>
-                  {% endif %}
-                  {% endfor %} 
-                  {% block content %} {% endblock %}
-              </div>
+                  <div class="container">
+                    {% for message in get_flashed_messages() %}
+                    {% if message is defined %}  
+                        <div class="alert alert-danger">{{ message }}</div>
+                    {% endif %}
+                    {% endfor %} 
+                    {% block content %} {% endblock %}
+                </div>
             </div>
                 <span class="sign-up-page-text04">
                   <span>Welcome to BugSearch!</span>
