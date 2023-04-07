@@ -3,7 +3,7 @@ from flask import Flask, render_template, request, url_for, flash, redirect
 from werkzeug.exceptions import abort
 from flask_bcrypt import Bcrypt  
 from flask_login import  UserMixin, login_user, LoginManager, login_required, current_user, logout_user
-
+from datetime import datetime
 
 newapp = Flask(__name__)
 bcrypt = Bcrypt(newapp)
@@ -24,23 +24,30 @@ login_manager.init_app(newapp)
 login_manager.login_view = 'login'
 login_manager.id_attribute = 'get_id'
 
-
+#-------different class object---------------
 # user class with usermixin
 class User(UserMixin):
-    def __init__(self, user_id , email_id, passcode, username):
+    def __init__(self, user_id , email_id, passcode, username,creation_date,profile_image,reputation_points,about,badge,nfollowing,nfollower):
         
         self.user_id = user_id
         self.email_id = email_id
         self.passcode = passcode
         self.username = username
-
+        self.creation_date=creation_date
+        self.profile_image=profile_image
+        self.reputation_points=reputation_points
+        self.about=about
+        self.badge=badge
+        self.nfollowing=nfollowing
+        self.nfollower=nfollower
+        
     def get_id(self):
         return str(self.user_id)
     
     @staticmethod
     def find_by_email_id(email_id):
         cursor = my_db.cursor(dictionary=True)
-        query = "SELECT user_id,passcode,username,email_id FROM users WHERE email_id = %s"
+        query = "SELECT * FROM users WHERE email_id = %s"
         cursor.execute(query, (email_id,))
         row = cursor.fetchone()
         cursor.close()
@@ -52,7 +59,7 @@ class User(UserMixin):
     @staticmethod
     def find_by_username(username):
         cursor = my_db.cursor(dictionary=True)
-        query = "SELECT user_id,passcode,username,email_id FROM users WHERE username = %s"
+        query = "SELECT * FROM users WHERE username = %s"
         cursor.execute(query, (username,))
         row = cursor.fetchone()
         cursor.close()
@@ -64,7 +71,7 @@ class User(UserMixin):
     @staticmethod
     def get(user_id):
         cursor = my_db.cursor()
-        query = "SELECT user_id,passcode,username,email_id FROM users WHERE user_id = %s"
+        query = "SELECT * FROM users WHERE user_id = %s"
         cursor.execute(query, (user_id,))
         row = cursor.fetchone()
         if row:
@@ -77,9 +84,12 @@ class User(UserMixin):
         query = "INSERT INTO users (email_id, passcode, username) VALUES (%s, %s, %s)"
         cursor.execute(query, (email_id, hashed_passcode, username))
         user_id=cursor.lastrowid
+        query="SELECT * FROM USERS WHERE user_id=%s"
+        cursor.execute(query,(user_id))
+        row=cursor.fetchone()
         my_db.commit()
         cursor.close()
-        return User(user_id=user_id, email_id=email_id,passcode=hashed_passcode, username=username)
+        return User(*row)
 
     def check_passcode(self, passcode):
         return bcrypt.check_password_hash(self.passcode, passcode)
