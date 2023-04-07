@@ -90,7 +90,9 @@ class User(UserMixin):
 @login_manager.user_loader
 def load_user(user_id):
     return User.get(int(user_id))
-
+#------------------update into database---------------------
+def post_questions():
+    
     
 # -------------logged user--------------------------------
 
@@ -121,7 +123,26 @@ def user_help():
 def user_bookmarks():
     return render_template('bookmarks.html')
 
-
+@login_required
+@newapp.route('/users/questions',methods=['GET','POST','UPDATE','DELETE'])
+def user_question():
+     if request.method == 'POST':
+        title = request.form['title']
+        content = request.form['content']
+        tags=request.form['tags']
+        if not title:
+            flash('Title is required.', 'error')
+        elif not content:
+            flash('Content is required.', 'error')
+        elif not tags:
+            flash('tags required.', 'error')
+        else:
+            question = Question(title=title, content=content, author=current_user)
+            db.session.add(question)
+            db.session.commit()
+            flash('Question posted successfully!', 'success')
+            return redirect(url_for('main.home'))
+        
 
 
 @newapp.route('/signup', methods=('GET', 'POST'))
