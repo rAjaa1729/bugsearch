@@ -6,11 +6,11 @@ USE BugSearch;
 CREATE TABLE Users
 (
     user_id INT NOT NULL AUTO_INCREMENT,
-    passcode VARCHAR(200) NOT NULL,
-    username VARCHAR(30) NOT NULL,
-    email_id VARCHAR(40) NOT NULL,
+    passcode VARCHAR(200) NOT NULL ,
+    username VARCHAR(30) NOT NULL UNIQUE,
+    email_id VARCHAR(40) NOT NULL UNIQUE,
     creation_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    profile_image_url VARCHAR(30),
+    profile_image_url VARCHAR(150),
     reputation INT NOT NULL DEFAULT 0,
     about TEXT,
     badge ENUM('bronze', 'silver', 'gold') NOT NULL DEFAULT 'bronze',

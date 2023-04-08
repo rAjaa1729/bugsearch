@@ -12,7 +12,6 @@ newapp = Flask(__name__)
 newapp.config['SECRET_KEY'] = 'sql@Prism1920'
 
 
-
 def get_db_connection():
     mydb = mysql.connector.connect(
         host = "localhost",
@@ -22,6 +21,7 @@ def get_db_connection():
     )
     return mydb
 
+my_db=get_db_connection()
 
 # create login manager
 login_manager = LoginManager()
@@ -60,7 +60,6 @@ class User(UserMixin):
         query = "SELECT * FROM Users WHERE email_id = %s"
         cursor.execute(query, (email_id,))
         row = cursor.fetchone()
-        cursor.close()
         my_db.close()
         if row:
             return User(**row)
@@ -74,7 +73,7 @@ class User(UserMixin):
         query = "SELECT * FROM users WHERE username = %s"
         cursor.execute(query, (username,))
         row = cursor.fetchone()
-        cursor.close()
+        # cursor.close()
         my_db.close()
         if row:
             return User(**row)
@@ -88,7 +87,7 @@ class User(UserMixin):
         query = "SELECT * FROM users WHERE user_id = %s"
         cursor.execute(query, (user_id,))
         row = cursor.fetchone()
-        cursor.close()
+        # cursor.close()
         my_db.close()
         if row:
             return User(**row)
@@ -107,8 +106,8 @@ class User(UserMixin):
         query="SELECT * FROM USERS WHERE user_id=%s"
         cursor.execute(query,(user_id,))
         row=cursor.fetchone()
-        my_db.commit()
-        cursor.close()
+        # my_db.commit()
+        # cursor.close()
         my_db.close()
         return User(**row)
     
@@ -122,9 +121,7 @@ class User(UserMixin):
         my_db.commit()
         cursor.execute("SELECT * FROM Users WHERE user_id=%s",(user.user_id,))
         row=cursor.fetchone()
-        cursor.close()
         my_db.close()
-        # i am not handling tags till now
         return User(**row)
 
 
@@ -508,4 +505,3 @@ def homepage():
 
 if __name__=="__main__":
     newapp.run(debug=True)
-    #host=

@@ -46,7 +46,7 @@ class TestUser(unittest.TestCase):
     def test_find_by_email_id_success(self):
         result=User.find_by_email_id(email_id="aastha@gmail.com")
         self.assertIsInstance(result, User)
-        self.assertEqual(result.email_id, "aastha@example.com")
+        self.assertEqual(result.email_id, "aastha@gmail.com")
         self.assertEqual(result.username, "Aastha")
 
     def test_find_by_username_success(self):
@@ -58,7 +58,7 @@ class TestUser(unittest.TestCase):
     def test_get(self):
         result=User.get(user_id=21)
         self.assertIsInstance(result,User)
-        self.assertEqual(result.get,21)
+        self.assertEqual(result.user_id,21)
         self.assertEqual(result.username,"Aastha")
 
     def test_create(self):
@@ -67,11 +67,11 @@ class TestUser(unittest.TestCase):
         self.assertEqual(result.email_id,"aastha@gmail.com")
         self.assertEqual(result.username,"Aastha")
         self.assertEqual(result.passcode,"aastha")
-        cursor = self.my_db.cursor()
+        cursor = self.my_db.cursor(dictionary=True)
         cursor.execute("SELECT * FROM users WHERE user_id = %s", (result.user_id,))
         row = cursor.fetchone()
         cursor.close()
-        expected_user = User(*row)
+        expected_user = User(**row)
         self.assertEqual(result, expected_user)
 
     # def test_update_profile(self):
