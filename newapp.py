@@ -1,14 +1,14 @@
 import mysql.connector
-from flask import Flask, render_template, request, url_for, flash, redirect
+from flask import Flask, render_template, request, url_for, flash, redirect,jsonify
 from werkzeug.exceptions import abort
 # from flask_bcrypt import Bcrypt  
-import hashlib
+# import hashlib
 from flask_login import  UserMixin, login_user, LoginManager, login_required, current_user, logout_user
 
-salt = "my_salt"
+# hashfun=hashlib.new("SHA256")
 
 newapp = Flask(__name__)
-# bcrypt = Bcrypt(newapp)
+# bcrypt = Bcrypt()
 newapp.config['SECRET_KEY'] = 'sql@Prism1920'
 
 
@@ -90,9 +90,8 @@ class User(UserMixin):
     @staticmethod
     def create(email_id, passcode, username):
         cursor = my_db.cursor()
-        password_salt=passcode+salt
-        hashed_passcode = hashlib.sha256(password_salt.encode()).hexdigest()
-        # hashed_passcode =bcrypt.generate_password_hash(passcode).decode('utf-8')
+        # hashed_passcode=bcrypt.hashpw(passcode.encode('utf-8'), bcrypt.gensalt())
+        hashed_passcode=passcode
         query = "INSERT INTO users (email_id, passcode, username) VALUES (%s, %s, %s)"
         cursor.execute(query, (email_id, hashed_passcode, username))
         my_db.commit()
@@ -284,23 +283,18 @@ class Comment():
 @login_required
 @newapp.route('/users/user_home',methods=["GET",])
 def user_home():
+    # if(current_user.is_authenticated):
     # cur = my_db.cursor(dictionary=True)
     # cur.execute('SELECT * FROM Questions')
     # questions = cur.fetchall()
-    return render_template('user_home.html',user=current_user)
+    return render_template('user_home.html',user=User.find_by_email_id(email_id=current_user.email_id))
+    # return render_template('help.html')
 
 @login_required
 @newapp.route('/logout',methods=['GET',])
 def logout():
     logout_user()
     return redirect(url_for('userlogin'))
-
-# @login_required
-# @newapp.route("/users/help",methods=["GET",])
-# def user_help():
-#     return render_template("user_help.html")
-
-
 
 
 # @login_required
@@ -460,18 +454,20 @@ def userlogin():
             flash("Password is required")
         else:
             user=User.find_by_username(username=username)
-            password_salt=passcode+salt
-            hashed_password = hashlib.sha256(password_salt.encode()).hexdigest()
+            # hashfun.update(passcode.encode())
+            # hashed_password=hashfun.hexdigest()
+            # hashed_password = hashlib.sha256(password_salt.encode()).hexdigest()
             if (user is None):
                 flash("Incorrect passcode ")
                 return render_template('login.html')
-            elif (hashed_password==user.passcode):
+            # elif (bcrypt.checkpw(passcode.encode('utf-8'), user.passcode)):
+            elif (passcode!=user.passcode):
                 flash("Incorrect password ")
                 return render_template('login.html')
             else:
                 flash("Login successfully")
                 login_user(user,remember=remember) 
-                return redirect(url_for('user_home',user=user))
+                return redirect(url_for('user_home'))
     return render_template("login.html")
 
 @newapp.route('/help',methods=["GET",])

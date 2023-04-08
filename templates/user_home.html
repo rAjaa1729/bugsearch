@@ -77,7 +77,7 @@
               </div>
             <ul class="nav"> 
                 <li class="scroll-to-section"><a href="{{url_for('user_home')}}">Home</a></li>
-                <li class="scroll-to-section"><a href="{{url_for('dashboard')}}">{{current_user.username}}</a></li>
+                <li class="scroll-to-section"><a href="{{url_for('dashboard')}}">{{user.username}}</a></li>
                 <li class="scroll-to-section"><a href="{{url_for('logout')}}">Logout</a></li>
                 <li class="scroll-to-section"><a href="{{url_for('help_with_login')}}">Help</a></li>
             </ul>   
