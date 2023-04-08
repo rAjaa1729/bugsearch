@@ -70,7 +70,7 @@ class User(UserMixin):
     def find_by_username(username):
         my_db=get_db_connection()
         cursor = my_db.cursor(dictionary=True)
-        query = "SELECT * FROM users WHERE username = %s"
+        query = "SELECT * FROM Users WHERE username = %s"
         cursor.execute(query, (username,))
         row = cursor.fetchone()
         # cursor.close()
@@ -84,7 +84,7 @@ class User(UserMixin):
     def get(user_id):
         my_db=get_db_connection()
         cursor = my_db.cursor(dictionary=True)
-        query = "SELECT * FROM users WHERE user_id = %s"
+        query = "SELECT * FROM Users WHERE user_id = %s"
         cursor.execute(query, (user_id,))
         row = cursor.fetchone()
         # cursor.close()
@@ -99,11 +99,11 @@ class User(UserMixin):
         cursor = my_db.cursor(dictionary=True)
         # hashed_passcode=bcrypt.hashpw(passcode.encode('utf-8'), bcrypt.gensalt())
         hashed_passcode=passcode
-        query = "INSERT INTO users (email_id, passcode, username) VALUES (%s, %s, %s)"
+        query = "INSERT INTO Users (email_id, passcode, username) VALUES (%s, %s, %s)"
         cursor.execute(query, (email_id, hashed_passcode, username))
         my_db.commit()
         user_id=cursor.lastrowid
-        query="SELECT * FROM USERS WHERE user_id=%s"
+        query="SELECT * FROM Users WHERE user_id=%s"
         cursor.execute(query,(user_id,))
         row=cursor.fetchone()
         # my_db.commit()
@@ -142,7 +142,7 @@ class Question():
     @staticmethod
     def post_question(title,body,tags):
         cursor=my_db.cursor(dictionary=True)
-        query="INSERT INTO QUESTIONS (title,body,user_id) VALUES(%s,%s,%s)"
+        query="INSERT INTO Questions (title,body,user_id) VALUES(%s,%s,%s)"
         cursor=my_db.execute(query,(title,body,current_user.user_id))
         question_id=cursor.lastrowid
         my_db.commit()

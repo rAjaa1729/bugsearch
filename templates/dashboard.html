@@ -110,10 +110,11 @@
                     <!-- <span class="category">Username</span> -->
                     <!-- <h4 class="profile">Name : {{current_user.username}}</h4> -->
                     <h4 class="profile">About : {{current_user.about}}</h4>
-                    <!-- <h4 class="profile">email_id :{{current_user.email_id}} </h4>
-                    <h4 class="profile">passcode :{{current_user.passcode}} </h4>
-                    <h4 class="profile">user_id :{{current_user.user_id}} </h4>
-                    <h4 class="profile">creation_date :{{current_user.creation_date}} </h4> -->
+                    <h4 class="profile">Email_id :{{current_user.email_id}} </h4>
+                    <h4 class="profile">Badge : {{current_user.badge}}</h4>
+                    <!-- <h4 class="profile">passcode :{{current_user.passcode}} </h4>
+                    <h4 class="profile">user_id :{{current_user.user_id}} </h4> -->
+                    <h4 class="profile">Joined :{{current_user.creation_date}} </h4>
                   </li>
                 </ul>
                 <!-- <a href="#"><i class="fa fa-angle-right"></i></a> -->
@@ -147,8 +148,9 @@
             <img src="assets/images/service-02.png" alt="short courses">
           </div> -->
           <div class="main-content_pro pro-dashboard">
-            <h4 class="pro_h4">Badge</h4>
-            <h2>{{current_user.badge}}</h2>            
+            <h4 class="pro_h4">Reputation Points</h4>
+            <h2>{{current_user.reputation_points}}</h2>
+        
             <!-- <div class="main-button">
               <a href="#">Read More</a>
             </div> -->
@@ -162,8 +164,8 @@
             <img src="assets/images/service-03.png" alt="web experts">
           </div> -->
           <div class="main-content_pro pro-dashboard">
-            <h4 class="pro_h4">Reputation Points</h4>
-            <h2>{{current_user.reputation_points}}</h2>
+            <h4 class="pro_h4">Followings</h4>
+            <h2>{{current_user.nfollowing}}</h2>    
             <!-- <div class="main-button">
               <a href="#">Read More</a>
             </div> -->
