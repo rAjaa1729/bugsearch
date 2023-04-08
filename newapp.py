@@ -377,21 +377,21 @@ def help_with_login():
 @login_required
 @newapp.route("/users/questions",methods=["GET","POST","DELETE"])
 def questions():
-    if request.method=='post':
-        title=request.form['title']
-        body=request.form['body']
-        tags=request.form['tags']
-        if not title:
-            flash('Title is required.')
-        elif not body:
-            flash('Content is required.')
-        elif not tags:
-            flash('tags required.')
-        else:
-            question_id=Question.post_question(title=title, body=body, user_id=current_user.user_id)
-            if question_id:
-                flash('Question posted successfully!')
-                return redirect(url_for('user_home.html'))
+    # if request.method=='post':
+    #     title=request.form['title']
+    #     body=request.form['body']
+    #     tags=request.form['tags']
+    #     if not title:
+    #         flash('Title is required.')
+    #     elif not body:
+    #         flash('Content is required.')
+    #     elif not tags:
+    #         flash('tags required.')
+    #     else:
+    #         question_id=Question.post_question(title=title, body=body, user_id=current_user.user_id)
+    #         if question_id:
+    #             flash('Question posted successfully!')
+    #             return redirect(url_for('user_home.html'))
             
 
     return render_template('posted_questions.html',user=current_user)

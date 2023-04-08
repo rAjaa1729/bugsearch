@@ -24,7 +24,7 @@ class TestApp(unittest.TestCase):
                 email_id='test@example.com',
                 passcode='password'
             ), follow_redirects=True)
-
+            
             self.assertEqual(response.status_code, 200)
             self.assertTrue(b'Logged in successfully.' in response.data)
 
