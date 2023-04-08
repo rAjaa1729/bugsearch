@@ -21,12 +21,14 @@ def get_db_connection():
         database = "BugSearch"
     )
     return mydb
-my_db=get_db_connection()
+
+
 # create login manager
 login_manager = LoginManager()
 login_manager.init_app(newapp)
 login_manager.login_view = 'login'
 login_manager.id_attribute ='get_id'
+
 # create user loader function
 @login_manager.user_loader
 def load_user(user_id):
@@ -53,11 +55,13 @@ class User(UserMixin):
     
     @staticmethod
     def find_by_email_id(email_id):
+        my_db=get_db_connection()
         cursor = my_db.cursor(dictionary=True)
         query = "SELECT * FROM Users WHERE email_id = %s"
         cursor.execute(query, (email_id,))
         row = cursor.fetchone()
         cursor.close()
+        my_db.close()
         if row:
             return User(**row)
         return None
@@ -65,11 +69,13 @@ class User(UserMixin):
     
     @staticmethod
     def find_by_username(username):
+        my_db=get_db_connection()
         cursor = my_db.cursor(dictionary=True)
         query = "SELECT * FROM users WHERE username = %s"
         cursor.execute(query, (username,))
         row = cursor.fetchone()
         cursor.close()
+        my_db.close()
         if row:
             return User(**row)
         return None
@@ -77,17 +83,20 @@ class User(UserMixin):
     
     @staticmethod
     def get(user_id):
+        my_db=get_db_connection()
         cursor = my_db.cursor(dictionary=True)
         query = "SELECT * FROM users WHERE user_id = %s"
         cursor.execute(query, (user_id,))
         row = cursor.fetchone()
         cursor.close()
+        my_db.close()
         if row:
             return User(**row)
         return None
 
     @staticmethod
     def create(email_id, passcode, username):
+        my_db=get_db_connection()
         cursor = my_db.cursor(dictionary=True)
         # hashed_passcode=bcrypt.hashpw(passcode.encode('utf-8'), bcrypt.gensalt())
         hashed_passcode=passcode
@@ -100,10 +109,12 @@ class User(UserMixin):
         row=cursor.fetchone()
         my_db.commit()
         cursor.close()
+        my_db.close()
         return User(**row)
     
     @staticmethod
     def update_profile(user,about,profile_image_url,tags):
+        my_db=get_db_connection()
         cursor=my_db.cursor(dictionary=True)
         query="UPDATE Users SET about=%s,profile_image_url=%s WHERE user_id=%s"
         val=(about,profile_image_url,user.user_id)
@@ -112,6 +123,7 @@ class User(UserMixin):
         cursor.execute("SELECT * FROM Users WHERE user_id=%s",(user.user_id,))
         row=cursor.fetchone()
         cursor.close()
+        my_db.close()
         # i am not handling tags till now
         return User(**row)
 
@@ -496,3 +508,4 @@ def homepage():
 
 if __name__=="__main__":
     newapp.run(debug=True)
+    #host=

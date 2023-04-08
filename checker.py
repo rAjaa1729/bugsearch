@@ -17,6 +17,7 @@ def test_find_by_email_id(new_user):
     assert user is not None
     assert user.get_id() == new_user.get_id()
 
+
 def test_find_by_username(new_user):
     user = User.find_by_username("testuser")
     assert user is not None
