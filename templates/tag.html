@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
 
-    <title>Scholar - Online School HTML5 Template</title>
+    <title>BugSearch</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -73,10 +73,10 @@ https://templatemo.com/tm-586-scholar
                     <ul class="nav">
                       <!-- <li class="scroll-to-section"><a href="#top" class="active">Home</a></li> -->
                       <!-- <li class="scroll-to-section"><a href="#services">Login</a></li> -->
-                      <li class="scroll-to-section"><a href="#courses">Home</a></li>
-                      <li class="scroll-to-section"><a href="#team">Login</a></li>
-                      <li class="scroll-to-section"><a href="#events">Sign Up</a></li>
-                      <li class="scroll-to-section"><a href="#contact">Help</a></li>
+                      <li class="scroll-to-section"><a href="{{url_for('homepage')}}">Home</a></li>
+                      <li class="scroll-to-section"><a href="{{url_for('userlogin')}}">Login</a></li>
+                      <li class="scroll-to-section"><a href="{{url_for('signup')}}">Sign Up</a></li>
+                      <li class="scroll-to-section"><a href="{{url_for('help')}}">Help</a></li>
                   </ul>   
                     <a class='menu-trigger'>
                         <span>Menu</span>
@@ -163,7 +163,7 @@ https://templatemo.com/tm-586-scholar
   <footer>
     <div class="container">
       <div class="col-lg-12">
-        <p>Copyright © 2036 Scholar Organization. All rights reserved. &nbsp;&nbsp;&nbsp; Design: <a href="https://templatemo.com" rel="nofollow" target="_blank">TemplateMo</a></p>
+        <p>Copyright © 2036 BugSearch. All rights reserved. &nbsp;&nbsp;&nbsp; Design: BugSearch</p>
       </div>
     </div>
   </footer>
