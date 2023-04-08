@@ -2,6 +2,7 @@ import unittest
 from unittest.mock import patch, Mock
 from newapp import newapp, get_db_connection, User, load_user
 
+
 class TestApp(unittest.TestCase):
 
     def setUp(self):
@@ -10,7 +11,7 @@ class TestApp(unittest.TestCase):
 
     def test_register_login_logout(self):
         with self.client:
-            response = self.client.post('/register', data=dict(
+            response = self.client.post('/signup', data=dict(
                 email_id='test@example.com',
                 passcode='password',
                 username='test'

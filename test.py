@@ -1,10 +1,10 @@
 import unittest
 from unittest.mock import patch,Mock
 
-# from newapp import Question
+from newapp import Question
 from newapp import User
-# from newapp import Answer
-# from newapp import Comment
+from newapp import Answer
+from newapp import Comment
 import mysql.connector
 def get_db_connection():
     mydb = mysql.connector.connect(
@@ -29,10 +29,10 @@ class TestUser(unittest.TestCase):
         self.about="Hi"
         self.badge="Gold"
         self.nfollowing=0
-        self.nfollowers=0
+        self.nfollower=0
         self.my_db=my_db
     def test_init(self):
-        q = User(user_id=self.user_id,email_id=self.email_id,passcode=self.passcode,username=self.username,creation_date=self.creation_date,profile_image_url=self.profile_image_url,reputation_points=self.reputation_points,about=self.about,badge=self.badge,nfollowers=self.nfollowers,nfollowing=self.nfollowing)
+        q = User(user_id=self.user_id,email_id=self.email_id,passcode=self.passcode,username=self.username,creation_date=self.creation_date,profile_image_url=self.profile_image_url,reputation_points=self.reputation_points,about=self.about,badge=self.badge,nfollower=self.nfollower,nfollowing=self.nfollowing)
         self.assertEqual(q.user_id, self.user_id)
         self.assertEqual(q.passcode, self.passcode)
         self.assertEqual(q.username, self.username)
@@ -43,12 +43,12 @@ class TestUser(unittest.TestCase):
         self.assertEqual(q.about, self.about)
         self.assertEqual(q.badge, self.badge)
         self.assertEqual(q.nfollowing, self.nfollowing)
-        self.assertEqual(q.nfollowers, self.nfollowers)
+        self.assertEqual(q.nfollower, self.nfollower)
 
     def test_find_by_email_id_success(self):
         result=User.find_by_email_id(email_id="aastha@gmail.com")
         self.assertIsInstance(result, User)
-        self.assertEqual(result.email_id, "aastha@gmail.com")
+        self.assertEqual(result.email_id, "aastha@example.com")
         self.assertEqual(result.username, "Aastha")
 
     def test_find_by_username_success(self):
@@ -69,17 +69,17 @@ class TestUser(unittest.TestCase):
         self.assertEqual(result.email_id,"aastha@gmail.com")
         self.assertEqual(result.username,"Aastha")
         self.assertEqual(result.passcode,"aastha")
-        cursor = self.my_db.cursor(dictionary=True)
+        cursor = self.my_db.cursor()
         cursor.execute("SELECT * FROM users WHERE user_id = %s", (result.user_id,))
         row = cursor.fetchone()
         cursor.close()
-        expected_user = User(**row)
+        expected_user = User(*row)
         self.assertEqual(result, expected_user)
 
     def test_update_profile(self):
-        result=User.update_profile(user=self,about=self.about,profile_image_url=self.profile_image_url,tags="javascript")
+        result=User.update_profile(user=self,about=self.about,profile_image_url=self.profile_image_url)
         self.assertIsInstance(result,User)
-        # self.assertEqual(result.update_profile,0)
+        self.assertEqual(result.update_profile,0)
         self.assertEqual(result.about,"Hi")
         self.assertEqual(result.profile_image_url,"https://www.figma.com/file/7KFxGA0vLIeYhf85DahLUR/image/bd3feba159b8d237ee735e750cdc1002ebf458e1")
 
