@@ -35,18 +35,18 @@
             <hr>
         </div>
         <ul class="list-unstyled components navbar-nav mr-auto">
-            <p>Username</p>
-            <li> <a href="{{url_for('dashboard',user=current_user)}}" data-toggle="collapse" aria-expanded="false" class="navtab">User Profile</a></li>
-            
-            <li> <a href="{{url_for('user_home',user=current_user)}}">User Home</a> </li>
-            <li> <a href="{{url_for('complete_your_profile',user=current_user)}}">Edit Profile</a> </li>
-            <li> <a href="{{url_for('followers',user=current_user)}}">Followers</a> </li>
-            <li> <a href="{{url_for('followers',user=current_user)}}">Following</a> </li>
-            <li> <a href="{{url_for('badges',user=current_user)}}">Badges</a> </li>
-            <li> <a href="{{url_for('trending',user=current_user)}}">Trending</a> </li>
-            <li> <a href="{{url_for('recommendations',user=current_user)}}">Recommendations</a> </li>
-            <li> <a href="{{url_for('all_users',user=current_user)}}">All Users</a> </li>
-            <li> <a href="{{url_for('bookmarks',user=current_user)}}">Bookmarks</a> </li>
+            <!-- <p>{{user.username}}</p> -->
+            <p>{{user.username}}</p>
+            <li> <a href="{{url_for('dashboard')}}" data-toggle="collapse" aria-expanded="false" class="navtab">User Profile</a></li> 
+            <li> <a href="{{url_for('user_home')}}">User Home</a> </li>
+            <li> <a href="{{url_for('complete_your_profile')}}">Edit Profile</a> </li>
+            <li> <a href="{{url_for('followers')}}">Followers</a> </li>
+            <li> <a href="{{url_for('followers')}}">Following</a> </li>
+            <li> <a href="{{url_for('badges')}}">Badges</a> </li>
+            <li> <a href="{{url_for('trending')}}">Trending</a> </li>
+            <li> <a href="{{url_for('recommendations')}}">Recommendations</a> </li>
+            <li> <a href="{{url_for('all_users')}}">All Users</a> </li>
+            <li> <a href="{{url_for('bookmarks')}}">Bookmarks</a> </li>
             <li> <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Post</a>
                 <ul class="collapse list-unstyled" id="pageSubmenu">
                     <li> <a href="#">Post Question</a> </li>
@@ -56,9 +56,9 @@
             </li>
             <li> <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Posted</a>
                 <ul class="collapse list-unstyled" id="pageSubmenu">
-                    <li> <a href="{{url_for('questions',user=current_user)}}">Posted Questions</a> </li>
-                    <li> <a href="{{url_for('answers',user=current_user)}}">Posted Answers</a> </li>
-                    <li> <a href="{{url_for('comments',user=current_user)}}">Posted Comments</a> </li>
+                    <li> <a href="{{url_for('questions',)}}">Posted Questions</a> </li>
+                    <li> <a href="{{url_for('answers')}}">Posted Answers</a> </li>
+                    <li> <a href="{{url_for('comments')}}">Posted Comments</a> </li>
                 </ul>
             </li>
     </nav>
@@ -76,10 +76,10 @@
                 </form>
               </div>
             <ul class="nav"> 
-                <li class="scroll-to-section"><a href="{{url_for('user_home',user=current_user)}}">Home</a></li>
-                <li class="scroll-to-section"><a href="{{url_for('dashboard',user=current_user)}}">{{current_user.Username}}</a></li>
+                <li class="scroll-to-section"><a href="{{url_for('user_home')}}">Home</a></li>
+                <li class="scroll-to-section"><a href="{{url_for('dashboard')}}">{{current_user.username}}</a></li>
                 <li class="scroll-to-section"><a href="{{url_for('logout')}}">Logout</a></li>
-                <li class="scroll-to-section"><a href="{{url_for('help_with_login',user=current_user)}}">Help</a></li>
+                <li class="scroll-to-section"><a href="{{url_for('help_with_login')}}">Help</a></li>
             </ul>   
               <a class='menu-trigger'>
                   <span>Menu</span>

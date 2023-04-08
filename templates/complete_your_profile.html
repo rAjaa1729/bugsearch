@@ -60,7 +60,7 @@ https://templatemo.com/tm-586-scholar
             <div class="col-12">
                 <nav class="main-nav navcolor navbar-dark">
                     <!-- ***** Logo Start ***** -->
-                    <a href="index.html" class="logo">
+                    <a href="{{url_for('homepage')}}" class="logo">
                         <h1 id="title">BugSearch</h1>
                     </a>
                     <!-- ***** Logo End ***** -->
@@ -76,10 +76,10 @@ https://templatemo.com/tm-586-scholar
                     <ul class="nav">
                       <!-- <li class="scroll-to-section"><a href="#top" class="active">Home</a></li> -->
                       <!-- <li class="scroll-to-section"><a href="#services">Login</a></li> -->
-                      <li class="scroll-to-section"><a href="#courses">Home</a></li>
-                      <li class="scroll-to-section"><a href="#team">User</a></li>
-                      <li class="scroll-to-section"><a href="#events">Logout</a></li>
-                      <li class="scroll-to-section"><a href="#contact">Help</a></li>
+                      <li class="scroll-to-section"><a href="{{url_for('user_home')}}">Home</a></li>
+                      <li class="scroll-to-section"><a href="{{url_for('dashboard')}}">{{current_user.username}}</a></li>
+                      <li class="scroll-to-section"><a href="{{url_for('logout')}}">Logout</a></li>
+                      <li class="scroll-to-section"><a href="{{url_for('help_with_login')}}">Help</a></li>
                   </ul>   
                     <a class='menu-trigger'>
                         <span>Menu</span>
@@ -129,7 +129,7 @@ https://templatemo.com/tm-586-scholar
                     <div class="form-control chi choose_file">
                         <span class="tagline">Profile Photo</span>
                         
-                        <input class = "choose_file" id="image2" type="file" name="profile_image_url" placeholder="Photo" required="" value="{{request.form['profile_image_url']}}" capture>
+                        <input class = "choose_file" id="image2" type="file" name="profile_image_url" placeholder="Photo"  value="{{request.form['profile_image_url']}}" capture>
                     </div>
                     <!-- <span class="tagline">Password</span>
                     <fieldset>

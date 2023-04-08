@@ -57,7 +57,7 @@ https://templatemo.com/tm-586-scholar
             <div class="col-12">
                 <nav class="main-nav">
                     <!-- ***** Logo Start ***** -->
-                    <a href="index.html" class="logo">
+                    <a href="{{url_for('homepage')}}" class="logo">
                         <h1 id="title">BugSearch</h1>
                     </a>
                     <!-- ***** Logo End ***** -->
@@ -73,10 +73,10 @@ https://templatemo.com/tm-586-scholar
                     <ul class="nav">
                       <!-- <li class="scroll-to-section"><a href="#top" class="active">Home</a></li> -->
                       <!-- <li class="scroll-to-section"><a href="#services">Login</a></li> -->
-                      <li class="scroll-to-section"><a href="#courses">Home</a></li>
-                      <li class="scroll-to-section"><a href="#team">Login</a></li>
-                      <li class="scroll-to-section"><a href="#events">Sign Up</a></li>
-                      <li class="scroll-to-section"><a href="#contact">Help</a></li>
+                      <li class="scroll-to-section"><a href="{{url_for('homepage')}}">Home</a></li>
+                      <li class="scroll-to-section"><a href="{{url_for('userlogin')}}">Login</a></li>
+                      <li class="scroll-to-section"><a href="{{url_for('signup')}}">Sign Up</a></li>
+                      <li class="scroll-to-section"><a href="{{url_for('help')}}">Help</a></li>
                   </ul>   
                     <a class='menu-trigger'>
                         <span>Menu</span>

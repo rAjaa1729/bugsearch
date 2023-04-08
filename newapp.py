@@ -11,6 +11,8 @@ newapp = Flask(__name__)
 # bcrypt = Bcrypt(newapp)
 newapp.config['SECRET_KEY'] = 'sql@Prism1920'
 
+
+
 def get_db_connection():
     mydb = mysql.connector.connect(
         host = "localhost",
@@ -25,11 +27,15 @@ login_manager = LoginManager()
 login_manager.init_app(newapp)
 login_manager.login_view = 'login'
 login_manager.id_attribute ='get_id'
+# create user loader function
+@login_manager.user_loader
+def load_user(user_id):
+    return User.get(user_id)
 
 #-------different class object---------------
 # user class with usermixin
 class User(UserMixin):
-    def __init__(self, user_id , email_id, passcode, username,creation_date,profile_image_url,reputation_points,about,badge,nfollowing,nfollower):
+    def __init__(self, user_id ,  passcode, username,email_id,creation_date,profile_image_url,reputation_points,about,badge,nfollowing,nfollowers):
         
         self.user_id = user_id
         self.email_id = email_id
@@ -41,7 +47,7 @@ class User(UserMixin):
         self.about=about
         self.badge=badge
         self.nfollowing=nfollowing
-        self.nfollower=nfollower
+        self.nfollowers=nfollowers
         
     def get_id(self):
         return str(self.user_id)
@@ -94,6 +100,7 @@ class User(UserMixin):
         query="SELECT * FROM USERS WHERE user_id=%s"
         cursor.execute(query,(user_id,))
         row=cursor.fetchone()
+        # print(row[0])
         my_db.commit()
         cursor.close()
         return User(*row)
@@ -138,10 +145,7 @@ class Question():
             cursor.execute(query,(tag.tag_id,question_id))
         cursor.close()
         my_db.commit()
-        if question_id is None:
-            return "failed", 400
-        else:
-            return "Successfully posted",200
+        return question_id
         
     # for deleting question by question_id
     # @staticmethod
@@ -270,10 +274,7 @@ class Comment():
     
 
 
-# create user loader function
-@login_manager.user_loader
-def load_user(user_id):
-    return User.get(int(user_id))
+
 #------------------update into database---------------------
 # def post_questions():
 
@@ -310,11 +311,11 @@ def logout():
 #         content = request.form['content']
 #         tags=request.form['tags']
 #         if not title:
-#             flash('Title is required.', 'error')
+#             flash('Title is required.')
 #         elif not content:
-#             flash('Content is required.', 'error')
+#             flash('Content is required.')
 #         elif not tags:
-#             flash('tags required.', 'error')
+#             flash('tags required.')
 #         else:
 #             question = Question(title=title, content=content, author=current_user)
 #             db.session.add(question)
@@ -326,18 +327,18 @@ def logout():
 
 @login_required
 @newapp.route('/users/all_users',methods=["GET",])
-def all_users(user):
-    return render_template('all_users.html',user=user)
+def all_users():
+    return render_template('all_users.html',user=current_user)
 
 @login_required
 @newapp.route("/users/badges",methods=["GET",])
-def badges(user):
-    return render_template('badges.html',user=user)
+def badges():
+    return render_template('badges.html',user=current_user)
 
 @login_required
 @newapp.route('/users/bookmarks',methods=['GET',])
-def bookmarks(user):
-    return render_template('bookmarks.html',user=user)
+def bookmarks():
+    return render_template('bookmarks.html',user=current_user)
 
 @login_required
 @newapp.route("/users/complete_your_profile",methods=["GET",'POST'])
@@ -353,18 +354,18 @@ def complete_your_profile():
 
 @login_required
 @newapp.route('/users/dashboard', methods=['GET',])
-def dashboard(user):
-    return render_template("dashboard.html",user=user)
+def dashboard():
+    return render_template("dashboard.html",user=current_user)
 
 @login_required
 @newapp.route("/users/followers", methods=["GET",])
-def followers(user):
-    return render_template("followers.html",user=user)
+def followers():
+    return render_template("followers.html",user=current_user)
 
 @login_required
 @newapp.route("/users/following", methods=["GET",])
-def following(user):
-    return render_template("following.html",user)
+def following():
+    return render_template("following.html",user=current_user)
 
 
 @login_required
@@ -374,33 +375,50 @@ def help_with_login():
 
 @login_required
 @newapp.route("/users/questions",methods=["GET","POST","DELETE"])
-def questions(user):
-    return render_template('posted_questions.html',user=user)
+def questions():
+    if request.method=='post':
+        title=request.form['title']
+        body=request.form['body']
+        tags=request.form['tags']
+        if not title:
+            flash('Title is required.')
+        elif not body:
+            flash('Content is required.')
+        elif not tags:
+            flash('tags required.')
+        else:
+            question_id=Question.post_question(title=title, body=body, user_id=current_user.user_id)
+            if question_id:
+                flash('Question posted successfully!')
+                return redirect(url_for('user_home.html'))
+            
+
+    return render_template('posted_questions.html',user=current_user)
 
 @login_required
 @newapp.route("/users/comments",methods=["GET","POST","DELETE"])
-def comments(user):
-    return render_template('posted_comments.html',user)
+def comments():
+    return render_template('posted_comments.html',user=current_user)
 
 @login_required
 @newapp.route("/users/answers",methods=["GET","POST","DELETE"])
-def answers(user):
-    return render_template('posted_answers.html',user=user)
+def answers():
+    return render_template('posted_answers.html',user=current_user)
 
 @login_required
 @newapp.route('/users/recommendations',methods=['GET',])
-def recommendations(user):
-    return render_template('recommendations.html',user=user)
+def recommendations():
+    return render_template('recommendations.html',user=current_user)
 
 @login_required
 @newapp.route('/users/tags',methods=['GET',])
-def tags_login(user):
-    return render_template('tag_login.html',user=user)
+def tags_login():
+    return render_template('tag_login.html',user=current_user)
 
 @login_required
 @newapp.route('/users/trending',methods=['GET',])
-def trending(user):
-    return render_template('trending.html',user=user)
+def trending():
+    return render_template('trending.html',user=current_user)
 
 @newapp.route('/signup', methods=('GET', 'POST'))
 def signup():

@@ -39,15 +39,15 @@
             <li> <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="navtab">User Profile</a>
             </li>
 
-            <li> <a href="{{url_for('user_home',user=current_user)}}">User Home</a> </li>
-            <li> <a href="{{url_for('complete_your_profile',user=current_user)}}">Edit Profile</a> </li>
-            <li> <a href="{{url_for('followers',user=current_user)}}">Followers</a> </li>
-            <li> <a href="{{url_for('followers',user=current_user)}}">Following</a> </li>
-            <li> <a href="{{url_for('badges',user=current_user)}}">Badges</a> </li>
-            <li> <a href="{{url_for('trending',user=current_user)}}">Trending</a> </li>
-            <li> <a href="{{url_for('recommendations',user=current_user)}}">Recommendations</a> </li>
-            <li> <a href="{{url_for('all_users',user=current_user)}}">All Users</a> </li>
-            <li> <a href="{{url_for('bookmarks',user=current_user)}}">Bookmarks</a> </li>
+            <li> <a href="{{url_for('user_home')}}">User Home</a> </li>
+            <li> <a href="{{url_for('complete_your_profile')}}">Edit Profile</a> </li>
+            <li> <a href="{{url_for('followers')}}">Followers</a> </li>
+            <li> <a href="{{url_for('following')}}">Following</a> </li>
+            <li> <a href="{{url_for('badges')}}">Badges</a> </li>
+            <li> <a href="{{url_for('trending')}}">Trending</a> </li>
+            <li> <a href="{{url_for('recommendations')}}">Recommendations</a> </li>
+            <li> <a href="{{url_for('all_users')}}">All Users</a> </li>
+            <li> <a href="{{url_for('bookmarks')}}">Bookmarks</a> </li>
             <li> <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Post</a>
                 <ul class="collapse list-unstyled" id="pageSubmenu">
                     <li> <a href="#">Post Question</a> </li>
@@ -57,9 +57,9 @@
             </li>
             <li> <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Posted</a>
                 <ul class="collapse list-unstyled" id="pageSubmenu">
-                    <li> <a href="#">Posted Questions</a> </li>
-                    <li> <a href="#">Posted Answers</a> </li>
-                    <li> <a href="#">Posted Comments</a> </li>
+                    <li> <a href="{{url_for('questions')}}">Posted Questions</a> </li>
+                    <li> <a href="{{url_for('answers')}}">Posted Answers</a> </li>
+                    <li> <a href="{{url_for('comments')}}">Posted Comments</a> </li>
                 </ul>
             </li>
     </nav>
@@ -68,7 +68,7 @@
             <nav class="main-nav navcolor navbar-dark">
                 <button type="button" id="sidebarCollapse" class="btn btn-info info"> <i
                         class="fa fa-align-justify"></i> </button>
-                <a href="index.html" class="logo ">
+                <a href="{{url_for('homepage')}}" class="logo ">
                     <h1 id="title">BugSearch</h1>
                 </a>
                 <div class="search-input">
@@ -79,10 +79,10 @@
                     </form>
                 </div>
                 <ul class="nav">
-                    <li class="scroll-to-section"><a href="#courses">Home</a></li>
-                    <li class="scroll-to-section"><a href="#team">Username</a></li>
-                    <li class="scroll-to-section"><a href="#events">Logout</a></li>
-                    <li class="scroll-to-section"><a href="#contact">Help</a></li>
+                    <li class="scroll-to-section"><a href="{{url_for('homepage')}}">Home</a></li>
+                    <li class="scroll-to-section"><a href="{{url_for('dashboard')}}">Username</a></li>
+                    <li class="scroll-to-section"><a href="{{url_for('logout')}}">Logout</a></li>
+                    <li class="scroll-to-section"><a href="{{url_for('help_with_login')}}">Help</a></li>
                 </ul>
                 <a class='menu-trigger'>
                     <span>Menu</span>
