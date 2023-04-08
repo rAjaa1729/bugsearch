@@ -496,9 +496,5 @@ def search_without_login():
 def homepage():
     return render_template('index.html')
 
-
-
-
-
 if __name__=="__main__":
     newapp.run(debug=True)
