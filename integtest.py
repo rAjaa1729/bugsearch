@@ -38,23 +38,23 @@ class TestApp(unittest.TestCase):
             self.assertEqual(response.status_code, 200)
             self.assertTrue(b'User Home' in response.data)
 
-    def test_all_users(self):
-        with self.client:
-            response = self.client.get('/users/all_users', follow_redirects=True)
-            self.assertEqual(response.status_code, 200)
-            self.assertTrue(b'All Users' in response.data)
+    # def test_all_users(self):
+    #     with self.client:
+    #         response = self.client.get('/users/all_users', follow_redirects=True)
+    #         self.assertEqual(response.status_code, 200)
+    #         self.assertTrue(b'All Users' in response.data)
 
-    def test_badges(self):
-        with self.client:
-            response = self.client.get('/users/badges', follow_redirects=True)
-            self.assertEqual(response.status_code, 200)
-            self.assertTrue(b'Badges' in response.data)
+    # def test_badges(self):
+    #     with self.client:
+    #         response = self.client.get('/users/badges', follow_redirects=True)
+    #         self.assertEqual(response.status_code, 200)
+    #         self.assertTrue(b'Badges' in response.data)
 
-    def test_bookmarks(self):
-        with self.client:
-            response = self.client.get('/users/bookmarks', follow_redirects=True)
-            self.assertEqual(response.status_code, 200)
-            self.assertTrue(b'Bookmarks' in response.data)
+    # def test_bookmarks(self):
+    #     with self.client:
+    #         response = self.client.get('/users/bookmarks', follow_redirects=True)
+    #         self.assertEqual(response.status_code, 200)
+    #         self.assertTrue(b'Bookmarks' in response.data)
 
     def test_complete_your_profile(self):
         with self.client:

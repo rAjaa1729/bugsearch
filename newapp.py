@@ -290,19 +290,16 @@ class User(UserMixin):
 @login_required
 @newapp.route('/users/user_home',methods=["GET",])
 def user_home():
-    if(current_user.is_anonymous):
-        return render_template('userlogin')
+    # if(current_user.is_authenticated):
     # cur = my_db.cursor(dictionary=True)
     # cur.execute('SELECT * FROM Questions')
     # questions = cur.fetchall()
+    return render_template('user_home.html',user=User.find_by_email_id(current_user.email_id))
     # return render_template('help.html')
-    return render_template('user_home.html',user=current_user)
 
 @login_required
 @newapp.route('/logout',methods=['GET',])
 def logout():
-    if(current_user.is_anonymous):
-        return render_template('userlogin')
     logout_user()
     return redirect(url_for('userlogin'))
 
@@ -332,29 +329,21 @@ def logout():
 @login_required
 @newapp.route('/users/all_users',methods=["GET",])
 def all_users():
-    if(current_user.is_anonymous):
-        return render_template('userlogin')
     return render_template('all_users.html',user=current_user)
 
 @login_required
 @newapp.route("/users/badges",methods=["GET",])
 def badges():
-    if(current_user.is_anonymous):
-        return render_template('userlogin')
     return render_template('badges.html',user=current_user)
 
 @login_required
 @newapp.route('/users/bookmarks',methods=['GET',])
 def bookmarks():
-    if(current_user.is_anonymous):
-        return render_template('userlogin')
     return render_template('bookmarks.html',user=current_user)
 
 @login_required
 @newapp.route("/users/complete_your_profile",methods=["GET",'POST'])
 def complete_your_profile():
-    if(current_user.is_anonymous):
-        return render_template('userlogin')
     if request.method=='POST':
         # image_url=request.form['profile_image_url']
         profile_image_url = request.form.get('profile_image_url', '')
@@ -367,89 +356,69 @@ def complete_your_profile():
 @login_required
 @newapp.route('/users/dashboard', methods=['GET',])
 def dashboard():
-    if(current_user.is_anonymous):
-        return render_template('userlogin')
     return render_template("dashboard.html",user=current_user)
 
 @login_required
 @newapp.route("/users/followers", methods=["GET",])
 def followers():
-    if(current_user.is_anonymous):
-        return render_template('userlogin')
     return render_template("followers.html",user=current_user)
 
 @login_required
 @newapp.route("/users/following", methods=["GET",])
 def following():
-    if(current_user.is_anonymous):
-        return render_template('userlogin')
     return render_template("following.html",user=current_user)
 
 
 @login_required
 @newapp.route('/users/help_with_login',methods=['GET',])
 def help_with_login():
-    if(current_user.is_anonymous):
-        return render_template('userlogin')
     return render_template('help_with_login.html',user=current_user)
 
 @login_required
 @newapp.route("/users/questions",methods=["GET","POST","DELETE"])
 def questions():
-    if(current_user.is_anonymous):
-        return render_template('userlogin')
-    # if request.method=='post':
-    #     title=request.form['title']
-    #     body=request.form['body']
-    #     tags=request.form['tags']
-    #     if not title:
-    #         flash('Title is required.')
-    #     elif not body:
-    #         flash('Content is required.')
-    #     elif not tags:
-    #         flash('tags required.')
-    #     else:
-    #         question_id=Question.post_question(title=title, body=body, user_id=current_user.user_id)
-            # if question_id:
-            #     flash('Question posted successfully!')
-                    # return redirect(url_for('user_home.html'))
-    return render_template('posted_questions.html',user=current_user)
+    if request.method=='post':
+        title=request.form['title']
+        body=request.form['body']
+        tags=request.form['tags']
+        if not title:
+            flash('Title is required.')
+        elif not body:
+            flash('Content is required.')
+        elif not tags:
+            flash('tags required.')
+        else:
+            question_id=Question.post_question(title=title, body=body, user_id=current_user.user_id)
+            if question_id:
+                flash('Question posted successfully!')
+                return redirect(url_for('user_home.html'))
             
 
+    return render_template('posted_questions.html',user=current_user)
 
 @login_required
 @newapp.route("/users/comments",methods=["GET","POST","DELETE"])
 def comments():
-    if(current_user.is_anonymous):
-        return render_template('userlogin')
     return render_template('posted_comments.html',user=current_user)
 
 @login_required
 @newapp.route("/users/answers",methods=["GET","POST","DELETE"])
 def answers():
-    if(current_user.is_anonymous):
-        return render_template('userlogin')
     return render_template('posted_answers.html',user=current_user)
 
 @login_required
 @newapp.route('/users/recommendations',methods=['GET',])
 def recommendations():
-    if(current_user.is_anonymous):
-        return render_template('userlogin')
     return render_template('recommendations.html',user=current_user)
 
 @login_required
 @newapp.route('/users/tags',methods=['GET',])
 def tags_login():
-    if(current_user.is_anonymous):
-        return render_template('userlogin')
     return render_template('tag_login.html',user=current_user)
 
 @login_required
 @newapp.route('/users/trending',methods=['GET',])
 def trending():
-    if(current_user.is_anonymous):
-        return render_template('userlogin')
     return render_template('trending.html',user=current_user)
 
 @newapp.route('/signup', methods=('GET', 'POST'))
@@ -536,3 +505,4 @@ def homepage():
 
 if __name__=="__main__":
     newapp.run(debug=True)
+    #host=
