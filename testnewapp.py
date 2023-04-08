@@ -83,109 +83,109 @@ class TestUser(unittest.TestCase):
         self.assertEqual(result.about,"Hi")
         self.assertEqual(result.profile_image_url,"https://www.figma.com/file/7KFxGA0vLIeYhf85DahLUR/image/bd3feba159b8d237ee735e750cdc1002ebf458e1")
 
-# class TestQuestion(unittest.TestCase):
-#     def setUp(self):
-#         self.question_id = 123
-#         self.title = "Example question"
-#         self.body = "This is an example question"
-#         self.answer_id = 456
-#         self.user_id = 789
-#         self.score = 0
-#         self.creation_date = "2023-04-08 12:00:00"
-#         self.upvotes = 0
-#         self.downvotes = 0
-#         self.answer_count = 0
-#         self.comment_count = 0
-#         self.tags = [{'tag_id': 1}, {'tag_id': 2}]
-#         self.my_db=my_db
+class TestQuestion(unittest.TestCase):
+    def setUp(self):
+        self.question_id = 123
+        self.title = "Example question"
+        self.body = "This is an example question"
+        self.answer_id = 456
+        self.user_id = 789
+        self.score = 0
+        self.creation_date = "2023-04-08 12:00:00"
+        self.upvotes = 0
+        self.downvotes = 0
+        self.answer_count = 0
+        self.comment_count = 0
+        self.tags = [{'tag_id': 1}, {'tag_id': 2}]
+        self.my_db=my_db
 
-#     def test_init(self):
-#         q = Question(question_id=self.question_id, title=self.title, body=self.body, answer_id=self.answer_id,
-#                      user_id=self.user_id, score=self.score, creation_date=self.creation_date, upvotes=self.upvotes,
-#                      downvotes=self.downvotes, answer_count=self.answer_count, comment_count=self.comment_count)
-#         self.assertEqual(q.question_id, self.question_id)
-#         self.assertEqual(q.title, self.title)
-#         self.assertEqual(q.body, self.body)
-#         self.assertEqual(q.answer_id, self.answer_id)
-#         self.assertEqual(q.user_id, self.user_id)
-#         self.assertEqual(q.score, self.score)
-#         self.assertEqual(q.creation_date, self.creation_date)
-#         self.assertEqual(q.upvotes, self.upvotes)
-#         self.assertEqual(q.downvotes, self.downvotes)
-#         self.assertEqual(q.answer_count, self.answer_count)
-#         self.assertEqual(q.comment_count, self.comment_count)
+    def test_init(self):
+        q = Question(question_id=self.question_id, title=self.title, body=self.body, answer_id=self.answer_id,
+                     user_id=self.user_id, score=self.score, creation_date=self.creation_date, upvotes=self.upvotes,
+                     downvotes=self.downvotes, answer_count=self.answer_count, comment_count=self.comment_count)
+        self.assertEqual(q.question_id, self.question_id)
+        self.assertEqual(q.title, self.title)
+        self.assertEqual(q.body, self.body)
+        self.assertEqual(q.answer_id, self.answer_id)
+        self.assertEqual(q.user_id, self.user_id)
+        self.assertEqual(q.score, self.score)
+        self.assertEqual(q.creation_date, self.creation_date)
+        self.assertEqual(q.upvotes, self.upvotes)
+        self.assertEqual(q.downvotes, self.downvotes)
+        self.assertEqual(q.answer_count, self.answer_count)
+        self.assertEqual(q.comment_count, self.comment_count)
 
-#     def test_post_question_success(self):
-#         result=Question.post_question(title="Example question",body="This is an example question",tags=[{'tag_id': 1}, {'tag_id': 2}])
-#         self.assertEqual(result,"Successfully posted")
-#     def test_find_by_question_id(self):
-#         result=Question.find_by_question_id(question_id=123)
-#         self.assertIsInstance(result, Question)
-#         self.assertEqual(result.question_id, 123)
-#     def test_get_comments_by_question_id(self):
-#         result=Question.get_comments_by_question_id(question_id=123)
-#         cursor = self.my_db.cursor()
-#         cursor.execute("SELECT * FROM Comments WHERE post_id = %s AND post_type = %s", (self,"question"))
-#         comments = cursor.fetchall()
-#         cursor.close()
-#         self.assertEqual(result, comments)
+    def test_post_question_success(self):
+        result=Question.post_question(title="Example question",body="This is an example question",tags=[{'tag_id': 1}, {'tag_id': 2}])
+        self.assertEqual(result,"Successfully posted")
+    def test_find_by_question_id(self):
+        result=Question.find_by_question_id(question_id=123)
+        self.assertIsInstance(result, Question)
+        self.assertEqual(result.question_id, 123)
+    def test_get_comments_by_question_id(self):
+        result=Question.get_comments_by_question_id(question_id=123)
+        cursor = self.my_db.cursor()
+        cursor.execute("SELECT * FROM Comments WHERE post_id = %s AND post_type = %s", (self,"question"))
+        comments = cursor.fetchall()
+        cursor.close()
+        self.assertEqual(result, comments)
 
-#     def test_find_answers_by_question_id(self):
-#         result=Question.find_answers_by_question_id(question_id=123)
-#         cursor = self.my_db.cursor()
-#         cursor.execute("SELECT * FROM Answers WHERE post_id = %s AND post_type = %s", (self,"question"))
-#         answers = cursor.fetchall()
-#         cursor.close()
-#         self.assertEqual(result, answers)
+    def test_find_answers_by_question_id(self):
+        result=Question.find_answers_by_question_id(question_id=123)
+        cursor = self.my_db.cursor()
+        cursor.execute("SELECT * FROM Answers WHERE post_id = %s AND post_type = %s", (self,"question"))
+        answers = cursor.fetchall()
+        cursor.close()
+        self.assertEqual(result, answers)
     
-#     def test_get_accepted_answer_of_question_id(self):
-#         result=Question.get_accepted_answer_of_question_id(question=self)
-#         self.assertIsInstance(result, Answer)
-#         self.assertEqual(result.question_id, 123)
+    def test_get_accepted_answer_of_question_id(self):
+        result=Question.get_accepted_answer_of_question_id(question=self)
+        self.assertIsInstance(result, Answer)
+        self.assertEqual(result.question_id, 123)
 
 
 
-# class TestAnswer(unittest.Testcase):
-#     def setUp(self):
-#         self.question_id=456
-#         self.body="This is body" 
-#         self.answer_id=2345
-#         self.user_id=21 
-#         self.score=0 
-#         self.creation_date="2023-04-08 12:00:00"
-#         self.comment_count=0
-#         self.upvotes=0 
-#         self.downvotes=0
-#         self.my_db=my_db
-#     def test_post_answer(self):
-#         result=Answer.post_answer(question_id=456,body="This is body")
-#         self.assertEqual(result,"Successfully posted")
+class TestAnswer(unittest.Testcase):
+    def setUp(self):
+        self.question_id=456
+        self.body="This is body" 
+        self.answer_id=2345
+        self.user_id=21 
+        self.score=0 
+        self.creation_date="2023-04-08 12:00:00"
+        self.comment_count=0
+        self.upvotes=0 
+        self.downvotes=0
+        self.my_db=my_db
+    def test_post_answer(self):
+        result=Answer.post_answer(question_id=456,body="This is body")
+        self.assertEqual(result,"Successfully posted")
     
-#     def test_find_by_answer_id(self):
-#         result=Answer.find_by_answer_id(answer_id=2345)
-#         self.assertIsInstance(result, Answer)
-#         self.assertEqual(result.answer_id, 2345)
+    def test_find_by_answer_id(self):
+        result=Answer.find_by_answer_id(answer_id=2345)
+        self.assertIsInstance(result, Answer)
+        self.assertEqual(result.answer_id, 2345)
 
-#     def test_get_comments_by_answer_id(self):
-#         result=Answer.get_comments_by_answer_id(answer_id=123)
-#         cursor = self.my_db.cursor()
-#         cursor.execute("SELECT * FROM Comments WHERE post_id = %s AND post_type = %s", (self,"answer"))
-#         comments = cursor.fetchall()
-#         cursor.close()
-#         self.assertEqual(result, comments)
+    def test_get_comments_by_answer_id(self):
+        result=Answer.get_comments_by_answer_id(answer_id=123)
+        cursor = self.my_db.cursor()
+        cursor.execute("SELECT * FROM Comments WHERE post_id = %s AND post_type = %s", (self,"answer"))
+        comments = cursor.fetchall()
+        cursor.close()
+        self.assertEqual(result, comments)
 
 
-# class TestComment(unittest.TestCase):
-#     def setup(self):
-#         self.comment_id=123
-#         self.body="This is body"
-#         self.user_id=0
-#         self.creation_date="2023-04-08 12:00:00"
-#         self.post_id=0
-#         self.post_type="answer"
+class TestComment(unittest.TestCase):
+    def setup(self):
+        self.comment_id=123
+        self.body="This is body"
+        self.user_id=0
+        self.creation_date="2023-04-08 12:00:00"
+        self.post_id=0
+        self.post_type="answer"
     
-#     def test_post_comment(self):
-#         result=Comment.post_comment(post_id=0,post_type="answer",body="This is body")
-#         self.assertEqual(result,"Successfully posted")
+    def test_post_comment(self):
+        result=Comment.post_comment(post_id=0,post_type="answer",body="This is body")
+        self.assertEqual(result,"Successfully posted")
 
 
