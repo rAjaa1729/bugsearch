@@ -36,7 +36,7 @@
         </div>
         <ul class="list-unstyled components navbar-nav mr-auto">
           <p>{{current_user.username}}</p>
-          <li> <a href="{{url_for('dashboard')}}" data-toggle="collapse" aria-expanded="false" class="navtab">User Profile</a></li>
+          <li> <a href="{{url_for('dashboard')}}" >User Profile</a></li>
           <li> <a href="{{url_for('user_home')}}">User Home</a> </li>
           <li> <a href="{{url_for('complete_your_profile')}}">Edit Profile</a> </li>
           <li> <a href="{{url_for('followers')}}">Followers</a> </li>
@@ -109,8 +109,8 @@
                   <li>
                     <!-- <span class="category">Username</span> -->
                     <h4 class="profile">Name : {{current_user.username}}</h4>
-                    <h4 class="profile">Profession : Student</h4>
-                    <h4 class="profile">Institute : Indian Institute of Technology Delhi</h4>
+                    <h4 class="profile">About : {{current_user.about}}</h4>
+                    <h4 class="profile">Interest : JavaScript</h4>
                   </li>
                 </ul>
                 <!-- <a href="#"><i class="fa fa-angle-right"></i></a> -->
@@ -131,7 +131,7 @@
           </div> -->
           <div class="main-content_pro pro-dashboard">
             <h4 class="pro_h4">Followers</h4>
-            <h2>{{current_user.nfollower}}</h2>
+            <h2>{{current_user.nfollowers}}</h2>
             <!-- <div class="main-button">
               <a href="#">Read More</a>
             </div> -->
@@ -144,8 +144,8 @@
             <img src="assets/images/service-02.png" alt="short courses">
           </div> -->
           <div class="main-content_pro pro-dashboard">
-            <h4 class="pro_h4">Posts</h4>
-            <h2>1156</h2>            
+            <h4 class="pro_h4">Badge</h4>
+            <h2>{{current_user.badge}}</h2>            
             <!-- <div class="main-button">
               <a href="#">Read More</a>
             </div> -->

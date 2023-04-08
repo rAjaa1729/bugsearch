@@ -476,6 +476,8 @@ def userlogin():
 
 @newapp.route('/help',methods=["GET",])
 def help():
+    if(current_user.is_authenticated):
+        return render_template("help_with_login.html")
     return render_template("help.html")
             
 @newapp.route('/tags',methods=['GET',])
