@@ -1,12 +1,14 @@
 import mysql.connector
 from flask import Flask, render_template, request, url_for, flash, redirect
 from werkzeug.exceptions import abort
-from flask_bcrypt import Bcrypt  
+# from flask_bcrypt import Bcrypt  
+import hashlib
 from flask_login import  UserMixin, login_user, LoginManager, login_required, current_user, logout_user
 
+salt = "my_salt"
 
 newapp = Flask(__name__)
-bcrypt = Bcrypt(newapp)
+# bcrypt = Bcrypt(newapp)
 newapp.config['SECRET_KEY'] = 'sql@Prism1920'
 
 def get_db_connection():
@@ -74,13 +76,17 @@ class User(UserMixin):
         query = "SELECT * FROM users WHERE user_id = %s"
         cursor.execute(query, (user_id,))
         row = cursor.fetchone()
+        cursor.close()
         if row:
             return User(*row)
+        return None
 
     @staticmethod
     def create(email_id, passcode, username):
         cursor = my_db.cursor()
-        hashed_passcode =bcrypt.generate_password_hash(passcode).decode('utf-8')
+        password_salt=passcode+salt
+        hashed_passcode = hashlib.sha256(password_salt.encode()).hexdigest()
+        # hashed_passcode =bcrypt.generate_password_hash(passcode).decode('utf-8')
         query = "INSERT INTO users (email_id, passcode, username) VALUES (%s, %s, %s)"
         cursor.execute(query, (email_id, hashed_passcode, username))
         my_db.commit()
@@ -398,8 +404,8 @@ def trending(user):
 
 @newapp.route('/signup', methods=('GET', 'POST'))
 def signup():
-    # if(current_user.is_authenticated):
-    #     return redirect(url_for('user_home'))
+    if(current_user.is_authenticated):
+        return redirect(url_for('user_home'))
     if request.method == 'POST':
         email_id = request.form['email_id']
         username = request.form['username']
@@ -436,10 +442,12 @@ def userlogin():
             flash("Password is required")
         else:
             user=User.find_by_username(username=username)
+            password_salt=passcode+salt
+            hashed_password = hashlib.sha256(password_salt.encode()).hexdigest()
             if (user is None):
                 flash("Incorrect passcode ")
                 return render_template('login.html')
-            elif (bcrypt.check_password_hash(user.passcode,passcode)):
+            elif (hashed_password==user.passcode):
                 flash("Incorrect password ")
                 return render_template('login.html')
             else:
