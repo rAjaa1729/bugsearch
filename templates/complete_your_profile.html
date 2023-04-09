@@ -129,7 +129,7 @@ https://templatemo.com/tm-586-scholar
                     <div class="form-control chi choose_file">
                         <span class="tagline">Profile Photo</span>
                         
-                        <input class = "choose_file" id="image2" type="file" name="profile_image_url" placeholder="Photo"  value="{{request.form['profile_image_url']}}" capture>
+                        <input class = "choose_file" id="image2" type="file" name="profile_image_url" placeholder="Photo"  value="{{user.profile_image_url or request.form['profile_image_url']}}" capture>
                     </div>
                     <!-- <span class="tagline">Password</span>
                     <fieldset>
@@ -139,7 +139,7 @@ https://templatemo.com/tm-586-scholar
                 <div class="col-lg-12">
                     <span class="tagline">About</span>
                   <fieldset>
-                    <textarea name="about" id="about" placeholder="Your Message" value="{{request.form['about']}}"></textarea>
+                    <textarea name="about" id="about" placeholder="Your Message" value="{{user.about or request.form['about']}}"></textarea>
                   </fieldset>
                 </div>
                 <div class="col-lg-12">

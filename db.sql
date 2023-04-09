@@ -53,35 +53,55 @@ CREATE TABLE Questions
     FOREIGN KEY (user_id) REFERENCES Users(user_id),
     FOREIGN KEY (answer_id) REFERENCES Answers(answer_id)
 );
-ALTER TABLE Answers ADD FOREIGN KEY (question_id) REFERENCES Questions(question_id) ;
 
+ALTER TABLE Answers ADD FOREIGN KEY (question_id) REFERENCES Questions(question_id) ON DELETE CASCADE;
 
---
-CREATE TABLE Comments
+CREATE TABLE Answer_comments
 (
-    comment_id INT NOT NULL AUTO_INCREMENT,
+    answer_comment_id INT NOT NULL AUTO_INCREMENT,
     body TEXT NOT NULL,
     creation_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     user_id INT NOT NULL,
-    post_id INT NOT NULL,
-    post_type ENUM('question', 'answer') NOT NULL,
-    PRIMARY KEY (comment_id),
+    answer_id INT NOT NULL,
+    PRIMARY KEY (answer_comment_id),
     FOREIGN KEY (user_id) REFERENCES Users(user_id),
-    FOREIGN KEY (post_id) REFERENCES Questions(question_id), 
-    FOREIGN KEY (post_id) REFERENCES Answers(answer_id) 
+    FOREIGN KEY (answer_id) REFERENCES Answers(answer_id) ON DELETE CASCADE
 );
 
-CREATE TABLE Votes
+CREATE TABLE Question_comments
 (
-    vote_id INT NOT NULL AUTO_INCREMENT,
-    vote_type ENUM('upvote', 'downvote') NOT NULL,
-    post_id INT NOT NULL,
+    question_comment_id INT NOT NULL AUTO_INCREMENT,
+    body TEXT NOT NULL,
+    creation_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     user_id INT NOT NULL,
-    post_type ENUM('question', 'answer') NOT NULL,
-    PRIMARY KEY (vote_id),
+    question_id INT NOT NULL,
+    PRIMARY KEY (question_comment_id),
     FOREIGN KEY (user_id) REFERENCES Users(user_id),
-    FOREIGN KEY (post_id) REFERENCES Questions(question_id) ,
-    FOREIGN KEY (post_id) REFERENCES Answers(answer_id) 
+    FOREIGN KEY (question_id) REFERENCES Answers(question_id) ON DELETE CASCADE
+);
+
+-- insert into questions (title,body,user_id) values("raja","hi raja",1)
+
+CREATE TABLE Answer_votes
+(
+    answer_vote_id INT NOT NULL AUTO_INCREMENT,
+    vote_type ENUM('upvote', 'downvote') NOT NULL,
+    answer_id INT NOT NULL,
+    user_id INT NOT NULL,
+    PRIMARY KEY (answer_vote_id),
+    FOREIGN KEY (user_id) REFERENCES Users(user_id),
+    FOREIGN KEY (answer_id) REFERENCES Answers(answer_id) ON DELETE CASCADE
+);
+
+CREATE TABLE Question_votes
+(
+    question_vote_id INT NOT NULL AUTO_INCREMENT,
+    vote_type ENUM('upvote', 'downvote') NOT NULL,
+    question_id INT NOT NULL,
+    user_id INT NOT NULL,
+    PRIMARY KEY (question_vote_id),
+    FOREIGN KEY (user_id) REFERENCES Users(user_id),
+    FOREIGN KEY (question_id) REFERENCES Questions(question_id) ON DELETE CASCADE
 );
 
 CREATE TABLE Tags
@@ -118,19 +138,29 @@ CREATE TABLE Questiontags
     question_id INT NOT NULL,
     PRIMARY KEY (question_id,tag_id),
     FOREIGN KEY (tag_id) REFERENCES Tags(tag_id),
-    FOREIGN KEY (question_id) REFERENCES Questions(question_id)
+    FOREIGN KEY (question_id) REFERENCES Questions(question_id) ON DELETE CASCADE
 );
 
-CREATE TABLE Bookmarks
+CREATE TABLE Answer_bookmarks
 (
-    Bookmark_id INT AUTO_INCREMENT NOT NULL,
+    answer_bookmark_id INT AUTO_INCREMENT NOT NULL,
     creation_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     user_id INT NOT NULL,
-    post_id INT NOT NULL,
-    post_type ENUM('question', 'answer') NOT NULL,
-    PRIMARY KEY(Bookmark_id),
+    answer_id INT NOT NULL,
+    PRIMARY KEY(answer_bookmark_id),
     FOREIGN KEY (user_id) REFERENCES Users(user_id),
-    FOREIGN KEY (post_id) REFERENCES Questions(question_id) ,
-    FOREIGN KEY (post_id) REFERENCES Answers(answer_id) 
+    FOREIGN KEY (answer_id) REFERENCES Answers(answer_id) ON DELETE CASCADE
+);
+
+
+CREATE TABLE Question_bookmarks
+(
+    question_bookmark_id INT AUTO_INCREMENT NOT NULL,
+    creation_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    user_id INT NOT NULL,
+    question_id INT NOT NULL,
+    PRIMARY KEY(question_bookmark_id),
+    FOREIGN KEY (user_id) REFERENCES Users(user_id),
+    FOREIGN KEY (question_id) REFERENCES Questions(question_id) ON DELETE CASCADE
 );
 
