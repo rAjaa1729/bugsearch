@@ -15,15 +15,16 @@
 
     <title>Scholar - Online School HTML5 Template</title>
 
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
 
-    <link rel="stylesheet" href="assets/css/fontawesome.css">
-    <link rel="stylesheet" href="assets/css/templatemo-scholar.css">
-    <link rel="stylesheet" href="assets/css/owl.css">
-    <link rel="stylesheet" href="assets/css/animate.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/fontawesome.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/templatemo-scholar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/owl.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/animate.css') }}">
     <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="assets/css/our_c.css">
-    <link rel="stylesheet" href="assets/css/side.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/our_c.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/side.css') }}">
+    
 
 </head>
 </head>
@@ -47,9 +48,9 @@
           <li> <a href="{{url_for('bookmarks')}}">Bookmarks</a> </li>
           <li> <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Post</a>
               <ul class="collapse list-unstyled" id="pageSubmenu">
-                  <li> <a href="#">Post Question</a> </li>
-                  <li> <a href="#">Post Answer</a> </li>
-                  <li> <a href="#">Post Comment</a> </li>
+                <li> <a href="{{url_for('post_question')}}">Post Question</a> </li>
+                <li> <a href="{{url_for('post_answer')}}">Post Answer</a> </li>
+                <li> <a href="{{url_for('post_comment')}}">Post Comment</a> </li>
               </ul>
           </li>
           <li> <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Posted</a>
@@ -65,7 +66,7 @@
             <nav class="main-nav navcolor navbar-dark">
                 <button type="button" id="sidebarCollapse" class="btn btn-info info"> <i
                         class="fa fa-align-justify"></i> </button>
-                <a href="index.html" class="logo ">
+                <a href="{{url_for('homepage')}}" class="logo ">
                     <h1 id="title">BugSearch</h1>
                 </a>
                 <div class="search-input">
@@ -152,13 +153,14 @@
             crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-        <script src="vendor/jquery/jquery.min.js"></script>
-        <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-        <script src="assets/js/isotope.min.js"></script>
-        <script src="assets/js/owl-carousel.js"></script>
-        <script src="assets/js/counter.js"></script>
-        <script src="assets/js/custom.js"></script>
-        <script src="assets/js/our.js"></script>
+        <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/js/isotope.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/js/owl-carousel.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/js/counter.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/js/custom.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/js/our.js') }}"></script>
+        
 
 
         </body>

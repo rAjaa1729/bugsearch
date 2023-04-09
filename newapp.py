@@ -375,8 +375,19 @@ def help_with_login():
     return render_template('help_with_login.html',user=current_user)
 
 @login_required
-@newapp.route("/users/questions",methods=["GET","POST","DELETE"])
-def questions():
+@newapp.route('/users/questions',methods=['GET,POST'])
+def post_question():
+    return render_template('post_question.html',user=current_user)
+
+@login_required
+@newapp.route('/users/answers',methods=['GET,POST'])
+def post_answer():
+    return render_template('post_answer.html',user=current_user)
+
+@login_required
+@newapp.route('/users/comments',methods=['GET,POST'])
+def post_comment():
+    return render_template('post_comment.html',user=current_user)
     # if request.method=='post':
     #     title=request.form['title']
     #     body=request.form['body']
@@ -393,17 +404,19 @@ def questions():
     #             flash('Question posted successfully!')
     #             return redirect(url_for('user_home.html'))
             
-
+@login_required
+@newapp.route("/users/posted_questions",methods=["GET","POST","DELETE"])
+def posted_questions():
     return render_template('posted_questions.html',user=current_user)
 
 @login_required
-@newapp.route("/users/comments",methods=["GET","POST","DELETE"])
-def comments():
+@newapp.route("/users/posted_comments",methods=["GET","POST","DELETE"])
+def posted_comments():
     return render_template('posted_comments.html',user=current_user)
 
 @login_required
-@newapp.route("/users/answers",methods=["GET","POST","DELETE"])
-def answers():
+@newapp.route("/users/posted_answers",methods=["GET","POST","DELETE"])
+def posted_answers():
     return render_template('posted_answers.html',user=current_user)
 
 @login_required

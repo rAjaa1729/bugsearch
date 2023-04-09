@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&family=Ubuntu:wght@700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter&family=Poppins:wght@400;600;700&display=swap"
+        rel="stylesheet">
+
+    <title>Scholar - Online School HTML5 Template</title>
+
+    <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/fontawesome.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/templatemo-scholar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/owl.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/animate.css') }}">
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/our_c.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/side.css') }}">
+    
+
+</head>
+</head>
+<div class="wrapper">
+    <nav id="sidebar">
+        <div class="sidebar-header">
+            <h3>BBBOOTSTRAP</h3>
+            <hr>
+        </div>
+        <ul class="list-unstyled components navbar-nav mr-auto">
+            <p>{{current_user.username}}</p>
+            <li> <a href="{{url_for('dashboard')}}" >User Profile</a></li>
+            <li> <a href="{{url_for('user_home')}}">User Home</a> </li>
+            <li> <a href="{{url_for('complete_your_profile')}}">Edit Profile</a> </li>
+            <li> <a href="{{url_for('followers')}}">Followers</a> </li>
+            <li> <a href="{{url_for('following')}}">Following</a> </li>
+            <li> <a href="{{url_for('badges')}}">Badges</a> </li>
+            <li> <a href="{{url_for('trending')}}">Trending</a> </li>
+            <li> <a href="{{url_for('recommendations')}}">Recommendations</a> </li>
+            <li> <a href="{{url_for('all_users')}}">All Users</a> </li>
+            <li> <a href="{{url_for('bookmarks')}}">Bookmarks</a> </li>
+          <li> <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Post</a>
+              <ul class="collapse list-unstyled" id="pageSubmenu">
+                <li> <a href="{{url_for('post_question')}}">Post Question</a> </li>
+                <li> <a href="{{url_for('post_answer')}}">Post Answers</a> </li>
+                <li> <a href="{{url_for('post_comment')}}">Post Comment</a> </li>
+              </ul>
+          </li>
+          <li> <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Posted</a>
+              <ul class="collapse list-unstyled" id="pageSubmenu">
+                  <li> <a href="{{url_for('posted_questions')}}">Posted Questions</a> </li>
+                  <li> <a href="{{url_for('posted_answers')}}">Posted Answers</a> </li>
+                  <li> <a href="{{url_for('posted_comments')}}">Posted Comments</a> </li>
+              </ul>
+          </li>
+    </nav>
+    <div class="content">
+        <header class="header-area header-sticky background-header fixed-topp">
+            <nav class="main-nav navcolor navbar-dark">
+                <button type="button" id="sidebarCollapse" class="btn btn-info info"> <i
+                        class="fa fa-align-justify"></i> </button>
+                <a href="{{url_for('homepage')}}" class="logo ">
+                    <h1 id="title">BugSearch</h1>
+                </a>
+                <div class="search-input">
+                    <form id="search" action="#">
+                        <input type="text" placeholder="Type Something" id='searchText' name="searchKeyword"
+                            onkeypress="handle" />
+                        <i class="fa fa-search"></i>
+                    </form>
+                </div>
+                <ul class="nav">
+                    <li class="scroll-to-section"><a href="{{ url_for('user_home')}}">Home</a></li>
+                <li class="scroll-to-section"><a href="{{ url_for('dashboard')}}">Username</a></li>
+                <li class="scroll-to-section"><a href="{{ url_for('logout')}}">Logout</a></li>
+                <li class="scroll-to-section"><a href="{{ url_for('help_with_login')}}">Help</a></li>
+                </ul>
+                <a class='menu-trigger'>
+                    <span>Menu</span>
+                </a>
+
+            </nav>
+        </header>
