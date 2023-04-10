@@ -375,17 +375,17 @@ def help_with_login():
     return render_template('help_with_login.html',user=current_user)
 
 @login_required
-@newapp.route('/users/questions',methods=['GET,POST'])
+@newapp.route('/users/questions',methods=['GET','POST'])
 def post_question():
     return render_template('post_question.html',user=current_user)
 
 @login_required
-@newapp.route('/users/answers',methods=['GET,POST'])
+@newapp.route('/users/answers',methods=['GET','POST'])
 def post_answer():
     return render_template('post_answer.html',user=current_user)
 
 @login_required
-@newapp.route('/users/comments',methods=['GET,POST'])
+@newapp.route('/users/comments',methods=['GET','POST'])
 def post_comment():
     return render_template('post_comment.html',user=current_user)
     # if request.method=='post':

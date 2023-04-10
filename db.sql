@@ -77,7 +77,7 @@ CREATE TABLE Question_comments
     question_id INT NOT NULL,
     PRIMARY KEY (question_comment_id),
     FOREIGN KEY (user_id) REFERENCES Users(user_id),
-    FOREIGN KEY (question_id) REFERENCES Answers(question_id) ON DELETE CASCADE
+    FOREIGN KEY (question_id) REFERENCES Questions(question_id) ON DELETE CASCADE
 );
 
 -- insert into questions (title,body,user_id) values("raja","hi raja",1)
@@ -132,6 +132,7 @@ CREATE TABLE Usertags
     FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );
 
+
 CREATE TABLE Questiontags
 (
     tag_id INT NOT NULL,
@@ -163,4 +164,7 @@ CREATE TABLE Question_bookmarks
     FOREIGN KEY (user_id) REFERENCES Users(user_id),
     FOREIGN KEY (question_id) REFERENCES Questions(question_id) ON DELETE CASCADE
 );
+
+-- insert into question_comments (question_id,body,user_id) values(1,"hi raja",1);
+
 
