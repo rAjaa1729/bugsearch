@@ -124,110 +124,124 @@ class User(UserMixin):
         my_db.close()
         return User(**row)
 
-
 #---questions class----
 class Question():
-    def __init__(self,question_id,title,body,answer_id,user_id,score,creation_date,upvotes,downvotes,answer_count,comment_count):
-        self.question_id=question_id 
-        self.title=title 
-        self.body=body 
-        self.answer_id=answer_id 
-        self.user_id=user_id 
-        self.score=score 
-        self.creation_date=creation_date 
-        self.comment_count=comment_count 
-        self.answer_count=answer_count 
-        self.upvotes=upvotes 
-        self.downvotes=downvotes
+    def __init__(self,**kwargs):
+        self.question_id=kwargs.get('question_id')
+        self.title=kwargs.get('title') 
+        self.body=kwargs.get('body')
+        self.answer_id=kwargs.get('answer_id') 
+        self.user_id=kwargs.get('user_id') 
+        self.score=kwargs.get('score') 
+        self.creation_date=kwargs.get('creation_date') 
+        self.comment_count=kwargs.get('comment_count') 
+        self.answer_count=kwargs.get('answer_count') 
+        self.upvotes=kwargs.get('upvotes') 
+        self.downvotes=kwargs.get('downvotes')
+    
     @staticmethod
-    def post_question(title,body,tags):
+    def post_question(title,body,tags,user_id):
+        my_db=get_db_connection()
         cursor=my_db.cursor(dictionary=True)
         query="INSERT INTO Questions (title,body,user_id) VALUES(%s,%s,%s)"
-        cursor=my_db.execute(query,(title,body,current_user.user_id))
-        question_id=cursor.lastrowid
+        cursor.execute(query,(title,body,user_id))
+        question=cursor.fetchone()
         my_db.commit()
-        for tag in tags:
-            query="INSERT INTO Questiontags (tag_id,question_id) VALUES(%s,%s)"
-            cursor.execute(query,(tag.tag_id,question_id))
-        cursor.close()
+        # for tag in tags:
+        #     query="INSERT INTO Questiontags (tag_id,question_id) VALUES(%s,%s)"
+        #     cursor.execute(query,(tag.tag_id,question[0]))
         my_db.commit()
-        return question_id
+        my_db.close()
+        return Question(**question)
         
     # for deleting question by question_id
-    # @staticmethod
-    # def delete_question_by_id(question_id):
-        
+    @staticmethod
+    def delete_question_by_id(question_id):
+        my_db=get_db_connection()
+        cursor=my_db.cursor(dictionary=True)
+        query="DELETE FROM Questions WHERE question_id=%s"
+        cursor.execute(query,(question_id,))
+        my_db.commit()
+        my_db.close()
+        return "successfully deleted" 
     
     #finding question by using its question_id
     @staticmethod
     def find_by_question_id(question_id):
+        my_db=get_db_connection()
         query="SELECT * FROM Questions WHERE question_id=%s"
         cursor=my_db.cursor(dictionary=True)
-        cursor.execute(query,(question_id))
+        cursor.execute(query,(question_id,))
         row=cursor.fetchone()
+        my_db.close()
         if row:
-            return Question(*row)
+            return Question(**row)
         return None
     
     #sorted by creation date finding comments of question
     @staticmethod
     def get_comments_by_question_id(question_id):
-        query = "SELECT * FROM Comments WHERE post_id = %s AND post_type = %s ORDER BY creation_date ASC LIMIT 5"
+        my_db=get_db_connection()
+        query = "SELECT * FROM Question_comments WHERE question_id = %s ORDER BY creation_date ASC LIMIT 10"
         cursor=my_db.cursor(dictionary=True)
-        cursor.execute(query,(question_id,"question"))
+        cursor.execute(query,(question_id,))
         comments=cursor.fetchall()
-        cursor.close()
-        if comments:
-            return comments
-        return None
+        my_db.close()
+        l_comments=[]
+        for comment in comments:
+            l_comments.append(Question_Comment(**comment))
+        return l_comments
         
     #sorted by creation_date finding answers of question_id
     @staticmethod
     def find_answers_by_question_id(question_id):
-        query = "SELECT * FROM Answers WHERE question_id = %s ORDER BY creation_date ASC LIMIT 5"
+        my_db=get_db_connection()
+        query = "SELECT * FROM Answers WHERE question_id = %s ORDER BY creation_date ASC LIMIT 10"
         cursor=my_db.cursor(dictionary=True)
-        cursor.execute(query,question_id)
+        cursor.execute(query,(question_id,))
         answers=cursor.fetchall()
-        cursor.close()
-        if answers:
-            return answers
-        return None
+        my_db.close()
+        l_answers=[]
+        for answer in answers:
+            l_answers.append(Answer(**answer))
+        return l_answers
     
     #finding accepted answer of that question using question object
     @staticmethod
     def get_accepted_answer_of_question_id(question):
+        my_db=get_db_connection()
         answer_id=question.answer_id
         query = "SELECT * FROM Answers WHERE answer_id = %s "
         cursor=my_db.cursor(dictionary=True)
-        cursor.execute(query,answer_id)
+        cursor.execute(query,(answer_id,))
         answer=cursor.fetchone()
-        cursor.close()
+        my_db.close()
         if answer:
-            return Answer(*answer)
+            return Answer(**answer)
         return None
     
         
 # -----class for Answer object--------------
 class Answer():
-    def __init__(self,question_id,body,answer_id,user_id,score,creation_date,upvotes,downvotes,comment_count):
-        self.question_id=question_id 
-        self.body=body 
-        self.answer_id=answer_id 
-        self.user_id=user_id 
-        self.score=score 
-        self.creation_date=creation_date 
-        self.comment_count=comment_count 
-        self.upvotes=upvotes 
-        self.downvotes=downvotes
-
+    def __init__(self,**kwargs):
+        self.question_id=kwargs.get('question_id') 
+        self.body=kwargs.get('body')  
+        self.answer_id=kwargs.get('answer_id')  
+        self.user_id=kwargs.get('user_id')  
+        self.score=kwargs.get('score')  
+        self.creation_date=kwargs.get('creation_date')  
+        self.comment_count=kwargs.get('comment_count')  
+        self.upvotes=kwargs.get('upvotes')  
+        self.downvotes=kwargs.get('downvotes') 
     @staticmethod
-    def post_answer(question_id,body):
+    def post_answer(user_id,question_id,body):
+        my_db=get_db_connection()
         cursor=my_db.cursor(dictionary=True)
         query="INSERT INTO Answers (body,user_id,question_id) VALUES(%s,%s,%s)"
-        cursor=my_db.execute(query,(body,current_user.current_user.user_id,question_id))
+        cursor.execute(query,(body,user_id,question_id))
         answer_id=cursor.lastrowid
         my_db.commit()
-        cursor.close()
+        my_db.close()
         if answer_id is None:
             return "failed", 400
         else:
@@ -235,51 +249,109 @@ class Answer():
     
     @staticmethod
     def find_by_answer_id(answer_id):
+        my_db=get_db_connection()
         query="SELECT * FROM Answers WHERE answer_id=%s"
         cursor=my_db.cursor(dictionary=True)
-        cursor.execute(query,(answer_id))
+        cursor.execute(query,(answer_id,))
         row=cursor.fetchone()
+        my_db.close()
         if row:
-            return Answer(*row)
+            return Answer(**row)
         return None
     
     # sorted by creation_date finding comments of answer using using answer_id
     @staticmethod
     def get_comments_by_answer_id(answer_id):
-        query = "SELECT * FROM Comments WHERE post_id = %s AND post_type = %s ORDER BY creation_date ASC LIMIT 5"
+        my_db=get_db_connection()
+        query = "SELECT * FROM Answer_comments WHERE answer_id = %s ORDER BY creation_date ASC LIMIT 10"
         cursor=my_db.cursor(dictionary=True)
-        cursor.execute(query,(answer_id,"answer"))
+        cursor.execute(query,(answer_id,))
         comments=cursor.fetchall()
-        cursor.close()
-        if comments:
-            return comments
-        return None 
+        my_db.close()
+        l_comments=[]
+        for comment in comments:
+            l_comments.append(Answer_Comment(**comment))
+        return l_comments
+    
+    @staticmethod
+    def delete_answer_by_id(answer_id):
+        my_db=get_db_connection()
+        cursor=my_db.cursor(dictionary=True)
+        query="DELETE FROM Answers WHERE answer_id=%s"
+        cursor.execute(query,(answer_id,))
+        my_db.commit()
+        my_db.close()
+        return "successfully deleted" 
 # ----comments class-----------------
 
-class Comment():
-    def __init__(self,comment_id,body,creation_date,user_id,post_id,post_type):
-        self.comment_id=comment_id
-        self.body=body
-        self.user_id=user_id
-        self.creation_date=creation_date
-        self.post_id=post_id
-        self.post_type=post_type
+class Question_Comment():
+    def __init__(self,**kwargs):
+        self.question_comment_id=kwargs.get('question_comment_id')
+        self.body=kwargs.get('body')
+        self.user_id=kwargs.get('user_id')
+        self.creation_date=kwargs.get('creation_date')
+        self.qustion_id=kwargs.get('question_id')
 
     @staticmethod
-    def post_comment(post_id,post_type,body):
+    def post_qcomment(question_id,user_id,body):
+        my_db=get_db_connection()
         cursor=my_db.cursor(dictionary=True)
-        query="INSERT INTO Comments (body,user_id,post_id,post_type) VALUES(%s,%s,%s,%s)"
-        cursor=my_db.execute(query,(body,current_user.current_user.user_id,post_id,post_type))
-        comment_id=cursor.lastrowid
+        query="INSERT INTO Question_comments (body,user_id,question_id) VALUES(%s,%s,%s)"
+        cursor.execute(query,(body,user_id,question_id))
+        qcomment=cursor.fetchone()
         my_db.commit()
-        cursor.close()
-        if comment_id is None:
+        my_db.close()
+        if qcomment is None:
             return "failed", 400
         else:
             return "Successfully posted",200 
-    
+        
+    @staticmethod
+    def find_qcomment_by_id(question_comment_id):
+        my_db=get_db_connection()
+        cursor=my_db.cursor(dictionary=True)
+        query="SELECT * FROM Question_comments (question_comment_id) VALUES(%s)"
+        cursor.execute(query,(question_comment_id,))
+        row =cursor.fetchone()
+        if row is None:
+            return Question_Comment(**row)
+        return None
+  
 
+class Answer_Comment():
 
+    def __init__(self,**kwargs):
+        self.answer_comment_id=kwargs.get('answer_comment_id')
+        self.body=kwargs.get('body')
+        self.user_id=kwargs.get('user_id')
+        self.creation_date=kwargs.get('creation_date')
+        self.answer_id=kwargs.get('answer_id')
+
+    @staticmethod
+    def post_acomment(answer_id,user_id,body):
+            my_db=get_db_connection()
+            cursor=my_db.cursor(dictionary=True)
+            query="INSERT INTO Answer_comments (body,user_id,answer_id) VALUES(%s,%s,%s)"
+            cursor.execute(query,(body,user_id,answer_id))
+            acomment=cursor.fetchone()
+            my_db.commit()
+            my_db.close()
+            if acomment is None:
+                return "failed", 400
+            else:
+                return "Successfully posted",200
+
+    @staticmethod
+    def find_acomment_by_id(answer_comment_id):
+        my_db=get_db_connection()
+        cursor=my_db.cursor(dictionary=True)
+        query="SELECT * FROM Answer_comments (answer_comment_id) VALUES(%s)"
+        cursor.execute(query,(answer_comment_id,))
+        row =cursor.fetchone()
+        if row is None:
+            return Answer_Comment(**row)
+        return None 
+        
 
 #------------------update into database---------------------
 # def post_questions():
@@ -377,6 +449,21 @@ def help_with_login():
 @login_required
 @newapp.route('/users/questions',methods=['GET','POST'])
 def post_question():
+    if request.method=='post':
+        title=request.form['title']
+        body=request.form['body']
+        tags=request.form['tags']
+        if not title:
+            flash('Title is required.')
+        elif not body:
+            flash('Content is required.')
+        elif not tags:
+            flash('tags required.')
+        else:
+            question_id=Question.post_question(title=title, body=body, user_id=current_user.user_id)
+            if question_id:
+                flash('Question posted successfully!')
+                return redirect(url_for('user_home.html'))
     return render_template('post_question.html',user=current_user)
 
 @login_required
