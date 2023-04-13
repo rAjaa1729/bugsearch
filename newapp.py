@@ -147,9 +147,9 @@ class Question():
         cursor.execute(query,(title,body,user_id))
         question=cursor.fetchone()
         my_db.commit()
-        # for tag in tags:
-        #     query="INSERT INTO Questiontags (tag_id,question_id) VALUES(%s,%s)"
-        #     cursor.execute(query,(tag.tag_id,question[0]))
+        for tag in tags:
+            query="INSERT INTO Questiontags (tag_id,question_id) VALUES(%s,%s)"
+            cursor.execute(query,(tag.tag_id,question[0]))
         my_db.commit()
         my_db.close()
         return Question(**question)
@@ -220,6 +220,7 @@ class Question():
             return Answer(**answer)
         return None
     
+
         
 # -----class for Answer object--------------
 class Answer():
@@ -354,7 +355,16 @@ class Answer_Comment():
         
 
 #------------------update into database---------------------
-# def post_questions():
+# required functions 
+
+def find_tags():
+    my_db=get_db_connection()
+    query="SELECT tag_name FROM Tags"
+    cursor=my_db.cursor(dictionary=True)
+    cursor.execute(query)
+    row=cursor.fetchall()
+    my_db.close() 
+    return row
 
     
 # -------------logged user--------------------------------
@@ -453,6 +463,7 @@ def post_question():
         title=request.form['title']
         body=request.form['body']
         tags=request.form['tags']
+        print(title)
         if not title:
             flash('Title is required.')
         elif not body:
@@ -464,7 +475,7 @@ def post_question():
             if question_id:
                 flash('Question posted successfully!')
                 return redirect(url_for('user_home.html'))
-    return render_template('post_question.html',user=current_user)
+    return render_template('post_question.html',user=current_user,tag_list=find_tags())
 
 @login_required
 @newapp.route('/users/answers',methods=['GET','POST'])
