@@ -121,28 +121,62 @@
                                         <span class="tagline">Title</span>
                                         <fieldset>
                                             <input type="text" name="title" id="title" placeholder="Title of your question..."
-                                                autocomplete="on" required="" value="{{request.form['title']}}">
+                                                autocomplete="on" required=""  value="{{request.form['title']}}">
                                         </fieldset>
                                     </div>
                                     <br>
+
+                                    
                                     <div class="col-lg-12">
                                         <span class="tagline">Enter your Question</span>
                                         <fieldset>
-                                            <input type="text" name="body" id="body" 
-                                                placeholder="Question...." required="" value="{{request.form['body']}}">
+                                            <textarea name="body" id="body" rows="5" cols="50" placeholder="Question...." required="" value="{{request.form['body']}}">{{request.form['body']}}</textarea>
                                         </fieldset>
                                     </div>
+                                    
                                     <div class="col-lg-12">
                                         <span class="tagline">Tags</span>
                                         <fieldset>
-                                            <select name="tags" id="tags">
+                                            <select name="tags[]" id="tags" multiple size="4">
                                                 {% for tag in tag_list %}
-                                                    <option value="{{ tag }}">{{ tag }}</option>
+                                                  <option value="{{ tag.tag_name }}">{{ tag.tag_name }}</option>
                                                 {% endfor %}
-                                            </select>
+                                              </select>
+                                              
+                                              
+                                              <div id="selected-tags"></div>
+                                              
+                                              <script>
+                                                const tagsSelect = document.getElementById("tags");
+                                                const selectedTagsDiv = document.getElementById("selected-tags");
+                                                
+                                                tagsSelect.addEventListener("change", (event) => {
+                                                  // clear previous selection
+                                                  selectedTagsDiv.innerHTML = "";
+                                                  
+                                                  // add a div for each selected tag
+                                                  for (const option of event.target.selectedOptions) {
+                                                    const tagDiv = document.createElement("div");
+                                                    tagDiv.classList.add("tag");
+                                                    tagDiv.textContent = option.value;
+                                                    selectedTagsDiv.appendChild(tagDiv);
+                                                  }
+                                                });
+                                              </script>
+                                              
+                                              <style>
+                                                .tag {
+                                                  display: inline-block;
+                                                  padding: 4px 8px;
+                                                  margin: 4px;
+                                                  background-color: #ddd;
+                                                  border-radius: 4px;
+                                                }
+                                              </style>
+                                              
+                                            
                                         </fieldset>
                                     </div>
-                            
                                     <div class="col-lg-12">
                                         <fieldset>
                                             <button type="submit" id="form-submit" class="orange-button">Post</button>
@@ -150,6 +184,7 @@
                                     </div>
                                 </div>
                             </form>
+                            
                             
                         </div>
                     </div>

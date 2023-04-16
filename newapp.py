@@ -145,11 +145,19 @@ class Question():
         cursor=my_db.cursor(dictionary=True)
         query="INSERT INTO Questions (title,body,user_id) VALUES(%s,%s,%s)"
         cursor.execute(query,(title,body,user_id))
-        question=cursor.fetchone()
         my_db.commit()
-        for tag in tags:
-            query="INSERT INTO Questiontags (tag_id,question_id) VALUES(%s,%s)"
-            cursor.execute(query,(tag.tag_id,question[0]))
+        question_id=cursor.lastrowid
+        query="SELECT * FROM Questions WHERE question_id=%s"
+        cursor.execute(query,(question_id,))
+        question=cursor.fetchone()
+        # for tag in tags:
+        #     query="SELECT  tag_id FROM Tags WHERE tag_name=%s"
+        #     cursor.execute(query,(tag,))
+        #     tag_id=cursor.lastrowid
+        #     cursor.fetchall()
+        #     query="INSERT INTO Questiontags (tag_id,question_id) VALUES(%s,%s)"
+        #     cursor.execute(query,(tag_id,question_id))
+        #     cursor.fetchall()
         my_db.commit()
         my_db.close()
         return Question(**question)
@@ -220,6 +228,28 @@ class Question():
             return Answer(**answer)
         return None
     
+    @staticmethod
+    def find_question_by_user_id(user_id):
+        my_db=get_db_connection()
+        query = "SELECT * FROM Questions WHERE user_id = %s ORDER BY creation_date DESC"
+        cursor=my_db.cursor(dictionary=True)
+        cursor.execute(query,(user_id,))
+        questions=cursor.fetchall()
+        my_db.close()
+        q_list=[]
+        for q in questions:
+            q_list.append(Question(**q))
+        return q_list
+
+    @staticmethod
+    def find_followers(user_id):
+        my_db=get_db_connection()
+        query = "SELECT * FROM Questions WHERE user_id = %s ORDER BY creation_date DESC LIMIT 10"
+        cursor=my_db.cursor(dictionary=True)
+        cursor.execute(query,(user_id,))
+        questions=cursor.fetchall()
+
+    
 
         
 # -----class for Answer object--------------
@@ -282,7 +312,20 @@ class Answer():
         cursor.execute(query,(answer_id,))
         my_db.commit()
         my_db.close()
-        return "successfully deleted" 
+        return "successfully deleted"
+    
+    @staticmethod
+    def find_answer_by_user_id(user_id):
+        my_db=get_db_connection()
+        query = "SELECT * FROM answers WHERE user_id = %s ORDER BY creation_date DESC LIMIT 10"
+        cursor=my_db.cursor(dictionary=True)
+        cursor.execute(query,(user_id,))
+        answers=cursor.fetchall()
+        my_db.close()
+        a_list=[]
+        for a in answers:
+            a_list.append(Answer(**a))
+        return a_list
 # ----comments class-----------------
 
 class Question_Comment():
@@ -353,18 +396,30 @@ class Answer_Comment():
             return Answer_Comment(**row)
         return None 
         
+class Tag():
+    def __init__(self,**kwargs):
+        self.tag_id=kwargs.get('tag_id')
+        self.tag_name=kwargs.get('tag_name')
+        self.about=kwargs.get('about')
+
+    def find_tags():
+        my_db=get_db_connection()
+        query="SELECT * FROM Tags ORDER BY tag_name ASC;"
+        cursor=my_db.cursor(dictionary=True)
+        cursor.execute(query)
+        row=cursor.fetchall()
+        my_db.close() 
+        tag_list=[]
+        for tag in row:
+            tag_list.append(Tag(**tag))
+        return tag_list
+        return row
+
 
 #------------------update into database---------------------
 # required functions 
 
-def find_tags():
-    my_db=get_db_connection()
-    query="SELECT tag_name FROM Tags"
-    cursor=my_db.cursor(dictionary=True)
-    cursor.execute(query)
-    row=cursor.fetchall()
-    my_db.close() 
-    return row
+
 
     
 # -------------logged user--------------------------------
@@ -427,7 +482,6 @@ def bookmarks():
 @newapp.route("/users/complete_your_profile",methods=["GET",'POST'])
 def complete_your_profile():
     if request.method=='POST':
-        # image_url=request.form['profile_image_url']
         profile_image_url = request.form.get('profile_image_url', '')
         about=request.form['about']
         tags=request.form['tags']
@@ -459,23 +513,23 @@ def help_with_login():
 @login_required
 @newapp.route('/users/questions',methods=['GET','POST'])
 def post_question():
-    if request.method=='post':
+    if request.method=='POST':
         title=request.form['title']
         body=request.form['body']
-        tags=request.form['tags']
-        print(title)
+        selected_tags = request.form.getlist('tags[]')
+        # print(title)
         if not title:
             flash('Title is required.')
         elif not body:
             flash('Content is required.')
-        elif not tags:
+        elif not selected_tags:
             flash('tags required.')
         else:
-            question_id=Question.post_question(title=title, body=body, user_id=current_user.user_id)
+            question_id=Question.post_question(title=title, body=body,tags=selected_tags, user_id=current_user.user_id)
             if question_id:
                 flash('Question posted successfully!')
-                return redirect(url_for('user_home.html'))
-    return render_template('post_question.html',user=current_user,tag_list=find_tags())
+                return redirect(url_for('user_home'))
+    return render_template('post_question.html',user=current_user,tag_list=Tag.find_tags())
 
 @login_required
 @newapp.route('/users/answers',methods=['GET','POST'])
@@ -505,7 +559,7 @@ def post_comment():
 @login_required
 @newapp.route("/users/posted_questions",methods=["GET","POST","DELETE"])
 def posted_questions():
-    return render_template('posted_questions.html',user=current_user)
+    return render_template('posted_questions.html',q_list=Question.find_question_by_user_id(user_id=current_user.user_id),user_id=current_user.user_id)
 
 @login_required
 @newapp.route("/users/posted_comments",methods=["GET","POST","DELETE"])

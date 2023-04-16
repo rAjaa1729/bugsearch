@@ -24,6 +24,7 @@
 <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
 <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/our_c.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/side.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='assets/css/q_format.css') }}">
 
 </head>
 </head>
@@ -97,52 +98,23 @@
             <h2>Posted Questions</h2>
           </div>
         </div>
-        <div class="col-lg-12 col-md-6">
-          <div class="item">
-            <div class="row">
-              <div class="col-lg-12">
-                <ul>
-                  <li class>
-                    <span class="category"><button type="button" class="btn btn-secondary">Delete</button></span>
-                    <!-- <a href="#"><span class="category">Question</span></a> -->
-                    <h4>Application run using RunOnce registry key does not start when logged in using Enter-PSSession</h4>
-                  </li>
-                </ul>
-                <a href="#"><i class="fa fa-angle-right"></i></a>
-              </div>
+
+          {% for question in q_list %}
+          <div class="question" data-id="{{ question.question_id }}" data-upvotes="{{ question.upvotes }}" data-downvotes="{{ question.downvotes }}">
+            <h3>{{ question.title }}</h3>
+            <p>{{ question.body }}</p>
+            <div class="details">
+              <span class="answer-count">{{ question.answer_count }} answers</span>
+              <span class="comment-count">{{ question.comment_count }} comments</span>
+              <button class="upvote"><i class="fa fa-thumbs-up"></i> Upvote</button>
+              <button class="downvote"><i class="fa fa-thumbs-down"></i> Downvote</button>
+              <button class="bookmark"><i class="fa fa-bookmark"></i> Bookmark</button>
             </div>
           </div>
+          {% endfor %}
         </div>
-        <div class="col-lg-12 col-md-6">
-            <div class="item">
-              <div class="row">
-                <div class="col-lg-12">
-                  <ul>
-                    <li>
-                        <span class="category"><button type="button" class="btn btn-secondary">Delete</button></span>
-                        <h4>Application run using RunOnce registry key does not start when logged in using Enter-PSSession</h4>
-                    </li>
-                  </ul>
-                  <a href="#"><i class="fa fa-angle-right"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-12 col-md-6">
-            <div class="item">
-              <div class="row">
-                <div class="col-lg-12">
-                  <ul>
-                    <li>
-                        <span class="category"><button type="button" class="btn btn-secondary">Delete</button></span>
-                        <h4>Application run using RunOnce registry key does not start when logged in using Enter-PSSession</h4>
-                    </li>
-                  </ul>
-                  <a href="#"><i class="fa fa-angle-right"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
+        
+
       </div>
     </div>
   </div>
@@ -167,6 +139,7 @@
 <script src="{{ url_for('static', filename='assets/js/counter.js') }}"></script>
 <script src="{{ url_for('static', filename='assets/js/custom.js') }}"></script>
 <script src="{{ url_for('static', filename='assets/js/our.js') }}"></script>
+<!-- <script src="{{ url_for('static', filename='assets/css/our.js') }}"></script> -->
 
 
 </body>
