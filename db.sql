@@ -107,7 +107,7 @@ CREATE TABLE Question_votes
 CREATE TABLE Tags
 (
     tag_id INT NOT NULL AUTO_INCREMENT,
-    tag_name VARCHAR(20) NOT NULL,
+    tag_name VARCHAR(20) NOT NULL UNIQUE,
     about TEXT NOT NULL,
     PRIMARY KEY(tag_id)
 );
