@@ -112,6 +112,7 @@ CREATE TABLE Tags
     PRIMARY KEY(tag_id)
 );
 
+
 CREATE TABLE Followertags
 (
     fid INT AUTO_INCREMENT NOT NULL,
@@ -152,7 +153,6 @@ CREATE TABLE Answer_bookmarks
     FOREIGN KEY (user_id) REFERENCES Users(user_id),
     FOREIGN KEY (answer_id) REFERENCES Answers(answer_id) ON DELETE CASCADE
 );
-
 
 CREATE TABLE Question_bookmarks
 (
