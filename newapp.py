@@ -502,7 +502,7 @@ def user_home():
     # cur = my_db.cursor(dictionary=True)
     # cur.execute('SELECT * FROM Questions')
     # questions = cur.fetchall()
-    return render_template('user_home.html',user=User.find_by_email_id(current_user.email_id))
+    return render_template('user_home.html',user=current_user)
     # return render_template('help.html')
 
 @login_required
