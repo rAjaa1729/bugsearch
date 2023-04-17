@@ -46,18 +46,18 @@
           <li> <a href="{{url_for('recommendations')}}">Recommendations</a> </li>
           <li> <a href="{{url_for('all_users')}}">All Users</a> </li>
           <li> <a href="{{url_for('bookmarks')}}">Bookmarks</a> </li>
-          <li> <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Post</a> 
-            <ul class="collapse list-unstyled" id="pageSubmenu">
+<!--           <li> <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Post</a>  -->
+<!--             <ul class="collapse list-unstyled" id="pageSubmenu"> -->
                 <li> <a href="{{url_for('post_question')}}">Post Question</a> </li>
 <!--                 <li> <a href="{{url_for('post_answer')}}">Post Answer</a> </li>
                 <li> <a href="{{url_for('post_comment')}}">Post Comment</a> </li> -->
-            </ul>
+<!--             </ul> -->
         </li>
         <li> <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Posted</a>
             <ul class="collapse list-unstyled" id="pageSubmenu">
                 <li> <a href="{{url_for('posted_questions')}}">Posted Questions</a> </li>
-<!--                 <li> <a href="{{url_for('posted_answers')}}">Posted Answers</a> </li>
-                <li> <a href="{{url_for('posted_comments')}}">Posted Comments</a> </li> -->
+                <li> <a href="{{url_for('posted_answers')}}">Posted Answers</a> </li>
+                <li> <a href="{{url_for('posted_comments')}}">Posted Comments</a> </li>
             </ul>
         </li>
     </nav>
