@@ -600,7 +600,7 @@ def post_question():
             question_id=Question.post_question(title=title, body=body,tags=selected_tags, user_id=current_user.user_id)
             if question_id:
                 flash('Question posted successfully!')
-                return redirect(url_for('user_home'))
+                return redirect(url_for('posted_questions'))
     return render_template('post_question.html',user=current_user,tag_list=Tag.find_all_tags())
 
 
@@ -608,7 +608,7 @@ def post_question():
 @newapp.route('/users/questions/<int:question_id>',methods=["GET",])
 def find_question(question_id):
     question=Question.find_by_question_id(question_id=question_id)
-    return render_template('present_question.html',user=current_user,question=question,l_tags=Tag.find_tags_by_question_id(question_id),l_ans=Answer.find_ans_by_ques_id(question_id),l_com=Question_Comment)
+    return render_template('present_question.html',user=current_user,question=question,l_tags=Tag.find_tags_by_question_id(question_id),l_ans=Answer.find_ans_by_ques_id(question_id))
 
 
 @login_required
