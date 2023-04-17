@@ -68,6 +68,7 @@ CREATE TABLE Answer_comments
     FOREIGN KEY (answer_id) REFERENCES Answers(answer_id) ON DELETE CASCADE
 );
 
+
 CREATE TABLE Question_comments
 (
     question_comment_id INT NOT NULL AUTO_INCREMENT,
