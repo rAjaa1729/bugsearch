@@ -603,6 +603,7 @@ def post_question():
                 return redirect(url_for('user_home'))
     return render_template('post_question.html',user=current_user,tag_list=Tag.find_all_tags())
 
+
 @login_required
 @newapp.route('/users/questions/<int:question_id>',methods=["GET","POST"])
 def find_question(question_id):
@@ -611,8 +612,11 @@ def find_question(question_id):
 
 
 @login_required
-@newapp.route('/users/questions/{question_id}/answers',methods=['GET','POST'])
-def post_answer():
+@newapp.route('/users/questions/<int:question_id>/answers',methods=['GET','POST'])
+def post_answer(question_id):
+    if request.method=="POST":
+        body=request.form['body']
+        answer=Answer.post_answer(user_id=current_user.user_id,body=body,question_id=question_id)
     return render_template('post_answer.html',user=current_user)
 
 
