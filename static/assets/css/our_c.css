@@ -157,3 +157,15 @@ input::-webkit-input-placeholder {
   width: 150%;
   padding-bottom: 26px;
 }
+.sel{
+    transition : all 0.4s;
+    
+  }
+  .sel:hover{
+    transform: scale(1.08);
+    border-left : 3px solid #49BBBD;
+    border-bottom: 3px solid #49BBBD;
+  }
+  .hz{
+    --bs-gutter-x:10.5rem;
+  }
