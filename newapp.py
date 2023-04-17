@@ -605,7 +605,7 @@ def post_question():
 
 
 @login_required
-@newapp.route('/users/questions/<int:question_id>',methods=["GET","POST"])
+@newapp.route('/users/questions/<int:question_id>',methods=["GET",])
 def find_question(question_id):
     question=Question.find_by_question_id(question_id=question_id)
     return render_template('present_question.html',user=current_user,question=question,l_tags=Tag.find_tags_by_question_id(question_id),l_ans=Answer.find_ans_by_ques_id(question_id),l_com=Question_Comment)
@@ -636,47 +636,34 @@ def post_answer_comment(question_id,answer_id):
 
 
 
-@login_required
-@newapp.route('/users/comments',methods=['GET','POST'])
-def post_comment():
-    if request.method=='POST':
-        body=request.form['body']
-        if not body:
-            flash('Content is required.')
-        # else:
+# @login_required
+# @newapp.route('/users/comments',methods=['GET','POST'])
+# def post_comment():
+#     if request.method=='POST':
+#         body=request.form['body']
+#         if not body:
+#             flash('Content is required.')
+#         # else:
 
 
-    return render_template('post_comment.html',user=current_user)
-    # if request.method=='post':
-    #     title=request.form['title']
-    #     body=request.form['body']
-    #     tags=request.form['tags']
-    #     if not title:
-    #         flash('Title is required.')
-    #     elif not body:
-    #         flash('Content is required.')
-    #     elif not tags:
-    #         flash('tags required.')
-    #     else:
-    #         question_id=Question.post_question(title=title, body=body, user_id=current_user.user_id)
-    #         if question_id:
-    #             flash('Question posted successfully!')
-    #             return redirect(url_for('user_home.html'))
+#     return render_template('post_comment.html',user=current_user)
+#     # if request.method=='post':
+
             
 @login_required
 @newapp.route("/users/posted_questions",methods=["GET","POST","DELETE"])
 def posted_questions():
     return render_template('posted_questions.html',q_list=Question.find_question_by_user_id(user_id=current_user.user_id),user_id=current_user.user_id)
 
-@login_required
-@newapp.route("/users/posted_comments",methods=["GET","POST","DELETE"])
-def posted_comments():
-    return render_template('posted_comments.html',user=current_user)
+# @login_required
+# @newapp.route("/users/posted_comments",methods=["GET","POST","DELETE"])
+# def posted_comments():
+#     return render_template('posted_comments.html',user=current_user)
 
-@login_required
-@newapp.route("/users/posted_answers",methods=["GET","POST","DELETE"])
-def posted_answers():
-    return render_template('posted_answers.html',user=current_user)
+# @login_required
+# @newapp.route("/users/posted_answers",methods=["GET","POST","DELETE"])
+# def posted_answers():
+#     return render_template('posted_answers.html',user=current_user)
 
 @login_required
 @newapp.route('/users/recommendations',methods=['GET',])
