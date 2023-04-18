@@ -170,4 +170,89 @@ input::-webkit-input-placeholder {
     --bs-gutter-x:10.5rem;
 }
 
+.like-dislike {
+    /* display: flex;
+    /* justify-content: center; horizontal alignment 
+    align-items: center;  */
+    /* display: flex; */
+    /* align-items: center; */
+    /* margin-top: -10px;
+    height: 143px;
+    width: 46px;
+    margin-left: 28px; */
+    margin-top: -10px;
+    height: 151px;
+    width: 40px;
+    margin-left: 32px;
+    /* border: 2px solid red */
+  }
+  
+  button {
+    padding: 5px 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  #like-btn1, #like-btn2, #like-btn3, #like-btn4 {
+    margin-left: 0px;
+    border: none;
+    margin-top: -1px;
+    background-color: rgba(73, 187, 189, 0.10000000149011612);
+    height: 32px;
+    width: 32px;
+    display: inline-grid;
+    justify-content: center;
+    align-items: center;
+    border-color: #49BBBD;
+    border: 2px solid #49BBBD;
+  }
+  
+  #dislike-btn1, #dislike-btn2, #dislike-btn3, #dislike-btn4 {
+    border: none;
+    margin-left: 0px;
+    margin-top: 44px;
+    height: 32px;
+    width: 32px;
+    display: inline-grid;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(73, 187, 189, 0.10000000149011612);
+    border-color: #49BBBD;
+    border: 2px solid #49BBBD;
+  }
+  
+  #counter1, #counter2, #counter3, #counter4 {
+    margin-left: -26px;
+    margin-top: 30px;
+    font-size: 32px;
+    position: absolute;
+  }
+  
+  #bookmarks-btn1, #bookmarks-btn2, #bookmarks-btn3, #bookmarks-btn4{
+    border: none;
+    margin-left: 0px;
+    margin-top: 10px;
+    height: 32px;
+    width: 32px;
+    display: inline-grid;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(73, 187, 189, 0.10000000149011612);
+    border-color: #49BBBD;
+    border: 2px solid #49BBBD;
+  }
+
+  .surf{
+    margin-right: 15px;
+  }
+
+  .search-row{
+    /* padding-right: calc(var(--bs-gutter-x) * 4); */
+  }
+  .add_c{
+    text-decoration: underline;
+    color: #49BBBD;
+  }
+
 
