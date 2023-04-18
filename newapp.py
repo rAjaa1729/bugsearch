@@ -617,7 +617,8 @@ def post_answer(question_id):
     if request.method=="POST":
         body=request.form['body']
         answer=Answer.post_answer(user_id=current_user.user_id,body=body,question_id=question_id)
-    return render_template('post_answer.html',user=current_user)
+        return redirect(url_for('find_question',question_id=question_id))
+    # return redirect(url_for('find_question',question_id=question_id))
 
 
 @login_required
@@ -630,7 +631,8 @@ def post_answer_comment(question_id,answer_id):
         else:
             id=current_user.user_id
             qa_comment=Answer_Comment.post_acomment(user_id=id,body=body,answer_id=answer_id)
-            return 
+            return redirect(url_for('find_question',question_id=question_id)) 
+    
 
 
 
@@ -653,7 +655,8 @@ def post_answer_comment(question_id,answer_id):
 @login_required
 @newapp.route("/users/posted_questions",methods=["GET","POST","DELETE"])
 def posted_questions():
-    return render_template('posted_questions.html',q_list=Question.find_question_by_user_id(user_id=current_user.user_id),user_id=current_user.user_id)
+    id=current_user.user_id
+    return render_template('posted_questions.html',q_list=Question.find_question_by_user_id(user_id=id),user=current_user)
 
 # @login_required
 # @newapp.route("/users/posted_comments",methods=["GET","POST","DELETE"])
