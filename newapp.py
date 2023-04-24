@@ -176,15 +176,11 @@ class Question():
         query="SELECT * FROM Questions WHERE question_id=%s"
         cursor.execute(query,(question_id,))
         question=cursor.fetchone()
-        # for tag in tags:
-        #     query="SELECT  tag_id FROM Tags WHERE tag_name=%s"
-        #     cursor.execute(query,(tag,))
-        #     tag_id=cursor.lastrowid
-        #     cursor.fetchall()
-        #     query="INSERT INTO Questiontags (tag_id,question_id) VALUES(%s,%s)"
-        #     cursor.execute(query,(tag_id,question_id))
-        #     cursor.fetchall()
-        my_db.commit()
+        for tag_name in tags:
+            query="INSERT INTO Questiontags (tag_name,question_id) VALUES(%s,%s)"
+            cursor.execute(query,(tag_name,question_id))
+            my_db.commit()
+            cursor.fetchall()
         my_db.close()
         return Question(**question)
         
@@ -304,6 +300,9 @@ class Answer():
         cursor.execute(query,(body,user_id,question_id))
         answer_id=cursor.lastrowid
         my_db.commit()
+        query = "UPDATE Questions SET answer_count = answer_count + 1 WHERE question_id = %s"
+        cursor.execute(query, (question_id,))
+        my_db.commit()
         my_db.close()
         if answer_id is None:
             return "failed", 400
@@ -389,6 +388,9 @@ class Question_Comment():
         cursor.execute(query,(body,user_id,question_id))
         qcomment=cursor.fetchone()
         my_db.commit()
+        query = "UPDATE Questions SET comment_count = comment_count + 1 WHERE question_id = %s"
+        cursor.execute(query, (question_id,))
+        my_db.commit()
         my_db.close()
         if qcomment is None:
             return "failed", 400
@@ -459,6 +461,7 @@ class Tag():
         self.tag_id=kwargs.get('tag_id')
         self.tag_name=kwargs.get('tag_name')
         self.about=kwargs.get('about')
+        self.creation_date=kwargs.get('creation_date')
 
     @staticmethod
     def find_all_tags():
@@ -477,12 +480,15 @@ class Tag():
     @staticmethod
     def find_tags_by_question_id(question_id):
         my_db=get_db_connection()
-        query="SELECT tag_id FROM Questiontags WHERE question_id= %s ;"
+        query="SELECT tag_name FROM Questiontags WHERE question_id= %s ;"
         cursor=my_db.cursor(dictionary=True)
         cursor.execute(query,(question_id,))
-        tag_ids=cursor.fetchall()
-        query="SELECT * FROM Tags WHERE tag_id= %s ;"
-        all_tags=[]
+        tag_names=cursor.fetchall()
+        # all_tags=[]
+        # for tag in tag_names:
+        #     all_tags.append(Tag(**tag))
+        # return all_tags
+        return tag_names
 
 
     
@@ -618,7 +624,7 @@ def post_answer(question_id):
         body=request.form['body']
         answer=Answer.post_answer(user_id=current_user.user_id,body=body,question_id=question_id)
         return redirect(url_for('find_question',question_id=question_id))
-    # return redirect(url_for('find_question',question_id=question_id))
+    return render_template('post_answer.html',question_id=question_id,user=current_user)
 
 
 @login_required
@@ -630,26 +636,23 @@ def post_answer_comment(question_id,answer_id):
             flash('Content is required.')
         else:
             id=current_user.user_id
-            qa_comment=Answer_Comment.post_acomment(user_id=id,body=body,answer_id=answer_id)
+            Answer_Comment.post_acomment(user_id=id,body=body,answer_id=answer_id)
             return redirect(url_for('find_question',question_id=question_id)) 
+    return render_template('post_acomment.html',answer_id=answer_id)
     
+@login_required
+@newapp.route('/users/questions/<int:question_id>/comments',methods=['GET','POST'])
+def post_question_comment(question_id):
+    if request.method=="POST":
+        body=request.form['body']
+        if not body:
+            flash('Content is required.')
+        else:
+            id=current_user.user_id
+            Question_Comment.post_qcomment(user_id=id,body=body,question_id=question_id)
+            return redirect(url_for('find_question',question_id=question_id))
+    return render_template('post_qcomment.html',question_id=question_id) 
 
-
-
-
-
-# @login_required
-# @newapp.route('/users/comments',methods=['GET','POST'])
-# def post_comment():
-#     if request.method=='POST':
-#         body=request.form['body']
-#         if not body:
-#             flash('Content is required.')
-#         # else:
-
-
-#     return render_template('post_comment.html',user=current_user)
-#     # if request.method=='post':
 
             
 @login_required
@@ -682,6 +685,12 @@ def tags_login():
 @newapp.route('/users/trending',methods=['GET',])
 def trending():
     return render_template('trending.html',user=current_user)
+
+@login_required
+@newapp.route('/users/search',methods=['GET',])
+def search_login():
+    return render_template('search_with_login.html',user=current_user)
+
 
 @newapp.route('/signup', methods=('GET', 'POST'))
 def signup():

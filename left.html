@@ -1,30 +1,37 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Textarea Example</title>
-    <script>
-        function validateTextarea() {
-            var message = document.getElementById("message");
-            var length = message.value.length;
-            var remaining = 100 - length;
-            var messageBox = document.getElementById("message-box");
-            if (length < 100) {
-                messageBox.innerHTML = remaining + " characters remaining";
-                messageBox.style.color = "red";
-            } else {
-                messageBox.innerHTML = "Message is valid";
-                messageBox.style.color = "green";
-            }
-        }
-    </script>
+  <meta charset="UTF-8">
+  <title>Tag Block Example</title>
+  
 </head>
 <body>
-    <form>
-        <label for="message">Enter your message (at least 100 characters):</label><br>
-        <textarea id="message" name="message" rows="4" cols="50" minlength="100" onkeyup="validateTextarea()"></textarea><br>
-        <div id="message-box"></div>
-        <input type="submit" value="Submit">
-    </form>
+  <div id="tagContainer"></div>
+  <script>
+    // Assume we have an array of tags called 'tagList' with objects containing a 'tag_id' and 'tag_name'
+    const tagList = [
+      { tag_id: 1, tag_name: 'javascript' },
+      { tag_id: 2, tag_name: 'python' },
+      { tag_id: 3, tag_name: 'html' },
+      { tag_id: 4, tag_name: 'css' },
+    ];
+
+    // Create a new div element to hold the tags
+    const tagBlock = document.createElement('div');
+    tagBlock.className = 'tagBlock';
+
+    // Loop through the tagList and create a new button element for each tag
+    for (let i = 0; i < tagList.length; i++) {
+      const tag = tagList[i];
+      const tagButton = document.createElement('button');
+      tagButton.className = 'tagButton';
+      tagButton.innerHTML = tag.tag_name;
+      tagBlock.appendChild(tagButton);
+    }
+
+    // Add the tagBlock element to the HTML page
+    const container = document.getElementById('tagContainer');
+    container.appendChild(tagBlock);
+  </script>
 </body>
 </html>

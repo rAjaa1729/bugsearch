@@ -108,8 +108,9 @@ CREATE TABLE Question_votes
 CREATE TABLE Tags
 (
     tag_id INT NOT NULL AUTO_INCREMENT,
-    tag_name VARCHAR(20) NOT NULL UNIQUE,
+    tag_name VARCHAR(50) NOT NULL UNIQUE,
     about TEXT NOT NULL,
+    creation_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY(tag_id)
 );
 
@@ -127,20 +128,20 @@ CREATE TABLE Followertags
 
 CREATE TABLE Usertags
 (
-    tag_id INT NOT NULL,
-    user_id INT NOT NULL,
-    PRIMARY KEY (user_id,tag_id),
-    FOREIGN KEY (tag_id) REFERENCES Tags(tag_id),
+    tag_name VARCHAR(50) NOT NULL ,
+    user_id INT NOT NULL ,
+    PRIMARY KEY (user_id,tag_name),
+    FOREIGN KEY (tag_name) REFERENCES Tags(tag_name),
     FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );
 
 
 CREATE TABLE Questiontags
 (
-    tag_id INT NOT NULL,
+    tag_name VARCHAR(50) NOT NULL ,
     question_id INT NOT NULL,
-    PRIMARY KEY (question_id,tag_id),
-    FOREIGN KEY (tag_id) REFERENCES Tags(tag_id),
+    PRIMARY KEY (question_id,tag_name),
+    FOREIGN KEY (tag_name) REFERENCES Tags(tag_name),
     FOREIGN KEY (question_id) REFERENCES Questions(question_id) ON DELETE CASCADE
 );
 

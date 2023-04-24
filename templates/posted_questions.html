@@ -88,7 +88,7 @@
 
           {% for question in q_list %}
           <div class="question" data-id="{{ question.question_id }}" data-upvotes="{{ question.upvotes }}" data-downvotes="{{ question.downvotes }}">
-            <h3>{{ question.title }}</h3>
+            <h3><a href="{{url_for('find_question',question_id=question.question_id)}}">{{ question.title }}</a></h3>
             <p>{{ question.body }}</p>
             <div class="details">
               <span class="answer-count">{{ question.answer_count }} answers</span>
