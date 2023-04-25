@@ -1,32 +1,4 @@
-// Get references to the upvote and downvote buttons
-const upvoteBtn=document.getElementById('upvote-btn');
-const downvoteBtn=document.getElementById('downvote-btn');
 
-
-// Add event listeners to the buttons
-upvoteBtn.addEventListener('click',updateupvote);
-
-function updateupvote()
-{
-    console.log('has entered in the upvote function upvote clicked ');
-    const xhr=new XMLHttpRequest();
-
-    xhr.open('GET','/',true);
-
-    xhr.onload = function()
-    {
-        if(this.status===200)
-        {
-        console.log("has clicked and request has been sent");
-        }
-        else
-        {
-            console.log("request not send ")
-        }
-    }
-    xhr.send();
-
-}
 
 // upvoteBtn.addEventListener('click', () => {
 //   if (upvoteBtn.classList.contains('selected')) {

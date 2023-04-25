@@ -10,11 +10,55 @@
 <body>
 
   <div>
-    <button type='button' id="upvote-btn">{{user.username}}</button>
-    <button type='button' id="downvote-btn">Downvote</button>
+    <button type='button' id="upvote-btn" style="background-color: yellow;" >Upvote</button>
+    <button type='button' id="score" style="background-color: blue;" >score</button>
+    <button type='button' id="downvote-btn" style="background-color: red;">Downvote</button>
+ 
+
   </div>
   
   
-  <script src="{{ url_for('static', filename='check.js') }}"></script>
+<script>
+    // Get references to the upvote and downvote buttons
+const upvoteBtn=document.getElementById('upvote-btn');
+// Add event listeners to the buttons
+upvoteBtn.addEventListener('click',updateupvote);
+upvoteBtn.addEventListener('load',loadvote);
+function updateupvote()
+{
+    console.log('has entered in the upvote function upvote clicked ');
+    const xhr=new XMLHttpRequest();
+
+    xhr.open('GET','/loadvote',true);
+
+    xhr.onload = function()
+    {
+        if(this.status===200)
+        {
+            const data=this.responseText
+            if(data=='neutral')
+            {
+                let newdata=document.getElementById('upvote-btn');
+                console.log(data);
+                newdata.innerHTML=data;
+            }
+            else
+            {
+                console.log(data);
+            }
+        }
+        else
+        {
+            console.log("request not send ")
+        }
+    }
+    xhr.send();
+}
+function loadvote()
+{
+  
+}
+
+</script>
 </body>
 </html>

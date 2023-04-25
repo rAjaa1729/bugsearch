@@ -93,8 +93,8 @@
             <div class="line"></div><br>
             <div class="row surf">
                 <div class="col-lg-1">
-                    <div class="like-dislike">
-                        <button id="like-btn1" class="lb"><box-icon type='solid' name='up-arrow' style="height:18px; width:18px"></box-icon></button>
+                    <div class="like-dislike" id="loadclickhandle">
+                        <button id="like-btn1" class="lb"><box-icon type='solid' name='up-arrow' style="height:18px; width:18px" ></box-icon></button>
                         <span class="votecount" id="counter1" class="cb">0</span>
                         <button id="dislike-btn1" class="dlb"><box-icon type='solid' name='down-arrow' style="height:18px; width:18px"></box-icon></button>
                         <button id="bookmarks-btn1"><box-icon name='bookmark-star' type='solid' style="height:18px; width:18px" ></box-icon></button>
@@ -107,48 +107,6 @@
                     <button type="button" class="btn btn-primary btn-sm btn-search">{{ tag.tag_name }}</button>
                     {% endfor %}
                     <br><br>
-
-                    <!-- <script>
-                        // Assume we have an array of tags called 'tagList' with objects containing a 'tag_id' and 'tag_name'
-                    
-                        // Create a new div element to hold the tags
-                        const tagBlock = document.createElement('div');
-                        tagBlock.className = 'tagBlock';
-                    
-                        // Loop through the tagList and create a new button element for each tag
-                        for (tag in l_tags ){
-                          const taga = tag.tag_name;
-                          const tagButton = document.createElement('button');
-                          tagButton.className = 'tagButton';
-                          tagButton.innerHTML = taga;
-                          tagBlock.appendChild(tagButton);
-                        }
-                    
-                        // Add the tagBlock element to the HTML page
-                        const container = document.getElementById('tagContainer');
-                        container.appendChild(tagBlock);
-                      </script>
-                    <style>
-                        .tagBlock {
-                          display: inline-block;
-                          margin: 10px;
-                          padding: 5px;
-                          background-color: #f2f2f2;
-                        }
-                    
-                        .tagButton {
-                          margin-right: 5px;
-                          padding: 5px;
-                          background-color: #ddd;
-                          border: none;
-                          border-radius: 3px;
-                          cursor: pointer;
-                        }
-                    
-                        .tagButton:hover {
-                          background-color: #aaa;
-                        }
-                      </style> -->
                 
             <br><br>
             <h5 >

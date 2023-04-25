@@ -492,7 +492,6 @@ class Tag():
 
 class Qvote:
     def __init__(self,**kwargs):
-        self.question_vote_id=kwargs.get('question_vote_id')
         self.vote_type=kwargs.get('vote_type')
         self.question_id=kwargs.get('question_id')
         self.user_id=kwargs.get('user_id')
@@ -501,9 +500,10 @@ class Qvote:
     def findvote(user_id,question_id):
         my_db=get_db_connection()
         cursor=my_db.cursor(dictionary=True)
-        query="SELECT * FROM Qusetion_votes WHERE user_id=%s AND question_id=%s"
+        query="SELECT * FROM Question_votes WHERE user_id=%s AND question_id=%s"
         cursor.execute(query,(user_id,question_id))
         vote=cursor.fetchone()
+        my_db.close()
         if(vote is None):
             return ("neutral")
         else:
@@ -684,11 +684,24 @@ def posted_questions():
     id=current_user.user_id
     return render_template('posted_questions.html',q_list=Question.find_question_by_user_id(user_id=id),user=current_user)
 
-@login_required
+
 @newapp.route('/updatevote',methods=["GET",])
 def updatevote():
     user_id=current_user.user_id
-    return render_template('check.html',user=current_user,vote=Qvote.findvote(user_id=user_id,question_id=2))
+    return render_template('check.html',user=current_user)
+
+# local javascript interaction code
+@newapp.route('/clickvote',methods=["GET",])
+def clickvote():
+    user_id=current_user.user_id
+    return (vote:=Qvote.findvote(user_id=user_id,question_id=1))
+
+@newapp.route('/loadvote',methods=["GET",])
+def loadvote():
+    user_id=current_user.user_id
+    return (vote:=Qvote.findvote(user_id=user_id,question_id=1))
+
+
 
 # @login_required
 # @newapp.route("/users/posted_comments",methods=["GET","POST","DELETE"])
