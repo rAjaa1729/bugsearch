@@ -705,7 +705,7 @@ def posted_questions():
 @newapp.route('/updatevote',methods=["GET",])
 def updatevote():
     user_id=current_user.user_id
-    return render_template('check.html',user=current_user)
+    return render_template('check.html',user=current_user,question=Question.find_by_question_id(question_id=1))
 
 # local javascript interaction code
 @newapp.route('/clickvote',methods=["GET",])
@@ -713,14 +713,41 @@ def clickvote():
     user_id=current_user.user_id
     return (vote:=Qvote.findvote(user_id=user_id,question_id=1))
 
-@newapp.route('/loadvote',methods=["GET",])
-def loadvote():
-    data=request.json['question_id']
-    print(data)
-    user_id=current_user.user_id
-    # return (vote:=Qvote.findvote(user_id=user_id,question_id=data["question_id"]))
-    return (data)
 
+
+@newapp.route('/Qloadvote', methods=['GET', 'POST'])
+def loadvote():
+    if request.method == 'GET':
+        # Handle GET request
+        data = request.args
+        question_id = data.get('question_id')
+        user_id = current_user.user_id
+        Qvote.findvote(user_id=user_id, question_id=question_id)
+        return jsonify({"votetype": "neutral"})
+    elif request.method == 'POST':
+        # Handle POST request
+        data = request.get_json()
+        question_id = data.get('question_id')
+        user_id = current_user.user_id
+        Qvote.findvote(user_id=user_id, question_id=question_id)
+        return jsonify({"votetype": "neutral"})
+
+@newapp.route('/Qupdatevote', methods=['GET', 'POST'])
+def loadvote():
+    if request.method == 'GET':
+        # Handle GET request
+        data = request.args
+        question_id = data.get('question_id')
+        user_id = current_user.user_id
+        Qvote.findvote(user_id=user_id, question_id=question_id)
+        return jsonify({"votetype": "neutral"})
+    elif request.method == 'POST':
+        # Handle POST request
+        data = request.get_json()
+        question_id = data.get('question_id')
+        user_id = current_user.user_id
+        Qvote.findvote(user_id=user_id, question_id=question_id)
+        return jsonify({"votetype": "neutral"})
 
 
 # @login_required

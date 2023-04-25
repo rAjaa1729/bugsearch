@@ -4,44 +4,45 @@
     my name is raja kumar  
 </title>
 
-</script>
+
 </head>
 <html>
 <body>
 
-  <div>
+<div>
     <button type='button' id="upvote-btn" style="background-color: yellow;" >Upvote</button>
-    <button type='button' id="score" style="background-color: blue;" >score</button>
+    <button type='button' id="score" style="background-color: black;" >{{question.question_id}}</button>
     <button type='button' id="downvote-btn" style="background-color: red;">Downvote</button>
- 
-
-  </div>
+    <button type='button' id="bookmark-btn" style="background-color: rgb(73, 22, 3);">bookmark</button>
+</div>
   
   
 <script>
     // Get references to the upvote and downvote buttons
 const upvoteBtn=document.getElementById('upvote-btn');
 // Add event listeners to the buttons
-upvoteBtn.addEventListener('click',updateupvote);
+upvoteBtn.addEventListener('click',updatevote);
 upvoteBtn.addEventListener('load',loadvote);
-function updateupvote()
+function updatevote(question=question)
 {
     console.log('has entered in the upvote function upvote clicked ');
     const xhr=new XMLHttpRequest();
 
-    xhr.open('GET','/loadvote',true);
-    xhr.setRequestHeader("content-type","application/json");
+    xhr.open('GET','/Qupdatevote',true);
+    xhr.setRequestHeader("content-type","application/json;charset=UTF-8");
 
     xhr.onload = function()
     {
+      console.log('has entered in the  ');
         if(this.status===200)
         {
-            const data=parse(this.responseText);
-            if(data=='neutral')
+          console.log('has entered in the the stasys  ');
+            const data=JSON.parse(this.responseText);
+            if(data['votetype']=='neutral')
             {
                 let newdata=document.getElementById('upvote-btn');
                 console.log(data);
-                newdata.innerHTML=data;
+                newdata.innerHTML=data['votetype'];
             }
             else
             {
@@ -50,18 +51,48 @@ function updateupvote()
         }
         else
         {
-            const data=(this.responseText);
-            console.log("request not send ");
-            // console.log(data);
+            // const data=(this.responseText);
+            const data=parse(this.responseText);
         }
     };
-    data=JSON.stringify({question_id:1});
+    const data=JSON.stringify({"question_id":question.question_id});
     xhr.send(data);
 }
-// function loadvote()
-// {
+function loadvote(question=question)
+{
+  console.log('has entered in the upvote function upvote clicked ');
+  const xhr=new XMLHttpRequest();
 
-// }
+    xhr.open('GET','/Qloadvote',true);
+    xhr.setRequestHeader("content-type","application/json;charset=UTF-8");
+
+    xhr.onload = function()
+    {
+      console.log('has entered in the  ');
+        if(this.status===200)
+        {
+          console.log('has entered in the the stasys  ');
+            const data=JSON.parse(this.responseText);
+            if(data['votetype']=='neutral')
+            {
+                let newdata=document.getElementById('upvote-btn');
+                console.log(data);
+                newdata.innerHTML=data['votetype'];
+            }
+            else
+            {
+                console.log(data);
+            }
+        }
+        else
+        {
+            // const data=(this.responseText);
+            const data=JSON.parse(this.responseText);
+        }
+    };
+    const data=JSON.stringify({"question_id":question.question_id});
+    xhr.send(data);
+}
 
 </script>
 </body>
