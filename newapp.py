@@ -1,6 +1,8 @@
 import mysql.connector
 from flask import Flask, render_template, request, url_for, flash, redirect,jsonify
 from werkzeug.exceptions import abort
+from fuzzywuzzy import fuzz 
+from fuzzywuzzy import process 
 # from flask_bcrypt import Bcrypt  
 # import hashlib
 from flask_login import  UserMixin, login_user, LoginManager, login_required, current_user, logout_user
