@@ -490,6 +490,29 @@ class Tag():
         # return all_tags
         return tag_names
 
+class Qvote:
+    def __init__(self,**kwargs):
+        self.question_vote_id=kwargs.get('question_vote_id')
+        self.vote_type=kwargs.get('vote_type')
+        self.question_id=kwargs.get('question_id')
+        self.user_id=kwargs.get('user_id')
+
+    @staticmethod
+    def findvote(user_id,question_id):
+        my_db=get_db_connection()
+        cursor=my_db.cursor(dictionary=True)
+        query="SELECT * FROM Qusetion_votes WHERE user_id=%s AND question_id=%s"
+        cursor.execute(query,(user_id,question_id))
+        vote=cursor.fetchone()
+        if(vote is None):
+            return ("neutral")
+        else:
+            return vote['vote_type']
+    
+        # query="INSERT INTO Question_votes (user_id, question_id, vote_type) VALUES (%s, %s, %s)"
+
+
+
 
     
 
@@ -614,7 +637,7 @@ def post_question():
 @newapp.route('/users/questions/<int:question_id>',methods=["GET",])
 def find_question(question_id):
     question=Question.find_by_question_id(question_id=question_id)
-    return render_template('present_question.html',user=current_user,question=question,l_tags=Tag.find_tags_by_question_id(question_id),l_ans=Answer.find_ans_by_ques_id(question_id))
+    return render_template('present.html',user=current_user,question=question,l_tags=Tag.find_tags_by_question_id(question_id),l_ans=Answer.find_ans_by_ques_id(question_id))
 
 
 @login_required
@@ -660,6 +683,12 @@ def post_question_comment(question_id):
 def posted_questions():
     id=current_user.user_id
     return render_template('posted_questions.html',q_list=Question.find_question_by_user_id(user_id=id),user=current_user)
+
+@login_required
+@newapp.route('/updatevote',methods=["GET",])
+def updatevote():
+    user_id=current_user.user_id
+    return render_template('check.html',user=current_user,vote=Qvote.findvote(user_id=user_id,question_id=2))
 
 # @login_required
 # @newapp.route("/users/posted_comments",methods=["GET","POST","DELETE"])

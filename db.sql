@@ -86,7 +86,7 @@ CREATE TABLE Question_comments
 CREATE TABLE Answer_votes
 (
     answer_vote_id INT NOT NULL AUTO_INCREMENT,
-    vote_type ENUM('upvote', 'downvote') NOT NULL,
+    vote_type ENUM('upvote', 'downvote','neutral') NOT NULL DEFAULT 'neutral',
     answer_id INT NOT NULL,
     user_id INT NOT NULL,
     PRIMARY KEY (answer_vote_id),
@@ -97,7 +97,7 @@ CREATE TABLE Answer_votes
 CREATE TABLE Question_votes
 (
     question_vote_id INT NOT NULL AUTO_INCREMENT,
-    vote_type ENUM('upvote', 'downvote') NOT NULL,
+    vote_type ENUM('upvote', 'downvote','neutral') NOT NULL DEFAULT 'neutral',
     question_id INT NOT NULL,
     user_id INT NOT NULL,
     PRIMARY KEY (question_vote_id),

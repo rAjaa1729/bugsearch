@@ -10,6 +10,7 @@
         document.getElementById("counter1").innerHTML=
     </script>
 
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
@@ -93,9 +94,10 @@
             <div class="row surf">
                 <div class="col-lg-1">
                     <div class="like-dislike">
-                        <button id="like-btn1" class="lb"><box-icon type='solid' name='up-arrow' style="height:18px; width:18px"></box-icon></button>
-                        <span class="votecount" id="counter1" class="cb">0</span>
-                        <button id="dislike-btn1" class="dlb"><box-icon type='solid' name='down-arrow' style="height:18px; width:18px"></box-icon></button>
+                        <button id="upvote-btn" class="vote-btn {% if vote_type == 'upvote' %}active{% endif %}" onclick="updateVote('upvote')">Upvote</button>
+                        <span class="votecount" id="counter1" class="cb">{{question.score}}</span>
+                        <button id="downvote-btn" class="vote-btn {% if vote_type == 'downvote' %}active{% endif %}" onclick="updateVote('downvote')">Downvote</button>
+                        
                         <button id="bookmarks-btn1"><box-icon name='bookmark-star' type='solid' style="height:18px; width:18px" ></box-icon></button>
                     </div>
                 </div>
