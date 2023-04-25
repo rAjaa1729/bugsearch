@@ -94,21 +94,20 @@
             <div class="row surf">
                 <div class="col-lg-1">
                     <div class="like-dislike">
-                        <button id="upvote-btn" class="vote-btn {% if vote_type == 'upvote' %}active{% endif %}" onclick="updateVote('upvote')">Upvote</button>
-                        <span class="votecount" id="counter1" class="cb">{{question.score}}</span>
-                        <button id="downvote-btn" class="vote-btn {% if vote_type == 'downvote' %}active{% endif %}" onclick="updateVote('downvote')">Downvote</button>
-                        
+                        <button id="like-btn1" class="lb"><box-icon type='solid' name='up-arrow' style="height:18px; width:18px"></box-icon></button>
+                        <span class="votecount" id="counter1" class="cb">0</span>
+                        <button id="dislike-btn1" class="dlb"><box-icon type='solid' name='down-arrow' style="height:18px; width:18px"></box-icon></button>
                         <button id="bookmarks-btn1"><box-icon name='bookmark-star' type='solid' style="height:18px; width:18px" ></box-icon></button>
                     </div>
                 </div>
                 <div class="col-lg-11">
                     <h3>{{question.title}}</h3>
                     <br>
-                    ton type="button" class="btn btn-primary btn-sm btn-search">Tag1</button>
+                    <button type="button" class="btn btn-primary btn-sm btn-search">Tag1</button>
                     <button type="button" class="btn btn-primary btn-sm btn-search">Tag2</button>
-                    <br><br>
+                    <br>
+                    <br>
                     <h6>Tags</h6>
-                    
                     {% for tag in l_tags%}
                     <option value="{{ tag.tag_name }}">{{ tag.tag_name }}</option>
                      {% endfor %}
@@ -168,10 +167,9 @@
                     -Vincenzo Pii
                     Line2551861Apr 13 2016Apr 13 2016</h5><br>
             </h5>
-            <br><a target="_blank" href="{{url_for('post_question_comment',question_id=question.question_id)}}" class="add_c"><span><u>Add comment</u></span></a>
-            <h5 class="dis-inl">{{question.answer_count}} Answers</h4>
+            <br><a target="_blank" href="{{url_for('post_question_comment',question_id=question.question_id)}}" class="add_c dis-inl"><span><u>Add comment</u></span></a>
+            <h5 class="dis-inl">{{question.answer_count}} Answers</h5>
             <h5 class="dis-inl">{{question.comment_count}} Comments</h5>
-<!--             <h4>{{question.comment_count}} Comments</h4> -->
         </div>
     </div>
             <hr>
