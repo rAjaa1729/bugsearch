@@ -637,7 +637,7 @@ def post_question():
 @newapp.route('/users/questions/<int:question_id>',methods=["GET",])
 def find_question(question_id):
     question=Question.find_by_question_id(question_id=question_id)
-    return render_template('present.html',user=current_user,question=question,l_tags=Tag.find_tags_by_question_id(question_id),l_ans=Answer.find_ans_by_ques_id(question_id))
+    return render_template('present_question.html',user=current_user,question=question,l_tags=Tag.find_tags_by_question_id(question_id),l_ans=Answer.find_ans_by_ques_id(question_id))
 
 
 @login_required

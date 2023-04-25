@@ -104,16 +104,12 @@
                 <div class="col-lg-11">
                     <h3>{{question.title}}</h3>
                     <br>
-                    ton type="button" class="btn btn-primary btn-sm btn-search">Tag1</button>
-                    <button type="button" class="btn btn-primary btn-sm btn-search">Tag2</button>
+                    {% for tag in l_tags%} 
+                    <button type="button" class="btn btn-primary btn-sm btn-search">{{ tag.tag_name }}</button>
+                    {% endfor %}
                     <br><br>
-                    <h6>Tags</h6>
-                    
-                    {% for tag in l_tags%}
-                    <option value="{{ tag.tag_name }}">{{ tag.tag_name }}</option>
-                     {% endfor %}
-                    <!-- <div id="tagContainer"></div>
-                    <script>
+
+                    <!-- <script>
                         // Assume we have an array of tags called 'tagList' with objects containing a 'tag_id' and 'tag_name'
                     
                         // Create a new div element to hold the tags
