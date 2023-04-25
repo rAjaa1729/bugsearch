@@ -254,5 +254,22 @@ input::-webkit-input-placeholder {
     text-decoration: underline;
     color: #49BBBD;
   }
+  .dis-inl{
+    display: inline-block;
+  }
+  .modify1{
+    margin-left: 99px;
+  }
+  .modify2{
+    margin-top: 180px;
+  }
+  .post-img{
+    padding-left: 127px;
+  }
+  .set-badge{
+    margin-top: 81px;
+    margin-bottom: -49px
+  }
+
 
 
