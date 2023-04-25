@@ -10,52 +10,67 @@
 <body>
 
 <div id="manage">
-    <button type='button' id="upvote-btn" onclick="updatevote">Upvote</button>
-    <button type='button' id="score" >{{question.question_id}}</button>
-    <button type='button' id="downvote-btn">Downvote</button>
+    <button type='button' id="upvote-btn" onclick="updatevote(voting='up')">Upvote</button>
+    <button type='button' id="score" ></button>
+    <button type='button' id="downvote-btn" onclick="updatevote(voting='down')">Downvote</button>
     <button type='button' id="bookmark-btn">bookmark</button>
 </div>
   
   
 <script>
-    // Get references to the upvote and downvote buttons
-const upvoteBtn=document.getElementById('upvote-btn');
-// Add event listeners to the buttons
-upvoteBtn.addEventListener('click',updatevote);
-upvoteBtn.addEventListener('load',loadvote);
-function updatevote(question=question)
+// handling on click of upvote button
+function updatevote(voting)
 {
     console.log('has entered in the upvote function upvote clicked ');
     const xhr=new XMLHttpRequest();
 
     xhr.open('GET','/Qupdatevote',true);
     xhr.setRequestHeader("content-type","application/json;charset=UTF-8");
-
+    console.log(voting);
+    console.log('printednow');
     xhr.onload = function()
     {
-      console.log('has entered in the  ');
+        console.log('has entered in the  ');
         if(this.status===200)
         {
-          console.log('has entered in the the stasys  ');
+            const upvote = document.getElementById('upvote-btn');
+            const downvote = document.getElementById('downvote-btn');
+            const score = document.getElementById('score');
+            console.log('has entered in the the 200  ');
             const data=JSON.parse(this.responseText);
-            if(data['votetype']=='neutral')
+            score.innerHTML=data['score'];
+            console.log(data)
+
+            if (data['votetype'] == 'neutral')
             {
-                let newdata=document.getElementById('upvote-btn');
-                console.log(data);
-                newdata.innerHTML=data['votetype'];
-            }
-            else
-            {
-                console.log(data);
+                console.log('neutral');
+                console.log(data)
+                upvote.style.backgroundColor = 'red';
+                upvote.innerHTML=data['upvotes'];
+                downvote.innerHTML=data['downvotes']
+                downvote.style.backgroundColor = 'red';
+            } else if (data['votetype'] == 'upvote') {
+                console.log('upvote');
+                upvote.innerHTML=data['upvotes'];
+                downvote.innerHTML=data['downvotes']
+                upvote.style.backgroundColor = 'blue';
+                downvote.style.backgroundColor = 'red';
+            } else {
+                console.log('downvote');
+                upvote.innerHTML=data['upvotes'];
+                downvote.innerHTML=data['downvotes']
+                upvote.style.backgroundColor = 'red';
+                downvote.style.backgroundColor = 'blue';
             }
         }
         else
         {
             // const data=(this.responseText);
-            const data=parse(this.responseText);
+            // const data=parse(this.responseText);
+            console.log('failed process')
         }
     };
-    const data=JSON.stringify({"question_id":question.question_id});
+    const data=JSON.stringify({"question_id":'{{ question.question_id }}',"voting":voting});
     xhr.send(data);
 }
 // function loadvote(question=question)

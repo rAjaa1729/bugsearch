@@ -522,6 +522,104 @@ class QVote:
         else:
             return vote['vote_type']
 
+    @staticmethod
+    def Qupdatevote(user_id,question_id,voting):
+        my_db=get_db_connection()
+        cursor=my_db.cursor(dictionary=True)
+        query="SELECT vote_type FROM Question_votes WHERE user_id=%s AND question_id=%s"
+        cursor.execute(query,(user_id,question_id))
+        vote=cursor.fetchone()
+        # my_db.close()
+        if(vote is None):
+            if(voting=='up'):
+                query="INSERT INTO Question_votes (user_id,question_id,vote_type) values(%s,%s,%s)"
+                cursor.execute(query,(user_id,question_id,'upvote'))
+                my_db.commit()
+                query = "UPDATE Questions SET upvotes = upvotes + 1 WHERE question_id = %s"
+                cursor.execute(query, (question_id,))
+                my_db.commit()
+                my_db.close()
+                return 'upvote'
+            else:
+                query="INSERT INTO Question_votes (user_id,question_id,vote_type) values(%s,%s,%s)"
+                cursor.execute(query,(user_id,question_id,'downvote'))
+                my_db.commit()
+                query = "UPDATE Questions SET downvotes = downvotes + 1 WHERE question_id = %s"
+                cursor.execute(query, (question_id,))
+                my_db.commit()
+                my_db.close()
+                return 'downvote'
+        elif (vote['vote_type']=='neutral'):
+            if(voting=='up'):
+                query = "UPDATE Question_votes SET vote_type = %s WHERE user_id = %s AND question_id = %s"
+                cursor.execute(query, ('upvote', user_id, question_id))
+                my_db.commit()
+                query = "UPDATE Questions SET upvotes = upvotes + 1 WHERE question_id = %s"
+                cursor.execute(query, (question_id,))
+                my_db.commit()
+                my_db.close()
+                return 'upvote'
+            else:
+                query = "UPDATE Question_votes SET vote_type = %s WHERE user_id = %s AND question_id = %s"
+                cursor.execute(query, ('downvote', user_id, question_id))
+                my_db.commit()
+                query = "UPDATE Questions SET downvotes = downvotes + 1 WHERE question_id = %s"
+                cursor.execute(query, (question_id,))
+                my_db.commit()
+                my_db.close()
+                return 'downvote'
+
+        elif (vote['vote_type']=='upvote'):
+            if(voting=='up'):
+                query = "UPDATE Question_votes SET vote_type = %s WHERE user_id = %s AND question_id = %s"
+                cursor.execute(query, ('neutral', user_id, question_id))
+                my_db.commit()
+                query = "UPDATE Questions SET upvotes = upvotes - 1 WHERE question_id = %s"
+                cursor.execute(query, (question_id,))
+                my_db.commit()
+                my_db.close()
+                return 'neutral'
+            else:
+                query = "UPDATE Question_votes SET vote_type = %s WHERE user_id = %s AND question_id = %s"
+                cursor.execute(query, ('downvote', user_id, question_id))
+                my_db.commit()
+                query = "UPDATE Questions SET upvotes = upvotes - 1 WHERE question_id = %s"
+                cursor.execute(query, (question_id,))
+                my_db.commit()
+                query = "UPDATE Questions SET downvotes = downvotes + 1 WHERE question_id = %s"
+                cursor.execute(query, (question_id,))
+                my_db.commit()
+                my_db.close()
+                return 'downvote'
+        else:
+            if(voting=='down'):
+                query = "UPDATE Question_votes SET vote_type = %s WHERE user_id = %s AND question_id = %s"
+                cursor.execute(query, ('neutral', user_id, question_id))
+                my_db.commit()
+                query = "UPDATE Questions SET downvotes = downvotes - 1  WHERE question_id = %s"
+                cursor.execute(query, (question_id,))
+                my_db.commit()
+                my_db.close()
+                return 'neutral'
+            else:
+                query = "UPDATE Question_votes SET vote_type = %s WHERE user_id = %s AND question_id = %s"
+                cursor.execute(query, ('upvote', user_id, question_id))
+                my_db.commit()
+                query = "UPDATE Questions SET upvotes = upvotes + 1 WHERE question_id = %s"
+                cursor.execute(query, (question_id,))
+                my_db.commit()
+                query = "UPDATE Questions SET downvotes = downvotes - 1 WHERE question_id = %s"
+                cursor.execute(query, (question_id,))
+                my_db.commit()
+                my_db.close()
+                return 'upvote'
+
+
+
+
+
+
+
 class AVote:
     def __init__(self,**kwargs):
         self.vote_type=kwargs.get('vote_type')
@@ -542,7 +640,6 @@ class AVote:
             return vote['vote_type']
         
     
-        # query="INSERT INTO Question_votes (user_id, question_id, vote_type) VALUES (%s, %s, %s)"
 
 class QBookmark:
     def __init__(self,**kwargs):
@@ -737,70 +834,6 @@ def posted_questions():
     return render_template('posted_questions.html',q_list=Question.find_question_by_user_id(user_id=id),user=current_user)
 
 
-# Handling voting system using javascript
-
-
-@newapp.route('/updatevote',methods=["GET",])
-def updatevote():
-    user_id=current_user.user_id
-    return render_template('check.html',user=current_user,question=Question.find_by_question_id(question_id=1))
-
-# local javascript interaction code
-@newapp.route('/clickvote',methods=["GET",])
-def clickvote():
-    user_id=current_user.user_id
-    return (vote:=QVote.findvote(user_id=user_id,question_id=1))
-
-
-
-@newapp.route('/Qloadvote', methods=['GET', 'POST'])
-def Qloadvote():
-    if request.method == 'GET':
-        # Handle GET request
-        data = request.args
-        question_id = data.get('question_id')
-        user_id = current_user.user_id
-        votetype=QVote.Qfindvote(user_id=user_id, question_id=question_id)
-        bookmark=QBookmark.Qfindbookmark(user_id=user_id,question_id=question_id)
-        return jsonify({"votetype":votetype,"bookmark":bookmark})
-    
-    elif request.method == 'POST':
-        # Handle POST request
-        data = request.get_json()
-        question_id = data.get('question_id')
-        user_id = current_user.user_id
-        QVote.findvote(user_id=user_id, question_id=question_id)
-        return jsonify({"votetype": "neutral"})
-
-@newapp.route('/Qupdatevote', methods=['GET', 'POST'])
-def Qupdatevote():
-    if request.method == 'GET':
-        # Handle GET request
-        data = request.args
-        question_id = data.get('question_id')
-        user_id = current_user.user_id
-        Qvote.findvote(user_id=user_id, question_id=question_id)
-        return jsonify({"votetype": "neutral"})
-    elif request.method == 'POST':
-        # Handle POST request
-        data = request.get_json()
-        question_id = data.get('question_id')
-        user_id = current_user.user_id
-        Qvote.findvote(user_id=user_id, question_id=question_id)
-        return jsonify({"votetype": "neutral"})
-
-
-
-# @login_required
-# @newapp.route("/users/posted_comments",methods=["GET","POST","DELETE"])
-# def posted_comments():
-#     return render_template('posted_comments.html',user=current_user)
-
-# @login_required
-# @newapp.route("/users/posted_answers",methods=["GET","POST","DELETE"])
-# def posted_answers():
-#     return render_template('posted_answers.html',user=current_user)
-
 @login_required
 @newapp.route('/users/recommendations',methods=['GET',])
 def recommendations():
@@ -908,6 +941,102 @@ def homepage():
 
     return render_template('index.html')
 
+
+# handling upvote downvote bookmark
+
+# Handling voting system using javascript
+
+
+@newapp.route('/updatevote',methods=["GET",])
+def updatevote():
+    user_id=current_user.user_id
+    return render_template('check.html',user=current_user,question=Question.find_by_question_id(question_id=1))
+
+
+@newapp.route('/Qloadvote', methods=['GET', 'POST'])
+def Qloadvote():
+    if request.method == 'GET':
+        # Handle GET request
+        data = request.args
+        question_id = data.get('question_id')
+        user_id = current_user.user_id
+        votetype=QVote.Qfindvote(user_id=user_id, question_id=1)
+        bookmark=QBookmark.Qfindbookmark(user_id=user_id,question_id=1)
+        return jsonify({"votetype":votetype,"bookmark":bookmark})
+    
+    # elif request.method == 'POST':
+    #     # Handle POST request
+    #     data = request.get_json()
+    #     question_id = data.get('question_id')
+    #     user_id = current_user.user_id
+    #     QVote.findvote(user_id=user_id, question_id=question_id)
+    #     return jsonify({"votetype": "neutral"})
+
+@newapp.route('/Qupdatevote', methods=['GET', 'POST'])
+def Qupdatevote():
+    if request.method == 'GET':
+        # Handle GET request
+        data = request.args
+        question_id = data.get('question_id')
+        user_id = current_user.user_id
+        voting=data.get('voting')
+        vote=QVote.Qupdatevote(user_id=user_id, question_id=1,voting=voting)
+        ObQ=Question.find_by_question_id(question_id=1)
+        score=(ObQ.upvotes-ObQ.downvotes)
+        upvotes=ObQ.upvotes
+        downvotes=ObQ.downvotes
+        return jsonify({"votetype":vote,"upvotes":upvotes,"downvotes":downvotes,"score":score})
+    
+
+
+    # elif request.method == 'POST':
+    #     # Handle POST request
+    #     data = request.get_json()
+    #     question_id = data.get('question_id')
+    #     user_id = current_user.user_id
+    #     QVote.findvote(user_id=user_id, question_id=question_id)
+    #     return jsonify({"votetype": "neutral"})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 if __name__=="__main__":
     newapp.run(debug=True)
+
 
