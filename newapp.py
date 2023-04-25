@@ -489,6 +489,20 @@ class Tag():
         #     all_tags.append(Tag(**tag))
         # return all_tags
         return tag_names
+    
+    @staticmethod
+    def find_by_keyword(keyword):
+        my_db=get_db_connection()
+        query = "SELECT * FROM Questions"
+        cursor=my_db.cursor(dictionary=True)
+        cursor.execute(query)
+        questions=cursor.fetchall()
+        my_db.close()
+        q_list=[]
+        for q in questions:
+            if fuzz.ratio(keyword,Question(**q).title) >= 50:
+                q_list.append(Question(**q))
+        return q_list 
 
 class Qvote:
     def __init__(self,**kwargs):
@@ -531,8 +545,11 @@ def user_home():
     # cur = my_db.cursor(dictionary=True)
     # cur.execute('SELECT * FROM Questions')
     # questions = cur.fetchall()
+    if request.method=="POST":
+        keyword = request.form['keyword']
+        return redirect(url_for('search_login' ,keyword=keyword))
+
     return render_template('user_home.html',user=current_user)
-    # return render_template('help.html')
 
 @login_required
 @newapp.route('/logout',methods=['GET',])
@@ -733,9 +750,9 @@ def trending():
 
 @login_required
 @newapp.route('/users/search',methods=['GET',])
-def search_login():
-    return render_template('search_with_login.html',user=current_user)
-
+def search_login(keyword):
+    q_list = Question.find_by_keyword(keyword) 
+    return render_template('search_with_login.html',user=current_user,q_list=q_list)
 
 @newapp.route('/signup', methods=('GET', 'POST'))
 def signup():
@@ -815,9 +832,14 @@ def reset_password():
 def search_without_login():
     return render_template('search_without_login.html')
 
-@newapp.route('/',methods=["GET"])
+@newapp.route('/',methods=["GET","POST"])
 def homepage():
+    if request.method=="POST":
+        searchKeyword = request.form['keyword']
+        return redirect(url_for('search_without_login' ,keyword=searchKeyword))
+
     return render_template('index.html')
 
 if __name__=="__main__":
     newapp.run(debug=True)
+

@@ -80,161 +80,41 @@
         <div class="bookmark_bar"></div>
         <div class="content-wrapper ">
             <br><br><br><br>
-            <h2>How do I remove a Git submodule?</h2>
+            <!-- <h2>How do I remove a Git submodule?</h2> -->
             </div>        
             <div class="line"></div><br>
+            {% for ques in q_list %} 
             <div class="row surf">
                 <div class="col-lg-1">
                     <div class="like-dislike">
                         <button id="like-btn1" class="lb"><box-icon type='solid' name='up-arrow' style="height:18px; width:18px"></box-icon></button>
-                        <span class="votecount" id="counter1" class="cb">0</span>
+                        <span class="votecount" id="counter1" class="cb"></span>
                         <button id="dislike-btn1" class="dlb"><box-icon type='solid' name='down-arrow' style="height:18px; width:18px"></box-icon></button>
                         <button id="bookmarks-btn1"><box-icon name='bookmark-star' type='solid' style="height:18px; width:18px" ></box-icon></button>
                     </div>
                 </div>
                 <div class="col-lg-11">
-                    <h3>How do I remove a Git submodule?</h3>
+                    <h3>{{ques['title']}}</h3>
                     <br>
                     <button type="button" class="btn btn-primary btn-sm btn-search">Tag1</button>
                     <button type="button" class="btn btn-primary btn-sm btn-search">Tag2</button>
                 
             <br><br>
             <h5 >
-                <h5 class="search_ans">That's actually not true. That answer does not address removing the submodule entry from
-                    .git/config.
-                    The accepted answer shows the up-to-date way to fully remove a a submodule. It's also explained more
-                    succinctly in this answer: stackoverflow.com/a/36593218/1562138</h5>
+                <h5 class="search_ans">{{ques['body']}}</h5>
 
                 <br>
-                <h5 class="search_ans">Please save yourself some time and directly go the answer that works (in 2017):
-                    stackoverflow.com/a/36593218/528313
-                    -Vincenzo Pii
-                    Line2551861Apr 13 2016Apr 13 2016</h5><br>
+                <br>
             </h5>
             <br><a target="_blank" href="#" class="add_c"><span><u>Add comment</u></span></a>
-            <h4>29 Answers</h4>
+            <h4>{{ques['answer_count']}} Answers</h4>
         </div>
     </div>
+    
             <hr>
-            
-            <!-- <div class="col-lg-1">
-                
-            </div>
-            <div class="col-lg-11"><h4>29 Answers</h4></div> -->
-            
-            <!-- <button type="button" class="btn btn-primary btn-sm btn-search">Bookmark</button> -->
-            <br><br>
-            <div class="row surf">
-                <div class="col-lg-1">
-                    <div class="like-dislike">
-                        <button id="like-btn2"  class="lb"><box-icon type='solid' name='up-arrow' style="height:18px; width:18px"></box-icon></button>
-                        <span class="votecount" id="counter2" class="cb">0</span>
-                        <button id="dislike-btn2" class="dlb"><box-icon type='solid' name='down-arrow' style="height:18px; width:18px"></box-icon></button>
-                        <button id="bookmarks-btn2"><box-icon name='bookmark-star' type='solid' style="height:18px; width:18px" ></box-icon></button>
-                    </div>
-                </div>
-                <div class="col-lg-11">
-                    <h5 class="search_ans">In modern git (I'm writing this in 2022, with an updated git installation), this has become quite a bit
-                        simpler:
-                        Run git rm <path-to-submodule>, and commit.
-                            This removes the filetree at <path-to-submodule>, and the submodule's entry in the .gitmodules file.
-                                I.e. all traces of the submodule in your repository proper are removed.
-                                As the docs note however, the .git dir of the submodule is kept around (in the modules/
-                                directory of
-                                the main project's .git dir), "to make it possible to checkout past commits without requiring
-                                fetching from another repository".If you nonetheless want to remove this info, manually delete
-                                the
-                                submodule's directory in .git/modules/, and remove the submodule's entry in the file
-                                .git/config.
-                                These steps can be automated using the commands</h5>
-                    <br>
-                    <h6 class="search_ans2">@abernier A curt answer could be "because no such command exists." My guess is that they're trying to
-                        make the removal of submodule files vs submodule configuration explicit to avoid accidental data loss.
-                        Perhaps one person would think that git submodule rm simply removes submodule registration, and would be
-                        surprised if the command also deleted the local repository. Any local changes would be irretrievably
-                        lost. And perhaps another person would think that only the files would be removed.
-                        - username Apr 26 2016</h6><br><a target="_blank" href="#" class="add_c"><span><u>Add comment</u></span></a>
-                        <!-- <button type="button" class="btn btn-primary btn-sm btn-search">Bookmark</button> -->
-                        <br>
-                </div>
-            </div>
             <br>
-            <div class="line"></div><br>
-            <div class="row surf">
-                <div class="col-lg-1">
-                    <div class="like-dislike">
-                        <button id="like-btn3" class="lb"><box-icon type='solid' name='up-arrow' style="height:18px; width:18px"></box-icon></button>
-                        <span class="votecount" id="counter3" class="cb">0</span>
-                        <button id="dislike-btn3" class="dlb"><box-icon type='solid' name='down-arrow' style="height:18px; width:18px"></box-icon></button>
-                        <button id="bookmarks-btn3"><box-icon name='bookmark-star' type='solid' style="height:18px; width:18px" ></box-icon></button>
-                    </div>
-                </div>
-                <div class="col-lg-11">
-                    <h5 class="search_ans">In modern git (I'm writing this in 2022, with an updated git installation), this has become quite a bit
-                        simpler:
-                        Run git rm <path-to-submodule>, and commit.
-                            This removes the filetree at <path-to-submodule>, and the submodule's entry in the .gitmodules file.
-                                I.e. all traces of the submodule in your repository proper are removed.
-                                As the docs note however, the .git dir of the submodule is kept around (in the modules/
-                                directory of
-                                the main project's .git dir), "to make it possible to checkout past commits without requiring
-                                fetching from another repository".If you nonetheless want to remove this info, manually delete
-                                the
-                                submodule's directory in .git/modules/, and remove the submodule's entry in the file
-                                .git/config.
-                                These steps can be automated using the commands</h5>
-                    <br>
-                    <h6 class="search_ans2">@abernier A curt answer could be "because no such command exists." My guess is that they're trying to
-                        make the removal of submodule files vs submodule configuration explicit to avoid accidental data loss.
-                        Perhaps one person would think that git submodule rm simply removes submodule registration, and would be
-                        surprised if the command also deleted the local repository. Any local changes would be irretrievably
-                        lost. And perhaps another person would think that only the files would be removed.
-                        - username Apr 26 2016</h6><br><a  target="_blank" href="#" class="add_c"><span><u>Add comment</u></span></a>
-                        <!-- <button type="button" class="btn btn-primary btn-sm btn-search">Bookmark</button> -->
-                        <br>
-                </div>
-            </div>
-            <br>
-            <div class="line"></div><br>
-            <div class="row surf">
-                <div class="col-lg-1">
-                    <div class="like-dislike">
-                        <button id="like-btn4" class="lb"><box-icon type='solid' name='up-arrow' style="height:18px; width:18px"></box-icon></button>
-                        <span class="votecount" id="counter4" class="cb">0</span>
-                        <button id="dislike-btn4" class="dlb"><box-icon type='solid' name='down-arrow' style="height:18px; width:18px"></box-icon></button>
-                        <button id="bookmarks-btn4"><box-icon name='bookmark-star' type='solid' style="height:18px; width:18px" ></box-icon></button>
-                    </div>
-                </div>
-                <div class="col-lg-11">
-                    <h5 class="search_ans">In modern git (I'm writing this in 2022, with an updated git installation), this has become quite a bit
-                        simpler:
-                        Run git rm <path-to-submodule>, and commit.
-                            This removes the filetree at <path-to-submodule>, and the submodule's entry in the .gitmodules file.
-                                I.e. all traces of the submodule in your repository proper are removed.
-                                As the docs note however, the .git dir of the submodule is kept around (in the modules/
-                                directory of
-                                the main project's .git dir), "to make it possible to checkout past commits without requiring
-                                fetching from another repository".If you nonetheless want to remove this info, manually delete
-                                the
-                                submodule's directory in .git/modules/, and remove the submodule's entry in the file
-                                .git/config.
-                                These steps can be automated using the commands</h5>
-                    <br>
-                    <h6 class="search_ans2">@abernier A curt answer could be "because no such command exists." My guess is that they're trying to
-                        make the removal of submodule files vs submodule configuration explicit to avoid accidental data loss.
-                        Perhaps one person would think that git submodule rm simply removes submodule registration, and would be
-                        surprised if the command also deleted the local repository. Any local changes would be irretrievably
-                        lost. And perhaps another person would think that only the files would be removed.
-                        - username Apr 26 2016</h6><br><a target="_blank" href="#" class="add_c"><span><u>Add comment</u></span></a>
-                        <!-- <button type="button" class="btn btn-primary btn-sm btn-search">Bookmark</button> -->
-                        <br>
-                    </div>
-                </div>
-                <br>
-            <div class="line"></div><br>
-            <br>
-            <br>
-            <button type="button" class="btn btn-primary btn-lg search-button">Post Answer</button>
+            {% endfor %}
+            <a href="{{url_for('post_question')}}"><button type="button" class="btn btn-primary btn-lg search-button">Post Question</button></a>
         </div>
     </div>
 </div>
