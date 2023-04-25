@@ -32,26 +32,25 @@
 <!-- <div class="wrapper"> -->
     <!-- <h2 class="user-class">Users</h2> -->
     <nav id="sidebar" class="sticky-top">
-        <div class="sidebar-header">
-            <!-- <h3>BBBOOTSTRAP</h3> -->
-            <hr>
-        </div>
-        <ul class="list-unstyled components navbar-nav mr-auto">
-            <p>{{current_user.username}}</p>
-            <li> <a href="{{url_for('dashboard')}}" >User Profile</a></li>
-            <li> <a href="{{url_for('user_home')}}">User Home</a> </li>
-            <li> <a href="{{url_for('complete_your_profile')}}">Edit Profile</a> </li>
-            <li> <a href="{{url_for('followers')}}">Followers</a> </li>
-            <li> <a href="{{url_for('following')}}">Following</a> </li>
-            <li> <a href="{{url_for('badges')}}">Badges</a> </li>
-            <li> <a href="{{url_for('trending')}}">Trending</a> </li>
-            <li> <a href="{{url_for('recommendations')}}">Recommendations</a> </li>
-            <li> <a href="{{url_for('all_users')}}">All Users</a> </li>
-            <li> <a href="{{url_for('bookmarks')}}">Bookmarks</a> </li>
-            <li> <a href="{{url_for('post_question')}}">Post Question</a> </li>
-            <li> <a href="{{url_for('posted_questions')}}">Posted Questions</a> </li>
+    <div class="sidebar-header">
+        <hr>
+    </div>
+    <ul class="list-unstyled components navbar-nav mr-auto">
+        <p>{{current_user.username}}</p>
+        <li> <a href="{{url_for('dashboard')}}" class="dis-inl" ><i class="fa-solid fa-user trending-user-circle dis-inl mar" style="color:black"></i>User Profile</a></li>
+        <li> <a href="{{url_for('user_home')}}" class="dis-inl"><i class="fa-solid fa-house followers-page-identification-cardd dis-inl mar" style="color:black"></i>User Home</a> </li>
+        <li> <a href="{{url_for('complete_your_profile')}}" class="dis-inl"><i class="fa-solid fa-pen-to-square followers-page-vector2 dis-inl mar" style="color:black"></i>Edit Profile</a> </li>
+        <li> <a href="{{url_for('followers')}}" class="dis-inl"><i class="fa-solid fa-user-group followers-page-users dis-inl mar" style="color:black"></i>Followers</a> </li>
+        <li> <a href="{{url_for('following')}}" class="dis-inl"><i class="fa-solid fa-user-group followers-page-users dis-inl mar" style="color:black"></i>Following</a> </li>
+        <li> <a href="{{url_for('badges')}}" class="dis-inl"><i class="fa-solid fa-award followers-page-vector1 dis-inl mar" style="color:black"></i>Badges</a> </li>
+        <li> <a href="{{url_for('trending')}}" class="dis-inl"><i class="fa-solid fa-globe recommendations-globe-stand dis-inl mar" style="color:black"></i>Trending</a> </li>
+        <li> <a href="{{url_for('recommendations')}}" class="dis-inl"><i class="fa-solid fa-wand-magic-sparkles trending-magic-wand dis-inl mar" style="color:black"></i>Recommendations</a> </li>
+        <li> <a href="{{url_for('all_users')}}" class="dis-inl"><i class="fa fa-users followers-page-users-threed1 dis-inl mar" style="color:black"></i>All Users</a> </li>
+        <li> <a href="{{url_for('bookmarks')}}" class="dis-inl"><i class="fa-solid fa-bookmark trending-bookmarks dis-inl mar" style="color:black"></i>Bookmarks</a> </li>
+        <li> <a href="{{url_for('post_question')}}" class="dis-inl"><i class="fa-solid fa-question trending-question dis-inl mar" style="color:black"></i>Post Question</a> </li>
+        <li> <a href="{{url_for('posted_questions')}}" class="dis-inl"><i class="fa-solid fa-question trending-question dis-inl mar" style="color:black"></i>Posted Questions</a> </li>
 
-    </nav>
+</nav>
     
     <div class="content">
         <header class="header-area header-sticky background-header fixed-topp">
