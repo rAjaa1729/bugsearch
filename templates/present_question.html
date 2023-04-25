@@ -102,7 +102,11 @@
                 <div class="col-lg-11">
                     <h3>{{question.title}}</h3>
                     <br>
+                    ton type="button" class="btn btn-primary btn-sm btn-search">Tag1</button>
+                    <button type="button" class="btn btn-primary btn-sm btn-search">Tag2</button>
+                    <br><br>
                     <h6>Tags</h6>
+                    
                     {% for tag in l_tags%}
                     <option value="{{ tag.tag_name }}">{{ tag.tag_name }}</option>
                      {% endfor %}
@@ -163,8 +167,9 @@
                     Line2551861Apr 13 2016Apr 13 2016</h5><br>
             </h5>
             <br><a target="_blank" href="{{url_for('post_question_comment',question_id=question.question_id)}}" class="add_c"><span><u>Add comment</u></span></a>
-            <h4>{{question.answer_count}} Answers</h4>
-            <h4>{{question.comment_count}} Comments</h4>
+            <h5 class="dis-inl">{{question.answer_count}} Answers</h4>
+            <h5 class="dis-inl">{{question.comment_count}} Comments</h5>
+<!--             <h4>{{question.comment_count}} Comments</h4> -->
         </div>
     </div>
             <hr>
