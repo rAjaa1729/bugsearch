@@ -29,7 +29,7 @@
 </head>
 <body>
 <div class="wrapper">
-    <nav id="sidebar" class="sticky-top">
+<!--     <nav id="sidebar" class="sticky-top">
         <div class="sidebar-header">
             <!-- <h3>BBBOOTSTRAP</h3> -->
             <hr>
@@ -48,7 +48,27 @@
           <li> <a href="{{url_for('bookmarks')}}">Bookmarks</a> </li>
           <li> <a href="{{url_for('post_question')}}">Post Question</a> </li>
           <li> <a href="{{url_for('posted_questions')}}">Posted Questions</a> </li>
-    </nav>
+    </nav> -->
+    <nav id="sidebar" class="sticky-top">
+    <div class="sidebar-header">
+        <hr>
+    </div>
+    <ul class="list-unstyled components navbar-nav mr-auto">
+        <p>{{current_user.username}}</p>
+        <li> <a href="{{url_for('dashboard')}}" class="dis-inl" ><i class="fa-solid fa-user trending-user-circle dis-inl mar" style="color:black"></i>User Profile</a></li>
+        <li> <a href="{{url_for('user_home')}}" class="dis-inl"><i class="fa-solid fa-house followers-page-identification-cardd dis-inl mar" style="color:black"></i>User Home</a> </li>
+        <li> <a href="{{url_for('complete_your_profile')}}" class="dis-inl"><i class="fa-solid fa-pen-to-square followers-page-vector2 dis-inl mar" style="color:black"></i>Edit Profile</a> </li>
+        <li> <a href="{{url_for('followers')}}" class="dis-inl"><i class="fa-solid fa-user-group followers-page-users dis-inl mar" style="color:black"></i>Followers</a> </li>
+        <li> <a href="{{url_for('following')}}" class="dis-inl"><i class="fa-solid fa-user-group followers-page-users dis-inl mar" style="color:black"></i>Following</a> </li>
+        <li> <a href="{{url_for('badges')}}" class="dis-inl"><i class="fa-solid fa-award followers-page-vector1 dis-inl mar" style="color:black"></i>Badges</a> </li>
+        <li> <a href="{{url_for('trending')}}" class="dis-inl"><i class="fa-solid fa-globe recommendations-globe-stand dis-inl mar" style="color:black"></i>Trending</a> </li>
+        <li> <a href="{{url_for('recommendations')}}" class="dis-inl"><i class="fa-solid fa-wand-magic-sparkles trending-magic-wand dis-inl mar" style="color:black"></i>Recommendations</a> </li>
+        <li> <a href="{{url_for('all_users')}}" class="dis-inl"><i class="fa fa-users followers-page-users-threed1 dis-inl mar" style="color:black"></i>All Users</a> </li>
+        <li> <a href="{{url_for('bookmarks')}}" class="dis-inl"><i class="fa-solid fa-bookmark trending-bookmarks dis-inl mar" style="color:black"></i>Bookmarks</a> </li>
+        <li> <a href="{{url_for('post_question')}}" class="dis-inl"><i class="fa-solid fa-question trending-question dis-inl mar" style="color:black"></i>Post Question</a> </li>
+        <li> <a href="{{url_for('posted_questions')}}" class="dis-inl"><i class="fa-solid fa-question trending-question dis-inl mar" style="color:black"></i>Posted Questions</a> </li>
+
+</nav>
     <div class="content">
         <header class="header-area header-sticky background-header fixed-topp">
             <nav class="main-nav navcolor navbar-dark">
@@ -85,7 +105,7 @@
           </div>
         </div>
         <div class="col-lg-12 col-md-6 hz">
-          <div class="item5">
+          <div class="item5 detals">
             <div class="row">
               <div class="col-lg-3">
                 <div class="image">
@@ -123,7 +143,7 @@
           </div> -->
           <div class="main-content_pro pro-dashboard">
             <h4 class="pro_h4">Followers</h4>
-            <h2>{{current_user.nfollowers}}</h2>
+            <h4>{{current_user.nfollowers}}</h4>
             <!-- <div class="main-button">
               <a href="#">Read More</a>
             </div> -->
@@ -137,7 +157,7 @@
           </div> -->
           <div class="main-content_pro pro-dashboard">
             <h4 class="pro_h4">Reputation Points</h4>
-            <h2>{{current_user.reputation_points}}</h2>
+            <h4>{{current_user.reputation_points}}</h4>
         
             <!-- <div class="main-button">
               <a href="#">Read More</a>
@@ -153,7 +173,7 @@
           </div> -->
           <div class="main-content_pro pro-dashboard">
             <h4 class="pro_h4">Followings</h4>
-            <h2>{{current_user.nfollowing}}</h2>    
+            <h4>{{current_user.nfollowing}}</h4>    
             <!-- <div class="main-button">
               <a href="#">Read More</a>
             </div> -->
