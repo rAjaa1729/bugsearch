@@ -9,11 +9,11 @@
 <html>
 <body>
 
-<div>
-    <button type='button' id="upvote-btn" style="background-color: yellow;" >Upvote</button>
-    <button type='button' id="score" style="background-color: black;" >{{question.question_id}}</button>
-    <button type='button' id="downvote-btn" style="background-color: red;">Downvote</button>
-    <button type='button' id="bookmark-btn" style="background-color: rgb(73, 22, 3);">bookmark</button>
+<div id="manage">
+    <button type='button' id="upvote-btn" onclick="updatevote">Upvote</button>
+    <button type='button' id="score" >{{question.question_id}}</button>
+    <button type='button' id="downvote-btn">Downvote</button>
+    <button type='button' id="bookmark-btn">bookmark</button>
 </div>
   
   
@@ -58,41 +58,101 @@ function updatevote(question=question)
     const data=JSON.stringify({"question_id":question.question_id});
     xhr.send(data);
 }
-function loadvote(question=question)
-{
-  console.log('has entered in the upvote function upvote clicked ');
-  const xhr=new XMLHttpRequest();
+// function loadvote(question=question)
+// {
+    
+//     console.log('has entered in the upvote function upvote clicked ');
+//     const xhr=new XMLHttpRequest();
+//     xhr.open('GET','/Qloadvote',true);
+//     xhr.setRequestHeader("content-type","application/json;charset=UTF-8");
 
-    xhr.open('GET','/Qloadvote',true);
-    xhr.setRequestHeader("content-type","application/json;charset=UTF-8");
+//     xhr.onload = function()
+//     {
+//       console.log('has entered in the  ');
+//         if(this.status===200)
+//         {
+//           console.log('has entered in the the stasys  ');
+//             const data=JSON.parse(this.responseText);
+//             if(data['votetype']=='neutral')
+//             {
+//                 let newdata=document.getElementById('upvote-btn');
+//                 console.log(data);
+//                 newdata.innerHTML=data['votetype'];
+//             }
+//             else
+//             {
+//                 console.log(data);
+//             }
+//         }
+//         else
+//         {
+//             // const data=(this.responseText);
+//             const data=JSON.parse(this.responseText);
+//         }
+//     };
+//     const data=JSON.stringify({"question_id":question.question_id});
+//     xhr.send(data);
+// }
 
-    xhr.onload = function()
-    {
-      console.log('has entered in the  ');
-        if(this.status===200)
-        {
-          console.log('has entered in the the stasys  ');
-            const data=JSON.parse(this.responseText);
-            if(data['votetype']=='neutral')
-            {
-                let newdata=document.getElementById('upvote-btn');
-                console.log(data);
-                newdata.innerHTML=data['votetype'];
-            }
-            else
-            {
-                console.log(data);
-            }
-        }
-        else
-        {
-            // const data=(this.responseText);
-            const data=JSON.parse(this.responseText);
-        }
-    };
-    const data=JSON.stringify({"question_id":question.question_id});
-    xhr.send(data);
+
+
+// onloading we want to update upvotes downvotes score and bookmark
+
+// const div1 = document.getElementById('manage');
+// div1.addEventListener('DOMContentLoaded', () => {
+//   updateupdown();
+// });
+window.onload = function() {
+  updateupdown();
 }
+
+function updateupdown() {
+  const upvote = document.getElementById('upvote-btn');
+  const downvote = document.getElementById('downvote-btn');
+  const score = document.getElementById('score');
+  const bookmark = document.getElementById('bookmark-btn');
+  const xhr = new XMLHttpRequest();
+  xhr.open('GET', '/Qloadvote', true);
+  xhr.setRequestHeader('content-type', 'application/json;charset=UTF-8');
+  xhr.onload = function() {
+    console.log('has entered in the');
+    if (this.status === 200) {
+      console.log('has entered in the the stasys');
+      const data = JSON.parse(this.responseText);
+      score.innerHTML = ('{{question.upvotes}}' - '{{question.downvotes}}');
+      if (data['votetype'] == 'neutral') {
+        console.log('neutral');
+        console.log(data)
+        upvote.style.backgroundColor = 'red';
+        downvote.style.backgroundColor = 'red';
+      } else if (data['votetype'] == 'upvote') {
+        console.log('upvote');
+        upvote.style.backgroundColor = 'blue';
+        downvote.style.backgroundColor = 'red';
+      } else {
+        console.log('downvote');
+        upvote.style.backgroundColor = 'red';
+        downvote.style.backgroundColor = 'blue';
+
+      }
+      if (data['bookmark'] === 'yes') {
+        console.log('yes');
+        bookmark.style.backgroundColor = 'blue';
+
+      } else {
+        console.log('no');
+        bookmark.style.backgroundColor = 'red';
+
+      }
+    } 
+    else {
+      console.log('failed');
+    }
+  };
+  const data = JSON.stringify({ 'question_id': '{{ question.question_id }}' });
+  xhr.send(data);
+}
+
 
 </script>
 </body>

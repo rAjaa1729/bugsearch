@@ -278,9 +278,6 @@ class Question():
             q_list.append(Question(**q))
         return q_list
     
-
-    
-
         
 # -----class for Answer object--------------
 class Answer():
@@ -506,14 +503,14 @@ class Tag():
                 q_list.append(Question(**q))
         return q_list 
 
-class Qvote:
+class QVote:
     def __init__(self,**kwargs):
         self.vote_type=kwargs.get('vote_type')
         self.question_id=kwargs.get('question_id')
         self.user_id=kwargs.get('user_id')
 
     @staticmethod
-    def findvote(user_id,question_id):
+    def Qfindvote(user_id,question_id):
         my_db=get_db_connection()
         cursor=my_db.cursor(dictionary=True)
         query="SELECT * FROM Question_votes WHERE user_id=%s AND question_id=%s"
@@ -524,10 +521,67 @@ class Qvote:
             return ("neutral")
         else:
             return vote['vote_type']
+
+class AVote:
+    def __init__(self,**kwargs):
+        self.vote_type=kwargs.get('vote_type')
+        self.answer_id=kwargs.get('answer_id')
+        self.user_id=kwargs.get('user_id')
+
+    @staticmethod
+    def Afindvote(user_id,answer_id):
+        my_db=get_db_connection()
+        cursor=my_db.cursor(dictionary=True)
+        query="SELECT * FROM Answer_votes WHERE user_id=%s AND answer_id=%s"
+        cursor.execute(query,(user_id,answer_id))
+        vote=cursor.fetchone()
+        my_db.close()
+        if(vote is None):
+            return ("neutral")
+        else:
+            return vote['vote_type']
+        
     
         # query="INSERT INTO Question_votes (user_id, question_id, vote_type) VALUES (%s, %s, %s)"
 
+class QBookmark:
+    def __init__(self,**kwargs):
+        self.creation_time=kwargs.get('vote_type')
+        self.question_id=kwargs.get('question_id')
+        self.user_id=kwargs.get('user_id')
 
+    @staticmethod
+    def Qfindbookmark(user_id,question_id):
+        my_db=get_db_connection()
+        cursor=my_db.cursor(dictionary=True)
+        query="SELECT * FROM Question_bookmarks WHERE user_id=%s AND question_id=%s"
+        cursor.execute(query,(user_id,question_id))
+        vote=cursor.fetchone()
+        my_db.close()
+        if(vote is None):
+            return ("no")
+        else:
+            return ('yes')
+
+class ABookmark:
+    def __init__(self,**kwargs):
+        self.creation_time=kwargs.get('vote_type')
+        self.answer_id=kwargs.get('answer_id')
+        self.user_id=kwargs.get('user_id')
+
+    @staticmethod
+    def Afindbookmark(user_id,answer_id):
+        my_db=get_db_connection()
+        cursor=my_db.cursor(dictionary=True)
+        query="SELECT * FROM Answer_bookmarks WHERE user_id=%s AND answer_id=%s"
+        cursor.execute(query,(user_id,answer_id))
+        vote=cursor.fetchone()
+        my_db.close()
+        if(vote is None):
+            return ("no")
+        else:
+            return ('yes')
+    
 
 
     
@@ -558,27 +612,6 @@ def user_home():
 def logout():
     logout_user()
     return redirect(url_for('userlogin'))
-
-
-# @login_required
-# @newapp.route('/users/questions',methods=['GET','POST','UPDATE','DELETE'])
-# def user_question():
-#      if request.method == 'POST':
-#         title = request.form['title']
-#         content = request.form['content']
-#         tags=request.form['tags']
-#         if not title:
-#             flash('Title is required.')
-#         elif not content:
-#             flash('Content is required.')
-#         elif not tags:
-#             flash('tags required.')
-#         else:
-#             question = Question(title=title, content=content, author=current_user)
-#             db.session.add(question)
-#             db.session.commit()
-#             flash('Question posted successfully!', 'success')
-#             return redirect(url_for('main.home'))
 
 
 
@@ -704,6 +737,9 @@ def posted_questions():
     return render_template('posted_questions.html',q_list=Question.find_question_by_user_id(user_id=id),user=current_user)
 
 
+# Handling voting system using javascript
+
+
 @newapp.route('/updatevote',methods=["GET",])
 def updatevote():
     user_id=current_user.user_id
@@ -713,12 +749,31 @@ def updatevote():
 @newapp.route('/clickvote',methods=["GET",])
 def clickvote():
     user_id=current_user.user_id
-    return (vote:=Qvote.findvote(user_id=user_id,question_id=1))
+    return (vote:=QVote.findvote(user_id=user_id,question_id=1))
 
 
 
 @newapp.route('/Qloadvote', methods=['GET', 'POST'])
-def loadvote():
+def Qloadvote():
+    if request.method == 'GET':
+        # Handle GET request
+        data = request.args
+        question_id = data.get('question_id')
+        user_id = current_user.user_id
+        votetype=QVote.Qfindvote(user_id=user_id, question_id=question_id)
+        bookmark=QBookmark.Qfindbookmark(user_id=user_id,question_id=question_id)
+        return jsonify({"votetype":votetype,"bookmark":bookmark})
+    
+    elif request.method == 'POST':
+        # Handle POST request
+        data = request.get_json()
+        question_id = data.get('question_id')
+        user_id = current_user.user_id
+        QVote.findvote(user_id=user_id, question_id=question_id)
+        return jsonify({"votetype": "neutral"})
+
+@newapp.route('/Qupdatevote', methods=['GET', 'POST'])
+def Qupdatevote():
     if request.method == 'GET':
         # Handle GET request
         data = request.args
@@ -734,22 +789,6 @@ def loadvote():
         Qvote.findvote(user_id=user_id, question_id=question_id)
         return jsonify({"votetype": "neutral"})
 
-@newapp.route('/Qupdatevote', methods=['GET', 'POST'])
-def loadvote():
-    if request.method == 'GET':
-        # Handle GET request
-        data = request.args
-        question_id = data.get('question_id')
-        user_id = current_user.user_id
-        Qvote.findvote(user_id=user_id, question_id=question_id)
-        return jsonify({"votetype": "neutral"})
-    elif request.method == 'POST':
-        # Handle POST request
-        data = request.get_json()
-        question_id = data.get('question_id')
-        user_id = current_user.user_id
-        Qvote.findvote(user_id=user_id, question_id=question_id)
-        return jsonify({"votetype": "neutral"})
 
 
 # @login_required
