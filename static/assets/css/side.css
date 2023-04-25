@@ -172,6 +172,12 @@ a.download:hover {
 .info:active{
     background-color:#49BBBD ;
 }
+
+.modify3{
+    margin-left: 52px;
+    margin-right: -119px
+  }
+
 /* .navtab:hover{
     background-color: aqua;
 } */
