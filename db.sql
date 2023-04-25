@@ -90,6 +90,7 @@ CREATE TABLE Answer_votes
     answer_id INT NOT NULL,
     user_id INT NOT NULL,
     PRIMARY KEY (answer_vote_id),
+    CONSTRAINT unique_pair_constraint UNIQUE (answer_id,user_id);
     FOREIGN KEY (user_id) REFERENCES Users(user_id),
     FOREIGN KEY (answer_id) REFERENCES Answers(answer_id) ON DELETE CASCADE
 );
@@ -101,6 +102,7 @@ CREATE TABLE Question_votes
     question_id INT NOT NULL,
     user_id INT NOT NULL,
     PRIMARY KEY (question_vote_id),
+    CONSTRAINT unique_pair_constraint UNIQUE (question_id,user_id);
     FOREIGN KEY (user_id) REFERENCES Users(user_id),
     FOREIGN KEY (question_id) REFERENCES Questions(question_id) ON DELETE CASCADE
 );
@@ -122,6 +124,7 @@ CREATE TABLE Followertags
     following_id INT NOT NULL,
     creation_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY(fid),
+    CONSTRAINT unique_pair_constraint UNIQUE (follower_id,following_id);
     FOREIGN KEY (follower_id) REFERENCES Users(user_id),
     FOREIGN KEY (following_id) REFERENCES Users(user_id)
 );
@@ -152,6 +155,7 @@ CREATE TABLE Answer_bookmarks
     user_id INT NOT NULL,
     answer_id INT NOT NULL,
     PRIMARY KEY(answer_bookmark_id),
+    CONSTRAINT unique_pair_constraint UNIQUE (answer_id,user_id);
     FOREIGN KEY (user_id) REFERENCES Users(user_id),
     FOREIGN KEY (answer_id) REFERENCES Answers(answer_id) ON DELETE CASCADE
 );
@@ -163,6 +167,7 @@ CREATE TABLE Question_bookmarks
     user_id INT NOT NULL,
     question_id INT NOT NULL,
     PRIMARY KEY(question_bookmark_id),
+    CONSTRAINT unique_pair_constraint UNIQUE (question_id,user_id);
     FOREIGN KEY (user_id) REFERENCES Users(user_id),
     FOREIGN KEY (question_id) REFERENCES Questions(question_id) ON DELETE CASCADE
 );
