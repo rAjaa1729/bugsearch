@@ -698,8 +698,11 @@ def clickvote():
 
 @newapp.route('/loadvote',methods=["GET",])
 def loadvote():
+    data=request.json['question_id']
+    print(data)
     user_id=current_user.user_id
-    return (vote:=Qvote.findvote(user_id=user_id,question_id=1))
+    # return (vote:=Qvote.findvote(user_id=user_id,question_id=data["question_id"]))
+    return (data)
 
 
 
