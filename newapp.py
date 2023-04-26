@@ -852,18 +852,9 @@ def post_question():
         title=request.form['title']
         body=request.form['body']
         selected_tags = request.form.getlist('tags[]')
-        # print(title)
-        if not title:
-            flash('Title is required.')
-        elif not body:
-            flash('Content is required.')
-        elif not selected_tags:
-            flash('tags required.')
-        else:
-            question_id=Question.post_question(title=title, body=body,tags=selected_tags, user_id=current_user.user_id)
-            if question_id:
-                flash('Question posted successfully!')
-                return redirect(url_for('posted_questions'))
+        question_id=Question.post_question(title=title, body=body,tags=selected_tags, user_id=current_user.user_id)
+        if question_id:
+            return redirect(url_for('posted_questions'))
     return render_template('post_question.html',user=current_user,tag_list=Tag.find_all_tags())
 
 
