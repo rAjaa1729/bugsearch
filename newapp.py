@@ -184,6 +184,21 @@ class User(UserMixin):
         user = User.find_by_username(username)
         if user.passcode == passcode: return 1
         else: return 0
+        
+
+    @staticmethod
+    def find_allusers():
+        my_db=get_db_connection()
+        cursor = my_db.cursor(dictionary=True)
+        query = "SELECT * FROM Users ORDER BY username ASC LIMIT 4"
+        cursor.execute(query)
+        users=cursor.fetchall()
+        u_list=[]
+        for u in users:
+            u_list.append(User(**u))
+        return u_list
+
+
 
 #---questions class----
 class Question():
@@ -807,7 +822,8 @@ def logout():
 @login_required
 @newapp.route('/users/all_users',methods=["GET",])
 def all_users():
-    return render_template('all_users.html',user=current_user)
+    u_list=User.find_allusers()
+    return render_template('all_users.html',user=current_user,u_list=u_list)
 
 @login_required
 @newapp.route("/users/badges",methods=["GET",])
