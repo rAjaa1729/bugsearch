@@ -1,4 +1,5 @@
 import mysql.connector
+# from monkeylearn import MonkeyLearn
 # import logging
 from flask import Flask, render_template, request, url_for, flash, redirect,jsonify
 from werkzeug.exceptions import abort
@@ -6,11 +7,13 @@ from fuzzywuzzy import fuzz
 from fuzzywuzzy import process 
 from threading import Thread 
 import jwt 
+import json 
+import requests 
 from datetime import datetime, timedelta
 # from flask_bcrypt import Bcrypt  
 # import hashlib
 from flask_login import  UserMixin, login_user, LoginManager, login_required, current_user, logout_user
-from flask_mail import Message, Mail
+from flask_mail import Message, Mail 
 # hashfun=hashlib.new("SHA256")
 
 newapp = Flask(__name__)
@@ -521,17 +524,24 @@ class Tag():
     
     @staticmethod
     def find_by_keyword(keyword):
+        headers = {"Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYzlhMzI4NjQtNjdiZS00NGE4LThhNTYtNzdmNGFkY2I5OWE1IiwidHlwZSI6ImFwaV90b2tlbiJ9.xWWB4F4usgqj5_HQ-kPG34qKsFuaWheeOBWCCSCELMk"}
+        url ="https://api.edenai.run/v2/text/keyword_extraction"
+        payload={"providers": "amazon", "language": "en", "text": keyword}
+        response = requests.post(url, json=payload, headers=headers)
+        result = json.loads(response.text)
+        print(result['amazon']['items']) 
+        keyword_list = result['amazon']['items']
+        keyword_string = " ".join(keyword_list)
         my_db=get_db_connection()
-        query = "SELECT * FROM Questions"
+        query = "SELECT * FROM Questions WHERE MATCH(title,body) AGAINST (%s IN NATURAL LANGUAGE MODE)"
         cursor=my_db.cursor(dictionary=True)
-        cursor.execute(query)
+        cursor.execute(query, (keyword_string,))
         questions=cursor.fetchall()
         my_db.close()
         q_list=[]
         for q in questions:
-            if fuzz.ratio(keyword,Question(**q).title) >= 50:
-                q_list.append(Question(**q))
-        return q_list 
+            q_list.append(Question(**q))
+        return q_list
 
 class QVote:
     def __init__(self,**kwargs):
