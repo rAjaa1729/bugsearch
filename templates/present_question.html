@@ -2,13 +2,13 @@
 <html lang="en">
 <!-- @login_required necessary-->
 <head>
-    <script>
+    <!-- <script>
         function calc_score(a,b)
         {
             return (a-b);
         }
         document.getElementById("counter1").innerHTML=
-    </script>
+    </script> -->
 
 
     <meta charset="utf-8">
@@ -356,13 +356,17 @@ function Qupdatevote(voting)
 // handling question for loading
 window.onload = function() {
   const questionId = '{{ question.question_id }}';
-  updateupdown(questionId);
-}
-function updateupdown(questionId) {
-    console.log('hi my na ');
+  const score = document.getElementById('counter1');
+  const scoreval = '{{question.upvotes - question.downvotes}}';
+  updateupdown(questionId, score, scoreval);
+};
+
+function updateupdown(questionId, score, scoreval) {
+  console.log('hi my na ');
+  console.log(scoreval);
+  console.log(questionId);
   const upvote = document.getElementById('like-btn1');
   const downvote = document.getElementById('dislike-btn1');
-  const score = document.getElementById('counter1');
   const bookmark = document.getElementById('bookmarks-btn1');
   const xhr = new XMLHttpRequest();
   xhr.open('GET', '/Qloadvote', true);
@@ -370,9 +374,8 @@ function updateupdown(questionId) {
   xhr.onload = function() {
     if (this.status == 200) {
       const data = JSON.parse(this.responseText);
-      score.innerHTML = ('{{question.upvotes}}' - '{{question.downvotes}}');
-      console.log(question.question_id)
-      console.log(data)
+      score.innerHTML = scoreval;
+      console.log(data);
       if (data['votetype'] == 'neutral') {
         upvote.style.backgroundColor = '';
         downvote.style.backgroundColor = '';
@@ -383,23 +386,23 @@ function updateupdown(questionId) {
         console.log(data);
         upvote.style.backgroundColor = '';
         downvote.style.backgroundColor = 'red';
-
       }
       if (data['bookmark'] === 'yes') {
         bookmark.style.backgroundColor = 'red';
-
       } else {
         bookmark.style.backgroundColor = '';
       }
-    } 
-    else {
+    } else {
       console.log('failed');
-      console.log(this.responseText)
+      console.log(this.responseText);
     }
   };
-  const data = JSON.stringify({ "question_id": questionId});
+  console.log(questionId);
+  const data = JSON.stringify({ "question_id": questionId });
+  console.log(data);
   xhr.send(data);
 }
+
 </script>
 
 </body>

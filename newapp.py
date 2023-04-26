@@ -709,14 +709,14 @@ class QBookmark:
             bkq=cursor.fetchone()
             my_db.close()
             print("bkq",bkq)
-            return ({"bookmark":"yes","creation_date":bkq['creation_date']})
+            return ({"bookmark":"yes"})
         else:
             print('what is the issue')
             query="DELETE FROM Question_bookmarks WHERE user_id=%s AND question_id=%s"
             cursor.execute(query,(user_id,question_id))
             my_db.commit()
             my_db.close()
-            return ({"bookmark":"no","creation_time":'no'})
+            return ({"bookmark":"no"})
 
 
 
@@ -891,6 +891,8 @@ def post_question_comment(question_id):
 @newapp.route("/users/posted_questions",methods=["GET","POST","DELETE"])
 def posted_questions():
     id=current_user.user_id
+    q_list=Question.find_question_by_user_id(user_id=id)
+    print(q_list[0].title)
     return render_template('posted_questions.html',q_list=Question.find_question_by_user_id(user_id=id),user=current_user)
 
 
@@ -1106,7 +1108,7 @@ def Qudpatebookmark():
         print(user_id,question_id)
         B=QBookmark.Qupdatebookmark(user_id=user_id,question_id=question_id)
         print(B)
-        return jsonify({"bookmark":B['bookmark'],"creation_date":B['creation_date']})
+        return jsonify({"bookmark":B['bookmark']})
 
 
 
