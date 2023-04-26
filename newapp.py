@@ -729,18 +729,25 @@ class QBookmark:
             return ({"bookmark":"no"})
     @staticmethod
     def Qfindmarked(user_id):
+        print('Raja kumar')
+        print(user_id)
         my_db=get_db_connection()
         cursor=my_db.cursor(dictionary=True)
+        cursor=my_db.cursor(dictionary=True)
         query = "SELECT question_id FROM Question_bookmarks WHERE user_id = %s ORDER BY creation_date DESC LIMIT 10"
-        l_qid=cursor.execute(query,(user_id,))
+        cursor.execute(query,(user_id,))
+        l_qid=cursor.fetchall()
+        print("checing for bookmarks")
+        print(l_qid)
         q_list=[]
-        # for id in l_qid:
-        #     query = "SELECT * FROM Questions WHERE question_id = %s"
-        #     cursor.execute(query,(user_id,))
-        #     question=Question.find_by_question_id(id.question_id)
+        for id in l_qid:
+            question=Question.find_by_question_id(id['question_id']) # fix the typo here
+            q_list.append(question)
+        return q_list
 
 
-        bookmark=cursor.fetchone()
+
+        # bookmark=cursor.fetchone()
 
 
 
@@ -810,7 +817,8 @@ def badges():
 @login_required
 @newapp.route('/users/bookmarks',methods=['GET',])
 def bookmarks():
-    return render_template('bookmarks.html',user=current_user)
+    q_list=QBookmark.Qfindmarked(user_id=current_user.user_id)
+    return render_template('bookmarks.html',user=current_user,q_list=q_list)
 
 @login_required
 @newapp.route("/users/complete_your_profile",methods=["GET",'POST'])
@@ -925,7 +933,8 @@ def tags_login():
 @login_required
 @newapp.route('/users/trending',methods=['GET',])
 def trending():
-    return render_template('trending.html',user=current_user)
+    q_list=Question.find_trending_ques()
+    return render_template('trending.html',user=current_user,q_list=q_list)
 
 @login_required
 @newapp.route('/users/search',methods=['GET',])

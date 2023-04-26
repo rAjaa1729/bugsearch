@@ -282,7 +282,7 @@ function Qbookmark()
             const bookmark1=document.getElementById('bookmarks-btn1');
             if(data['bookmark']=='yes')
             {
-                bookmark1.style.backgroundColor='red';
+                bookmark1.style.backgroundColor='#49BBBD';
             }
             else
             {
@@ -338,14 +338,14 @@ function Qupdatevote(voting)
                 // console.log('upvote');
                 // upvote.innerHTML=data['upvotes'];
                 // downvote.innerHTML=data['downvotes']
-                upvote.style.backgroundColor = 'red';
+                upvote.style.backgroundColor = '#49BBBD';
                 downvote.style.backgroundColor = '';
             } else {
                 // console.log('downvote');
                 // upvote.innerHTML=data['upvotes'];
                 // downvote.innerHTML=data['downvotes']
                 upvote.style.backgroundColor = '';
-                downvote.style.backgroundColor = 'red';
+                downvote.style.backgroundColor = '#49BBBD';
             }
         }
     };
@@ -380,15 +380,15 @@ function updateupdown(questionId, score, scoreval) {
         upvote.style.backgroundColor = '';
         downvote.style.backgroundColor = '';
       } else if (data['votetype'] == 'upvote') {
-        upvote.style.backgroundColor = 'red';
+        upvote.style.backgroundColor = '#49BBBD';
         downvote.style.backgroundColor = '';
       } else {
         console.log(data);
         upvote.style.backgroundColor = '';
-        downvote.style.backgroundColor = 'red';
+        downvote.style.backgroundColor = '#49BBBD';
       }
       if (data['bookmark'] === 'yes') {
-        bookmark.style.backgroundColor = 'red';
+        bookmark.style.backgroundColor ='#49BBBD';
       } else {
         bookmark.style.backgroundColor = '';
       }
