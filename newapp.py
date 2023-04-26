@@ -717,6 +717,21 @@ class QBookmark:
             my_db.commit()
             my_db.close()
             return ({"bookmark":"no"})
+    @staticmethod
+    def Qfindmarked(user_id):
+        my_db=get_db_connection()
+        cursor=my_db.cursor(dictionary=True)
+        query = "SELECT question_id FROM Question_bookmarks WHERE user_id = %s ORDER BY creation_date DESC LIMIT 10"
+        l_qid=cursor.execute(query,(user_id,))
+        q_list=[]
+        # for id in l_qid:
+        #     query = "SELECT * FROM Questions WHERE question_id = %s"
+        #     cursor.execute(query,(user_id,))
+        #     question=Question.find_by_question_id(id.question_id)
+
+
+        bookmark=cursor.fetchone()
+
 
 
 
@@ -892,7 +907,7 @@ def post_question_comment(question_id):
 def posted_questions():
     id=current_user.user_id
     q_list=Question.find_question_by_user_id(user_id=id)
-    print(q_list[0].title)
+    # print(q_list[0].title)
     return render_template('posted_questions.html',q_list=Question.find_question_by_user_id(user_id=id),user=current_user)
 
 
@@ -1050,7 +1065,7 @@ def homepage():
 #     user_id=current_user.user_id
 #     return render_template('check.html',user=current_user,question=Question.find_by_question_id(question_id=1))
 
-
+@login_required
 @newapp.route('/Qloadvote', methods=['GET', 'POST'])
 def Qloadvote():
     if request.method == 'GET':
@@ -1071,7 +1086,7 @@ def Qloadvote():
     #     user_id = current_user.user_id
     #     QVote.findvote(user_id=user_id, question_id=question_id)
     #     return jsonify({"votetype": "neutral"})
-
+@login_required
 @newapp.route('/Qupdatevote', methods=['GET', 'POST'])
 def Qupdatevote():
     if request.method == 'POST':
