@@ -1,15 +1,29 @@
 import mysql.connector
+# import logging
 from flask import Flask, render_template, request, url_for, flash, redirect,jsonify
 from werkzeug.exceptions import abort
 from fuzzywuzzy import fuzz 
 from fuzzywuzzy import process 
+from threading import Thread 
+import jwt 
+from datetime import datetime, timedelta
 # from flask_bcrypt import Bcrypt  
 # import hashlib
 from flask_login import  UserMixin, login_user, LoginManager, login_required, current_user, logout_user
-
+from flask_mail import Message, Mail
 # hashfun=hashlib.new("SHA256")
 
 newapp = Flask(__name__)
+newapp.config['DEBUG'] = True
+newapp.config['MAIL_SERVER'] = 'smtp.iitd.ac.in'
+newapp.config['MAIL_PORT'] = 25
+newapp.config['MAIL_USE_TLS'] = True
+newapp.config['MAIL_USE_SSL'] = False 
+newapp.config['MAIL_DEBUG'] =True
+newapp.config['MAIL_USERNAME'] = "*********@iitd.ac.in"
+newapp.config['MAIL_DEFAULT_SENDER'] = "*********@iitd.ac.in"
+newapp.config['MAIL_PASSWORD'] = "********"
+mail = Mail(newapp)
 # bcrypt = Bcrypt()
 newapp.config['SECRET_KEY'] = 'sql@Prism1920'
 
@@ -139,7 +153,7 @@ class User(UserMixin):
             u_list.append(User.get(f_id['follower_id']))
         return u_list
 
-    staticmethod
+    @staticmethod
     def find_followings(user_id):
         my_db=get_db_connection()
         query = "SELECT following_id FROM Followertags WHERE follower_id = %s ORDER BY creation_date DESC LIMIT 10"
@@ -151,6 +165,22 @@ class User(UserMixin):
         for f_id in followers_id:
             u_list.append(User.get(f_id['follower_id']))
         return u_list
+    
+    @staticmethod
+    def get_reset_token(username):
+        return jwt.encode({'reset_password': username, 'exp': datetime.utcnow() + timedelta(minutes = 30)}, key=newapp.config['SECRET_KEY'])
+
+    @staticmethod
+    def set_password(username,passcode):
+        my_db=get_db_connection()
+        cursor = my_db.cursor(dictionary=True)
+        query = "UPDATE Users SET passcode = %s WHERE username = %s"
+        cursor.execute(query, (passcode,username,))
+        my_db.commit()
+        my_db.close()
+        user = User.find_by_username(username)
+        if user.passcode == passcode: return 1
+        else: return 0
 
 #---questions class----
 class Question():
@@ -921,13 +951,49 @@ def help():
 def tags():
     return render_template('tags.html')
 
-@newapp.route("/forgot_password",methods=["GET"])
+def send_email(newapp, msg):
+    with newapp.app_context():
+        mail.send(msg)
+        # return 1
+       
+
+@newapp.route("/forgot_password",methods=["GET","POST"])
 def forgot_password():  
+    if request.method=="POST":
+        username = request.form['username']
+        email_id = request.form['email_id']
+        user = User.find_by_email_id(email_id)
+        if (user!=None and User.find_by_username(username)==user):
+            token = user.get_reset_token(username)
+            msg=Message()
+            msg.subject = "Password Recovery Mail"
+            msg.recipients = [email_id]
+            # msg.sender = newapp.config['MAIL_DEFAULT_SENDER']
+            # msg.body = "Click here to reset your password:\n"
+            url = request.host_url + url_for('reset_password',username=username,token=token)
+            # newapp.logger.warning(url)
+            msg.html = render_template('reset_password_mail.html',url=url)
+            Thread(target=send_email, args=(newapp,msg)).start()
+            # mail.send(msg)
+            flash('email successfully sent!')
+        else:
+            flash('user does not exist!')
+        render_template('password_reset_1.html')
     return render_template('password_reset_1.html')
 
-@newapp.route("/reset_password",methods=["GET",'POST'])
-def reset_password():
-    return render_template('password_reset_2.html')
+@newapp.route("/reset_password/<string:username>/<string:token>",methods=["GET",'POST'])
+def reset_password(username, token):
+    if request.method=="POST":
+        password1 = request.form['password1']
+        password2 = request.form['password2']
+        if (password1!=password2):
+            flash("Passwords do not match!")
+        else:
+            reset = User.set_password(username,password1)
+            if reset==1: flash("Password reset successfully!")
+            else: flash("Something went wrong :(")
+    return render_template('password_reset_2.html', username=username, token=token)
+
 
 @newapp.route('/search',methods=["GET"])
 def search_without_login():
