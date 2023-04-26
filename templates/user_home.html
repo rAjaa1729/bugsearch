@@ -12,7 +12,7 @@
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter&family=Poppins:wght@400;600;700&display=swap"
         rel="stylesheet">
-
+    <link rel="icon" type="image/x-icon" href="{{ url_for ('static',filename='assets/images/logo.png') }}" alt="image">
     <title>BugSearch</title>
 
     <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -36,7 +36,7 @@
     <ul class="list-unstyled components navbar-nav mr-auto">
         <p>{{current_user.username}}</p>
         <li> <a href="{{url_for('dashboard')}}" class="dis-inl" ><i class="fa-solid fa-user trending-user-circle dis-inl mar" style="color:black"></i>User Profile</a></li>
-        <li> <a href="{{url_for('user_home')}}" class="dis-inl"><i class="fa-solid fa-house followers-page-identification-cardd dis-inl mar" style="color:black"></i>User Home</a> </li>
+        <li> <a href="{{url_for('user_home')}}" class="dis-inl" style ="background-color : #49BBBD"><i class="fa-solid fa-house followers-page-identification-cardd dis-inl mar" style="color:black"></i>User Home</a> </li>
         <li> <a href="{{url_for('complete_your_profile')}}" class="dis-inl"><i class="fa-solid fa-pen-to-square followers-page-vector2 dis-inl mar" style="color:black"></i>Edit Profile</a> </li>
         <li> <a href="{{url_for('followers')}}" class="dis-inl"><i class="fa-solid fa-user-group followers-page-users dis-inl mar" style="color:black"></i>Followers</a> </li>
         <li> <a href="{{url_for('following')}}" class="dis-inl"><i class="fa-solid fa-user-group followers-page-users dis-inl mar" style="color:black"></i>Following</a> </li>
@@ -61,7 +61,7 @@
           </div>
         </div>
         <div class="col-lg-12 col-md-6 hz">
-          <div class="item">
+          <div class="item sel">
             <div class="row">
               <div class="col-lg-12">
                 <ul>
@@ -77,7 +77,7 @@
           </div>
         </div>
         <div class="col-lg-12 col-md-6 hz">
-            <div class="item">
+            <div class="item sel">
               <div class="row">
                 <div class="col-lg-12">
                   <ul>
@@ -92,7 +92,7 @@
             </div>
           </div>
           <div class="col-lg-12 col-md-6 hz">
-            <div class="item">
+            <div class="item sel">
               <div class="row">
                 <div class="col-lg-12">
                   <ul>
