@@ -49,6 +49,32 @@
         <li> <a href="{{url_for('posted_questions')}}" class="dis-inl"><i class="fa-solid fa-question trending-question dis-inl mar" style="color:black"></i>Posted Questions</a> </li>
 
 </nav>
+        <div class="content">
+        <header class="header-area header-sticky background-header fixed-topp">
+            <nav class="main-nav navcolor navbar-dark">
+                <button type="button" id="sidebarCollapse" class="btn btn-info info"> <i
+                        class="fa fa-align-justify"></i> </button>
+                <a href="index.html" class="logo ">
+                    <h1 id="title">BugSearch</h1>
+                </a>
+                <div class="search-input">
+                    <form id="search" action="#">
+                        <input type="text" placeholder="Type Something" id='searchText' name="searchKeyword"
+                            onkeypress="handle" />
+                        <i class="fa fa-search"></i>
+                    </form>
+                </div>
+                <ul class="nav">
+                    <li class="scroll-to-section"><a href="{{url_for('homepage')}}">Home</a></li>
+                    <li class="scroll-to-section"><a href="{{url_for('userlogin')}}">{{current_user.username}}</a></li>
+                    <li class="scroll-to-section"><a href="{{url_for('signup')}}">Logout</a></li>
+                    <li class="scroll-to-section"><a href="{{url_for('help_with_login')}}">Help</a></li>
+                </ul>
+                <a class='menu-trigger'>
+                    <span>Menu</span>
+                </a>
+
+            </nav>
     </header>
 
     <div class="section events" id="events">
