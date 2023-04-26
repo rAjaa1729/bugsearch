@@ -12,7 +12,7 @@
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter&family=Poppins:wght@400;600;700&display=swap"
         rel="stylesheet">
-
+    <link rel="icon" type="image/x-icon" href="{{ url_for ('static',filename='assets/images/logo.png') }}" alt="image">
     <title>BugSearch</title>
 
     <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -29,7 +29,7 @@
 </head>
 <body>
 <div class="wrapper">
-    <nav id="sidebar" class="sticky-top">
+  <nav id="sidebar" class="sticky-top">
     <div class="sidebar-header">
         <hr>
     </div>
@@ -38,7 +38,7 @@
         <li> <a href="{{url_for('dashboard')}}" class="dis-inl" ><i class="fa-solid fa-user trending-user-circle dis-inl mar" style="color:black"></i>User Profile</a></li>
         <li> <a href="{{url_for('user_home')}}" class="dis-inl"><i class="fa-solid fa-house followers-page-identification-cardd dis-inl mar" style="color:black"></i>User Home</a> </li>
         <li> <a href="{{url_for('complete_your_profile')}}" class="dis-inl"><i class="fa-solid fa-pen-to-square followers-page-vector2 dis-inl mar" style="color:black"></i>Edit Profile</a> </li>
-        <li> <a href="{{url_for('followers')}}" class="dis-inl"><i class="fa-solid fa-user-group followers-page-users dis-inl mar" style="color:black"></i>Followers</a> </li>
+        <li> <a href="{{url_for('followers')}}" class="dis-inl" style="background-color: #49BBBD"><i class="fa-solid fa-user-group followers-page-users dis-inl mar" style="color:black"></i>Followers</a> </li>
         <li> <a href="{{url_for('following')}}" class="dis-inl"><i class="fa-solid fa-user-group followers-page-users dis-inl mar" style="color:black"></i>Following</a> </li>
         <li> <a href="{{url_for('badges')}}" class="dis-inl"><i class="fa-solid fa-award followers-page-vector1 dis-inl mar" style="color:black"></i>Badges</a> </li>
         <li> <a href="{{url_for('trending')}}" class="dis-inl"><i class="fa-solid fa-globe recommendations-globe-stand dis-inl mar" style="color:black"></i>Trending</a> </li>
@@ -77,85 +77,83 @@
     </header>
 
     <div class="section events" id="events">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12 text-center">
-          <div class="section-heading">
-            <!-- <h6>Schedule</h6> -->
-            <h2>Followers : {{user.nfollowers}}  </h2>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <div class="section-heading">
+              <!-- <h6>Schedule</h6> -->
+              <h2>Followers : {{user.nfollowers}}</h2>
+            </div>
           </div>
-        </div>
-        <div class="col-lg-12 col-md-6">
-          <div class="item">
-            <div class="row">
-              <div class="col-lg-3">
-                <div class="image">
-                  <img src="assets/images/event-01.jpg" alt="">
+          <div class="col-lg-12 col-md-6 hz">
+            <div class="item sel">
+              <div class="row">
+                <div class="col-lg-3">
+                  <div class="image">
+                    <img src="assets/images/event-01.jpg" alt="">
+                  </div>
                 </div>
-              </div>
-              <div class="col-lg-9">
-                <ul>
-                  <li>
-                    <span class="category">Username</span>
-                    <h4>Raja Kumar</h4>
-                  </li>
-                </ul>
-                <a href="#"><i class="fa fa-angle-right"></i></a>
+                <div class="col-lg-9">
+                  <ul>
+                    <li>
+                      <span class="category">Username</span>
+                      <h4>Raja Kumar</h4>
+                    </li>
+                  </ul>
+                  <a href="#"><i class="fa fa-angle-right"></i></a>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="col-lg-12 col-md-6 hz">
-          <div class="item">
-            <div class="row">
-              <div class="col-lg-3">
-                <div class="image">
-                  <img src="assets/images/event-02.jpg" alt="">
+          <div class="col-lg-12 col-md-6 hz">
+            <div class="item sel">
+              <div class="row">
+                <div class="col-lg-3">
+                  <div class="image">
+                    <img src="assets/images/event-02.jpg" alt="">
+                  </div>
                 </div>
-              </div>
-              <div class="col-lg-9">
-                <ul>
-                  <li>
-                    <span class="category">Username</span>
-                    <h4>Esha Patel</h4>
-                  </li>
-                </ul>
-                <a href="#"><i class="fa fa-angle-right"></i></a>
+                <div class="col-lg-9">
+                  <ul>
+                    <li>
+                      <span class="category">Username</span>
+                      <h4>Esha Patel</h4>
+                    </li>
+                  </ul>
+                  <a href="#"><i class="fa fa-angle-right"></i></a>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="col-lg-12 col-md-6 hz">
-          <div class="item">
-            <div class="row">
-              <div class="col-lg-3">
-                <div class="image">
-                  <img src="assets/images/event-03.jpg" alt="">
+          <div class="col-lg-12 col-md-6 hz">
+            <div class="item sel">
+              <div class="row">
+                <div class="col-lg-3">
+                  <div class="image">
+                    <img src="assets/images/event-03.jpg" alt="">
+                  </div>
                 </div>
-              </div>
-              <div class="col-lg-9">
-                <ul>
-                  <li>
-                    <span class="category">Username</span>
-                    <h4>Namrata Thakur</h4>
-                  </li>
-                </ul>
-                <a href="#"><i class="fa fa-angle-right"></i></a>
+                <div class="col-lg-9">
+                  <ul>
+                    <li>
+                      <span class="category">Username</span>
+                      <h4>Namrata Thakur</h4>
+                    </li>
+                  </ul>
+                  <a href="#"><i class="fa fa-angle-right"></i></a>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-
         <div class="content-wrapper">
             <div class="line"></div>
         </div>
     </div>
 </div>
 </body>
-
 
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous"></script>
