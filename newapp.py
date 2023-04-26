@@ -326,6 +326,20 @@ class Question():
             q_list.append(Question(**q))
         return q_list
     
+    # recommended on basis of now of upvotes
+    @staticmethod
+    def find_recommend_ques():
+        my_db=get_db_connection()
+        query = "SELECT * FROM Questions ORDER BY upvotes DESC LIMIT 10"
+        cursor=my_db.cursor(dictionary=True)
+        cursor.execute(query)
+        questions=cursor.fetchall()
+        my_db.close()
+        q_list=[]
+        for q in questions:
+            q_list.append(Question(**q))
+        return q_list
+
         
 # -----class for Answer object--------------
 class Answer():
@@ -786,6 +800,53 @@ class ABookmark:
         else:
             return ('yes')
     
+    @staticmethod
+    def Aupdatebookmark(user_id,answer_id):
+        my_db=get_db_connection()
+        cursor=my_db.cursor(dictionary=True)
+        query="SELECT * FROM Answer_bookmarks WHERE user_id=%s AND answer_id=%s"
+        cursor.execute(query,(user_id,answer_id))
+        bookmark=cursor.fetchone()
+        print("bookmark",bookmark)
+        if bookmark is None:
+            print("nobe")
+            query="INSERT INTO Answer_bookmarks (user_id,answer_id) values(%s,%s)"
+            cursor.execute(query,(user_id,answer_id))
+            cursor.fetchone()
+            my_db.commit()
+            query="SELECT * FROM Answer_bookmarks WHERE user_id=%s AND answer_id=%s"
+            cursor.execute(query,(user_id,answer_id))
+            bkq=cursor.fetchone()
+            my_db.close()
+            print("bkq",bkq)
+            return ({"bookmark":"yes"})
+        else:
+            print('what is the issue')
+            query="DELETE FROM Answer_bookmarks WHERE user_id=%s AND answer_id=%s"
+            cursor.execute(query,(user_id,answer_id))
+            my_db.commit()
+            my_db.close()
+            return ({"bookmark":"no"})
+        
+    @staticmethod
+    def Afindmarked(user_id):
+        print('Raja kumar')
+        print(user_id)
+        my_db=get_db_connection()
+        cursor=my_db.cursor(dictionary=True)
+        cursor=my_db.cursor(dictionary=True)
+        query = "SELECT answer_id FROM Answer_bookmarks WHERE user_id = %s ORDER BY creation_date DESC LIMIT 10"
+        cursor.execute(query,(user_id,))
+        l_qid=cursor.fetchall()
+        print("checing for bookmarks")
+        print(l_qid)
+        q_list=[]
+        for id in l_qid:
+            answer=answer.find_by_answer_id(id['answer_id']) # fix the typo here
+            q_list.append(answer)
+        return q_list
+
+    
 
 
     
@@ -939,7 +1000,8 @@ def posted_questions():
 @login_required
 @newapp.route('/users/recommendations',methods=['GET',])
 def recommendations():
-    return render_template('recommendations.html',user=current_user)
+    q_list=Question.find_recommend_ques()
+    return render_template('recommendations.html',user=current_user,q_list=q_list)
 
 @login_required
 @newapp.route('/users/tags',methods=['GET',])
@@ -1139,15 +1201,19 @@ def Qupdatevote():
     #     return jsonify({"votetype": "neutral"})
 
 @login_required
-@newapp.route('/Qupdatebookmark',methods=['GET','POST'])
-def Qudpatebookmark():
+@newapp.route('/updatebookmark',methods=['GET','POST'])
+def udpatebookmark():
     if request.method=='POST':
         data=request.get_json()
-        question_id=data.get('question_id')
+        post_id=data.get('post_id')
+        post_type=data.get('post_type')
         user_id=current_user.user_id
         print("my name is raha kumart")
-        print(user_id,question_id)
-        B=QBookmark.Qupdatebookmark(user_id=user_id,question_id=question_id)
+        print(user_id,post_id,post_type)
+        if(post_type=='answer'):
+            B=ABookmark.Aupdatebookmark(user_id=user_id,answer_id=post_id)
+        else:
+            B=QBookmark.Qupdatebookmark(user_id=user_id,question_id=post_id)
         print(B)
         return jsonify({"bookmark":B['bookmark']})
 
