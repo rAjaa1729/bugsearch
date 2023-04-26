@@ -208,7 +208,7 @@ input::-webkit-input-placeholder {
     cursor: pointer;
   }
   
-  #like-btn1, #like-btn2, #like-btn3, #like-btn4 {
+  button[id^='like-btn']{
     margin-left: 0px;
     border: none;
     margin-top: -1px;
@@ -222,7 +222,7 @@ input::-webkit-input-placeholder {
     border: 2px solid #49BBBD;
   }
   
-  #dislike-btn1, #dislike-btn2, #dislike-btn3, #dislike-btn4 {
+  button[id^='dislike-btn'] {
     border: none;
     margin-left: 0px;
     margin-top: 44px;
@@ -236,14 +236,14 @@ input::-webkit-input-placeholder {
     border: 2px solid #49BBBD;
   }
   
-  #counter1, #counter2, #counter3, #counter4 {
+  button[id^='counter'] {
     margin-left: -26px;
     margin-top: 30px;
     font-size: 32px;
     position: absolute;
   }
   
-  #bookmarks-btn1, #bookmarks-btn2, #bookmarks-btn3, #bookmarks-btn4{
+  button[id^='bookmarks-btn']{
     border: none;
     margin-left: 0px;
     margin-top: 10px;
@@ -261,9 +261,6 @@ input::-webkit-input-placeholder {
     margin-right: 15px;
   }
 
-  .search-row{
-    /* padding-right: calc(var(--bs-gutter-x) * 4); */
-  }
   .add_c{
     text-decoration: underline;
     color: #49BBBD;

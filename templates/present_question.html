@@ -93,10 +93,10 @@
             <div class="row surf">
                 <div class="col-lg-1">
                     <div class="like-dislike" id="loadclickhandle">
-                        <button id="like-btn{{question.question_id}}" class="lb" onclick="Qupdatevote('up')"><box-icon type='solid' name='up-arrow' style="height:18px; width:18px" ></box-icon></button>
+                        <button id="like-btn{{question.question_id}}" class="lb" onclick="updatevote(vote_type='up',post_type='question',post_id='{{question.question_id}}')"><box-icon type='solid' name='up-arrow' style="height:18px; width:18px" ></box-icon></button>
                         <span class="votecount" id="counter{{question.question_id}}" class="cb">0</span>
-                        <button id="dislike-btn{{question.question_id}}" class="dlb" onclick="Qupdatevote('down')"><box-icon type='solid' name='down-arrow' style="height:18px; width:18px"></box-icon></button>
-                        <button id="bookmarks-btn{{question.question_id}}" onclick="Qbookmark(post_type='question',post_id='{{question.question_id}}',button_id='bookmarks-btn{{question.question_id}}'><box-icon name='bookmark-star' type='solid' style="height:18px; width:18px" ></box-icon></button>
+                        <button id="dislike-btn{{question.question_id}}" class="dlb" onclick="updatevote(vote_type='down',post_type='question',post_id='{{question.question_id}}')"><box-icon type='solid' name='down-arrow' style="height:18px; width:18px"></box-icon></button>
+                        <button id="bookmarks-btn{{question.question_id}}" onclick="updatebookmark(post_type='question',post_id='{{question.question_id}}',button_id='bookmarks-btn{{question.question_id}}')"> <box-icon name='bookmark-star' type='solid' style="height:18px; width:18px" ></box-icon></button>
                     </div>
                 </div>
                 <div class="col-lg-11">
@@ -111,6 +111,8 @@
             <br><a target="_blank" href="{{url_for('post_question_comment',question_id=question.question_id)}}" class="add_c dis-inl"><span><u>Add comment</u></span></a>
             <h5 class="dis-inl">{{question.answer_count}} Answers</h5>
             <h5 class="dis-inl">{{question.comment_count}} Comments</h5>
+            <br>
+            <button type="button" class="btn btn-primary btn-lg search-button" onclick="getcomments(post_type='question',post_id='{{question.question_id}}')">Get Comments</button>
         </div>
     </div>
             <hr>
@@ -124,10 +126,12 @@
             <div class="row surf">
                 <div class="col-lg-1">
                     <div class="like-dislike">
-                        <button id="like-btn2"  class="lb"><box-icon type='solid' name='up-arrow' style="height:18px; width:18px"></box-icon></button>
-                        <span class="votecount" id="counter2" class="cb">0</span>
-                        <button id="dislike-btn2" class="dlb"><box-icon type='solid' name='down-arrow' style="height:18px; width:18px"></box-icon></button>
-                        <button id="bookmarks-btn2"><box-icon name='bookmark-star' type='solid' style="height:18px; width:18px" ></box-icon></button>
+                        <div class="like-dislike" id="loadclickhandle">
+                            <button id="like-btn{{answer.answer_id}}" class="lb" onclick="updatevote(vote_type='up',post_type='answer',post_id='{{answer.answer_id}}')"><box-icon type='solid' name='up-arrow' style="height:18px; width:18px" ></box-icon></button>
+                            <span class="votecount" id="counter{{answer.answer_id}}" class="cb">0</span>
+                            <button id="dislike-btn{{answer.answer_id}}" class="dlb" onclick="updatevote(vote_type='down',post_type='answer',post_id='{{answer.answer_id}}')"><box-icon type='solid' name='down-arrow' style="height:18px; width:18px"></box-icon></button>
+                            <button id="bookmarks-btn{{answer.answer_id}}" onclick="updatebookmark(post_type='answer',post_id='{{answer.answer_id}}',button_id='bookmarks-btn{{answer.answer_id}}')"> <box-icon name='bookmark-star' type='solid' style="height:18px; width:18px" ></box-icon></button>
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-11">
@@ -142,6 +146,7 @@
             </div>
             <br>
             <div class="line"></div><br>
+            
             {%endfor %}
              
           
@@ -178,14 +183,14 @@
     <!-- console.log({{question.question_id}});</script> -->
       
 <script>
-const questionId = {{ question.question_id }};
+const questionId = '{{ question.question_id }}';
 //bookmark functionality
-function Qbookmark(post_type,button_id,post_id)
+function updatebookmark(post_type,post_id,button_id)
 {
     console.log('inside bookmark');
     const xhr=new XMLHttpRequest();
 
-    xhr.open('POST','/Qupdatebookmark',true);
+    xhr.open('POST','/updatebookmark',true);
     xhr.setRequestHeader("content-type","application/json;charset=UTF-8");
     xhr.onload = function()
     {
@@ -219,13 +224,13 @@ function Qbookmark(post_type,button_id,post_id)
 
 
 
-// onclick handling for questions
-function Qupdatevote(voting)
+// onclick handling for 
+function updatevote(vote_type,post_type,post_id)
 {
     console.log('has entered in the upvote function upvote clicked ');
     const xhr=new XMLHttpRequest();
-
-    xhr.open('POST','/Qupdatevote',true);
+    console.log(vote_type,post_type,post_id);
+    xhr.open('POST','/updatevote',true);
     xhr.setRequestHeader("content-type","application/json;charset=UTF-8");
     // console.log(voting);
     // console.log('printednow');
@@ -234,14 +239,14 @@ function Qupdatevote(voting)
         console.log('has entered in the  ');
         if(this.status===200)
         {
-            const upvote = document.getElementById('like-btn1');
-            const downvote = document.getElementById('dislike-btn1');
-            const score = document.getElementById('counter1');
+            const upvote = document.getElementById(('like-btn'+post_id));
+            const downvote = document.getElementById(('dislike-btn'+post_id));
+            const score = document.getElementById(('counter'+post_id));
             // console.log('has entered in the the 200  ');
             const data=JSON.parse(this.responseText);
             score.innerHTML=data['score'];
             // console.log(data)
-            if (data['votetype'] == 'neutral')
+            if (data['vote_type'] == 'neutral')
             {
                 // console.log('neutral');
                 // console.log(data)
@@ -250,7 +255,7 @@ function Qupdatevote(voting)
                 // upvote.innerHTML=data['upvotes'];
                 // downvote.innerHTML=data['downvotes']
                 downvote.style.backgroundColor = '';
-            } else if (data['votetype'] == 'upvote') {
+            } else if (data['vote_type'] == 'upvote') {
                 // console.log('upvote');
                 // upvote.innerHTML=data['upvotes'];
                 // downvote.innerHTML=data['downvotes']
@@ -265,59 +270,81 @@ function Qupdatevote(voting)
             }
         }
     };
-    const data=JSON.stringify({"question_id":'{{question.question_id}}',"voting":voting});
+    const data=JSON.stringify({"post_id":post_id,"vote_type":vote_type,"post_type":post_type});
+    console.log(data);
+    xhr.send(data);
+}
+
+function getcomments(post_type,post_id)
+{
+    console.log('has entered in the comments clicked ');
+    const xhr=new XMLHttpRequest();
+    console.log(vote_type,post_type,post_id);
+    xhr.open('POST','/getcomments',true);
+    xhr.setRequestHeader("content-type","application/json;charset=UTF-8");
+
+    xhr.onload = function()
+    {
+        console.log('has entered in the  ');
+        if(this.status===200)
+        {
+
+        }
+    }
+    const data=JSON.stringify({"post_id":post_id,"post_type":post_type});
+    console.log(data);
     xhr.send(data);
 }
 
 // handling question for loading
-window.onload = function() {
-  const questionId = '{{ question.question_id }}';
-  const score = document.getElementById('counter1');
-  const scoreval = '{{question.upvotes - question.downvotes}}';
-  updateupdown(questionId, score, scoreval);
-};
+// window.onload = function() {
+//   const questionId = '{{ question.question_id }}';
+//   const score = document.getElementById('counter1');
+//   const scoreval = '{{question.upvotes - question.downvotes}}';
+//   updateupdown(questionId, score, scoreval);
+// };
 
-function updateupdown(questionId, score, scoreval) {
-  console.log('hi my na ');
-  console.log(scoreval);
-  console.log(questionId);
-  const upvote = document.getElementById('like-btn1');
-  const downvote = document.getElementById('dislike-btn1');
-  const bookmark = document.getElementById('bookmarks-btn1');
-  const xhr = new XMLHttpRequest();
-  xhr.open('GET', '/Qloadvote', true);
-  xhr.setRequestHeader('content-type', 'application/json;charset=UTF-8');
-  xhr.onload = function() {
-    if (this.status == 200) {
-      const data = JSON.parse(this.responseText);
-      score.innerHTML = scoreval;
-      console.log(data);
-      if (data['votetype'] == 'neutral') {
-        upvote.style.backgroundColor = '';
-        downvote.style.backgroundColor = '';
-      } else if (data['votetype'] == 'upvote') {
-        upvote.style.backgroundColor = '#49BBBD';
-        downvote.style.backgroundColor = '';
-      } else {
-        console.log(data);
-        upvote.style.backgroundColor = '';
-        downvote.style.backgroundColor = '#49BBBD';
-      }
-      if (data['bookmark'] === 'yes') {
-        bookmark.style.backgroundColor ='#49BBBD';
-      } else {
-        bookmark.style.backgroundColor = '';
-      }
-    } else {
-      console.log('failed');
-      console.log(this.responseText);
-    }
-  };
-  console.log(questionId);
-  const data = JSON.stringify({ "question_id": questionId });
-  console.log(data);
-  xhr.send(data);
-}
+// function updateupdown(questionId, score, scoreval) {
+//   console.log('hi my na ');
+//   console.log(scoreval);
+//   console.log(questionId);
+//   const upvote = document.getElementById('like-btn1');
+//   const downvote = document.getElementById('dislike-btn1');
+//   const bookmark = document.getElementById('bookmarks-btn1');
+//   const xhr = new XMLHttpRequest();
+//   xhr.open('GET', '/Qloadvote', true);
+//   xhr.setRequestHeader('content-type', 'application/json;charset=UTF-8');
+//   xhr.onload = function() {
+//     if (this.status == 200) {
+//       const data = JSON.parse(this.responseText);
+//       score.innerHTML = scoreval;
+//       console.log(data);
+//       if (data['votetype'] == 'neutral') {
+//         upvote.style.backgroundColor = '';
+//         downvote.style.backgroundColor = '';
+//       } else if (data['votetype'] == 'upvote') {
+//         upvote.style.backgroundColor = '#49BBBD';
+//         downvote.style.backgroundColor = '';
+//       } else {
+//         console.log(data);
+//         upvote.style.backgroundColor = '';
+//         downvote.style.backgroundColor = '#49BBBD';
+//       }
+//       if (data['bookmark'] === 'yes') {
+//         bookmark.style.backgroundColor ='#49BBBD';
+//       } else {
+//         bookmark.style.backgroundColor = '';
+//       }
+//     } else {
+//       console.log('failed');
+//       console.log(this.responseText);
+//     }
+//   };
+//   console.log(questionId);
+//   const data = JSON.stringify({ "question_id": questionId });
+//   console.log(data);
+//   xhr.send(data);
+// }
 
 </script>
 

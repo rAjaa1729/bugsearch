@@ -684,11 +684,6 @@ class QVote:
                 return 'upvote'
 
 
-
-
-
-
-
 class AVote:
     def __init__(self,**kwargs):
         self.vote_type=kwargs.get('vote_type')
@@ -707,6 +702,99 @@ class AVote:
             return ("neutral")
         else:
             return vote['vote_type']
+        
+
+    @staticmethod
+    def Aupdatevote(user_id,answer_id,voting):
+        my_db=get_db_connection()
+        cursor=my_db.cursor(dictionary=True)
+        query="SELECT vote_type FROM Answer_votes WHERE user_id=%s AND answer_id=%s"
+        cursor.execute(query,(user_id,answer_id))
+        vote=cursor.fetchone()
+        # my_db.close()
+        if(vote is None):
+            if(voting=='up'):
+                query="INSERT INTO Answer_votes (user_id,answer_id,vote_type) values(%s,%s,%s)"
+                cursor.execute(query,(user_id,answer_id,'upvote'))
+                my_db.commit()
+                query = "UPDATE Answers SET upvotes = upvotes + 1 WHERE answer_id = %s"
+                cursor.execute(query, (answer_id,))
+                my_db.commit()
+                my_db.close()
+                return 'upvote'
+            else:
+                query="INSERT INTO Answer_votes (user_id,answer_id,vote_type) values(%s,%s,%s)"
+                cursor.execute(query,(user_id,answer_id,'downvote'))
+                my_db.commit()
+                query = "UPDATE Answers SET downvotes = downvotes + 1 WHERE answer_id = %s"
+                cursor.execute(query, (answer_id,))
+                my_db.commit()
+                my_db.close()
+                return 'downvote'
+        elif (vote['vote_type']=='neutral'):
+            if(voting=='up'):
+                query = "UPDATE Answer_votes SET vote_type = %s WHERE user_id = %s AND answer_id = %s"
+                cursor.execute(query, ('upvote', user_id, answer_id))
+                my_db.commit()
+                query = "UPDATE Answers SET upvotes = upvotes + 1 WHERE answer_id = %s"
+                cursor.execute(query, (answer_id,))
+                my_db.commit()
+                my_db.close()
+                return 'upvote'
+            else:
+                query = "UPDATE Answer_votes SET vote_type = %s WHERE user_id = %s AND answer_id = %s"
+                cursor.execute(query, ('downvote', user_id, answer_id))
+                my_db.commit()
+                query = "UPDATE Answers SET downvotes = downvotes + 1 WHERE answer_id = %s"
+                cursor.execute(query, (answer_id,))
+                my_db.commit()
+                my_db.close()
+                return 'downvote'
+
+        elif (vote['vote_type']=='upvote'):
+            if(voting=='up'):
+                query = "UPDATE Answer_votes SET vote_type = %s WHERE user_id = %s AND answer_id = %s"
+                cursor.execute(query, ('neutral', user_id, answer_id))
+                my_db.commit()
+                query = "UPDATE Answers SET upvotes = upvotes - 1 WHERE answer_id = %s"
+                cursor.execute(query, (answer_id,))
+                my_db.commit()
+                my_db.close()
+                return 'neutral'
+            else:
+                query = "UPDATE Answer_votes SET vote_type = %s WHERE user_id = %s AND answer_id = %s"
+                cursor.execute(query, ('downvote', user_id, answer_id))
+                my_db.commit()
+                query = "UPDATE Answers SET upvotes = upvotes - 1 WHERE answer_id = %s"
+                cursor.execute(query, (answer_id,))
+                my_db.commit()
+                query = "UPDATE Answers SET downvotes = downvotes + 1 WHERE answer_id = %s"
+                cursor.execute(query, (answer_id,))
+                my_db.commit()
+                my_db.close()
+                return 'downvote'
+        else:
+            if(voting=='down'):
+                query = "UPDATE Answer_votes SET vote_type = %s WHERE user_id = %s AND answer_id = %s"
+                cursor.execute(query, ('neutral', user_id, answer_id))
+                my_db.commit()
+                query = "UPDATE Answers SET downvotes = downvotes - 1  WHERE answer_id = %s"
+                cursor.execute(query, (answer_id,))
+                my_db.commit()
+                my_db.close()
+                return 'neutral'
+            else:
+                query = "UPDATE Answer_votes SET vote_type = %s WHERE user_id = %s AND answer_id = %s"
+                cursor.execute(query, ('upvote', user_id, answer_id))
+                my_db.commit()
+                query = "UPDATE Answers SET upvotes = upvotes + 1 WHERE answer_id = %s"
+                cursor.execute(query, (answer_id,))
+                my_db.commit()
+                query = "UPDATE Answers SET downvotes = downvotes - 1 WHERE answer_id = %s"
+                cursor.execute(query, (answer_id,))
+                my_db.commit()
+                my_db.close()
+                return 'upvote'
         
     
 
@@ -1147,12 +1235,6 @@ def homepage():
 
 # Handling voting system using javascript
 
-
-# @newapp.route('/updatevote',methods=["GET",])
-# def updatevote():
-#     user_id=current_user.user_id
-#     return render_template('check.html',user=current_user,question=Question.find_by_question_id(question_id=1))
-
 @login_required
 @newapp.route('/Qloadvote', methods=['GET', 'POST'])
 def Qloadvote():
@@ -1175,30 +1257,32 @@ def Qloadvote():
     #     QVote.findvote(user_id=user_id, question_id=question_id)
     #     return jsonify({"votetype": "neutral"})
 @login_required
-@newapp.route('/Qupdatevote', methods=['GET', 'POST'])
-def Qupdatevote():
+@newapp.route('/updatevote', methods=['GET', 'POST'])
+def updatevote():
     if request.method == 'POST':
         # Handle GET request
         data = request.get_json()
-        question_id = data.get('question_id')
+        post_id = data.get('post_id')
         user_id = current_user.user_id
-        voting=data.get('voting')
-        vote=QVote.Qupdatevote(user_id=user_id,question_id=question_id,voting=voting)
-        ObQ=Question.find_by_question_id(question_id=question_id)
-        score=(ObQ.upvotes-ObQ.downvotes)
-        upvotes=ObQ.upvotes
-        downvotes=ObQ.downvotes
-        return jsonify({"votetype":vote,"upvotes":upvotes,"downvotes":downvotes,"score":score})
-    
-
-
-    # elif request.method == 'POST':
-    #     # Handle POST request
-    #     data = request.get_json()
-    #     question_id = data.get('question_id')
-    #     user_id = current_user.user_id
-    #     QVote.findvote(user_id=user_id, question_id=question_id)
-    #     return jsonify({"votetype": "neutral"})
+        vote_type=data.get('vote_type')
+        post_type=data.get('post_type')
+        print("raja kumar in updatevote",post_id,vote_type,post_type)
+        if(post_type=='question'):
+            print("i am hwer in question")
+            vote=QVote.Qupdatevote(user_id=user_id,question_id=post_id,voting=vote_type)
+            ObQ=Question.find_by_question_id(question_id=post_id)
+            score=(ObQ.upvotes-ObQ.downvotes)
+            upvotes=ObQ.upvotes
+            downvotes=ObQ.downvotes
+            print({"vote_type":vote,"upvotes":upvotes,"downvotes":downvotes,"score":score})
+            print('raj a hi')
+        else:
+            vote=AVote.Aupdatevote(user_id=user_id,answer_id=post_id,voting=vote_type)
+            ObQ=Answer.find_by_answer_id(answer_id=post_id)
+            score=(ObQ.upvotes-ObQ.downvotes)
+            upvotes=ObQ.upvotes
+            downvotes=ObQ.downvotes
+        return jsonify({"vote_type":vote,"upvotes":upvotes,"downvotes":downvotes,"score":score})
 
 @login_required
 @newapp.route('/updatebookmark',methods=['GET','POST'])
