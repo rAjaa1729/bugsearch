@@ -106,20 +106,8 @@
                     <button type="button" class="btn btn-primary btn-sm btn-search">{{ tag.tag_name }}</button>
                     {% endfor %}
                     <br><br>
-                
-            <br><br>
-            <h5 >
-                <h5 class="search_ans">That's actually not true. That answer does not address removing the submodule entry from
-                    .git/config.
-                    The accepted answer shows the up-to-date way to fully remove a a submodule. It's also explained more
-                    succinctly in this answer: stackoverflow.com/a/36593218/1562138</h5>
-
+                <h3 class="search_ans">"{{question.body}}"</h3>
                 <br>
-                <h5 class="search_ans">Please save yourself some time and directly go the answer that works (in 2017):
-                    stackoverflow.com/a/36593218/528313
-                    -Vincenzo Pii
-                    Line2551861Apr 13 2016Apr 13 2016</h5><br>
-            </h5>
             <br><a target="_blank" href="{{url_for('post_question_comment',question_id=question.question_id)}}" class="add_c dis-inl"><span><u>Add comment</u></span></a>
             <h5 class="dis-inl">{{question.answer_count}} Answers</h5>
             <h5 class="dis-inl">{{question.comment_count}} Comments</h5>
@@ -319,12 +307,6 @@ function Qupdatevote(voting)
                 downvote.style.backgroundColor = 'red';
             }
         }
-        else
-        {
-            // const data=(this.responseText);
-            // const data=parse(this.responseText);
-            // console.log('failed process')
-        }
     };
     const data=JSON.stringify({"question_id":'{{question.question_id}}',"voting":voting});
     xhr.send(data);
@@ -344,18 +326,15 @@ function updateupdown() {
   xhr.open('GET', '/Qloadvote', true);
   xhr.setRequestHeader('content-type', 'application/json;charset=UTF-8');
   xhr.onload = function() {
-    // console.log('has entered in the');
-    if (this.status === 200) {
-    //   console.log('has entered in the the stasys');
+    if (this.status == 200) {
       const data = JSON.parse(this.responseText);
       score.innerHTML = ('{{question.upvotes}}' - '{{question.downvotes}}');
+      console.log(question.question_id)
+      console.log(data)
       if (data['votetype'] == 'neutral') {
-        // console.log('neutral');
-        // console.log(data)
         upvote.style.backgroundColor = '';
         downvote.style.backgroundColor = '';
       } else if (data['votetype'] == 'upvote') {
-        // console.log('upvote');
         upvote.style.backgroundColor = 'red';
         downvote.style.backgroundColor = '';
       } else {
@@ -365,20 +344,18 @@ function updateupdown() {
 
       }
       if (data['bookmark'] === 'yes') {
-        // console.log('yes');
         bookmark.style.backgroundColor = 'red';
 
       } else {
-        // console.log('no');
         bookmark.style.backgroundColor = '';
-
       }
     } 
     else {
       console.log('failed');
+      console.log(this.responseText)
     }
   };
-  const data = JSON.stringify({ 'question_id': '{{ question.question_id }}' });
+  const data = JSON.stringify({ "question_id": '{{ question.question_id }}' });
   xhr.send(data);
 }
 </script>

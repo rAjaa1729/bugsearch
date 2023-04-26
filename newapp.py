@@ -634,7 +634,7 @@ class AVote:
         cursor.execute(query,(user_id,answer_id))
         vote=cursor.fetchone()
         my_db.close()
-        if(vote is None):
+        if(vote['vote_type'] is None):
             return ("neutral")
         else:
             return vote['vote_type']
@@ -962,7 +962,7 @@ def Qloadvote():
         user_id = current_user.user_id
         votetype=QVote.Qfindvote(user_id=user_id, question_id=question_id)
         bookmark=QBookmark.Qfindbookmark(user_id=user_id,question_id=question_id)
-        return jsonify({"votetype":votetype,"bookmark":bookmark})
+        return jsonify({"votetype":votetype,"bookmark":bookmark,"q":question_id,"u":user_id})
     
     # elif request.method == 'POST':
     #     # Handle POST request
