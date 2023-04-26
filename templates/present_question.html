@@ -96,7 +96,7 @@
                         <button id="like-btn1" class="lb" onclick="Qupdatevote('up')"><box-icon type='solid' name='up-arrow' style="height:18px; width:18px" ></box-icon></button>
                         <span class="votecount" id="counter1" class="cb">0</span>
                         <button id="dislike-btn1" class="dlb" onclick="Qupdatevote('down')"><box-icon type='solid' name='down-arrow' style="height:18px; width:18px"></box-icon></button>
-                        <button id="bookmarks-btn1"><box-icon name='bookmark-star' type='solid' style="height:18px; width:18px" ></box-icon></button>
+                        <button id="bookmarks-btn1" onclick="Qbookmark()"><box-icon name='bookmark-star' type='solid' style="height:18px; width:18px" ></box-icon></button>
                     </div>
                 </div>
                 <div class="col-lg-11">
@@ -258,9 +258,50 @@
 <script src="{{ url_for('static', filename='assets/js/counter.js') }}"></script>
 <script src="{{ url_for('static', filename='assets/js/custom.js') }}"></script>
 <script src="{{ url_for('static', filename='assets/js/our.js') }}"></script>
-
+<script>console.log('hi my name is raja is ');
+    console.log({{question.question_id}});</script>
 
 <script>
+const questionId = {{ question.question_id }};
+//bookmark functionality
+function Qbookmark()
+{
+    console.log('inside bookmark');
+    const xhr=new XMLHttpRequest();
+
+    xhr.open('POST','/Qupdatebookmark',true);
+    xhr.setRequestHeader("content-type","application/json;charset=UTF-8");
+    xhr.onload = function()
+    {
+        const data=JSON.parse(this.responseText);
+        console.log(data);
+
+        if(this.status==200)
+        {
+            // const data=JSON.parse(this.responseText);
+            const bookmark1=document.getElementById('bookmarks-btn1');
+            if(data['bookmark']=='yes')
+            {
+                bookmark1.style.backgroundColor='red';
+            }
+            else
+            {
+                bookmark1.style.backgroundColor='';
+            }
+        }
+        else
+        {
+            console.log('failed bookmark');
+        }
+    }
+    console.log(questionId);
+    params=JSON.stringify({"question_id":questionId})
+    xhr.send(params);
+}
+
+
+
+
 
 // onclick handling for questions
 function Qupdatevote(voting)
@@ -314,10 +355,11 @@ function Qupdatevote(voting)
 
 // handling question for loading
 window.onload = function() {
-  updateupdown();
+  const questionId = '{{ question.question_id }}';
+  updateupdown(questionId);
 }
-
-function updateupdown() {
+function updateupdown(questionId) {
+    console.log('hi my na ');
   const upvote = document.getElementById('like-btn1');
   const downvote = document.getElementById('dislike-btn1');
   const score = document.getElementById('counter1');
@@ -355,23 +397,10 @@ function updateupdown() {
       console.log(this.responseText)
     }
   };
-  const data = JSON.stringify({ "question_id": '{{ question.question_id }}' });
+  const data = JSON.stringify({ "question_id": questionId});
   xhr.send(data);
 }
 </script>
 
-
-
-
-
-
-
-
-
-
-
-
-
 </body>
-
 </html>

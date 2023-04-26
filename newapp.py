@@ -674,8 +674,9 @@ class AVote:
 class QBookmark:
     def __init__(self,**kwargs):
         self.creation_time=kwargs.get('vote_type')
-        self.question_id=kwargs.get('question_id')
-        self.user_id=kwargs.get('user_id')
+        # self.question_id=kwargs.get('question_id')
+        # self.user_id=kwargs.get('user_id')
+
 
     @staticmethod
     def Qfindbookmark(user_id,question_id):
@@ -684,11 +685,34 @@ class QBookmark:
         query="SELECT * FROM Question_bookmarks WHERE user_id=%s AND question_id=%s"
         cursor.execute(query,(user_id,question_id))
         vote=cursor.fetchone()
-        my_db.close()
         if(vote is None):
-            return ("no")
+            return ('no')
         else:
             return ('yes')
+        
+    @staticmethod
+    def Qupdatebookmark(user_id,question_id):
+        my_db=get_db_connection()
+        cursor=my_db.cursor(dictionary=True)
+        query="SELECT * FROM Question_bookmarks WHERE user_id=%s AND question_id=%s"
+        cursor.execute(query,(user_id,question_id))
+        bookmark=cursor.fetchone()
+        my_db.close()
+        if(bookmark is None):
+            query="INSERT INTO Question_bookmarks (user_id,question_id) values(%s,%s)"
+            cursor.execute(query,(user_id,question_id))
+            bkq=cursor.fetchone()
+            my_db.commit()
+            my_db.close()
+            return ({"bookmark":"yes","creation_time":bkq['creation_time']})
+        else:
+            query="DELETE FROM Question_bookmarks WHERE user_id=%s AND question_id=%s"
+            cursor.execute(query,(user_id,question_id))
+            my_db.commit()
+            my_db.close()
+            return ({"bookmark":"no","creation_time":'no'})
+
+
 
 class ABookmark:
     def __init__(self,**kwargs):
@@ -1062,6 +1086,16 @@ def Qupdatevote():
     #     user_id = current_user.user_id
     #     QVote.findvote(user_id=user_id, question_id=question_id)
     #     return jsonify({"votetype": "neutral"})
+
+@login_required
+@newapp.route('/Qupdatebookmark',methods=['GET','POST'])
+def Qudpatebookmark():
+    if request.method=='POST':
+        data=request.get_json()
+        question_id=data.get('question_id')
+        user_id=current_user.user_id
+        B=QBookmark.Qupdatebookmark(user_id=user_id,question_id=question_id)
+        return jsonify({"bookmark":B['bookmark'],"creation_time":B['creation_time']})
 
 
 
