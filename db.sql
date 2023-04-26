@@ -49,6 +49,7 @@ CREATE TABLE Questions
     answer_count INT NOT NULL DEFAULT 0,
     upvotes INT NOT NULL DEFAULT 0,
     downvotes INT NOT NULL DEFAULT 0,
+    FULLTEXT(title,body),
     PRIMARY KEY (question_id),
     FOREIGN KEY (user_id) REFERENCES Users(user_id),
     FOREIGN KEY (answer_id) REFERENCES Answers(answer_id)
