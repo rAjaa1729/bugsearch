@@ -12,7 +12,7 @@
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter&family=Poppins:wght@400;600;700&display=swap"
         rel="stylesheet">
-
+    <link rel="icon" type="image/x-icon" href="{{ url_for ('static',filename='assets/images/logo.png') }}" alt="image">
     <title>BugSearch</title>
 
     <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -44,7 +44,7 @@
         <li> <a href="{{url_for('trending')}}" class="dis-inl"><i class="fa-solid fa-globe recommendations-globe-stand dis-inl mar" style="color:black"></i>Trending</a> </li>
         <li> <a href="{{url_for('recommendations')}}" class="dis-inl"><i class="fa-solid fa-wand-magic-sparkles trending-magic-wand dis-inl mar" style="color:black"></i>Recommendations</a> </li>
         <li> <a href="{{url_for('all_users')}}" class="dis-inl"><i class="fa fa-users followers-page-users-threed1 dis-inl mar" style="color:black"></i>All Users</a> </li>
-        <li> <a href="{{url_for('bookmarks')}}" class="dis-inl"><i class="fa-solid fa-bookmark trending-bookmarks dis-inl mar" style="color:black"></i>Bookmarks</a> </li>
+        <li> <a href="{{url_for('bookmarks')}}" class="dis-inl" style="background-color: #49BBBD"><i class="fa-solid fa-bookmark trending-bookmarks dis-inl mar" style="color:black"></i>Bookmarks</a> </li>
         <li> <a href="{{url_for('post_question')}}" class="dis-inl"><i class="fa-solid fa-question trending-question dis-inl mar" style="color:black"></i>Post Question</a> </li>
         <li> <a href="{{url_for('posted_questions')}}" class="dis-inl"><i class="fa-solid fa-question trending-question dis-inl mar" style="color:black"></i>Posted Questions</a> </li>
 
