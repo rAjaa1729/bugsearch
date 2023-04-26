@@ -829,13 +829,13 @@ class QBookmark:
             print("nobe")
             query="INSERT INTO Question_bookmarks (user_id,question_id) values(%s,%s)"
             cursor.execute(query,(user_id,question_id))
-            cursor.fetchone()
+            # cursor.fetchone()
             my_db.commit()
-            query="SELECT * FROM Question_bookmarks WHERE user_id=%s AND question_id=%s"
-            cursor.execute(query,(user_id,question_id))
-            bkq=cursor.fetchone()
+            # query="SELECT * FROM Question_bookmarks WHERE user_id=%s AND question_id=%s"
+            # cursor.execute(query,(user_id,question_id))
+            # bkq=cursor.fetchone()
             my_db.close()
-            print("bkq",bkq)
+            # print("bkq",bkq)
             return ({"bookmark":"yes"})
         else:
             print('what is the issue')
@@ -849,7 +849,6 @@ class QBookmark:
         print('Raja kumar')
         print(user_id)
         my_db=get_db_connection()
-        cursor=my_db.cursor(dictionary=True)
         cursor=my_db.cursor(dictionary=True)
         query = "SELECT question_id FROM Question_bookmarks WHERE user_id = %s ORDER BY creation_date DESC LIMIT 10"
         cursor.execute(query,(user_id,))
@@ -900,13 +899,12 @@ class ABookmark:
             print("nobe")
             query="INSERT INTO Answer_bookmarks (user_id,answer_id) values(%s,%s)"
             cursor.execute(query,(user_id,answer_id))
-            cursor.fetchone()
+            # cursor.fetchone()
             my_db.commit()
-            query="SELECT * FROM Answer_bookmarks WHERE user_id=%s AND answer_id=%s"
-            cursor.execute(query,(user_id,answer_id))
-            bkq=cursor.fetchone()
+            # query="SELECT * FROM Answer_bookmarks WHERE user_id=%s AND answer_id=%s"
+            # cursor.execute(query,(user_id,answer_id))
+            # bkq=cursor.fetchone()
             my_db.close()
-            print("bkq",bkq)
             return ({"bookmark":"yes"})
         else:
             print('what is the issue')
@@ -922,15 +920,15 @@ class ABookmark:
         print(user_id)
         my_db=get_db_connection()
         cursor=my_db.cursor(dictionary=True)
-        cursor=my_db.cursor(dictionary=True)
         query = "SELECT answer_id FROM Answer_bookmarks WHERE user_id = %s ORDER BY creation_date DESC LIMIT 10"
         cursor.execute(query,(user_id,))
         l_qid=cursor.fetchall()
-        print("checing for bookmarks")
+        print("checing for aanswes bookmarks")
         print(l_qid)
         q_list=[]
         for id in l_qid:
-            answer=answer.find_by_answer_id(id['answer_id']) # fix the typo here
+            print(id)
+            answer=Answer.find_by_answer_id(id['answer_id']) # fix the typo here
             q_list.append(answer)
         return q_list
 
@@ -983,7 +981,8 @@ def badges():
 @newapp.route('/users/bookmarks',methods=['GET',])
 def bookmarks():
     q_list=QBookmark.Qfindmarked(user_id=current_user.user_id)
-    return render_template('bookmarks.html',user=current_user,q_list=q_list)
+    a_list=ABookmark.Afindmarked(user_id=current_user.user_id)
+    return render_template('bookmarks.html',user=current_user,q_list=q_list,a_list=a_list)
 
 @login_required
 @newapp.route("/users/complete_your_profile",methods=["GET",'POST'])
@@ -1282,6 +1281,8 @@ def updatevote():
             score=(ObQ.upvotes-ObQ.downvotes)
             upvotes=ObQ.upvotes
             downvotes=ObQ.downvotes
+            print({"vote_type":vote,"upvotes":upvotes,"downvotes":downvotes,"score":score})
+
         return jsonify({"vote_type":vote,"upvotes":upvotes,"downvotes":downvotes,"score":score})
 
 @login_required

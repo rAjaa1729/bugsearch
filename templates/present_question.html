@@ -93,10 +93,10 @@
             <div class="row surf">
                 <div class="col-lg-1">
                     <div class="like-dislike" id="loadclickhandle">
-                        <button id="like-btn{{question.question_id}}" class="lb" onclick="updatevote(vote_type='up',post_type='question',post_id='{{question.question_id}}')"><box-icon type='solid' name='up-arrow' style="height:18px; width:18px" ></box-icon></button>
-                        <span class="votecount" id="counter{{question.question_id}}" class="cb">0</span>
-                        <button id="dislike-btn{{question.question_id}}" class="dlb" onclick="updatevote(vote_type='down',post_type='question',post_id='{{question.question_id}}')"><box-icon type='solid' name='down-arrow' style="height:18px; width:18px"></box-icon></button>
-                        <button id="bookmarks-btn{{question.question_id}}" onclick="updatebookmark(post_type='question',post_id='{{question.question_id}}',button_id='bookmarks-btn{{question.question_id}}')"> <box-icon name='bookmark-star' type='solid' style="height:18px; width:18px" ></box-icon></button>
+                        <button id="like-btnquestion{{question.question_id}}" class="lb" onclick="updatevote(vote_type='up',post_type='question',post_id='{{question.question_id}}')"><box-icon type='solid' name='up-arrow' style="height:18px; width:18px" ></box-icon></button>
+                        <span class="votecount" id="counterquestion{{question.question_id}}" class="cb">0</span>
+                        <button id="dislike-btnquestion{{question.question_id}}" class="dlb" onclick="updatevote(vote_type='down',post_type='question',post_id='{{question.question_id}}')"><box-icon type='solid' name='down-arrow' style="height:18px; width:18px"></box-icon></button>
+                        <button id="bookmarks-btnquestion{{question.question_id}}" onclick="updatebookmark(post_type='question',post_id='{{question.question_id}}')"> <box-icon name='bookmark-star' type='solid' style="height:18px; width:18px" ></box-icon></button>
                     </div>
                 </div>
                 <div class="col-lg-11">
@@ -111,8 +111,6 @@
             <br><a target="_blank" href="{{url_for('post_question_comment',question_id=question.question_id)}}" class="add_c dis-inl"><span><u>Add comment</u></span></a>
             <h5 class="dis-inl">{{question.answer_count}} Answers</h5>
             <h5 class="dis-inl">{{question.comment_count}} Comments</h5>
-            <br>
-            <button type="button" class="btn btn-primary btn-lg search-button" onclick="getcomments(post_type='question',post_id='{{question.question_id}}')">Get Comments</button>
         </div>
     </div>
             <hr>
@@ -127,10 +125,10 @@
                 <div class="col-lg-1">
                     <div class="like-dislike">
                         <div class="like-dislike" id="loadclickhandle">
-                            <button id="like-btn{{answer.answer_id}}" class="lb" onclick="updatevote(vote_type='up',post_type='answer',post_id='{{answer.answer_id}}')"><box-icon type='solid' name='up-arrow' style="height:18px; width:18px" ></box-icon></button>
-                            <span class="votecount" id="counter{{answer.answer_id}}" class="cb">0</span>
-                            <button id="dislike-btn{{answer.answer_id}}" class="dlb" onclick="updatevote(vote_type='down',post_type='answer',post_id='{{answer.answer_id}}')"><box-icon type='solid' name='down-arrow' style="height:18px; width:18px"></box-icon></button>
-                            <button id="bookmarks-btn{{answer.answer_id}}" onclick="updatebookmark(post_type='answer',post_id='{{answer.answer_id}}',button_id='bookmarks-btn{{answer.answer_id}}')"> <box-icon name='bookmark-star' type='solid' style="height:18px; width:18px" ></box-icon></button>
+                            <button id="like-btnanswer{{answer.answer_id}}" class="lb" onclick="updatevote(vote_type='up',post_type='answer',post_id='{{answer.answer_id}}')"><box-icon type='solid' name='up-arrow' style="height:18px; width:18px" ></box-icon></button>
+                            <span class="votecount" id="counteranswer{{answer.answer_id}}" class="cb">0</span>
+                            <button id="dislike-btnanswer{{answer.answer_id}}" class="dlb" onclick="updatevote(vote_type='down',post_type='answer',post_id='{{answer.answer_id}}')"><box-icon type='solid' name='down-arrow' style="height:18px; width:18px"></box-icon></button>
+                            <button id="bookmarks-btnanswer{{answer.answer_id}}" onclick="updatebookmark(post_type='answer',post_id='{{answer.answer_id}}')"> <box-icon name='bookmark-star' type='solid' style="height:18px; width:18px" ></box-icon></button>
                         </div>
                     </div>
                 </div>
@@ -185,9 +183,10 @@
 <script>
 const questionId = '{{ question.question_id }}';
 //bookmark functionality
-function updatebookmark(post_type,post_id,button_id)
+function updatebookmark(post_type,post_id)
 {
     console.log('inside bookmark');
+    console.log(post_id,post_type);
     const xhr=new XMLHttpRequest();
 
     xhr.open('POST','/updatebookmark',true);
@@ -200,9 +199,10 @@ function updatebookmark(post_type,post_id,button_id)
         if(this.status==200)
         {
             // const data=JSON.parse(this.responseText);
-            const bookmark=document.getElementById(button_id);
+            const bookmark=document.getElementById('bookmarks-btn'+post_type+post_id);
             if(data['bookmark']=='yes')
             {
+                console.log('insidee  bookmarks');
                 bookmark.style.backgroundColor='#49BBBD';
             }
             else
@@ -215,8 +215,9 @@ function updatebookmark(post_type,post_id,button_id)
             console.log('failed bookmark');
         }
     }
-    console.log(postid);
-    params=JSON.stringify({"post_id":post_id,"post_type":post_type})
+    console.log(post_id);
+    params=JSON.stringify({"post_id":post_id,"post_type":post_type});
+    console.log(params);
     xhr.send(params);
 }
 
@@ -239,16 +240,16 @@ function updatevote(vote_type,post_type,post_id)
         console.log('has entered in the  ');
         if(this.status===200)
         {
-            const upvote = document.getElementById(('like-btn'+post_id));
-            const downvote = document.getElementById(('dislike-btn'+post_id));
-            const score = document.getElementById(('counter'+post_id));
+            const upvote = document.getElementById(('like-btn'+post_type+post_id));
+            const downvote = document.getElementById(('dislike-btn'+post_type+post_id));
+            const score = document.getElementById(('counter'+post_type+post_id));
             // console.log('has entered in the the 200  ');
             const data=JSON.parse(this.responseText);
             score.innerHTML=data['score'];
             // console.log(data)
             if (data['vote_type'] == 'neutral')
             {
-                // console.log('neutral');
+                console.log('neutral');
                 // console.log(data)
                 upvote.style.backgroundColor = '';
                 downvote.style.backgroundColor = '';
@@ -256,13 +257,14 @@ function updatevote(vote_type,post_type,post_id)
                 // downvote.innerHTML=data['downvotes']
                 downvote.style.backgroundColor = '';
             } else if (data['vote_type'] == 'upvote') {
-                // console.log('upvote');
+                console.log('upvote');
                 // upvote.innerHTML=data['upvotes'];
                 // downvote.innerHTML=data['downvotes']
                 upvote.style.backgroundColor = '#49BBBD';
+                console.log(updatevote);
                 downvote.style.backgroundColor = '';
             } else {
-                // console.log('downvote');
+                console.log('downvote');
                 // upvote.innerHTML=data['upvotes'];
                 // downvote.innerHTML=data['downvotes']
                 upvote.style.backgroundColor = '';

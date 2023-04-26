@@ -102,48 +102,18 @@
           </div>
         </div>
         {%endfor %}
-        <!-- <div class="col-lg-12 col-md-6 hz">
-            <div class="item sel">
-              <div class="row">
-                <div class="col-lg-12">
-                  <ul>
-                    <li>
-                        <span class="category"><button type="button" class="btn btn-secondary">Delete</button></span>
-                        <h4>Application run using RunOnce registry key does not start when logged in using Enter-PSSession</h4>
-                    </li>
-                  </ul>
-                  <a href="#"><i class="fa fa-angle-right"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-12 col-md-6 hz">
-            <div class="item sel">
-              <div class="row">
-                <div class="col-lg-12">
-                  <ul>
-                    <li>
-                        <span class="category"><button type="button" class="btn btn-secondary">Delete</button></span>
-                        <h4>Application run using RunOnce registry key does not start when logged in using Enter-PSSession</h4>
-                    </li>
-                  </ul>
-                  <a href="#"><i class="fa fa-angle-right"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-      </div>
-    </div>
-  </div> -->
+
   <div class="section1 events" id="events">
     <div class="container">
       <div class="row">
         <div class="col-lg-12 text-center">
           <div class="section-heading">
+
             <!-- <h6>Schedule</h6> -->
             <h2>Answers</h2>
           </div>
         </div>
+        {% for answer in a_list %}
         <div class="col-lg-12 col-md-6 hz">
           <div class="item sel">
             <div class="row">
@@ -152,14 +122,15 @@
                   <li class>
                     <span class="category"><button type="button" class="btn btn-secondary">Delete</button></span>
                     <!-- <a href="#"><span class="category">Question</span></a> -->
-                    <h4>Application run using RunOnce registry key does not start when logged in using Enter-PSSession</h4>
+                    <h4>{{answer.body}}</h4>
                   </li>
                 </ul>
-                <a href="#"><i class="fa fa-angle-right"></i></a>
+                <a href="{{url_for('find_question',question_id=answer.question_id)}}"><i class="fa fa-angle-right"></i></a>
               </div>
             </div>
           </div>
         </div>
+        {%endfor %}
         <div class="col-lg-12 col-md-6 hz">
             <div class="item sel">
               <div class="row">
