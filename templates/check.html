@@ -24,7 +24,7 @@ function updatevote(voting)
     console.log('has entered in the upvote function upvote clicked ');
     const xhr=new XMLHttpRequest();
 
-    xhr.open('GET','/Qupdatevote',true);
+    xhr.open('POST','/Qupdatevote',true);
     xhr.setRequestHeader("content-type","application/json;charset=UTF-8");
     console.log(voting);
     console.log('printednow');
@@ -70,7 +70,7 @@ function updatevote(voting)
             console.log('failed process')
         }
     };
-    const data=JSON.stringify({"question_id":'{{ question.question_id }}',"voting":voting});
+    const data=JSON.stringify({"question_id":'{{question.question_id}}',"voting":voting});
     xhr.send(data);
 }
 // function loadvote(question=question)

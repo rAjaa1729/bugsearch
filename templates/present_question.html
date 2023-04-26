@@ -93,9 +93,9 @@
             <div class="row surf">
                 <div class="col-lg-1">
                     <div class="like-dislike" id="loadclickhandle">
-                        <button id="like-btn1" class="lb"><box-icon type='solid' name='up-arrow' style="height:18px; width:18px" ></box-icon></button>
+                        <button id="like-btn1" class="lb" onclick="Qupdatevote('up')"><box-icon type='solid' name='up-arrow' style="height:18px; width:18px" ></box-icon></button>
                         <span class="votecount" id="counter1" class="cb">0</span>
-                        <button id="dislike-btn1" class="dlb"><box-icon type='solid' name='down-arrow' style="height:18px; width:18px"></box-icon></button>
+                        <button id="dislike-btn1" class="dlb" onclick="Qupdatevote('down')"><box-icon type='solid' name='down-arrow' style="height:18px; width:18px"></box-icon></button>
                         <button id="bookmarks-btn1"><box-icon name='bookmark-star' type='solid' style="height:18px; width:18px" ></box-icon></button>
                     </div>
                 </div>
@@ -270,6 +270,130 @@
 <script src="{{ url_for('static', filename='assets/js/counter.js') }}"></script>
 <script src="{{ url_for('static', filename='assets/js/custom.js') }}"></script>
 <script src="{{ url_for('static', filename='assets/js/our.js') }}"></script>
+
+
+<script>
+
+// onclick handling for questions
+function Qupdatevote(voting)
+{
+    console.log('has entered in the upvote function upvote clicked ');
+    const xhr=new XMLHttpRequest();
+
+    xhr.open('POST','/Qupdatevote',true);
+    xhr.setRequestHeader("content-type","application/json;charset=UTF-8");
+    // console.log(voting);
+    // console.log('printednow');
+    xhr.onload = function()
+    {
+        console.log('has entered in the  ');
+        if(this.status===200)
+        {
+            const upvote = document.getElementById('like-btn1');
+            const downvote = document.getElementById('dislike-btn1');
+            const score = document.getElementById('counter1');
+            // console.log('has entered in the the 200  ');
+            const data=JSON.parse(this.responseText);
+            score.innerHTML=data['score'];
+            // console.log(data)
+            if (data['votetype'] == 'neutral')
+            {
+                // console.log('neutral');
+                // console.log(data)
+                upvote.style.backgroundColor = '';
+                downvote.style.backgroundColor = '';
+                // upvote.innerHTML=data['upvotes'];
+                // downvote.innerHTML=data['downvotes']
+                downvote.style.backgroundColor = '';
+            } else if (data['votetype'] == 'upvote') {
+                // console.log('upvote');
+                // upvote.innerHTML=data['upvotes'];
+                // downvote.innerHTML=data['downvotes']
+                upvote.style.backgroundColor = 'red';
+                downvote.style.backgroundColor = '';
+            } else {
+                // console.log('downvote');
+                // upvote.innerHTML=data['upvotes'];
+                // downvote.innerHTML=data['downvotes']
+                upvote.style.backgroundColor = '';
+                downvote.style.backgroundColor = 'red';
+            }
+        }
+        else
+        {
+            // const data=(this.responseText);
+            // const data=parse(this.responseText);
+            // console.log('failed process')
+        }
+    };
+    const data=JSON.stringify({"question_id":'{{question.question_id}}',"voting":voting});
+    xhr.send(data);
+}
+
+// handling question for loading
+window.onload = function() {
+  updateupdown();
+}
+
+function updateupdown() {
+  const upvote = document.getElementById('like-btn1');
+  const downvote = document.getElementById('dislike-btn1');
+  const score = document.getElementById('counter1');
+  const bookmark = document.getElementById('bookmarks-btn1');
+  const xhr = new XMLHttpRequest();
+  xhr.open('GET', '/Qloadvote', true);
+  xhr.setRequestHeader('content-type', 'application/json;charset=UTF-8');
+  xhr.onload = function() {
+    // console.log('has entered in the');
+    if (this.status === 200) {
+    //   console.log('has entered in the the stasys');
+      const data = JSON.parse(this.responseText);
+      score.innerHTML = ('{{question.upvotes}}' - '{{question.downvotes}}');
+      if (data['votetype'] == 'neutral') {
+        // console.log('neutral');
+        // console.log(data)
+        upvote.style.backgroundColor = '';
+        downvote.style.backgroundColor = '';
+      } else if (data['votetype'] == 'upvote') {
+        // console.log('upvote');
+        upvote.style.backgroundColor = 'red';
+        downvote.style.backgroundColor = '';
+      } else {
+        console.log(data);
+        upvote.style.backgroundColor = '';
+        downvote.style.backgroundColor = 'red';
+
+      }
+      if (data['bookmark'] === 'yes') {
+        // console.log('yes');
+        bookmark.style.backgroundColor = 'red';
+
+      } else {
+        // console.log('no');
+        bookmark.style.backgroundColor = '';
+
+      }
+    } 
+    else {
+      console.log('failed');
+    }
+  };
+  const data = JSON.stringify({ 'question_id': '{{ question.question_id }}' });
+  xhr.send(data);
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
 
 </body>
 

@@ -947,10 +947,10 @@ def homepage():
 # Handling voting system using javascript
 
 
-@newapp.route('/updatevote',methods=["GET",])
-def updatevote():
-    user_id=current_user.user_id
-    return render_template('check.html',user=current_user,question=Question.find_by_question_id(question_id=1))
+# @newapp.route('/updatevote',methods=["GET",])
+# def updatevote():
+#     user_id=current_user.user_id
+#     return render_template('check.html',user=current_user,question=Question.find_by_question_id(question_id=1))
 
 
 @newapp.route('/Qloadvote', methods=['GET', 'POST'])
@@ -960,8 +960,8 @@ def Qloadvote():
         data = request.args
         question_id = data.get('question_id')
         user_id = current_user.user_id
-        votetype=QVote.Qfindvote(user_id=user_id, question_id=1)
-        bookmark=QBookmark.Qfindbookmark(user_id=user_id,question_id=1)
+        votetype=QVote.Qfindvote(user_id=user_id, question_id=question_id)
+        bookmark=QBookmark.Qfindbookmark(user_id=user_id,question_id=question_id)
         return jsonify({"votetype":votetype,"bookmark":bookmark})
     
     # elif request.method == 'POST':
@@ -974,14 +974,14 @@ def Qloadvote():
 
 @newapp.route('/Qupdatevote', methods=['GET', 'POST'])
 def Qupdatevote():
-    if request.method == 'GET':
+    if request.method == 'POST':
         # Handle GET request
-        data = request.args
+        data = request.get_json()
         question_id = data.get('question_id')
         user_id = current_user.user_id
         voting=data.get('voting')
-        vote=QVote.Qupdatevote(user_id=user_id, question_id=1,voting=voting)
-        ObQ=Question.find_by_question_id(question_id=1)
+        vote=QVote.Qupdatevote(user_id=user_id,question_id=question_id,voting=voting)
+        ObQ=Question.find_by_question_id(question_id=question_id)
         score=(ObQ.upvotes-ObQ.downvotes)
         upvotes=ObQ.upvotes
         downvotes=ObQ.downvotes
