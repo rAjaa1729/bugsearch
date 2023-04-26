@@ -93,7 +93,7 @@
                     </div>
                 </div>
                 <div class="col-lg-11">
-                    <h3>{{ques['title']}}</h3>
+                    <a href="{{url_for('find_question', ques['question_id'])}}"> <h3>{{ques['title']}}</h3></a>
                     <br>
                     <button type="button" class="btn btn-primary btn-sm btn-search">Tag1</button>
                     <button type="button" class="btn btn-primary btn-sm btn-search">Tag2</button>
