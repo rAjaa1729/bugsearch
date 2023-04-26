@@ -12,7 +12,7 @@
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter&family=Poppins:wght@400;600;700&display=swap"
         rel="stylesheet">
-
+    <link rel="icon" type="image/x-icon" href="{{ url_for ('static',filename='assets/images/logo.png') }}" alt="image">
     <title>BugSearch</title>
 
     <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -35,7 +35,7 @@
     </div>
     <ul class="list-unstyled components navbar-nav mr-auto">
         <p>{{current_user.username}}</p>
-        <li> <a href="{{url_for('dashboard')}}" class="dis-inl" ><i class="fa-solid fa-user trending-user-circle dis-inl mar" style="color:black"></i>User Profile</a></li>
+        <li> <a href="{{url_for('dashboard')}}" class="dis-inl" style="background-color: #49BBBD" ><i class="fa-solid fa-user trending-user-circle dis-inl mar" style="color:black"></i>User Profile</a></li>
         <li> <a href="{{url_for('user_home')}}" class="dis-inl"><i class="fa-solid fa-house followers-page-identification-cardd dis-inl mar" style="color:black"></i>User Home</a> </li>
         <li> <a href="{{url_for('complete_your_profile')}}" class="dis-inl"><i class="fa-solid fa-pen-to-square followers-page-vector2 dis-inl mar" style="color:black"></i>Edit Profile</a> </li>
         <li> <a href="{{url_for('followers')}}" class="dis-inl"><i class="fa-solid fa-user-group followers-page-users dis-inl mar" style="color:black"></i>Followers</a> </li>
@@ -85,11 +85,11 @@
           </div>
         </div>
         <div class="col-lg-12 col-md-6 hz">
-          <div class="item5">
+          <div class="item5 details">
             <div class="row">
               <div class="col-lg-3">
                 <div class="image">
-                  <img class="pro_img" src="assets/images/event-01.jpg" alt="">
+                  <img class="pro_img" src="{{ url_for ('static',filename='assets/images/member-03.jpg') }}" alt="">
                 </div>
               </div>
               <div class="col-lg-9">
@@ -113,17 +113,18 @@
       </div>       
 </div>
 <!-- <h1 class="pro_badges">badges</h1> -->
+        <h2 class="probag set-badge">Statistics</h2>
 <div class="services section pro" id="services">
-  <div class="container">
+  <div class="container" style="margin-top:41px">
     <div class="row">
       <div class="col-lg-4 col-md-6 hz">
         <div class="service-item">
           <!-- <div class="icon">
             <img src="assets/images/service-01.png" alt="online degrees">
           </div> -->
-          <div class="main-content_pro pro-dashboard">
+          <div class="main-content_pro pro-dashboard publicity">
             <h4 class="pro_h4">Followers</h4>
-            <h2>{{current_user.nfollowers}}</h2>
+            <h5>{{current_user.nfollowers}}</h5>
             <!-- <div class="main-button">
               <a href="#">Read More</a>
             </div> -->
@@ -135,9 +136,9 @@
           <!-- <div class="icon">
             <img src="assets/images/service-02.png" alt="short courses">
           </div> -->
-          <div class="main-content_pro pro-dashboard">
+          <div class="main-content_pro pro-dashboard publicity">
             <h4 class="pro_h4">Reputation Points</h4>
-            <h2>{{current_user.reputation_points}}</h2>
+            <h5>{{current_user.reputation_points}}</h5>
         
             <!-- <div class="main-button">
               <a href="#">Read More</a>
@@ -151,9 +152,9 @@
           <!-- <div class="icon">
             <img src="assets/images/service-03.png" alt="web experts">
           </div> -->
-          <div class="main-content_pro pro-dashboard">
+          <div class="main-content_pro pro-dashboard publicity">
             <h4 class="pro_h4">Followings</h4>
-            <h2>{{current_user.nfollowing}}</h2>    
+            <h5>{{current_user.nfollowing}}</h5>    
             <!-- <div class="main-button">
               <a href="#">Read More</a>
             </div> -->
@@ -171,8 +172,8 @@
     <div class="row">
       <div class="col-lg-4 col-md-6 hz">
         <div class="team-member">
-          <div class="main-content modify3">
-            <img src="assets/images/member-01.jpg" alt="">
+          <div class="main-content modify3 bbadge">
+            <img src="{{ url_for ('static',filename='assets/images/badge3.png') }}" alt="" class="badge-img">
             <span class="category">Badges</span>
             <h4>Gold Badge</h4>
             <ul class="social-icons">
@@ -185,8 +186,8 @@
       </div> 
       <div class="col-lg-4 col-md-6 hz">
         <div class="team-member">
-          <div class="main-content modify3">
-            <img src="assets/images/member-02.jpg" alt="">
+          <div class="main-content modify3 bbadge">
+            <img src="{{ url_for ('static',filename='assets/images/badge1.png" alt="" class="badge-img">
             <span class="category">Badges</span>
             <h4>Silver Badge</h4>
             <ul class="social-icons">
@@ -199,8 +200,8 @@
       </div>
       <div class="col-lg-4 col-md-6 hz">
         <div class="team-member">
-          <div class="main-content modify3">
-            <img src="assets/images/member-03.jpg" alt="">
+          <div class="main-content modify3 bbadge">
+            <img src="{{ url_for ('static',filename='assets/images/badge2.png') }}" alt="" class="badge-img">
             <span class="category">Badges</span>
             <h4>Bronze Badge</h4>
             <ul class="social-icons">
