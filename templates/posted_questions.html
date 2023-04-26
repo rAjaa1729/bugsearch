@@ -12,7 +12,7 @@
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter&family=Poppins:wght@400;600;700&display=swap"
         rel="stylesheet">
-
+    <link rel="icon" type="image/x-icon" href="{{ url_for ('static',filename='assets/images/logo.png') }}" alt="image">
     <title>BugSearch</title>
 
     <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -47,7 +47,7 @@
         <li> <a href="{{url_for('all_users')}}" class="dis-inl"><i class="fa fa-users followers-page-users-threed1 dis-inl mar" style="color:black"></i>All Users</a> </li>
         <li> <a href="{{url_for('bookmarks')}}" class="dis-inl"><i class="fa-solid fa-bookmark trending-bookmarks dis-inl mar" style="color:black"></i>Bookmarks</a> </li>
         <li> <a href="{{url_for('post_question')}}" class="dis-inl"><i class="fa-solid fa-question trending-question dis-inl mar" style="color:black"></i>Post Question</a> </li>
-        <li> <a href="{{url_for('posted_questions')}}" class="dis-inl"><i class="fa-solid fa-question trending-question dis-inl mar" style="color:black"></i>Posted Questions</a> </li>
+        <li> <a href="{{url_for('posted_questions')}}" class="dis-inl" style="background-color : #49BBBD"><i class="fa-solid fa-question trending-question dis-inl mar" style="color:black"></i>Posted Questions</a> </li>
 
 </nav>
     <div class="content">
@@ -85,8 +85,59 @@
             <h2>Posted Questions</h2>
           </div>
         </div>
+          <div class="col-lg-12 col-md-6 hz">
+          <div class="item">
+            <div class="row">
+              <div class="col-lg-12">
+                <ul>
+                  <li>
+                    <span class="category dis-inl"><button class="category btn btn-primary btn-sm btn-search">Upvote</button></span>
+                    <span class="category dis-inl"><button class="category btn btn-primary btn-sm btn-search">Downvote</button></span>
+                    <span class="category dis-inl"><button class="category btn btn-primary btn-sm btn-search">Bookmark</button></span>
+                    <h4>Application run using RunOnce registry key does not start when logged in using Enter-PSSession</h4>
+                  </li>
+                </ul>
+                <a href="#"><i class="fa fa-angle-right"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-12 col-md-6 hz">
+          <div class="item">
+            <div class="row">
+              <div class="col-lg-12">
+                <ul>
+                  <li>
+                    <span class="category dis-inl"><button class="category btn btn-primary btn-sm btn-search">Upvote</button></span>
+                    <span class="category dis-inl"><button class="category btn btn-primary btn-sm btn-search">Downvote</button></span>
+                    <span class="category dis-inl"><button class="category btn btn-primary btn-sm btn-search">Bookmark</button></span>
+                    <h4>Application run using RunOnce registry key does not start when logged in using Enter-PSSession</h4>
+                  </li>
+                </ul>
+                <a href="#"><i class="fa fa-angle-right"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-12 col-md-6 hz">
+          <div class="item">
+            <div class="row">
+              <div class="col-lg-12">
+                <ul>
+                  <li>
+                    <span class="category dis-inl"><button class="category btn btn-primary btn-sm btn-search">Upvote</button></span>
+                    <span class="category dis-inl"><button class="category btn btn-primary btn-sm btn-search">Downvote</button></span>
+                    <span class="category dis-inl"><button class="category btn btn-primary btn-sm btn-search">Bookmark</button></span>
+                    <h4>Application run using RunOnce registry key does not start when logged in using Enter-PSSession</h4>
+                  </li>
+                </ul>
+                <a href="#"><i class="fa fa-angle-right"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
 
-          {% for question in q_list %}
+<!--           {% for question in q_list %}
           <div class="question" data-id="{{ question.question_id }}" data-upvotes="{{ question.upvotes }}" data-downvotes="{{ question.downvotes }}">
             <h3><a href="{{url_for('find_question',question_id=question.question_id)}}">{{ question.title }}</a></h3>
             <p>{{ question.body }}</p>
@@ -98,7 +149,7 @@
               <button class="bookmark"><i class="fa fa-bookmark"></i> Bookmark</button>
             </div>
           </div>
-          {% endfor %}
+          {% endfor %} -->
         </div>
         
 
