@@ -197,7 +197,7 @@ input::-webkit-input-placeholder {
     margin-top: -10px;
     height: 151px;
     width: 40px;
-    margin-left: 32px;
+    margin-left: 22px;
     /* border: 2px solid red */
   }
   
@@ -499,4 +499,10 @@ span {
 .styleb:hover .fourth {
   top: 0;
   left: 0;
+}
+.set_counter{
+  position: absolute;
+  padding-top: 30px;
+  margin-left: -26px;
+  font-size: 32px;
 }
