@@ -94,7 +94,7 @@
                 <div class="col-lg-1">
                     <div class="like-dislike" id="loadclickhandle">
                         <button id="like-btnquestion{{question.question_id}}" class="lb" onclick="updatevote(vote_type='up',post_type='question',post_id='{{question.question_id}}')"><box-icon type='solid' name='up-arrow' style="height:18px; width:18px" ></box-icon></button>
-                        <span class="votecount" id="counterquestion{{question.question_id}}" class="cb">0</span>
+                        <span class="votecount set_counter" id="counterquestion{{question.question_id}}" class="cb">0</span>
                         <button id="dislike-btnquestion{{question.question_id}}" class="dlb" onclick="updatevote(vote_type='down',post_type='question',post_id='{{question.question_id}}')"><box-icon type='solid' name='down-arrow' style="height:18px; width:18px"></box-icon></button>
                         <button id="bookmarks-btnquestion{{question.question_id}}" onclick="updatebookmark(post_type='question',post_id='{{question.question_id}}')"> <box-icon name='bookmark-star' type='solid' style="height:18px; width:18px" ></box-icon></button>
                     </div>
@@ -135,7 +135,7 @@
                     <div class="like-dislike">
                         <div class="like-dislike" id="loadclickhandle">
                             <button id="like-btnanswer{{answer.answer_id}}" class="lb" onclick="updatevote(vote_type='up',post_type='answer',post_id='{{answer.answer_id}}')"><box-icon type='solid' name='up-arrow' style="height:18px; width:18px" ></box-icon></button>
-                            <span class="votecount" id="counteranswer{{answer.answer_id}}" class="cb">0</span>
+                            <span class="votecount set_counter" id="counteranswer{{answer.answer_id}}" class="cb">0</span>
                             <button id="dislike-btnanswer{{answer.answer_id}}" class="dlb" onclick="updatevote(vote_type='down',post_type='answer',post_id='{{answer.answer_id}}')"><box-icon type='solid' name='down-arrow' style="height:18px; width:18px"></box-icon></button>
                             <button id="bookmarks-btnanswer{{answer.answer_id}}" onclick="updatebookmark(post_type='answer',post_id='{{answer.answer_id}}')"> <box-icon name='bookmark-star' type='solid' style="height:18px; width:18px" ></box-icon></button>
                         </div>
