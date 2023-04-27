@@ -223,8 +223,6 @@ class User(UserMixin):
             u_list.append(User(**u))
         return u_list
 
-
-
 #---questions class----
 class Question():
     def __init__(self,**kwargs):
@@ -364,8 +362,7 @@ class Question():
         for q in questions:
             q_list.append(Question(**q))
         return q_list
-
-        
+   
 # -----class for Answer object--------------
 class Answer():
     def __init__(self,**kwargs):
@@ -460,11 +457,11 @@ class Answer():
 
 class Question_Comment():
     def __init__(self,**kwargs):
-        self.question_comment_id=kwargs.get('question_comment_id')
+        # self.question_comment_id=kwargs.get('question_comment_id')
         self.body=kwargs.get('body')
-        self.user_id=kwargs.get('user_id')
+        # self.user_id=kwargs.get('user_id')
         self.creation_date=kwargs.get('creation_date')
-        self.qustion_id=kwargs.get('question_id')
+        # self.qustion_id=kwargs.get('question_id')
 
     @staticmethod
     def post_qcomment(question_id,user_id,body):
@@ -483,39 +480,38 @@ class Question_Comment():
         else:
             return "Successfully posted",200 
         
-    @staticmethod
-    def find_qcomment_by_id(question_comment_id):
-        my_db=get_db_connection()
-        cursor=my_db.cursor(dictionary=True)
-        query="SELECT * FROM Question_comments WHERE question_comment_id=%s "
-        cursor.execute(query,(question_comment_id,))
-        row =cursor.fetchone()
-        if row is None:
-            return Question_Comment(**row)
-        return None
+    # @staticmethod
+    # def find_qcomment_by_id(question_comment_id):
+    #     my_db=get_db_connection()
+    #     cursor=my_db.cursor(dictionary=True)
+    #     query="SELECT * FROM Question_comments WHERE question_comment_id=%s "
+    #     cursor.execute(query,(question_comment_id,))
+    #     row =cursor.fetchone()
+    #     if row is None:
+    #         return Question_Comment(**row)
+    #     return None
     
     @staticmethod
-    def find_qcom_by_ques_id(question_id):
+    def find_qcomment_by_id(question_id):
         my_db=get_db_connection()
         cursor=my_db.cursor(dictionary=True)
-        query="SELECT * FROM Question_comments WHERE question_id=%s ORDER BY CREATION_DATE DESC"
+        query="SELECT body AND creation_date FROM Question_comments WHERE question_id=%s ORDER BY CREATION_DATE DESC"
         cursor.execute(query,(question_id,))
         row =cursor.fetchall()
-        qc_l=[]
+        qc_list=[]
         my_db.close()
         for qc in row:
-            return qc_l.append(Question_Comment(**qc))
-        return qc_l
+            return qc_list.append(Question_Comment(**qc))
+        return qc_list
   
-
 class Answer_Comment():
 
     def __init__(self,**kwargs):
-        self.answer_comment_id=kwargs.get('answer_comment_id')
+        # self.answer_comment_id=kwargs.get('answer_comment_id')
         self.body=kwargs.get('body')
-        self.user_id=kwargs.get('user_id')
+        # self.user_id=kwargs.get('user_id')
         self.creation_date=kwargs.get('creation_date')
-        self.answer_id=kwargs.get('answer_id')
+        # self.answer_id=kwargs.get('answer_id')
 
     @staticmethod
     def post_acomment(answer_id,user_id,body):
@@ -532,15 +528,17 @@ class Answer_Comment():
                 return "Successfully posted",200
 
     @staticmethod
-    def find_acomment_by_id(answer_comment_id):
+    def find_acomment_by_id(answer_id):
         my_db=get_db_connection()
         cursor=my_db.cursor(dictionary=True)
-        query="SELECT * FROM Answer_comments (answer_comment_id) VALUES(%s)"
-        cursor.execute(query,(answer_comment_id,))
-        row =cursor.fetchone()
-        if row is None:
-            return Answer_Comment(**row)
-        return None 
+        query="SELECT body and creation_date FROM Answer_comments WHERE answer_id =%s ORDER BY creation_date DESC"
+        cursor.execute(query,(answer_id,))
+        row =cursor.fetchall()
+        my_db.close()
+        ac_list=[]
+        for ac in row:
+            ac_list.append(Answer_Comment(**ac))
+        return ac_list
         
 class Tag():
     def __init__(self,**kwargs):
@@ -708,7 +706,6 @@ class QVote:
                 my_db.close()
                 return 'upvote'
 
-
 class AVote:
     def __init__(self,**kwargs):
         self.vote_type=kwargs.get('vote_type')
@@ -821,8 +818,6 @@ class AVote:
                 my_db.close()
                 return 'upvote'
         
-    
-
 class QBookmark:
     def __init__(self,**kwargs):
         self.creation_date=kwargs.get('creation_date')
@@ -889,9 +884,6 @@ class QBookmark:
 
 
         # bookmark=cursor.fetchone()
-
-
-
 
 class ABookmark:
     def __init__(self,**kwargs):
@@ -1331,7 +1323,24 @@ def udpatebookmark():
         print(B)
         return jsonify({"bookmark":B['bookmark']})
 
+@login_required
+@newapp.route('/getcomments',methods=['GET','POST'])
+def getcomments():
+    data=request.get_json()
+    post_id=data.get('post_id')
+    post_type=data.get('post_type')
+    print("i am here what are you doing")
+    if(post_type=='answer'):
+        ac_list=Answer_Comment.find_acomment_by_id(answer_id=post_id)
+        print(ac_list)
+        return jsonify(ac_list)
+    else: 
+        qc_list=Question_Comment.find_qcomment_by_id(question_id=post_id)
+        print(qc_list)
+        return jsonify(qc_list) 
 
+
+    
 
 
 

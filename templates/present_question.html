@@ -109,9 +109,13 @@
                 <h3 class="search_ans"></h3>
                 <br>
             <br><a target="_blank" href="{{url_for('post_question_comment',question_id=question.question_id)}}" class="add_c dis-inl"><span><u><button type="button" class="btn btn-primary btn-lg search-button">Add Comment</button></u></span></a>
-            <button type="button" class="btn btn-primary btn-lg search-button" id="comments{{question.question_id}}" onclick="getcomments(post_type='question',post_id='{{question.question_id}}')">Get Comments</button>
+            <button type="button" class="btn btn-primary btn-lg search-button" id="commentquestion{{question.question_id}}" onclick="getcomments(post_type='question',post_id='{{question.question_id}}')">Get Comments</button>
             <button type="button" class="btn btn-primary btn-lg search-button">{{question.answer_count}} Answers</button>
             <button type="button" class="btn btn-primary btn-lg search-button">{{question.comment_count}} Comments</button>
+            <br>
+            <div id="commentsContainerquestion{{question.question_id}}" style="display:none;">
+                <!-- comments go here -->
+            </div>
         </div>
     </div>
             <hr>
@@ -136,12 +140,13 @@
                 <div class="col-lg-11">
                     <h5 class="search_ans">{{answer.body}}</h5>
                     <br>
-                    <h6 class="search_ans2">{{answer.body}}</h6>
-                    <br>
                     <a target="_blank" href="{{url_for('post_question_comment',question_id=question.question_id,answer_id=answer.answer_id)}}" class="add_c"><span><u><button type="button" class="btn btn-primary btn-lg search-button">Add Comments</button></u></span></a>
-                    <button type="button" class="btn btn-primary btn-lg search-button" id="comments{{answer.question_id}}" onclick="getcomments(post_type='answer',post_id='{{answer.answer_id}}')">Get Comments</button>
+                    <button type="button" class="btn btn-primary btn-lg search-button" id="commentanswer{{answer.answer_id}}" onclick="getcomments(post_type='answer',post_id='{{answer.answer_id}}')">Get Comments</button>
                     <button type="button" class="btn btn-primary btn-lg search-button">{{answer.comment_count}} Comments</button>
                     <br>
+                    <div id="commentsContaineranswer{{answer.answer_id}}" style="display:none;">
+                        <!-- comments go here -->
+                    </div>
                 </div>
             </div>
             <br>
@@ -150,8 +155,6 @@
             {%endfor %}
              
           
-            <div class="line"></div><br>
-            <br>
             <br>
             <a  href="{{url_for('post_answer',question_id=question.question_id)}}">
             <button type="button" class="btn btn-primary btn-lg search-button">Post Answer</button>
@@ -281,23 +284,47 @@ function updatevote(vote_type,post_type,post_id)
 
 function getcomments(post_type,post_id)
 {
-    console.log('has entered in the comments clicked ');
-    const xhr=new XMLHttpRequest();
-    console.log(vote_type,post_type,post_id);
-    xhr.open('POST','/getcomments',true);
-    xhr.setRequestHeader("content-type","application/json;charset=UTF-8");
-
-    xhr.onload = function()
+    console.log(post_type,post_id);
+    const button=document.getElementById('comment'+post_type+post_id);
+    const Container=document.getElementById('commentsContainer'+post_type+post_id);
+    if(Container.style.display !='none')
     {
-        console.log('has entered in the  ');
-        if(this.status===200)
-        {
-
-        }
+        console.log('hi my naem is raha ');
+        comment.innerHTML="RAJA KUMAR";
+        comment.style.display ='none';
     }
-    const data=JSON.stringify({"post_id":post_id,"post_type":post_type});
-    console.log(data);
-    xhr.send(data);
+    else
+    {
+        console.log('has entered in the comments clicked ');
+        const xhr=new XMLHttpRequest();
+        console.log(post_type,post_id);
+        xhr.open('GET','/getcomments',true);
+        xhr.setRequestHeader("content-type","application/json;charset=UTF-8");
+        // comment.style.backgroundColor = '#49BBBD'; 
+        // comment.innerHTML="RAJU KUMAR";
+        xhr.onload = function()
+        {
+            console.log('has entered in the  ');
+            console.log(this.status);
+            if(this.status===200)
+            {
+                const data=JSON.parse(this.responseText);
+                const comment=document.getElementById('comment'+post_type+post_id);
+                let total='';
+                for (var i = 0; i < numbers.length; i++) 
+                {
+                    total+='<p>'+data[i]['body']+'</p><br>';
+                }
+                Container.style.display='block';
+                Container.innerHTML=total;
+            }
+        }
+        const data=JSON.stringify({"post_id":post_id,"post_type":post_type});
+        console.log(data);
+        xhr.send(data);
+    }
+    
+      
 }
 
 // // handling question for loading
