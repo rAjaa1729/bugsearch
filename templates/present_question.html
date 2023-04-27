@@ -108,11 +108,15 @@
                     <br><br>
                 <h3 class="search_ans"></h3>
                 <br>
-            <br><a target="_blank" href="{{url_for('post_question_comment',question_id=question.question_id)}}" class="add_c dis-inl"><span><u><button type="button" class="btn btn-primary btn-lg search-button">Add Comment</button></u></span></a>
+                <a target="_blank" href="{{url_for('post_question_comment',question_id=question.question_id)}}" class="add_c dis-inl"><span><u>Add Comment</u></span></a>
+            <h5 class="dis-inl">{{question.answer_count}} Answers</h5>
+            <h5 class="dis-inl">{{question.comment_count}} Comments</h5>
+            <button type="button" class="btn btn-primary btn-sm btn-search " id="comments{{question.question_id}}" onclick="getcomments(post_type='question',post_id='{{question.question_id}}')">Get Comments</button>
+<!--             <br><a target="_blank" href="{{url_for('post_question_comment',question_id=question.question_id)}}" class="add_c dis-inl"><span><u><button type="button" class="btn btn-primary btn-lg search-button">Add Comment</button></u></span></a>
             <button type="button" class="btn btn-primary btn-lg search-button" id="commentquestion{{question.question_id}}" onclick="getcomments(post_type='question',post_id='{{question.question_id}}')">Get Comments</button>
             <button type="button" class="btn btn-primary btn-lg search-button">{{question.answer_count}} Answers</button>
             <button type="button" class="btn btn-primary btn-lg search-button">{{question.comment_count}} Comments</button>
-            <br>
+            <br> -->
             <div id="commentsContainerquestion{{question.question_id}}" style="display:none;">
                 <!-- comments go here -->
             </div>
@@ -140,10 +144,9 @@
                 <div class="col-lg-11">
                     <h5 class="search_ans">{{answer.body}}</h5>
                     <br>
-                    <a target="_blank" href="{{url_for('post_question_comment',question_id=question.question_id,answer_id=answer.answer_id)}}" class="add_c"><span><u><button type="button" class="btn btn-primary btn-lg search-button">Add Comments</button></u></span></a>
-                    <button type="button" class="btn btn-primary btn-lg search-button" id="commentanswer{{answer.answer_id}}" onclick="getcomments(post_type='answer',post_id='{{answer.answer_id}}')">Get Comments</button>
-                    <button type="button" class="btn btn-primary btn-lg search-button">{{answer.comment_count}} Comments</button>
-                    <br>
+                    <a target="_blank" href="{{url_for('post_question_comment',question_id=question.question_id,answer_id=answer.answer_id)}}" class="add_c dis-inl"><span><u>Add Comments</u></span></a>
+                    <h5 class=" dis-inl">{{answer.comment_count}} Comments</h5>
+                    <button type="button" class="btn btn-primary btn-sm btn-search " id="comments{{answer.question_id}}" onclick="getcomments(post_type='answer',post_id='{{answer.answer_id}}')">Get Comments</button>  <br>
                     <div id="commentsContaineranswer{{answer.answer_id}}" style="display:none;">
                         <!-- comments go here -->
                     </div>
