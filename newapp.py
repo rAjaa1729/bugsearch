@@ -1,4 +1,6 @@
 import mysql.connector
+import openai
+import os
 # from monkeylearn import MonkeyLearn
 # import logging
 from flask import Flask, render_template, request, url_for, flash, redirect,jsonify
@@ -10,6 +12,9 @@ import jwt
 import json 
 import requests 
 from datetime import datetime, timedelta
+
+
+
 # from flask_bcrypt import Bcrypt  
 # import hashlib
 from flask_login import  UserMixin, login_user, LoginManager, login_required, current_user, logout_user
@@ -29,6 +34,7 @@ newapp.config['MAIL_PASSWORD'] = "dec2e841"
 mail = Mail(newapp)
 # bcrypt = Bcrypt()
 newapp.config['SECRET_KEY'] = 'sql@Prism1920'
+openai.api_key = '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'
 
 
 def get_db_connection():
@@ -52,6 +58,25 @@ login_manager.id_attribute ='get_id'
 @login_manager.user_loader
 def load_user(user_id):
     return User.get(user_id)
+
+
+# @newapp.route('/search/openai', methods=["GET"])
+# def providemessages():
+#     print("rajdnklf;asdjfk")
+#     query = request.form['search']  # get the value of the query parameter
+#     print(query)
+#     response = openai.Completion.create(
+#         engine="text-davinci-002",
+#         prompt=query,
+#         max_tokens=1024,
+#         n=1,
+#         stop=None,
+#         temperature=0.7,
+#     )
+#     message = response.choices[0].text.strip()
+#     return render_template('check.html',message=message)
+
+
 
 #-------different class object---------------
 # user class with usermixin
@@ -1241,8 +1266,10 @@ def Qloadvote():
         # Handle GET request
         data = request.args
         question_id = data.get('question_id')
-        user_id = current_user.user_id
-        print(question_id)
+        # user_id = data.get('user_id')
+        user_id=current_user.user_id
+        print("raja kuamr ")
+        print(question_id,user_id)
         votetype=QVote.Qfindvote(user_id=user_id, question_id=question_id)
         bookmark=QBookmark.Qfindbookmark(user_id=user_id,question_id=question_id)
         print()

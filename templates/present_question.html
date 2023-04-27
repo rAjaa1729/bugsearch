@@ -299,54 +299,60 @@ function getcomments(post_type,post_id)
 }
 
 // handling question for loading
-// window.onload = function() {
-//   const questionId = '{{ question.question_id }}';
-//   const score = document.getElementById('counter1');
-//   const scoreval = '{{question.upvotes - question.downvotes}}';
-//   updateupdown(questionId, score, scoreval);
-// };
+window.onload = function() {
+  const questionId = '{{ question.question_id }}';
+  const score = document.getElementById('counter1');
+  const scoreval = '{{question.upvotes - question.downvotes}}';
+  updateupdown(questionId, score, scoreval);
+};
 
-// function updateupdown(questionId, score, scoreval) {
-//   console.log('hi my na ');
-//   console.log(scoreval);
+function updateupdown(questionId, score, scoreval) {
+  console.log('hi my na ');
+  console.log(scoreval);
+  console.log(questionId);
+
+
+  const params = new URLSearchParams();
+  params.append('question_id', questionId);
+
+
+  const upvote = document.getElementById('like-btn1');
+  const downvote = document.getElementById('dislike-btn1');
+  const bookmark = document.getElementById('bookmarks-btn1');
+  const xhr = new XMLHttpRequest();
+  xhr.open('GET', '/Qloadvote?' + params.toString(), true);
+  xhr.setRequestHeader('content-type', 'application/json;charset=UTF-8');
+  xhr.onload = function() {
+    if (this.status == 200) {
+      const data = JSON.parse(this.responseText);
+      score.innerHTML = scoreval;
+      console.log(data);
+      if (data['votetype'] == 'neutral') {
+        upvote.style.backgroundColor = '';
+        downvote.style.backgroundColor = '';
+      } else if (data['votetype'] == 'upvote') {
+        upvote.style.backgroundColor = '#49BBBD';
+        downvote.style.backgroundColor = '';
+      } else {
+        console.log(data);
+        upvote.style.backgroundColor = '';
+        downvote.style.backgroundColor = '#49BBBD';
+      }
+      if (data['bookmark'] === 'yes') {
+        bookmark.style.backgroundColor ='#49BBBD';
+      } else {
+        bookmark.style.backgroundColor = '';
+      }
+    } else {
+      console.log('failed');
+      console.log(this.responseText);
+    }
+  };
 //   console.log(questionId);
-//   const upvote = document.getElementById('like-btn1');
-//   const downvote = document.getElementById('dislike-btn1');
-//   const bookmark = document.getElementById('bookmarks-btn1');
-//   const xhr = new XMLHttpRequest();
-//   xhr.open('GET', '/Qloadvote', true);
-//   xhr.setRequestHeader('content-type', 'application/json;charset=UTF-8');
-//   xhr.onload = function() {
-//     if (this.status == 200) {
-//       const data = JSON.parse(this.responseText);
-//       score.innerHTML = scoreval;
-//       console.log(data);
-//       if (data['votetype'] == 'neutral') {
-//         upvote.style.backgroundColor = '';
-//         downvote.style.backgroundColor = '';
-//       } else if (data['votetype'] == 'upvote') {
-//         upvote.style.backgroundColor = '#49BBBD';
-//         downvote.style.backgroundColor = '';
-//       } else {
-//         console.log(data);
-//         upvote.style.backgroundColor = '';
-//         downvote.style.backgroundColor = '#49BBBD';
-//       }
-//       if (data['bookmark'] === 'yes') {
-//         bookmark.style.backgroundColor ='#49BBBD';
-//       } else {
-//         bookmark.style.backgroundColor = '';
-//       }
-//     } else {
-//       console.log('failed');
-//       console.log(this.responseText);
-//     }
-//   };
-//   console.log(questionId);
-//   const data = JSON.stringify({ "question_id": questionId });
+//   const data = JSON.stringify({ "question_id": questionId,"user_id":1 });
 //   console.log(data);
-//   xhr.send(data);
-// }
+  xhr.send();
+}
 
 </script>
 
