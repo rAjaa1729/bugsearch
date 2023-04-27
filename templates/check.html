@@ -4,169 +4,66 @@
     my name is raja kumar  
 </title>
 
+<style>
+  .comment-list {
+  display: none; /* hide the comment list by default */
+}
 
+</style>
 </head>
 <html>
 <body>
-{{message}}
-<div id="manage">
-    <button type='button' id="upvote-btn" onclick="updatevote(voting='up')">Upvote</button>
-    <button type='button' id="score" ></button>
-    <button type='button' id="downvote-btn" onclick="updatevote(voting='down')">Downvote</button>
-    <button type='button' id="bookmark-btn">bookmark</button>
-</div>
-  
+
+  <div class="question">
+    <p>Question text goes here</p>
+    <button class="show-comments" display="none">Show Comments</button>
+    <ul class="comment-list"></ul>
+  </div>
+    
   
 <script>
-// handling on click of upvote button
-function updatevote(voting)
-{
-    console.log('has entered in the upvote function upvote clicked ');
-    const xhr=new XMLHttpRequest();
-
-    xhr.open('POST','/Qupdatevote',true);
-    xhr.setRequestHeader("content-type","application/json;charset=UTF-8");
-    console.log(voting);
-    console.log('printednow');
-    xhr.onload = function()
-    {
-        console.log('has entered in the  ');
-        if(this.status===200)
-        {
-            const upvote = document.getElementById('upvote-btn');
-            const downvote = document.getElementById('downvote-btn');
-            const score = document.getElementById('score');
-            console.log('has entered in the the 200  ');
-            const data=JSON.parse(this.responseText);
-            score.innerHTML=data['score'];
-            console.log(data)
-
-            if (data['votetype'] == 'neutral')
-            {
-                console.log('neutral');
-                console.log(data)
-                upvote.style.backgroundColor = 'red';
-                upvote.innerHTML=data['upvotes'];
-                downvote.innerHTML=data['downvotes']
-                downvote.style.backgroundColor = 'red';
-            } else if (data['votetype'] == 'upvote') {
-                console.log('upvote');
-                upvote.innerHTML=data['upvotes'];
-                downvote.innerHTML=data['downvotes']
-                upvote.style.backgroundColor = 'blue';
-                downvote.style.backgroundColor = 'red';
-            } else {
-                console.log('downvote');
-                upvote.innerHTML=data['upvotes'];
-                downvote.innerHTML=data['downvotes']
-                upvote.style.backgroundColor = 'red';
-                downvote.style.backgroundColor = 'blue';
-            }
-        }
-        else
-        {
-            // const data=(this.responseText);
-            // const data=parse(this.responseText);
-            console.log('failed process')
-        }
-    };
-    const data=JSON.stringify({"question_id":'{{question.question_id}}',"voting":voting});
-    xhr.send(data);
-}
-// function loadvote(question=question)
-// {
-    
-//     console.log('has entered in the upvote function upvote clicked ');
-//     const xhr=new XMLHttpRequest();
-//     xhr.open('GET','/Qloadvote',true);
-//     xhr.setRequestHeader("content-type","application/json;charset=UTF-8");
-
-//     xhr.onload = function()
-//     {
-//       console.log('has entered in the  ');
-//         if(this.status===200)
-//         {
-//           console.log('has entered in the the stasys  ');
-//             const data=JSON.parse(this.responseText);
-//             if(data['votetype']=='neutral')
-//             {
-//                 let newdata=document.getElementById('upvote-btn');
-//                 console.log(data);
-//                 newdata.innerHTML=data['votetype'];
-//             }
-//             else
-//             {
-//                 console.log(data);
-//             }
-//         }
-//         else
-//         {
-//             // const data=(this.responseText);
-//             const data=JSON.parse(this.responseText);
-//         }
-//     };
-//     const data=JSON.stringify({"question_id":question.question_id});
-//     xhr.send(data);
-// }
 
 
 
-// onloading we want to update upvotes downvotes score and bookmark
+// Get all the "show-comments" buttons on the page
+var showButtons = document.querySelectorAll(".show-comments");
 
-// const div1 = document.getElementById('manage');
-// div1.addEventListener('DOMContentLoaded', () => {
-//   updateupdown();
-// });
-// window.onload = function() {
-//   updateupdown();
-// }
+// Loop through the buttons
+showButtons.forEach(function(button) {
+  // Add a click event listener to the button
+  button.addEventListener("click", function(event) {
+    // Get the comment list element for this button
+    var commentList = button.nextElementSibling;
 
-// function updateupdown() {
-//   const upvote = document.getElementById('upvote-btn');
-//   const downvote = document.getElementById('downvote-btn');
-//   const score = document.getElementById('score');
-//   const bookmark = document.getElementById('bookmark-btn');
-//   const xhr = new XMLHttpRequest();
-//   xhr.open('GET', '/Qloadvote', true);
-//   xhr.setRequestHeader('content-type', 'application/json;charset=UTF-8');
-//   xhr.onload = function() {
-//     console.log('has entered in the');
-//     if (this.status === 200) {
-//       console.log('has entered in the the stasys');
-//       const data = JSON.parse(this.responseText);
-//       score.innerHTML = ('{{question.upvotes}}' - '{{question.downvotes}}');
-//       if (data['votetype'] == 'neutral') {
-//         console.log('neutral');
-//         console.log(data)
-//         upvote.style.backgroundColor = 'red';
-//         downvote.style.backgroundColor = 'red';
-//       } else if (data['votetype'] == 'upvote') {
-//         console.log('upvote');
-//         upvote.style.backgroundColor = 'blue';
-//         downvote.style.backgroundColor = 'red';
-//       } else {
-//         console.log('downvote');
-//         upvote.style.backgroundColor = 'red';
-//         downvote.style.backgroundColor = 'blue';
+    // Toggle the display of the comment list
+    if (commentList.style.display === "none") {
+      commentList.style.display = "block";
+      // Here, you can use AJAX to fetch and display the comments dynamically
+      // For example: fetchComments(questionId, commentList);
+    } else {
+      commentList.style.display = "none";
+    }
+  });
+});
 
-//       }
-//       if (data['bookmark'] === 'yes') {
-//         console.log('yes');
-//         bookmark.style.backgroundColor = 'blue';
 
-//       } else {
-//         console.log('no');
-//         bookmark.style.backgroundColor = 'red';
 
-//       }
-//     } 
-//     else {
-//       console.log('failed');
-//     }
-//   };
-//   const data = JSON.stringify({ 'question_id': '{{ question.question_id }}' });
-//   xhr.send(data);
-// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 </script>

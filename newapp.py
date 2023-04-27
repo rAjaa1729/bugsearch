@@ -1,6 +1,6 @@
 import mysql.connector
-import openai
-import os
+# import openai
+# import os
 # from monkeylearn import MonkeyLearn
 # import logging
 from flask import Flask, render_template, request, url_for, flash, redirect,jsonify
@@ -34,7 +34,7 @@ newapp.config['MAIL_PASSWORD'] = "dec2e841"
 mail = Mail(newapp)
 # bcrypt = Bcrypt()
 newapp.config['SECRET_KEY'] = 'sql@Prism1920'
-openai.api_key = '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'
+# openai.api_key = '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'
 
 
 def get_db_connection():
@@ -1256,7 +1256,10 @@ def homepage():
 
 
 # handling upvote downvote bookmark
-
+@login_required
+@newapp.route('/checking',methods=['GET','POST'])
+def handlechecking():
+    return render_template('check.html')
 # Handling voting system using javascript
 
 @login_required
@@ -1309,7 +1312,6 @@ def updatevote():
             upvotes=ObQ.upvotes
             downvotes=ObQ.downvotes
             print({"vote_type":vote,"upvotes":upvotes,"downvotes":downvotes,"score":score})
-
         return jsonify({"vote_type":vote,"upvotes":upvotes,"downvotes":downvotes,"score":score})
 
 @login_required
