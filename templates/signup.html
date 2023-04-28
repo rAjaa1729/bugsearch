@@ -111,7 +111,11 @@ https://templatemo.com/tm-586-scholar
         <div class="col-lg-6">
           <div class="contact-us-content">
             <form id="contact-form" action="{{url_for('signup')}}" method="post">
+              {% for message in get_flashed_messages() %} 
+            <div class="alert alert-danger">{{ message }}</div>
+        {% endfor %} 
               <div class="row">
+
                 <div class="col-lg-12">
                   <span class="tagline">Email address</span>
                   <fieldset>

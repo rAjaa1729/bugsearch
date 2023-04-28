@@ -20,6 +20,8 @@ function moveNavigation(){
   resizing = false;
 };
 
+
+
 // function detachElements() {
 //   searchInput.parentNode.removeChild(searchInput);
 //   navList.parentNode.removeChild(navList);

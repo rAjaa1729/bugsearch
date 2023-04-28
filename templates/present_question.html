@@ -48,7 +48,7 @@
         <li> <a href="{{url_for('complete_your_profile')}}" class="dis-inl"><i class="fa-solid fa-pen-to-square followers-page-vector2 dis-inl mar" style="color:black"></i>Edit Profile</a> </li>
         <li> <a href="{{url_for('followers')}}" class="dis-inl"><i class="fa-solid fa-user-group followers-page-users dis-inl mar" style="color:black"></i>Followers</a> </li>
         <li> <a href="{{url_for('following')}}" class="dis-inl"><i class="fa-solid fa-user-group followers-page-users dis-inl mar" style="color:black"></i>Following</a> </li>
-        <li> <a href="{{url_for('badges')}}" class="dis-inl"><i class="fa-solid fa-award followers-page-vector1 dis-inl mar" style="color:black"></i>Badges</a> </li>
+        
         <li> <a href="{{url_for('trending')}}" class="dis-inl"><i class="fa-solid fa-globe recommendations-globe-stand dis-inl mar" style="color:black"></i>Trending</a> </li>
         <li> <a href="{{url_for('recommendations')}}" class="dis-inl"><i class="fa-solid fa-wand-magic-sparkles trending-magic-wand dis-inl mar" style="color:black"></i>Recommendations</a> </li>
         <li> <a href="{{url_for('all_users')}}" class="dis-inl"><i class="fa fa-users followers-page-users-threed1 dis-inl mar" style="color:black"></i>All Users</a> </li>
@@ -68,7 +68,7 @@
                 <div class="search-input">
                     <form id="search" action="#">
                         <input type="text" placeholder="Type Something" id='search' name="search"
-                            onkeypress="handle" />
+                            onkeypress="handle" style="margin-top:0px;" />
                         <i class="fa fa-search"></i>
                     </form>
                 </div>
@@ -112,7 +112,7 @@
             <h5 class="dis-inl">{{question.answer_count}} Answers</h5>
             <h5 class="dis-inl">{{question.comment_count}} Comments</h5>
             <button type="button" class="btn btn-primary btn-sm btn-search " id="commentquestion{{question.question_id}}" onclick="getcomments(post_type='question',post_id='{{question.question_id}}')">Get Comments</button>
-<!--             <br><a target="_blank" href="{{url_for('post_question_comment',question_id=question.question_id)}}" class="add_c dis-inl"><span><u><button type="button" class="btn btn-primary btn-lg search-button">Add Comment</button></u></span></a>
+            <!--             <br><a target="_blank" href="{{url_for('post_question_comment',question_id=question.question_id)}}" class="add_c dis-inl"><span><u><button type="button" class="btn btn-primary btn-lg search-button">Add Comment</button></u></span></a>
             <button type="button" class="btn btn-primary btn-lg search-button" id="commentquestion{{question.question_id}}" onclick="getcomments(post_type='question',post_id='{{question.question_id}}')">Get Comments</button>
             <button type="button" class="btn btn-primary btn-lg search-button">{{question.answer_count}} Answers</button>
             <button type="button" class="btn btn-primary btn-lg search-button">{{question.comment_count}} Comments</button>
@@ -288,8 +288,8 @@ function updatevote(vote_type,post_type,post_id)
 function getcomments(post_type,post_id)
 {
     console.log(post_type,post_id);
+    const button=document.getElementById('comment'+post_type+post_id);
     const Container=document.getElementById('commentsContainer'+post_type+post_id);
-    const comment=document.getElementById('comment'+post_type+post_id);
     if(Container.style.display !='none')
     {
         console.log('hi my naem is raha ');
@@ -311,15 +311,12 @@ function getcomments(post_type,post_id)
             console.log(this.status);
             if(this.status===200)
             {
-                console.log('i am gadha');
                 const data=JSON.parse(this.responseText);
+                const comment=document.getElementById('comment'+post_type+post_id);
                 let total='';
-                
                 for (var i = 0; i < data.length; i++) 
                 {
                     total+='<p>'+data[i]['body']+'</p><br>';
-                    // console.log(data[i]['body']);
-
                 }
                 console.log(total);
                 Container.style.display='block';
@@ -328,7 +325,6 @@ function getcomments(post_type,post_id)
             }
         }
         const data=JSON.stringify({"post_id":post_id,"post_type":post_type});
-        console.log('how are you');
         console.log(data);
         xhr.send(data);
     }
@@ -336,7 +332,7 @@ function getcomments(post_type,post_id)
       
 }
 
-// handling question for loading
+// // handling question for loading
 // window.onload = function() {
 //   const questionId = '{{ question.question_id }}';
 //   const score = document.getElementById('counter1');

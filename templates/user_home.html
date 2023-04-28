@@ -40,7 +40,7 @@
         <li> <a href="{{url_for('complete_your_profile')}}" class="dis-inl"><i class="fa-solid fa-pen-to-square followers-page-vector2 dis-inl mar" style="color:black"></i>Edit Profile</a> </li>
         <li> <a href="{{url_for('followers')}}" class="dis-inl"><i class="fa-solid fa-user-group followers-page-users dis-inl mar" style="color:black"></i>Followers</a> </li>
         <li> <a href="{{url_for('following')}}" class="dis-inl"><i class="fa-solid fa-user-group followers-page-users dis-inl mar" style="color:black"></i>Following</a> </li>
-        <li> <a href="{{url_for('badges')}}" class="dis-inl"><i class="fa-solid fa-award followers-page-vector1 dis-inl mar" style="color:black"></i>Badges</a> </li>
+        
         <li> <a href="{{url_for('trending')}}" class="dis-inl"><i class="fa-solid fa-globe recommendations-globe-stand dis-inl mar" style="color:black"></i>Trending</a> </li>
         <li> <a href="{{url_for('recommendations')}}" class="dis-inl"><i class="fa-solid fa-wand-magic-sparkles trending-magic-wand dis-inl mar" style="color:black"></i>Recommendations</a> </li>
         <li> <a href="{{url_for('all_users')}}" class="dis-inl"><i class="fa fa-users followers-page-users-threed1 dis-inl mar" style="color:black"></i>All Users</a> </li>
@@ -58,16 +58,15 @@
                     <h1 id="title">BugSearch</h1>
                 </a>
                 <div class="search-input">
-                    <form id="search" action="#">
-                        <input type="text" placeholder="Type Something" id='searchText' name="searchKeyword"
-                            onkeypress="handle" />
-                        <i class="fa fa-search"></i>
+                    <form id="search" action="{{url_for('search_login')}}" method="POST">
+                        <input type="text" placeholder="Type Something" id='searchText' name="keyword" value="{{request.form['keyword']}}"/>
+                        <i type="submit" class="fa fa-search"></i>
                     </form>
                 </div>
                 <ul class="nav">
                     <li class="scroll-to-section"><a href="{{url_for('homepage')}}">Home</a></li>
                     <li class="scroll-to-section"><a href="{{url_for('userlogin')}}">{{current_user.username}}</a></li>
-                    <li class="scroll-to-section"><a href="{{url_for('signup')}}">Logout</a></li>
+                    <li class="scroll-to-section"><a href="{{url_for('logout')}}">Logout</a></li>
                     <li class="scroll-to-section"><a href="{{url_for('help_with_login')}}">Help</a></li>
                 </ul>
                 <a class='menu-trigger'>
@@ -86,30 +85,34 @@
             <h2>Recent Activity</h2>
           </div>
         </div>
-        <div class="col-lg-12 col-md-6 hz">
+        {% for q in q_list%}
+          <div class="col-lg-12 col-md-6 hz">
           <div class="item sel">
             <div class="row">
               <div class="col-lg-12">
                 <ul>
-                  <li class>
-                    <span class="category"><button type="button" class="btn btn-secondary">Delete</button></span>
-                    <!-- <a href="#"><span class="category">Question</span></a> -->
-                    <h4>Application run using RunOnce registry key does not start when logged in using Enter-PSSession</h4>
+                  <li>
+                    <span class="category dis-inl"><!--<button class="category btn btn-primary btn-sm btn-search">-->{{q.score}} Votes<!--</button>--></span>
+                    <span class="category dis-inl"><!--<button class="category btn btn-primary btn-sm btn-search">-->{{q.answer_count}} Answers<!--/button--></span>
+                    <span class="category dis-inl"><!--<button class="category btn btn-primary btn-sm btn-search">-->{{q.comment_count}} Comments<!--/button--></span>
+                    <h4>{{q.title}}</h4>
+
                   </li>
                 </ul>
-                <a href="#"><i class="fa fa-angle-right"></i></a>
+                <a href="{{url_for('find_question',question_id=q.question_id)}}"><i class="fa fa-angle-right"></i></a>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-lg-12 col-md-6 hz">
+        {% endfor %}
+        <!-- <div class="col-lg-12 col-md-6 hz">
             <div class="item sel">
               <div class="row">
                 <div class="col-lg-12">
                   <ul>
                     <li>
-                        <span class="category"><button type="button" class="btn btn-secondary">Delete</button></span>
-                        <h4>Application run using RunOnce registry key does not start when logged in using Enter-PSSession</h4>
+                      <span class="category">Question</span>
+                      <h4>Application run using RunOnce registry key does not start when logged in using Enter-PSSession</h4>
                     </li>
                   </ul>
                   <a href="#"><i class="fa fa-angle-right"></i></a>
@@ -123,15 +126,15 @@
                 <div class="col-lg-12">
                   <ul>
                     <li>
-                        <span class="category"><button type="button" class="btn btn-secondary">Delete</button></span>
-                        <h4>Application run using RunOnce registry key does not start when logged in using Enter-PSSession</h4>
+                      <span class="category">Question</span>
+                      <h4>Application run using RunOnce registry key does not start when logged in using Enter-PSSession</h4>
                     </li>
                   </ul>
                   <a href="#"><i class="fa fa-angle-right"></i></a>
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
       </div>
     </div>
   </div>

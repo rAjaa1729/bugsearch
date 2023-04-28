@@ -66,11 +66,11 @@ https://templatemo.com/tm-586-scholar
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Serach Start ***** -->
                     <div class="search-input">
-                      <form id="search" action="#">
-                        <input type="text" placeholder="Type Something" id='searchText' name="searchKeyword" onkeypress="handle" />
-                        <i class="fa fa-search"></i>
+                      <form id="search" action="{{url_for('search_login')}}" method="POST">
+                          <input type="text" placeholder="Type Something" id='searchText' name="keyword" value="{{request.form['keyword']}}"/>
+                          <i type="submit" class="fa fa-search"></i>
                       </form>
-                    </div>
+                  </div>
                     <!-- ***** Serach Start ***** -->
                     <!-- ***** Menu Start ***** -->
                     <ul class="nav">
@@ -96,7 +96,7 @@ https://templatemo.com/tm-586-scholar
     <div class="container">
       <div class="row">
         <div class="col-lg-6  align-self-center">
-          <!-- <img src="https://www.figma.com/file/7KFxGA0vLIeYhf85DahLUR/image/ad7d7f577e3b59ba97e1d824c439289ba1498968"> -->
+          
           <div>
             <h6 class="sec-head">Complete Your Profile !</h6>
             <img class="tagi" src="https://www.figma.com/file/7KFxGA0vLIeYhf85DahLUR/image/e1a8cdfdfc60379e1efc21fa662da8673db729e6">
@@ -113,7 +113,10 @@ https://templatemo.com/tm-586-scholar
         </div>
         <div class="col-lg-6">
           <div class="contact-us-content">
-            <form id="contact-form" action="{{url_for('complete_your_profile')}}" method="post">
+            {% for message in get_flashed_messages() %} 
+            <div class="alert alert-danger">{{ message }}</div>
+        {% endfor %}
+            <form enctype="multipart/form-data" id="contact-form" action="{{url_for('complete_your_profile')}}" method="post">
               <div class="row">
                 <div class="col-lg-12">
                     <span class="guide">By providing information about yourself, we personalize your experience which includes recommendations, notifications, and other features that are tailored to your interests and preferences. It would also help you make strong connections across the globe leading to valuable networking opportunities!</span>
@@ -129,7 +132,7 @@ https://templatemo.com/tm-586-scholar
                     <div class="form-control chi choose_file">
                         <span class="tagline">Profile Photo</span>
                         
-                        <input class = "choose_file" id="image2" type="file" name="profile_image_url" placeholder="Photo"  value="{{user.profile_image_url or request.form['profile_image_url']}}" capture>
+                        <input class = "choose_file" id="image2" type="file" name="profile_img" placeholder="Photo" value="{{current_user.profile_image_url}}" capture>
                     </div>
                     <!-- <span class="tagline">Password</span>
                     <fieldset>
@@ -139,53 +142,14 @@ https://templatemo.com/tm-586-scholar
                 <div class="col-lg-12">
                     <span class="tagline">About</span>
                   <fieldset>
-                    <textarea name="about" id="about" placeholder="Your Message" value="{{user.about or request.form['about']}}"></textarea>
+                    <textarea name="about" id="about" placeholder="Your Message" value="{{current_user.about or request.form['about']}}"></textarea>
                   </fieldset>
                 </div>
                 <div class="col-lg-12">
                     <span class="tagline">Interests</span>
-                    <div class="col-lg-12">
-                      <!-- <span class="tagline">Tags</span> -->
-                      <fieldset>
-                          <select name="tags[]" id="tags" multiple size="4">
-                              {% for tag in tag_list %}
-                                <option value="{{ tag.tag_name }}">{{ tag.tag_name }}</option>
-                              {% endfor %}
-                            </select>
-                            
-                            
-                            <div id="selected-tags"></div>
-                            
-                            <script>
-                              const tagsSelect = document.getElementById("tags");
-                              const selectedTagsDiv = document.getElementById("selected-tags");
-                              
-                              tagsSelect.addEventListener("change", (event) => {
-                                // clear previous selection
-                                selectedTagsDiv.innerHTML = "";
-                                
-                                // add a div for each selected tag
-                                for (const option of event.target.selectedOptions) {
-                                  const tagDiv = document.createElement("div");
-                                  tagDiv.classList.add("tag");
-                                  tagDiv.textContent = option.value;
-                                  selectedTagsDiv.appendChild(tagDiv);
-                                }
-                              });
-                            </script>
-                            
-                            <style>
-                              .tag {
-                                display: inline-block;
-                                padding: 4px 8px;
-                                margin: 4px;
-                                background-color: #ddd;
-                                border-radius: 4px;
-                              }
-                            </style>
-                            
-                          
-                      </fieldset>
+                    <fieldset>
+                      <input type="text" name="tags" id="tags"  placeholder="Select Yor Tags" required="" value="{{request.form['tags']}}">
+                    </fieldset>
                   </div>
                 <div class="col-lg-12">
                   <fieldset>
