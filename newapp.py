@@ -174,24 +174,28 @@ class User(UserMixin):
         query = "SELECT follower_id FROM Followertags WHERE following_id = %s ORDER BY creation_date DESC LIMIT 10"
         cursor=my_db.cursor(dictionary=True)
         cursor.execute(query,(user_id,))
-        followers_id=cursor.fetchall()
+        fol_id=cursor.fetchall()
         u_list=[]
         my_db.close()
-        for f_id in followers_id:
+        print(fol_id)
+        for f_id in fol_id:
             u_list.append(User.get(f_id['follower_id']))
         return u_list
 
     @staticmethod
     def find_followings(user_id):
+        print("raja is here")
         my_db=get_db_connection()
         query = "SELECT following_id FROM Followertags WHERE follower_id = %s ORDER BY creation_date DESC LIMIT 10"
         cursor=my_db.cursor(dictionary=True)
         cursor.execute(query,(user_id,))
-        followers_id=cursor.fetchall()
+        foll_id=cursor.fetchall()
         u_list=[]
+        print(foll_id)
         my_db.close()
-        for f_id in followers_id:
+        for f_id in foll_id:
             u_list.append(User.get(f_id['follower_id']))
+        print(u_list)
         return u_list
     
     @staticmethod
@@ -495,14 +499,10 @@ class Question_Comment():
     def find_qcomment_by_id(question_id):
         my_db=get_db_connection()
         cursor=my_db.cursor(dictionary=True)
-        query="SELECT body AND creation_date FROM Question_comments WHERE question_id=%s ORDER BY CREATION_DATE DESC"
+        query="SELECT body FROM Question_comments WHERE question_id=%s ORDER BY CREATION_DATE DESC"
         cursor.execute(query,(question_id,))
         row =cursor.fetchall()
-        qc_list=[]
-        my_db.close()
-        for qc in row:
-            return qc_list.append(Question_Comment(**qc))
-        return qc_list
+        return row
   
 class Answer_Comment():
 
@@ -521,6 +521,9 @@ class Answer_Comment():
             cursor.execute(query,(body,user_id,answer_id))
             acomment=cursor.fetchone()
             my_db.commit()
+            query="UPDATE Answers  SET comment_count=comment_count+1 WHERE answer_id=%s"
+            cursor.execute(query,(answer_id,))
+            my_db.commit() 
             my_db.close()
             if acomment is None:
                 return "failed", 400
@@ -531,14 +534,10 @@ class Answer_Comment():
     def find_acomment_by_id(answer_id):
         my_db=get_db_connection()
         cursor=my_db.cursor(dictionary=True)
-        query="SELECT body and creation_date FROM Answer_comments WHERE answer_id =%s ORDER BY creation_date DESC"
+        query="SELECT body FROM Answer_comments WHERE answer_id =%s ORDER BY creation_date DESC"
         cursor.execute(query,(answer_id,))
         row =cursor.fetchall()
-        my_db.close()
-        ac_list=[]
-        for ac in row:
-            ac_list.append(Answer_Comment(**ac))
-        return ac_list
+        return row
         
 class Tag():
     def __init__(self,**kwargs):
@@ -1069,13 +1068,11 @@ def post_answer(question_id):
 def post_answer_comment(question_id,answer_id):
     if request.method=="POST":
         body=request.form['body']
-        if not body:
-            flash('Content is required.')
-        else:
-            id=current_user.user_id
-            Answer_Comment.post_acomment(user_id=id,body=body,answer_id=answer_id)
-            return redirect(url_for('find_question',question_id=question_id)) 
-    return render_template('post_acomment.html',answer_id=answer_id)
+        id=current_user.user_id
+        print(body)
+        Answer_Comment.post_acomment(user_id=id,body=body,answer_id=answer_id)
+        return redirect(url_for('find_question',question_id=question_id)) 
+    return render_template('post_acomment.html',answer_id=answer_id,question_id=question_id)
     
 @login_required
 @newapp.route('/users/questions/<int:question_id>/comments',methods=['GET','POST'])
@@ -1326,21 +1323,64 @@ def udpatebookmark():
 @login_required
 @newapp.route('/getcomments',methods=['GET','POST'])
 def getcomments():
-    data=request.get_json()
-    post_id=data.get('post_id')
-    post_type=data.get('post_type')
-    print("i am here what are you doing")
-    if(post_type=='answer'):
-        ac_list=Answer_Comment.find_acomment_by_id(answer_id=post_id)
-        print(ac_list)
-        return jsonify(ac_list)
-    else: 
-        qc_list=Question_Comment.find_qcomment_by_id(question_id=post_id)
-        print(qc_list)
-        return jsonify(qc_list) 
+    if request.method=='POST':
+        data=request.get_json()
+        post_id=data.get('post_id')
+        post_type=data.get('post_type')
+        print("i am here what are you doing")
+        print(post_id,post_type)
+        if(post_type=='answer'):
+            ac_list=Answer_Comment.find_acomment_by_id(answer_id=post_id)
+            print(ac_list)
+            print('answers')
+            return jsonify(ac_list)
+        else: 
+            qc_list=Question_Comment.find_qcomment_by_id(question_id=post_id)
+            print(qc_list)
+            print('questions')
+            return jsonify(qc_list) 
+    else:
+        return jsonify({'body':'my name is raja'})
+
+@login_required
+@newapp.route('/updatefollow',methods=['GET','POST'])
+def udpatefollow():
+    if request.method=='POST':
+        data=request.get_json()
+        id=data.get('user_id')
+        user_id=current_user.user_id
+        # db interaciton
+        my_db=get_db_connection()
+        cursor=my_db.cursor(dictionary=True)
+        query='SELECT * FROM Followertags WHERE follower_id = %s AND following_id=%s ' 
+        cursor.execute(query,(user_id,id))
+        row=cursor.fetchone()
+        if(row is None):
+            query="INSERT INTO Followertags (follower_id,following_id) VALUES(%s,%s)"
+            cursor.execute(query,(user_id,id))
+            my_db.commit()
+            query='UPDATE Users SET nfollowing=nfollowing+1 WHERE user_id=%s'
+            cursor.execute(query,(user_id,))
+            my_db.commit()
+            query='UPDATE Users SET nfollowers=nfollowers+1 WHERE user_id=%s'
+            cursor.execute(query,(id,))
+            my_db.commit()
+            my_db.close()
+            return jsonify({'fstatus':'follow'})
+        else:
+            query="DELETE FROM Followertags WHERE follower_id=%s AND following_id=%s"
+            cursor.execute(query,(user_id,id))
+            my_db.commit()
+            query='UPDATE Users SET nfollowing=nfollowing-1 WHERE user_id=%s'
+            cursor.execute(query,(user_id,))
+            my_db.commit()
+            query='UPDATE Users SET nfollowers=nfollowers-1 WHERE user_id=%s'
+            cursor.execute(query,(id,))
+            my_db.commit()
+            my_db.close()
+            return jsonify({'fstatus':'unfollow'})
 
 
-    
 
 
 
@@ -1374,7 +1414,7 @@ def getcomments():
 
 
 
-
+# helper functions
 
 
 

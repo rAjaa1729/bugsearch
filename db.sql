@@ -113,6 +113,8 @@ CREATE TABLE Tags
     PRIMARY KEY(tag_id)
 );
 
+-- following denotes user_id
+-- follower denote which is following user_id
 
 CREATE TABLE Followertags
 (

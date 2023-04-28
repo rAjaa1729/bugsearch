@@ -111,7 +111,7 @@
                 <a target="_blank" href="{{url_for('post_question_comment',question_id=question.question_id)}}" class="add_c dis-inl"><span><u>Add Comment</u></span></a>
             <h5 class="dis-inl">{{question.answer_count}} Answers</h5>
             <h5 class="dis-inl">{{question.comment_count}} Comments</h5>
-            <button type="button" class="btn btn-primary btn-sm btn-search " id="comments{{question.question_id}}" onclick="getcomments(post_type='question',post_id='{{question.question_id}}')">Get Comments</button>
+            <button type="button" class="btn btn-primary btn-sm btn-search " id="commentquestion{{question.question_id}}" onclick="getcomments(post_type='question',post_id='{{question.question_id}}')">Get Comments</button>
 <!--             <br><a target="_blank" href="{{url_for('post_question_comment',question_id=question.question_id)}}" class="add_c dis-inl"><span><u><button type="button" class="btn btn-primary btn-lg search-button">Add Comment</button></u></span></a>
             <button type="button" class="btn btn-primary btn-lg search-button" id="commentquestion{{question.question_id}}" onclick="getcomments(post_type='question',post_id='{{question.question_id}}')">Get Comments</button>
             <button type="button" class="btn btn-primary btn-lg search-button">{{question.answer_count}} Answers</button>
@@ -144,9 +144,9 @@
                 <div class="col-lg-11">
                     <h5 class="search_ans">{{answer.body}}</h5>
                     <br>
-                    <a target="_blank" href="{{url_for('post_question_comment',question_id=question.question_id,answer_id=answer.answer_id)}}" class="add_c dis-inl"><span><u>Add Comments</u></span></a>
+                    <a target="_blank" href="{{url_for('post_answer_comment',question_id=question.question_id,answer_id=answer.answer_id)}}" class="add_c dis-inl"><span><u>Add Comments</u></span></a>
                     <h5 class=" dis-inl">{{answer.comment_count}} Comments</h5>
-                    <button type="button" class="btn btn-primary btn-sm btn-search " id="comments{{answer.question_id}}" onclick="getcomments(post_type='answer',post_id='{{answer.answer_id}}')">Get Comments</button>  <br>
+                    <button type="button" class="btn btn-primary btn-sm btn-search " id="commentanswer{{answer.answer_id}}" onclick="getcomments(post_type='answer',post_id='{{answer.answer_id}}')">Get Comments</button>  <br>
                     <div id="commentsContaineranswer{{answer.answer_id}}" style="display:none;">
                         <!-- comments go here -->
                     </div>
@@ -288,20 +288,20 @@ function updatevote(vote_type,post_type,post_id)
 function getcomments(post_type,post_id)
 {
     console.log(post_type,post_id);
-    const button=document.getElementById('comment'+post_type+post_id);
     const Container=document.getElementById('commentsContainer'+post_type+post_id);
+    const comment=document.getElementById('comment'+post_type+post_id);
     if(Container.style.display !='none')
     {
         console.log('hi my naem is raha ');
-        comment.innerHTML="RAJA KUMAR";
-        comment.style.display ='none';
+        Container.style.display ='none';
+        comment.style.backgroundColor = '';
     }
     else
     {
         console.log('has entered in the comments clicked ');
         const xhr=new XMLHttpRequest();
         console.log(post_type,post_id);
-        xhr.open('GET','/getcomments',true);
+        xhr.open('POST','/getcomments',true);
         xhr.setRequestHeader("content-type","application/json;charset=UTF-8");
         // comment.style.backgroundColor = '#49BBBD'; 
         // comment.innerHTML="RAJU KUMAR";
@@ -311,18 +311,24 @@ function getcomments(post_type,post_id)
             console.log(this.status);
             if(this.status===200)
             {
+                console.log('i am gadha');
                 const data=JSON.parse(this.responseText);
-                const comment=document.getElementById('comment'+post_type+post_id);
                 let total='';
-                for (var i = 0; i < numbers.length; i++) 
+                
+                for (var i = 0; i < data.length; i++) 
                 {
                     total+='<p>'+data[i]['body']+'</p><br>';
+                    // console.log(data[i]['body']);
+
                 }
+                console.log(total);
                 Container.style.display='block';
+                comment.style.backgroundColor = '#49BBBD';
                 Container.innerHTML=total;
             }
         }
         const data=JSON.stringify({"post_id":post_id,"post_type":post_type});
+        console.log('how are you');
         console.log(data);
         xhr.send(data);
     }
@@ -330,61 +336,61 @@ function getcomments(post_type,post_id)
       
 }
 
-// // handling question for loading
-// window.onload = function() {
-//   const questionId = '{{ question.question_id }}';
-//   const score = document.getElementById('counter1');
-//   const scoreval = '{{question.upvotes - question.downvotes}}';
-//   updateupdown(questionId, score, scoreval);
-// };
+// handling question for loading
+window.onload = function() {
+  const questionId = '{{ question.question_id }}';
+  const score = document.getElementById('counter1');
+  const scoreval = '{{question.upvotes - question.downvotes}}';
+  updateupdown(questionId, score, scoreval);
+};
 
-// function updateupdown(questionId, score, scoreval) {
-//   console.log('hi my na ');
-//   console.log(scoreval);
+function updateupdown(questionId, score, scoreval) {
+  console.log('hi my na ');
+  console.log(scoreval);
+  console.log(questionId);
+
+
+  const params = new URLSearchParams();
+  params.append('question_id', questionId);
+
+
+  const upvote = document.getElementById('like-btn1');
+  const downvote = document.getElementById('dislike-btn1');
+  const bookmark = document.getElementById('bookmarks-btn1');
+  const xhr = new XMLHttpRequest();
+  xhr.open('GET', '/Qloadvote?' + params.toString(), true);
+  xhr.setRequestHeader('content-type', 'application/json;charset=UTF-8');
+  xhr.onload = function() {
+    if (this.status == 200) {
+      const data = JSON.parse(this.responseText);
+      score.innerHTML = scoreval;
+      console.log(data);
+      if (data['votetype'] == 'neutral') {
+        upvote.style.backgroundColor = '';
+        downvote.style.backgroundColor = '';
+      } else if (data['votetype'] == 'upvote') {
+        upvote.style.backgroundColor = '#49BBBD';
+        downvote.style.backgroundColor = '';
+      } else {
+        console.log(data);
+        upvote.style.backgroundColor = '';
+        downvote.style.backgroundColor = '#49BBBD';
+      }
+      if (data['bookmark'] === 'yes') {
+        bookmark.style.backgroundColor ='#49BBBD';
+      } else {
+        bookmark.style.backgroundColor = '';
+      }
+    } else {
+      console.log('failed');
+      console.log(this.responseText);
+    }
+  };
 //   console.log(questionId);
-
-
-//   const params = new URLSearchParams();
-//   params.append('question_id', questionId);
-
-
-//   const upvote = document.getElementById('like-btn1');
-//   const downvote = document.getElementById('dislike-btn1');
-//   const bookmark = document.getElementById('bookmarks-btn1');
-//   const xhr = new XMLHttpRequest();
-//   xhr.open('GET', '/Qloadvote?' + params.toString(), true);
-//   xhr.setRequestHeader('content-type', 'application/json;charset=UTF-8');
-//   xhr.onload = function() {
-//     if (this.status == 200) {
-//       const data = JSON.parse(this.responseText);
-//       score.innerHTML = scoreval;
-//       console.log(data);
-//       if (data['votetype'] == 'neutral') {
-//         upvote.style.backgroundColor = '';
-//         downvote.style.backgroundColor = '';
-//       } else if (data['votetype'] == 'upvote') {
-//         upvote.style.backgroundColor = '#49BBBD';
-//         downvote.style.backgroundColor = '';
-//       } else {
-//         console.log(data);
-//         upvote.style.backgroundColor = '';
-//         downvote.style.backgroundColor = '#49BBBD';
-//       }
-//       if (data['bookmark'] === 'yes') {
-//         bookmark.style.backgroundColor ='#49BBBD';
-//       } else {
-//         bookmark.style.backgroundColor = '';
-//       }
-//     } else {
-//       console.log('failed');
-//       console.log(this.responseText);
-//     }
-//   };
-// //   console.log(questionId);
-// //   const data = JSON.stringify({ "question_id": questionId,"user_id":1 });
-// //   console.log(data);
-//   xhr.send();
-// }
+//   const data = JSON.stringify({ "question_id": questionId,"user_id":1 });
+//   console.log(data);
+  xhr.send();
+}
 
 </script>
 
