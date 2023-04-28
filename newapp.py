@@ -574,6 +574,19 @@ class Tag():
         return tag_names
     
     @staticmethod
+    def find_tags_by_user_id(user_id):
+        my_db=get_db_connection()
+        query="SELECT tag_name FROM Usertags WHERE user_id= %s ;"
+        cursor=my_db.cursor()
+        cursor.execute(query,(user_id,))
+        tag_names=cursor.fetchall()
+        # all_tags=[]
+        # for tag in tag_names:
+        #     all_tags.append(Tag(**tag))
+        # return all_tags
+        return tag_names
+    
+    @staticmethod
     def find_by_keyword(keyword):
         headers = {"Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYzlhMzI4NjQtNjdiZS00NGE4LThhNTYtNzdmNGFkY2I5OWE1IiwidHlwZSI6ImFwaV90b2tlbiJ9.xWWB4F4usgqj5_HQ-kPG34qKsFuaWheeOBWCCSCELMk"}
         url ="https://api.edenai.run/v2/text/keyword_extraction"
@@ -1014,7 +1027,8 @@ def complete_your_profile():
 @login_required
 @newapp.route('/users/dashboard', methods=['GET',])
 def dashboard():
-    return render_template("dashboard.html",user=current_user)
+    tags=Tag.find_tags_by_user_id(current_user.user_id)
+    return render_template("dashboard.html",user=current_user,tags=tags)
 # follower and following functions
 @login_required
 @newapp.route("/users/followers", methods=["GET",])
