@@ -12,8 +12,8 @@
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter&family=Poppins:wght@400;600;700&display=swap"
         rel="stylesheet">
-
-    <title>Scholar - Online School HTML5 Template</title>
+<link rel="icon" type="image/x-icon" href="{{ url_for ('static',filename='assets/images/logo.png') }}" alt="image">
+    <title>BugSearch</title>
 
     <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
 
@@ -76,20 +76,18 @@
 
             </nav>
         </header>
-        <div class="contact-us ch_post section" id="contact">
+        <div class="contact-us ch_post section modify1 modify2" id="contact">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6  align-self-center">
                         <!-- <img src="https://www.figma.com/file/7KFxGA0vLIeYhf85DahLUR/image/ad7d7f577e3b59ba97e1d824c439289ba1498968"> -->
                         <div>
-                            <h6 class="sec-head">Post an Answer !</h6>
+                            <h6 class="sec-head">Post a Comment !</h6>
                             <br>
-                            <p style="color : black">Welcome to our website! We're here to help answer any questions you
-                                may have. If you're unsure about something or need more information, we encourage you to
-                                ask your question here. Our team of experts and community members are always ready to
-                                help out. Just make sure to follow our guidelines for posting and keep your questions
-                                relevant to the topics on our website. We look forward to hearing from you!!!</p>
-                            <img class="post"
+                            <p style="color : black">Welcome to our post comment section ! Comments are a great way to ask for more information or to suggest improvements to an existing post.
+                                It's important to note that comments should be used to provide constructive feedback and should not be used for unrelated discussions or spam. 
+                                Comments can be used to request more information from the post author, offer suggestions for improvement, or provide additional context. We look forward to hearing from you!!!</p>
+                            <img class="post post-img"
                                 src="https://www.figma.com/file/7KFxGA0vLIeYhf85DahLUR/image/bd3feba159b8d237ee735e750cdc1002ebf458e1 ">
                             <!-- <h6>Contact Us</h6>
                     <h2>Feel free to contact us anytime</h2>
@@ -103,7 +101,7 @@
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <div class="contact-us-content">
+                        <div class="contact-us-content style="margin-top:100px">
                             <form id="contact-form" action="{{url_for('post_answer_comment',answer_id=answer_id,question_id=question_id)}}" method="post">
                                 <div class="col-lg-12">
                                     <div class="col-lg-12">
