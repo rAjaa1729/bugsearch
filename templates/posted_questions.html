@@ -2,11 +2,7 @@
 <html lang="en">
 <!-- @login_required -->
 <head>
-  <style>
-    /* a:visited {
-      color: rgb(5, 181, 204);
-    } */
-    </style>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
@@ -45,7 +41,7 @@
         <li> <a href="{{url_for('complete_your_profile')}}" class="dis-inl"><i class="fa-solid fa-pen-to-square followers-page-vector2 dis-inl mar" style="color:black"></i>Edit Profile</a> </li>
         <li> <a href="{{url_for('followers')}}" class="dis-inl"><i class="fa-solid fa-user-group followers-page-users dis-inl mar" style="color:black"></i>Followers</a> </li>
         <li> <a href="{{url_for('following')}}" class="dis-inl"><i class="fa-solid fa-user-group followers-page-users dis-inl mar" style="color:black"></i>Following</a> </li>
-        <li> <a href="{{url_for('badges')}}" class="dis-inl"><i class="fa-solid fa-award followers-page-vector1 dis-inl mar" style="color:black"></i>Badges</a> </li>
+        
         <li> <a href="{{url_for('trending')}}" class="dis-inl"><i class="fa-solid fa-globe recommendations-globe-stand dis-inl mar" style="color:black"></i>Trending</a> </li>
         <li> <a href="{{url_for('recommendations')}}" class="dis-inl"><i class="fa-solid fa-wand-magic-sparkles trending-magic-wand dis-inl mar" style="color:black"></i>Recommendations</a> </li>
         <li> <a href="{{url_for('all_users')}}" class="dis-inl"><i class="fa fa-users followers-page-users-threed1 dis-inl mar" style="color:black"></i>All Users</a> </li>
@@ -96,10 +92,12 @@
               <div class="col-lg-12">
                 <ul>
                   <li>
-                    <span class="category dis-inl"><button class="category btn btn-primary btn-sm btn-search">Upvote</button></span>
-                    <span class="category dis-inl"><button class="category btn btn-primary btn-sm btn-search">Downvote</button></span>
-                    <span class="category dis-inl"><button class="category btn btn-primary btn-sm btn-search">Bookmark</button></span>
-                    <h3><span class="question-title">{{q.title}}</span></h3>
+                    <h4>{{q.title}}</h4>
+                    <br>
+                    <span class="category dis-inl"><!--<button class="category btn btn-primary btn-sm btn-search">-->{{q.score}} Votes<!--</button>--></span>
+                    <span class="category dis-inl"><!--<button class="category btn btn-primary btn-sm btn-search">-->{{q.answer_count}} Answers<!--/button--></span>
+                    <span class="category dis-inl"><!--<button class="category btn btn-primary btn-sm btn-search">-->{{q.comment_count}} Comments<!--/button--></span>
+                    
 
                   </li>
                 </ul>

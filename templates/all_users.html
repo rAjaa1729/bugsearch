@@ -26,6 +26,7 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/side.css') }}">
 
 </head>
+</head>
 <body>
     <!-- <header> -->
 <!-- <div class="wrapper"> -->
@@ -41,7 +42,7 @@
         <li> <a href="{{url_for('complete_your_profile')}}" class="dis-inl"><i class="fa-solid fa-pen-to-square followers-page-vector2 dis-inl mar" style="color:black"></i>Edit Profile</a> </li>
         <li> <a href="{{url_for('followers')}}" class="dis-inl"><i class="fa-solid fa-user-group followers-page-users dis-inl mar" style="color:black"></i>Followers</a> </li>
         <li> <a href="{{url_for('following')}}" class="dis-inl"><i class="fa-solid fa-user-group followers-page-users dis-inl mar" style="color:black"></i>Following</a> </li>
-        <li> <a href="{{url_for('badges')}}" class="dis-inl"><i class="fa-solid fa-award followers-page-vector1 dis-inl mar" style="color:black"></i>Badges</a> </li>
+        
         <li> <a href="{{url_for('trending')}}" class="dis-inl"><i class="fa-solid fa-globe recommendations-globe-stand dis-inl mar" style="color:black"></i>Trending</a> </li>
         <li> <a href="{{url_for('recommendations')}}" class="dis-inl"><i class="fa-solid fa-wand-magic-sparkles trending-magic-wand dis-inl mar" style="color:black"></i>Recommendations</a> </li>
         <li> <a href="{{url_for('all_users')}}" class="dis-inl" style="background-color : #49BBBD"><i class="fa fa-users followers-page-users-threed1 dis-inl mar" style="color:black"></i>All Users</a> </li>
@@ -58,12 +59,12 @@
              <a href="{{url_for('homepage')}}" class="logo">
                 <h1 id="title">BugSearch</h1>
             </a>
-             <div class="search-input">
-                <form id="search" action="#">
-                  <input type="text" placeholder="Type Something" id='searchText' name="searchKeyword" onkeypress="handle" />
-                  <i class="fa fa-search"></i>
-                </form>
-              </div>
+            <div class="search-input">
+              <form id="search" action="{{url_for('search_login')}}" method="POST">
+                  <input type="text" placeholder="Type Something" id='searchText' name="keyword" value="{{request.form['keyword']}}"/>
+                  <i type="submit" class="fa fa-search"></i>
+              </form>
+          </div>
             <ul class="nav"> 
 
               <li class="scroll-to-section"><a href="{{url_for('user_home')}}">Home</a></li>
@@ -80,119 +81,76 @@
     </header>
     
     <div class="team section" id="team">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-3 col-md-6">
+    <div class="grid-container">
+      <!-- <div class="row"> -->
+        <!-- <h2>{{u_list|length}}</h2> -->
+        {% for user in u_list %}
+        <div class="gird-item">
           <div class="team-member">
+            
             <div class="main-content sel">
-              <img src="{{ url_for ('static',filename='assets/images/member-01.jpg') }}" alt="">
-<!--               <span class="category">UX Teacher</span> -->
-                <button type="button" class="btn btn-primary btn-sm btn-search" style="border:4px solid #49BBBD; "  id="user{{u_list[0].user_id}}" onclick="updatefollow(user_id='{{u_list[0].user_id}}')">Follow</button>
-              <h4>{{u_list[0].username}}</h4>
+              <img src="{{url_for('static',filename=user.profile_image_url)}}" alt="">
+              <button type="button" class="btn btn-primary btn-sm btn-search" style="border:4px solid #49BBBD; "  id="user{{user.user_id}}" onclick="updatefollow(user_id='{{user.user_id}}')">Follow</button>
+              <a href="{{url_for('view_user',user_id=user.user_id)}}"><h4>{{user.username}}</h4></a>
               <ul class="social-icons">
-<!--                 <li><a href="#"><i class="fab fa-facebook"></i></a></li> -->
-<!--                 <li><a href="#"><i class="fab fa-twitter"></i></a></li> -->
-<!--                 <li><a href="#"><i class="fab fa-linkedin"></i></a></li> -->
               </ul>
             </div>
-          </div>
-        </div> 
-        <div class="col-lg-3 col-md-6">
-          <div class="team-member">
-            <div class="main-content sel">
-              <img src="{{ url_for ('static',filename='assets/images/member-02.jpg') }}" alt="">
-<!--               <span class="category">Graphic Teacher</span> -->
-                <button type="button" class="btn btn-primary btn-sm btn-search" style="border:4px solid #49BBBD; " id="user{{u_list[1].user_id}}" onclick="updatefollow(user_id='{{u_list[1].user_id}}')">Follow</button>
-              <h4>{{u_list[1].username}}</h4>
-              <ul class="social-icons">
-<!--                 <li><a href="#"><i class="fab fa-facebook"></i></a></li> -->
-<!--                 <li><a href="#"><i class="fab fa-twitter"></i></a></li> -->
-<!--                 <li><a href="#"><i class="fab fa-linkedin"></i></a></li> -->
-              </ul>
-            </div>
+          
           </div>
         </div>
-        <div class="col-lg-3 col-md-6">
-          <div class="team-member">
-            <div class="main-content sel">
-              <img src="{{ url_for ('static',filename='assets/images/member-03.jpg') }}" alt="">
-<!--               <span class="category">Full Stack Master</span> -->
-                <button type="button" class="btn btn-primary btn-sm btn-search" style="border:4px solid #49BBBD; " id="user{{u_list[3].user_id}}" onclick="updatefollow(user_id='{{u_list[3].user_id}}')">Follow</button>
-              <h4>{{u_list[3].username}}</h4>
-              <ul class="social-icons">
-<!--                 <li><a href="#"><i class="fab fa-facebook"></i></a></li> -->
-<!--                 <li><a href="#"><i class="fab fa-twitter"></i></a></li> -->
-<!--                 <li><a href="#"><i class="fab fa-linkedin"></i></a></li> -->
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-6">
-          <div class="team-member">
-            <div class="main-content sel">
-              <img src="{{ url_for ('static',filename='assets/images/member-04.jpg') }}" alt="">
-<!--               <span class="category">Digital Animator</span> -->
-                <button type="button" class="btn btn-primary btn-sm btn-search" style="border:4px solid #49BBBD; " id="user{{u_list[2].user_id}}" onclick="updatefollow(user_id='{{u_list[2].user_id}}')">Follow</button>
-              <h4>{{u_list[2].username}}</h4>
-              <ul class="social-icons">
-<!--                 <li><a href="#"><i class="fab fa-facebook"></i></a></li> -->
-<!--                 <li><a href="#"><i class="fab fa-twitter"></i></a></li> -->
-<!--                 <li><a href="#"><i class="fab fa-linkedin"></i></a></li> -->
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
+        {% endfor %} 
         
+      <!-- </div> -->
     </div>
-</div>
+    <br>
+  </div>         
+    </div>
+<!-- </div> -->
+</body>
 <script>
 
-function updatefollow(user_id)
-{
-    console.log('inside userfollow');
-    console.log(user_id);
-    const xhr=new XMLHttpRequest();
-
-    xhr.open('POST','/updatefollow',true);
-    xhr.setRequestHeader("content-type","application/json;charset=UTF-8");
-    xhr.onload = function()
-    {
-        const data=JSON.parse(this.responseText);
-        console.log(data);
-        console.log('hi');
-
-        if(this.status==200)
-        {
-            console.log('my name is raja');
-            const data=JSON.parse(this.responseText);
-            const followbutton=document.getElementById('user'+user_id);
-            if(data['fstatus']=='follow')
-            {
-                console.log('follow');
-                followbutton.innerHTML='Unfollow'
-                followbutton.style.backgroundColor='#49BBBD';
-            }
-            else
-            {
-                followbutton.innerHTML='follow'
-                followbutton.style.backgroundColor='';
-            }
-        }
-        else
-        {
-            console.log('failed follow');
-        }
-    }
-    // console.log(post_id);
-    params=JSON.stringify({"user_id":user_id});
-    // console.log(params);
-    xhr.send(params);
-}
-</script>
+  function updatefollow(user_id)
+  {
+      console.log('inside userfollow');
+      console.log(user_id);
+      const xhr=new XMLHttpRequest();
+  
+      xhr.open('POST','/updatefollow',true);
+      xhr.setRequestHeader("content-type","application/json;charset=UTF-8");
+      xhr.onload = function()
+      {
+          const data=JSON.parse(this.responseText);
+          console.log(data);
+          console.log('hi');
+  
+          if(this.status==200)
+          {
+              console.log('my name is raja');
+              const data=JSON.parse(this.responseText);
+              const followbutton=document.getElementById('user'+user_id);
+              if(data['fstatus']=='follow')
+              {
+                  console.log('follow');
+                  followbutton.innerHTML='Unfollow'
+                  followbutton.style.backgroundColor='#49BBBD';
+              }
+              else
+              {
+                  followbutton.innerHTML='follow'
+                  followbutton.style.backgroundColor='';
+              }
+          }
+          else
+          {
+              console.log('failed follow');
+          }
+      }
+      // console.log(post_id);
+      params=JSON.stringify({"user_id":user_id});
+      // console.log(params);
+      xhr.send(params);
+  }
+  </script>
 
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous"></script>
