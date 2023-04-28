@@ -3,6 +3,7 @@ import mysql.connector
 # import os
 # from monkeylearn import MonkeyLearn
 # import logging
+
 from flask import Flask, render_template, request, url_for, flash, redirect,jsonify
 from werkzeug.exceptions import abort
 from fuzzywuzzy import fuzz 
@@ -12,8 +13,6 @@ import jwt
 import json 
 import requests 
 from datetime import datetime, timedelta
-
-
 
 # from flask_bcrypt import Bcrypt  
 # import hashlib
@@ -1030,10 +1029,6 @@ class ABookmark:
 @login_required
 @newapp.route('/users/user_home',methods=["GET",])
 def user_home():
-    # if(current_user.is_authenticated):
-    # cur = my_db.cursor(dictionary=True)
-    # cur.execute('SELECT * FROM Questions')
-    # questions = cur.fetchall()
     if request.method=="POST":
         keyword = request.form['keyword']
         return redirect(url_for('search_login' ,keyword=keyword))
@@ -1045,7 +1040,6 @@ def user_home():
 def logout():
     logout_user()
     return redirect(url_for('userlogin'))
-
 
 @login_required
 @newapp.route('/users/all_users',methods=["GET",])
@@ -1352,7 +1346,7 @@ def updatevote():
             upvotes=ObQ.upvotes
             downvotes=ObQ.downvotes
             print({"vote_type":vote,"upvotes":upvotes,"downvotes":downvotes,"score":score})
-            print('raj a hi')
+            print('raja hi')
         else:
             vote=AVote.Aupdatevote(user_id=user_id,answer_id=post_id,voting=vote_type)
             ObQ=Answer.find_by_answer_id(answer_id=post_id)
@@ -1440,43 +1434,7 @@ def udpatefollow():
             return jsonify({'fstatus':'unfollow'})
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # helper functions
-
-
-
 
 if __name__=="__main__":
     newapp.run(debug=True)
