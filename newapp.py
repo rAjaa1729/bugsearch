@@ -194,7 +194,7 @@ class User(UserMixin):
         print(foll_id)
         my_db.close()
         for f_id in foll_id:
-            u_list.append(User.get(f_id['follower_id']))
+            u_list.append(User.get(f_id['following_id']))
         print(u_list)
         return u_list
     
@@ -612,6 +612,24 @@ class QVote:
             return ("neutral")
         else:
             return vote['vote_type']
+        
+    # +5 for getting upvote on their posted question and -2 for getting downvote on their posted question
+ 
+    @staticmethod
+    def Qmanagereputation(question_id,points):
+        print(question_id,points,'managing reputation points')
+        my_db=get_db_connection()
+        cursor=my_db.cursor(dictionary=True)
+        query="SELECT user_id FROM Questions WHERE question_id=%s" 
+        cursor.execute(query,(question_id,))
+        user_id=cursor.fetchone()['user_id']
+        query="UPDATE Users SET reputation=reputation+%s WHERE user_id=%s"
+        cursor.execute(query,(points,user_id,))
+        my_db.commit()
+        my_db.close()
+        print('implemented points')
+
+
 
     @staticmethod
     def Qupdatevote(user_id,question_id,voting):
@@ -630,6 +648,7 @@ class QVote:
                 cursor.execute(query, (question_id,))
                 my_db.commit()
                 my_db.close()
+                QVote.Qmanagereputation(question_id,points=5)
                 return 'upvote'
             else:
                 query="INSERT INTO Question_votes (user_id,question_id,vote_type) values(%s,%s,%s)"
@@ -639,6 +658,7 @@ class QVote:
                 cursor.execute(query, (question_id,))
                 my_db.commit()
                 my_db.close()
+                QVote.Qmanagereputation(question_id,points=-2)
                 return 'downvote'
         elif (vote['vote_type']=='neutral'):
             if(voting=='up'):
@@ -649,6 +669,7 @@ class QVote:
                 cursor.execute(query, (question_id,))
                 my_db.commit()
                 my_db.close()
+                QVote.Qmanagereputation(question_id,points=5)
                 return 'upvote'
             else:
                 query = "UPDATE Question_votes SET vote_type = %s WHERE user_id = %s AND question_id = %s"
@@ -658,6 +679,7 @@ class QVote:
                 cursor.execute(query, (question_id,))
                 my_db.commit()
                 my_db.close()
+                QVote.Qmanagereputation(question_id,points=-2)
                 return 'downvote'
 
         elif (vote['vote_type']=='upvote'):
@@ -669,6 +691,7 @@ class QVote:
                 cursor.execute(query, (question_id,))
                 my_db.commit()
                 my_db.close()
+                QVote.Qmanagereputation(question_id,points=-5)
                 return 'neutral'
             else:
                 query = "UPDATE Question_votes SET vote_type = %s WHERE user_id = %s AND question_id = %s"
@@ -681,6 +704,7 @@ class QVote:
                 cursor.execute(query, (question_id,))
                 my_db.commit()
                 my_db.close()
+                QVote.Qmanagereputation(question_id,points=-7)
                 return 'downvote'
         else:
             if(voting=='down'):
@@ -691,6 +715,7 @@ class QVote:
                 cursor.execute(query, (question_id,))
                 my_db.commit()
                 my_db.close()
+                QVote.Qmanagereputation(question_id,points=2)
                 return 'neutral'
             else:
                 query = "UPDATE Question_votes SET vote_type = %s WHERE user_id = %s AND question_id = %s"
@@ -703,6 +728,7 @@ class QVote:
                 cursor.execute(query, (question_id,))
                 my_db.commit()
                 my_db.close()
+                QVote.Qreputation(question_id,points=7)
                 return 'upvote'
 
 class AVote:
@@ -1284,6 +1310,7 @@ def updatevote():
         user_id = current_user.user_id
         vote_type=data.get('vote_type')
         post_type=data.get('post_type')
+        print(post_type,vote_type)
         print("raja kumar in updatevote",post_id,vote_type,post_type)
         if(post_type=='question'):
             print("i am hwer in question")
