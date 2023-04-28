@@ -157,6 +157,7 @@ class User(UserMixin):
     
     @staticmethod
     def update_profile(user,about,profile_image_url,tags):
+        user_id=user.user_id
         my_db=get_db_connection()
         cursor=my_db.cursor(dictionary=True)
         query="UPDATE Users SET about=%s,profile_image_url=%s WHERE user_id=%s"
@@ -165,6 +166,11 @@ class User(UserMixin):
         my_db.commit()
         cursor.execute("SELECT * FROM Users WHERE user_id=%s",(user.user_id,))
         row=cursor.fetchone()
+        for tag_name in tags:
+            query="INSERT INTO Usertags (tag_name,user_id) VALUES(%s,%s)"
+            cursor.execute(query,(tag_name,user_id))
+            my_db.commit()
+            cursor.fetchall()
         my_db.close()
         return User(**row)
     
@@ -763,6 +769,19 @@ class AVote:
         else:
             return vote['vote_type']
         
+    @staticmethod
+    def Amanagereputation(answer_id,points):
+        print(answer_id,points,'managing reputation points')
+        my_db=get_db_connection()
+        cursor=my_db.cursor(dictionary=True)
+        query="SELECT user_id FROM Answers WHERE answer_id=%s" 
+        cursor.execute(query,(answer_id,))
+        user_id=cursor.fetchone()['user_id']
+        query="UPDATE Users SET reputation=reputation+%s WHERE user_id=%s"
+        cursor.execute(query,(points,user_id,))
+        my_db.commit()
+        my_db.close()
+        print('implemented points')
 
     @staticmethod
     def Aupdatevote(user_id,answer_id,voting):
@@ -781,6 +800,7 @@ class AVote:
                 cursor.execute(query, (answer_id,))
                 my_db.commit()
                 my_db.close()
+                AVote.Amanagereputation(answer_id,points=5)
                 return 'upvote'
             else:
                 query="INSERT INTO Answer_votes (user_id,answer_id,vote_type) values(%s,%s,%s)"
@@ -790,6 +810,7 @@ class AVote:
                 cursor.execute(query, (answer_id,))
                 my_db.commit()
                 my_db.close()
+                AVote.Amanagereputation(answer_id,points=-2)
                 return 'downvote'
         elif (vote['vote_type']=='neutral'):
             if(voting=='up'):
@@ -800,6 +821,7 @@ class AVote:
                 cursor.execute(query, (answer_id,))
                 my_db.commit()
                 my_db.close()
+                AVote.Amanagereputation(answer_id,points=5)
                 return 'upvote'
             else:
                 query = "UPDATE Answer_votes SET vote_type = %s WHERE user_id = %s AND answer_id = %s"
@@ -809,6 +831,7 @@ class AVote:
                 cursor.execute(query, (answer_id,))
                 my_db.commit()
                 my_db.close()
+                AVote.Amanagereputation(answer_id,points=-2)
                 return 'downvote'
 
         elif (vote['vote_type']=='upvote'):
@@ -820,6 +843,7 @@ class AVote:
                 cursor.execute(query, (answer_id,))
                 my_db.commit()
                 my_db.close()
+                AVote.Amanagereputation(answer_id,points=-5)
                 return 'neutral'
             else:
                 query = "UPDATE Answer_votes SET vote_type = %s WHERE user_id = %s AND answer_id = %s"
@@ -832,6 +856,7 @@ class AVote:
                 cursor.execute(query, (answer_id,))
                 my_db.commit()
                 my_db.close()
+                AVote.Amanagereputation(answer_id,points=-7)
                 return 'downvote'
         else:
             if(voting=='down'):
@@ -842,6 +867,7 @@ class AVote:
                 cursor.execute(query, (answer_id,))
                 my_db.commit()
                 my_db.close()
+                AVote.Amanagereputation(answer_id,points=2)
                 return 'neutral'
             else:
                 query = "UPDATE Answer_votes SET vote_type = %s WHERE user_id = %s AND answer_id = %s"
@@ -854,6 +880,7 @@ class AVote:
                 cursor.execute(query, (answer_id,))
                 my_db.commit()
                 my_db.close()
+                AVote.Amanagereputation(answer_id,points=7)
                 return 'upvote'
         
 class QBookmark:
@@ -1020,7 +1047,6 @@ def logout():
     return redirect(url_for('userlogin'))
 
 
-
 @login_required
 @newapp.route('/users/all_users',methods=["GET",])
 def all_users():
@@ -1045,10 +1071,10 @@ def complete_your_profile():
     if request.method=='POST':
         profile_image_url = request.form.get('profile_image_url', '')
         about=request.form['about']
-        tags=request.form['tags']
+        tags=request.form.getlist('tags[]')
         user=User.update_profile(user=current_user,profile_image_url  = profile_image_url,tags=tags,about=about)
         return redirect(url_for('user_home',user=user))
-    return render_template("complete_your_profile.html",user=current_user)
+    return render_template("complete_your_profile.html",user=current_user,tag_list=Tag.find_all_tags())
 
 @login_required
 @newapp.route('/users/dashboard', methods=['GET',])
@@ -1065,7 +1091,6 @@ def followers():
 @newapp.route("/users/following", methods=["GET",])
 def following():
     return render_template("following.html",user=current_user,following_list=User.find_followings(current_user.user_id))
-
 
 @login_required
 @newapp.route('/users/help_with_login',methods=['GET',])
@@ -1085,13 +1110,11 @@ def post_question():
             return redirect(url_for('posted_questions'))
     return render_template('post_question.html',user=current_user,tag_list=Tag.find_all_tags())
 
-
 @login_required
 @newapp.route('/users/questions/<int:question_id>',methods=["GET",])
 def find_question(question_id):
     question=Question.find_by_question_id(question_id=question_id)
     return render_template('present_question.html',user=current_user,question=question,l_tags=Tag.find_tags_by_question_id(question_id),l_ans=Answer.find_ans_by_ques_id(question_id))
-
 
 @login_required
 @newapp.route('/users/questions/<int:question_id>/answers',methods=['GET','POST'])
@@ -1101,7 +1124,6 @@ def post_answer(question_id):
         answer=Answer.post_answer(user_id=current_user.user_id,body=body,question_id=question_id)
         return redirect(url_for('find_question',question_id=question_id))
     return render_template('post_answer.html',question_id=question_id,user=current_user)
-
 
 @login_required
 @newapp.route('/users/questions/<int:question_id>/answers/<int:answer_id>/comments',methods=['GET','POST'])
@@ -1126,9 +1148,7 @@ def post_question_comment(question_id):
             Question_Comment.post_qcomment(user_id=id,body=body,question_id=question_id)
             return redirect(url_for('find_question',question_id=question_id))
     return render_template('post_qcomment.html',question_id=question_id) 
-
-
-            
+      
 @login_required
 @newapp.route("/users/posted_questions",methods=["GET","POST","DELETE"])
 def posted_questions():
@@ -1184,8 +1204,6 @@ def signup():
             login_user(user)
             return redirect(url_for('complete_your_profile'))
     return render_template('signup.html')
-
-
 
 @newapp.route("/login",methods=["GET","POST"])
 def userlogin():
