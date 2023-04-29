@@ -91,7 +91,11 @@
               <div class="col-lg-12">
                 <ul>
                   <li class>
-                    <span class="category"><button type="button" class="btn btn-secondary">Delete</button></span>
+                    <span class="category dis-inl"><!--<button class="category btn btn-primary btn-sm btn-search">-->{{question.score}} Scores<!--</button>--></span>
+                    <span class="category dis-inl"><!--<button class="category btn btn-primary btn-sm btn-search">-->{{question.upvotes}} Upvotes<!--</button>--></span>
+                      <span class="category dis-inl"><!--<button class="category btn btn-primary btn-sm btn-search">-->{{question.downvotes}} Downvotes<!--</button>--></span>
+                    <span class="category dis-inl"><!--<button class="category btn btn-primary btn-sm btn-search">-->{{question.answer_count}} Answers<!--/button--></span>
+                    <span class="category dis-inl"><!--<button class="category btn btn-primary btn-sm btn-search">-->{{question.comment_count}} Comments<!--/button--></span>
                     <!-- <a href="#"><span class="category">Question</span></a> -->
                     <h4>{{question.title}}</h4>
                   </li>
@@ -120,7 +124,10 @@
               <div class="col-lg-12">
                 <ul>
                   <li class>
-                    <span class="category"><button type="button" class="btn btn-secondary">Delete</button></span>
+                    <span class="category dis-inl"><!--<button class="category btn btn-primary btn-sm btn-search">-->{{answer.score}} Scores<!--</button>--></span>
+                    <span class="category dis-inl"><!--<button class="category btn btn-primary btn-sm btn-search">-->{{answer.upvotes}} Upvotes<!--</button>--></span>
+                      <span class="category dis-inl"><!--<button class="category btn btn-primary btn-sm btn-search">-->{{answer.downvotes}} Downvotes<!--</button>--></span>
+                    <span class="category dis-inl"><!--<button class="category btn btn-primary btn-sm btn-search">-->{{answer.comment_count}} Comments<!--/button--></span>
                     <!-- <a href="#"><span class="category">Question</span></a> -->
                     <h4>{{answer.body}}</h4>
                   </li>

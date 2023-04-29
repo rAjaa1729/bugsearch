@@ -34,7 +34,7 @@
         <hr>
     </div>
     <ul class="list-unstyled components navbar-nav mr-auto">
-        <p>{{current_user.username}}</p>
+        <p>{{user.username}}</p>
         <li> <a href="{{url_for('dashboard')}}" class="dis-inl" style="background-color: #49BBBD" ><i class="fa-solid fa-user trending-user-circle dis-inl mar" style="color:black"></i>User Profile</a></li>
         <li> <a href="{{url_for('user_home')}}" class="dis-inl"><i class="fa-solid fa-house followers-page-identification-cardd dis-inl mar" style="color:black"></i>User Home</a> </li>
         <li> <a href="{{url_for('complete_your_profile')}}" class="dis-inl"><i class="fa-solid fa-pen-to-square followers-page-vector2 dis-inl mar" style="color:black"></i>Edit Profile</a> </li>
@@ -89,7 +89,7 @@
             <div class="row">
               <div class="col-lg-3">
                 <div class="image">
-                  <img class="pro_img" src="{{url_for('static',filename=user.profile_image_url)}}" alt="">
+                  <img class="pro_img" src="{{url_for('static',filename=current_user.profile_image_url)}}" alt="">
                 </div>
               </div>
               <div class="col-lg-9">
@@ -97,13 +97,12 @@
                   <li>
                     <!-- <span class="category">Username</span> -->
                     <!-- <h4 class="profile">Name : {{current_user.username}}</h4> -->
-                    <h4 class="profile">Username : {{user.username}} </h4>
                     <h4 class="profile">About : {{user.about}}</h4>
-                    
+                    <h4 class="profile">Email_id :{{user.email_id}} </h4>
                     
                     <!-- <h4 class="profile">passcode :{{current_user.passcode}} </h4>
                     <h4 class="profile">user_id :{{current_user.user_id}} </h4> -->
-                    <h4 class="profile">Joined : {{user.creation_date}} </h4>
+                    <h4 class="profile">Joined :{{user.creation_date}} </h4>
                   </li>
                 </ul>
                 <!-- <a href="#"><i class="fa fa-angle-right"></i></a> -->
@@ -137,10 +136,41 @@
           <!-- <div class="icon">
             <img src="assets/images/service-02.png" alt="short courses">
           </div> -->
-          <div class="main-content_pro pro-dashboard publicity">
+           <div class="main-content_pro pro-dashboard publicity">
             <h4 class="pro_h4">Reputation Points</h4>
-            <h5>{{user.reputation_points}}</h5>
+            <h5>{{user.reputation}}</h5>
         
+            <!-- <div class="main-button">
+              <a href="#">Read More</a>
+            </div> -->
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6 hz">
+        <div class="service-item">
+          <!-- <div class="icon">
+            <img src="assets/images/service-02.png" alt="short courses">
+          </div> -->
+           <div class="main-content_pro pro-dashboard publicity">
+            <h4 class="pro_h4">Badge</h4>
+            <h5 id="badgeid">{{current_user.reputation}}</h5>
+            <script>
+              if ('{{current_user.reputation}}'<100)
+              {
+                  document.getElementById('badgeid').innerHTML='Bronze';
+                  document.getElementById('badgeid').style.backgroundColor='#cd7f32';  
+              }
+              else if('{{current_user.reputation}}'<300)
+              {
+                document.getElementById('badgeid').innerHTML='Silver'; 
+                document.getElementById('badgeid').style.backgroundColor='#c0c0c0';  
+              }
+              else
+              {
+                document.getElementById('badgeid').innerHTML='Gold';
+                document.getElementById('badgeid').style.backgroundColor='#ffd700';  
+              }
+            </script>
             <!-- <div class="main-button">
               <a href="#">Read More</a>
             </div> -->
@@ -174,6 +204,7 @@
 {% endfor %}
 </div>
 <br><br>
+
 
 <!-- <button type="button" class="btn btn-secondary btn-lg btn_pro search-button">Follow</button> -->
 

@@ -38,10 +38,9 @@ newapp.config['SECRET_KEY'] = 'sql@Prism1920'
 
 def get_db_connection():
     mydb = mysql.connector.connect(
-        port = 4545,
 	host = "localhost",
         user = "root",
-        password= "Pran@2010",
+        password= "sql@Prism1920",
         database = "BugSearch"
     )
     return mydb
@@ -1214,11 +1213,13 @@ def search_login():
     return render_template('search_with_login.html',user=current_user,q_list=q_list,keyword=keyword)
 
 @login_required
-@newapp.route('/users/<int:user_id>',methods=['GET',])
-def view_user(user_id):
-    user = User.get(user_id)
-    tags = Tag.find_tags_by_user_id(user_id)
+@newapp.route('/users/<string:username>',methods=['GET',])
+def view_user(username):
+    user = User.find_by_username(username)
+    print(user.username)
+    tags = Tag.find_tags_by_user_id(user.user_id)
     return render_template('user.html',user=user,tags=tags)
+
 
 @newapp.route('/signup', methods=('GET', 'POST'))
 def signup():
