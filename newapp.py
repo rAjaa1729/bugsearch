@@ -43,11 +43,11 @@ def allowed_file(filename):
 
 def get_db_connection():
     mydb = mysql.connector.connect(
-	    port = 4545,
+	    #port = 4545,
         host = "localhost",
         user = "root",
-        password = "Pran@2010",
-        #password= "sql@Prism1920",
+        #password = "Pran@2010",
+        password= "sql@Prism1920",
         database = "BugSearch"
     )
     return mydb
@@ -172,11 +172,14 @@ class User(UserMixin):
         my_db.commit()
         cursor.execute("SELECT * FROM Users WHERE user_id=%s",(user.user_id,))
         row=cursor.fetchone()
-        for tag_name in tags:
-            query="INSERT INTO Usertags (tag_name,user_id) VALUES(%s,%s)"
-            cursor.execute(query,(tag_name,user_id))
-            my_db.commit()
-            cursor.fetchall()
+        query='DELETE FROM Usertags WHERE user_id=%s'
+        cursor.execute(query,(user.user_id,))
+        my_db.commit()
+        query = "INSERT INTO Usertags (tag_name, user_id) VALUES (%s, %s)"
+        values = [(tag_name, user_id) for tag_name in tags]
+        cursor = my_db.cursor()
+        cursor.executemany(query, values)
+        my_db.commit()
         my_db.close()
         return User(**row)
     
@@ -265,11 +268,17 @@ class Question():
         query="SELECT * FROM Questions WHERE question_id=%s"
         cursor.execute(query,(question_id,))
         question=cursor.fetchone()
-        for tag_name in tags:
-            query="INSERT INTO Questiontags (tag_name,question_id) VALUES(%s,%s)"
-            cursor.execute(query,(tag_name,question_id))
-            my_db.commit()
-            cursor.fetchall()
+        # for tag_name in tags:
+        #     query="INSERT INTO Questiontags (tag_name,question_id) VALUES(%s,%s)"
+        #     cursor.execute(query,(tag_name,question_id))
+        #     my_db.commit()
+        #     # cursor.fetchall()
+        # my_db.close()
+        query = "INSERT INTO Questiontags (tag_name, question_id) VALUES (%s, %s)"
+        values = [(tag, question_id) for tag in tags]
+        cursor = my_db.cursor()
+        cursor.executemany(query, values)
+        my_db.commit()
         my_db.close()
         return Question(**question)
         
