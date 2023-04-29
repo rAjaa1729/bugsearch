@@ -172,12 +172,21 @@ class User(UserMixin):
         my_db.commit()
         cursor.execute("SELECT * FROM Users WHERE user_id=%s",(user.user_id,))
         row=cursor.fetchone()
-        for tag_name in tags:
-            query="INSERT INTO Usertags (tag_name,user_id) VALUES(%s,%s)"
-            cursor.execute(query,(tag_name,user_id))
-            my_db.commit()
-            cursor.fetchall()
+        query='DELETE FROM Usertags WHERE user_id=%s'
+        cursor.execute(query,(user.user_id,))
+        my_db.commit()
+        query = "INSERT INTO Usertags (tag_name, user_id) VALUES (%s, %s)"
+        values = [(tag_name, user_id) for tag_name in tags]
+        cursor = my_db.cursor()
+        cursor.executemany(query, values)
+        my_db.commit()
         my_db.close()
+        # for tag_name in tags:
+        #     query="INSERT INTO Usertags (tag_name,user_id) VALUES(%s,%s)"
+        #     cursor.execute(query,(tag_name,user_id))
+        #     my_db.commit()
+        #     # cursor.fetchall()
+        # my_db.close()
         return User(**row)
     
     @staticmethod
@@ -1133,7 +1142,7 @@ def complete_your_profile():
             tags=request.form.getlist('tags[]')
             user=User.update_profile(user=current_user,profile_image_url  = profile_img_url,tags=tags,about=about)
         return redirect(url_for('user_home',user=user))
-    return render_template("complete_your_profile.html",user=current_user,tag_list=Tag.tags_by_userIdnot(current_user.user_id))
+    return render_template("complete_your_profile.html",user=current_user,tag_list=Tag.find_all_tags())
 
 @login_required
 @newapp.route('/users/dashboard', methods=['GET',])
