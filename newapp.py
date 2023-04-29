@@ -579,6 +579,24 @@ class Tag():
         return row
     
     @staticmethod
+    def tags_by_userIdnot(user_id):
+        my_db = get_db_connection()
+        query = """
+            SELECT t.tag_name
+            FROM Tags t
+            LEFT JOIN Usertags u ON t.tag_name = u.tag_name AND u.user_id = %s
+            WHERE u.tag_name IS NULL
+            ORDER BY t.tag_name ASC;
+        """
+        cursor = my_db.cursor()
+        cursor.execute(query, (user_id,))
+        tags = cursor.fetchall()
+        print(tags)
+        tag_list = [{'tag_name': tag[0]} for tag in tags]
+        return tag_list
+
+    
+    @staticmethod
     def find_tags_by_question_id(question_id):
         my_db=get_db_connection()
         query="SELECT tag_name FROM Questiontags WHERE question_id= %s ;"
@@ -1095,7 +1113,7 @@ def complete_your_profile():
         tags=request.form.getlist('tags[]')
         user=User.update_profile(user=current_user,profile_image_url  = profile_image_url,tags=tags,about=about)
         return redirect(url_for('user_home',user=user))
-    return render_template("complete_your_profile.html",user=current_user,tag_list=Tag.find_all_tags())
+    return render_template("complete_your_profile.html",user=current_user,tag_list=Tag.tags_by_userIdnot(current_user.user_id))
 
 @login_required
 @newapp.route('/users/dashboard', methods=['GET',])
