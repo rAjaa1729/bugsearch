@@ -657,6 +657,7 @@ class QVote:
         cursor.execute(query,(user_id,question_id))
         vote=cursor.fetchone()
         # my_db.close()
+        print(voting,user_id,question_id,"ahosahfjka",vote['vote_type'])
         if(vote is None):
             if(voting=='up'):
                 query="INSERT INTO Question_votes (user_id,question_id,vote_type) values(%s,%s,%s)"
@@ -729,10 +730,11 @@ class QVote:
                 query = "UPDATE Question_votes SET vote_type = %s WHERE user_id = %s AND question_id = %s"
                 cursor.execute(query, ('neutral', user_id, question_id))
                 my_db.commit()
-                query = "UPDATE Questions SET downvotes = downvotes - 1,score=score-1  WHERE question_id = %s"
+                query = "UPDATE Questions SET downvotes = downvotes - 1,score=score+1  WHERE question_id = %s"
                 cursor.execute(query, (question_id,))
                 my_db.commit()
                 my_db.close()
+                print('hi ya  bye')
                 QVote.Qmanagereputation(question_id,points=2)
                 return 'neutral'
             else:
@@ -763,7 +765,7 @@ class AVote:
         cursor.execute(query,(user_id,answer_id))
         vote=cursor.fetchone()
         my_db.close()
-        if(vote['vote_type'] is None):
+        if(vote is None):
             return ("neutral")
         else:
             return vote['vote_type']
@@ -862,7 +864,7 @@ class AVote:
                 query = "UPDATE Answer_votes SET vote_type = %s WHERE user_id = %s AND answer_id = %s"
                 cursor.execute(query, ('neutral', user_id, answer_id))
                 my_db.commit()
-                query = "UPDATE Answers SET downvotes = downvotes - 1, score=score-1  WHERE answer_id = %s"
+                query = "UPDATE Answers SET downvotes = downvotes - 1, score=score+1  WHERE answer_id = %s"
                 cursor.execute(query, (answer_id,))
                 my_db.commit()
                 my_db.close()
@@ -1108,7 +1110,16 @@ def post_question():
 @newapp.route('/users/questions/<int:question_id>',methods=["GET",])
 def find_question(question_id):
     question=Question.find_by_question_id(question_id=question_id)
-    return render_template('present_question.html',user=current_user,question=question,l_tags=Tag.find_tags_by_question_id(question_id),l_ans=Answer.find_ans_by_ques_id(question_id))
+    list_ans=Answer.find_ans_by_ques_id(question_id)
+    id=current_user.user_id
+    question.vote_type=QVote.Qfindvote(user_id=id,question_id=question.question_id)
+    question.bookmark=QBookmark.Qfindbookmark(user_id=current_user.user_id,question_id=question.question_id)
+    l_ans=[]
+    for ans in list_ans:
+        ans.vote_type=AVote.Afindvote(user_id=id,answer_id=ans.answer_id)
+        ans.bookmark=ABookmark.Afindbookmark(user_id=id,answer_id=ans.answer_id)
+        l_ans.append(ans)
+    return render_template('present_question.html',user=current_user,question=question,l_tags=Tag.find_tags_by_question_id(question_id),l_ans=l_ans)
 
 @login_required
 @newapp.route('/users/questions/<int:question_id>/answers',methods=['GET','POST'])
@@ -1304,20 +1315,24 @@ def handlechecking():
 # Handling voting system using javascript
 
 @login_required
-@newapp.route('/Qloadvote', methods=['GET', 'POST'])
+@newapp.route('/vote_bookmark_state', methods=['GET', 'POST'])
 def Qloadvote():
-    if request.method == 'GET':
+    if request.method == 'POST':
         # Handle GET request
-        data = request.args
-        question_id = data.get('question_id')
-        # user_id = data.get('user_id')
+        data = request.get_json()
+        post_id = data.get('post_id')
+        post_type=data.get('post_type')
         user_id=current_user.user_id
         print("raja kuamr ")
-        print(question_id,user_id)
-        votetype=QVote.Qfindvote(user_id=user_id, question_id=question_id)
-        bookmark=QBookmark.Qfindbookmark(user_id=user_id,question_id=question_id)
-        print()
-        return jsonify({"votetype":votetype,"bookmark":bookmark,"q":question_id,"u":user_id})
+        print(post_id,post_type,user_id)
+        if(post_type=='question'):
+            votetype=QVote.Qfindvote(user_id=user_id, question_id=post_id)
+            bookmark=QBookmark.Qfindbookmark(user_id=user_id,question_id=post_id)
+        else:
+            votetype=AVote.Afindvote(user_id=user_id, answer_id=post_id)
+            bookmark=ABookmark.Afindbookmark(user_id=user_id,answer_id=post_id) 
+        print({"votetype":votetype,"bookmark":bookmark})
+        return jsonify({"votetype":votetype,"bookmark":bookmark})
     
     # elif request.method == 'POST':
     #     # Handle POST request
@@ -1342,7 +1357,7 @@ def updatevote():
             print("i am hwer in question")
             vote=QVote.Qupdatevote(user_id=user_id,question_id=post_id,voting=vote_type)
             ObQ=Question.find_by_question_id(question_id=post_id)
-            score=(ObQ.upvotes-ObQ.downvotes)
+            score=(ObQ.score)
             upvotes=ObQ.upvotes
             downvotes=ObQ.downvotes
             print({"vote_type":vote,"upvotes":upvotes,"downvotes":downvotes,"score":score})

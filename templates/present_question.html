@@ -93,12 +93,36 @@
             <div class="row surf">
                 <div class="col-lg-1">
                     <div class="like-dislike" id="loadclickhandle">
-                        <button id="like-btnquestion{{question.question_id}}" class="lb" onclick="updatevote(vote_type='up',post_type='question',post_id='{{question.question_id}}')"><box-icon type='solid' name='up-arrow' style="height:18px; width:18px" ></box-icon></button>
-                        <span class="votecount set_counter" id="counterquestion{{question.question_id}}" class="cb">0</span>
+                        <button id="like-btnquestion{{question.question_id}}" class="lb"  onclick="updatevote(vote_type='up',post_type='question',post_id='{{question.question_id}}')"><box-icon type='solid' name='up-arrow' style="height:18px; width:18px" ></box-icon></button>
+                        <span class="votecount set_counter" id="counterquestion{{question.question_id}}" class="cb">{{question.score}}</span>
                         <button id="dislike-btnquestion{{question.question_id}}" class="dlb" onclick="updatevote(vote_type='down',post_type='question',post_id='{{question.question_id}}')"><box-icon type='solid' name='down-arrow' style="height:18px; width:18px"></box-icon></button>
                         <button id="bookmarks-btnquestion{{question.question_id}}" onclick="updatebookmark(post_type='question',post_id='{{question.question_id}}')"> <box-icon name='bookmark-star' type='solid' style="height:18px; width:18px" ></box-icon></button>
                     </div>
+
+                    {% if question.vote_type=='upvote' %}
+                    <script>
+                    const button=document.getElementById('like-btnquestion{{question.question_id}}');
+                        button.style.backgroundColor='#49BBBD';
+                    </script>
+                    {% elif question.vote_type=='downvote' %}
+                        <script>
+                    const button=document.getElementById('dislike-btnquestion{{question.question_id}}');
+                    button.style.backgroundColor='#49BBBD';
+                        </script> 
+                    {% endif %}
+
+                    {% if question.bookmark=='yes' %}
+                    <script>
+                        const bookmark= document.getElementById("bookmarks-btnquestion{{question.question_id}}");
+                        bookmark.style.backgroundColor='#49BBBD';
+                    </script>
+                    {% endif %}
+
+
                 </div>
+                <script>
+
+                </script>
                 <div class="col-lg-11">
                     <h4>{{question.body}}</h4>
                     <br>
@@ -133,13 +157,27 @@
             <div class="row surf">
                 <div class="col-lg-1">
                     <div class="like-dislike">
-                        <div class="like-dislike" id="loadclickhandle">
+                        <div class="like-dislike" id="loadclickhandle" >
                             <button id="like-btnanswer{{answer.answer_id}}" class="lb" onclick="updatevote(vote_type='up',post_type='answer',post_id='{{answer.answer_id}}')"><box-icon type='solid' name='up-arrow' style="height:18px; width:18px" ></box-icon></button>
-                            <span class="votecount set_counter" id="counteranswer{{answer.answer_id}}" class="cb">0</span>
+                            <span class="votecount set_counter" id="counteranswer{{answer.answer_id}}" class="cb">{{answer.score}}</span>
                             <button id="dislike-btnanswer{{answer.answer_id}}" class="dlb" onclick="updatevote(vote_type='down',post_type='answer',post_id='{{answer.answer_id}}')"><box-icon type='solid' name='down-arrow' style="height:18px; width:18px"></box-icon></button>
                             <button id="bookmarks-btnanswer{{answer.answer_id}}" onclick="updatebookmark(post_type='answer',post_id='{{answer.answer_id}}')"> <box-icon name='bookmark-star' type='solid' style="height:18px; width:18px" ></box-icon></button>
                         </div>
                     </div>
+                        {% if answer.vote_type=='upvote' %}
+                        <script>
+                        document.getElementById('like-btnanswer{{answer.answer_id}}').style.backgroundColor = '#49BBBD';
+                        </script>
+                        {% elif answer.vote_type=='downvote' %}
+                        <script>
+                        document.getElementById('dislike-btnanswer{{answer.answer_id}}').style.backgroundColor = '#49BBBD';
+                        </script> 
+                        {% endif %}
+                        {% if answer.bookmark=='yes' %}
+                        <script>
+                        document.getElementById('bookmarks-btnanswer{{answer.answer_id}}').style.backgroundColor = '#49BBBD';
+                        </script>
+                        {% endif %}
                 </div>
                 <div class="col-lg-11">
                     <h5 class="search_ans">{{answer.body}}</h5>
@@ -228,10 +266,6 @@ function updatebookmark(post_type,post_id)
     console.log(params);
     xhr.send(params);
 }
-
-
-
-
 
 // onclick handling for 
 function updatevote(vote_type,post_type,post_id)
@@ -327,12 +361,84 @@ function getcomments(post_type,post_id)
         const data=JSON.stringify({"post_id":post_id,"post_type":post_type});
         console.log(data);
         xhr.send(data);
-    }
-    
-      
+    }  
 }
 
-// // handling question for loading
+// update like and dislike state on page reload
+// function vote_bookmark_state(post_type,post_id)
+// {
+//     console.log('has entered in the stateliien function upvote clicked ');
+//     const xhr=new XMLHttpRequest();
+//     console.log(post_type,post_id);
+//     xhr.open('POST','/vote_bookmark_state',true);
+//     xhr.setRequestHeader("content-type","application/json;charset=UTF-8");
+//     console.log();
+//     console.log('printednow');
+//     xhr.onload = function()
+//     {
+//         console.log('has entered in the  ');
+//         if(this.status===200)
+//         {
+//             const upvote = document.getElementById(('like-btn'+post_type+post_id));
+//             const downvote = document.getElementById(('dislike-btn'+post_type+post_id));
+//             const bookmark =document.getElementById('bookmarks-btn'+post_type+post_id);
+//             // console.log('has entered in the the 200  ');
+//             const data=JSON.parse(this.responseText);
+//             console.log(data);
+//             if (data['vote_type'] == 'neutral')
+//             {
+//                 console.log('neutral');
+//                 // console.log(data)
+//                 upvote.style.backgroundColor = '';
+//                 downvote.style.backgroundColor = '';
+//             } else if (data['vote_type'] == 'upvote') {
+//                 console.log('upvote');
+//                 upvote.style.backgroundColor = '#49BBBD';
+//                 console.log(updatevote);
+//                 downvote.style.backgroundColor = '';
+//             } else {
+//                 console.log('downvote');
+//                 upvote.style.backgroundColor = '';
+//                 downvote.style.backgroundColor = '#49BBBD';
+//             }
+//             if(data['bookmark']=='yes')
+//             {
+//                 bookmark.style.backgroundColor='#49BBBD';
+//             }
+//             else
+//             {
+//                 bookmark.style.backgroundColor=''; 
+//             }
+//         }
+//     };
+//     const data=JSON.stringify({"post_id":post_id,"post_type":post_type});
+//     console.log(data);
+//     xhr.send(data);
+// }
+
+// // window.onload=function()
+// // {
+// //     vote_bookmark_state(post_type='question',post_id=6);
+// //     for (var i = 0; i < l_ans.length ; i++) {
+// //         console.log(l_ans[i].answer_id);
+// //     vote_bookmark_state('answer', l_ans[i].answer_id);
+// // };
+// function updateAllButtonStates(l_ans) {
+//   for (var i = 0; i < l_ans.length; i++) {
+//     vote_bookmark_state('answer', l_ans[i].answer_id);
+//   }
+// }
+
+// window.onload = function(id,l_ans) {
+//     vote_bookmark_state(post_type='question',post_id=id);
+//     for (var i = 0; i < l_ans.length; i++) {
+//         vote_bookmark_state('answer', l_ans[i].answer_id);
+//     }
+
+// }(6,l_ans);
+
+
+// handling question for loading
 // window.onload = function() {
 //   const questionId = '{{ question.question_id }}';
 //   const score = document.getElementById('counter1');
@@ -354,7 +460,7 @@ function getcomments(post_type,post_id)
 //   const downvote = document.getElementById('dislike-btn1');
 //   const bookmark = document.getElementById('bookmarks-btn1');
 //   const xhr = new XMLHttpRequest();
-//   xhr.open('GET', '/Qloadvote?' + params.toString(), true);
+//   xhr.open('POST', '/Qloadvote?' + params.toString(), true);
 //   xhr.setRequestHeader('content-type', 'application/json;charset=UTF-8');
 //   xhr.onload = function() {
 //     if (this.status == 200) {
@@ -382,9 +488,9 @@ function getcomments(post_type,post_id)
 //       console.log(this.responseText);
 //     }
 //   };
-// //   console.log(questionId);
-// //   const data = JSON.stringify({ "question_id": questionId,"user_id":1 });
-// //   console.log(data);
+//   console.log(questionId);
+//   const data = JSON.stringify({ "question_id": questionId,"user_id":1 });
+//   console.log(data);
 //   xhr.send();
 // }
 

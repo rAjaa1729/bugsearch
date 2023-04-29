@@ -1295,7 +1295,7 @@ def updatevote():
             print("i am hwer in question")
             vote=QVote.Qupdatevote(user_id=user_id,question_id=post_id,voting=vote_type)
             ObQ=Question.find_by_question_id(question_id=post_id)
-            score=(ObQ.upvotes-ObQ.downvotes)
+            score=(ObQ.score)
             upvotes=ObQ.upvotes
             downvotes=ObQ.downvotes
             print({"vote_type":vote,"upvotes":upvotes,"downvotes":downvotes,"score":score})
@@ -1303,7 +1303,7 @@ def updatevote():
         else:
             vote=AVote.Aupdatevote(user_id=user_id,answer_id=post_id,voting=vote_type)
             ObQ=Answer.find_by_answer_id(answer_id=post_id)
-            score=(ObQ.upvotes-ObQ.downvotes)
+            score=(ObQ.score)
             upvotes=ObQ.upvotes
             downvotes=ObQ.downvotes
             print({"vote_type":vote,"upvotes":upvotes,"downvotes":downvotes,"score":score})
