@@ -57,12 +57,12 @@
              <a href="{{url_for('homepage')}}" class="logo">
                 <h1 id="title">BugSearch</h1>
             </a>
-             <div class="search-input">
-                <form id="search" action="#">
-                  <input type="text" placeholder="Type Something" id='searchText' name="searchKeyword" onkeypress="handle" />
-                  <i class="fa fa-search"></i>
-                </form>
-              </div>
+            <div class="search-input">
+              <form id="search" action="{{url_for('search_login')}}" method="POST">
+                  <input type="text" placeholder="Type Something" id='searchText' name="keyword" value="{{request.form['keyword']}}"/>
+                  <i type="submit" class="fa fa-search"></i>
+              </form>
+          </div>
             <ul class="nav"> 
               <li class="scroll-to-section"><a href="{{url_for('user_home')}}">Home</a></li>
               <li class="scroll-to-section"><a href="{{url_for('dashboard')}}">{{current_user.username}}</a></li>

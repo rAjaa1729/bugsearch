@@ -63,11 +63,11 @@ https://templatemo.com/tm-586-scholar
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Serach Start ***** -->
                     <div class="search-input">
-              <form id="search" action="{{url_for('user_home')}}" method="post">
-                <input type="text" placeholder="Type Something" id='searchText' name="keyword" value="{{request.form['keyword']}}"></input>
-                <button class="btn" type="submit"> <i class="fa fa-search"></i></button>
-              </form>
-            </div>
+                      <form id="search" action="{{url_for('search_login')}}" method="POST">
+                          <input type="text" placeholder="Type Something" id='searchText' name="keyword" value="{{request.form['keyword']}}"/>
+                          <i type="submit" class="fa fa-search"></i>
+                      </form>
+                  </div>
                     <!-- ***** Serach Start ***** -->
                     <!-- ***** Menu Start ***** -->
                     <ul class="nav">
