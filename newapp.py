@@ -234,7 +234,7 @@ class User(UserMixin):
     def find_allusers():
         my_db=get_db_connection()
         cursor = my_db.cursor(dictionary=True)
-        query = "SELECT * FROM Users ORDER BY username ASC LIMIT 4"
+        query = "SELECT * FROM Users ORDER BY username ASC "
         cursor.execute(query)
         users=cursor.fetchall()
         u_list=[]
