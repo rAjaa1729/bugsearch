@@ -43,11 +43,11 @@ def allowed_file(filename):
 
 def get_db_connection():
     mydb = mysql.connector.connect(
-	    # port = 4545,
+	    port = 4545,
         host = "localhost",
         user = "root",
-        # password = "Pran@2010",
-        password= "sql@Prism1920",
+        password = "Pran@2010",
+        #password= "sql@Prism1920",
         database = "BugSearch"
     )
     return mydb
