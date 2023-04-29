@@ -350,7 +350,10 @@ function getcomments(post_type,post_id)
                 let total='';
                 for (var i = 0; i < data.length; i++) 
                 {
-                    total+='<p>'+data[i]['body']+'</p><br>';
+                    total+='<div class="post">' +
+                            '<p class="post-body">' + data[i]['body'] + '</p>' +
+                            '</div>';
+;
                 }
                 console.log(total);
                 Container.style.display='block';
