@@ -1,13 +1,14 @@
 import mysql.connector
 # import openai
-# import os
+import os
 # from monkeylearn import MonkeyLearn
 # import logging
 
 from flask import Flask, render_template, request, url_for, flash, redirect,jsonify
 from werkzeug.exceptions import abort
-from fuzzywuzzy import fuzz 
-from fuzzywuzzy import process 
+from werkzeug.utils import secure_filename
+# from fuzzywuzzy import fuzz 
+# from fuzzywuzzy import process 
 from threading import Thread 
 import jwt 
 import json 
@@ -22,6 +23,7 @@ from flask_mail import Message, Mail
 
 newapp = Flask(__name__)
 newapp.config['DEBUG'] = True
+newapp.config['UPLOAD_FOLDER'] = 'uploads'
 newapp.config['MAIL_SERVER'] = 'smtp.iitd.ac.in'
 newapp.config['MAIL_PORT'] = 25
 newapp.config['MAIL_USE_TLS'] = True
@@ -35,12 +37,17 @@ mail = Mail(newapp)
 newapp.config['SECRET_KEY'] = 'sql@Prism1920'
 # openai.api_key = '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'
 
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.',1)[1].lower() in set(['png','jpg','jpeg','gif'])
+
 
 def get_db_connection():
     mydb = mysql.connector.connect(
-	host = "localhost",
+	    port = 4545,
+        host = "localhost",
         user = "root",
-        password= "sql@Prism1920",
+        password = "Pran@2010",
+        # password= "sql@Prism1920",
         database = "BugSearch"
     )
     return mydb
@@ -577,7 +584,7 @@ class Tag():
         #     tag_list.append(Tag(**tag))
         # return tag_list
         return row
-    
+
     @staticmethod
     def tags_by_userIdnot(user_id):
         my_db = get_db_connection()
@@ -624,14 +631,14 @@ class Tag():
     
     @staticmethod
     def find_by_keyword(keyword):
-        headers = {"Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYzlhMzI4NjQtNjdiZS00NGE4LThhNTYtNzdmNGFkY2I5OWE1IiwidHlwZSI6ImFwaV90b2tlbiJ9.xWWB4F4usgqj5_HQ-kPG34qKsFuaWheeOBWCCSCELMk"}
-        url ="https://api.edenai.run/v2/text/keyword_extraction"
-        payload={"providers": "amazon", "language": "en", "text": keyword}
-        response = requests.post(url, json=payload, headers=headers)
-        result = json.loads(response.text)
-        print(result['amazon']['items']) 
-        keyword_list = result['amazon']['items']
-        keyword_string = " ".join(keyword_list)
+        # headers = {"Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYzlhMzI4NjQtNjdiZS00NGE4LThhNTYtNzdmNGFkY2I5OWE1IiwidHlwZSI6ImFwaV90b2tlbiJ9.xWWB4F4usgqj5_HQ-kPG34qKsFuaWheeOBWCCSCELMk"}
+        # url ="https://api.edenai.run/v2/text/keyword_extraction"
+        # payload={"providers": "amazon", "language": "en", "text": keyword}
+        # response = requests.post(url, json=payload, headers=headers)
+        # result = json.loads(response.text)
+        # print(result['amazon']['items']) 
+        # keyword_list = result['amazon']['items']
+        # keyword_string = " ".join(keyword_list)
         my_db=get_db_connection()
         query = "SELECT * FROM Questions WHERE MATCH(title,body) AGAINST (%s IN NATURAL LANGUAGE MODE)"
         cursor=my_db.cursor(dictionary=True)
@@ -1108,10 +1115,23 @@ def bookmarks():
 @newapp.route("/users/complete_your_profile",methods=["GET",'POST'])
 def complete_your_profile():
     if request.method=='POST':
-        profile_image_url = request.form.get('profile_image_url', '')
-        about=request.form['about']
-        tags=request.form.getlist('tags[]')
-        user=User.update_profile(user=current_user,profile_image_url  = profile_image_url,tags=tags,about=about)
+        profile_img = request.files['profile_img']
+        if profile_img:
+            if not allowed_file(profile_img.filename):
+                flash('Allowed image types are png, jpg, jpeg, gif.')
+                return render_template(url_for("complete_your_profile.html",user=current_user, tags=Tag.find_all_tags()))
+            else:
+                filename = secure_filename(profile_img.filename)
+                profile_img.save(os.path.join('static',newapp.config['UPLOAD_FOLDER'],filename))
+                profile_img_url = newapp.config['UPLOAD_FOLDER'] + '/' + filename
+                about=request.form['about']
+                tags=request.form['tags']
+                user=User.update_profile(user=current_user,profile_image_url  = profile_img_url,tags=tags,about=about)
+        else:
+            profile_img_url = 'assets/images/default.jpg'
+            about=request.form['about']
+            tags=request.form['tags']
+            user=User.update_profile(user=current_user,profile_image_url  = profile_img_url,tags=tags,about=about)
         return redirect(url_for('user_home',user=user))
     return render_template("complete_your_profile.html",user=current_user,tag_list=Tag.tags_by_userIdnot(current_user.user_id))
 
@@ -1178,10 +1198,22 @@ def post_answer(question_id):
 def post_answer_comment(question_id,answer_id):
     if request.method=="POST":
         body=request.form['body']
-        id=current_user.user_id
-        print(body)
-        Answer_Comment.post_acomment(user_id=id,body=body,answer_id=answer_id)
-        return redirect(url_for('find_question',question_id=question_id)) 
+        headers = {"Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYzlhMzI4NjQtNjdiZS00NGE4LThhNTYtNzdmNGFkY2I5OWE1IiwidHlwZSI6ImFwaV90b2tlbiJ9.xWWB4F4usgqj5_HQ-kPG34qKsFuaWheeOBWCCSCELMk"}
+        url ="https://api.edenai.run/v2/text/moderation"
+        payload={"providers": "microsoft", "language": "en", "text": body}
+        response = requests.post(url, json=payload, headers=headers)
+        result = json.loads(response.text)
+        if result['microsoft']['nsfw_likelihood'] >= 5:
+            flash("Please don't post abusive content!")
+            return redirect(url_for('post_question_comment',question_id=question_id))
+            # return redirect
+        if not body:
+            flash('Content is required.')
+            return redirect(url_for('post_question_comment',question_id=question_id))
+        else:
+            id=current_user.user_id
+            Answer_Comment.post_acomment(user_id=id,body=body,answer_id=answer_id)
+            return redirect(url_for('find_question',question_id=question_id)) 
     return render_template('post_acomment.html',answer_id=answer_id,question_id=question_id)
     
 @login_required
@@ -1189,8 +1221,17 @@ def post_answer_comment(question_id,answer_id):
 def post_question_comment(question_id):
     if request.method=="POST":
         body=request.form['body']
+        headers = {"Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYzlhMzI4NjQtNjdiZS00NGE4LThhNTYtNzdmNGFkY2I5OWE1IiwidHlwZSI6ImFwaV90b2tlbiJ9.xWWB4F4usgqj5_HQ-kPG34qKsFuaWheeOBWCCSCELMk"}
+        url ="https://api.edenai.run/v2/text/moderation"
+        payload={"providers": "microsoft", "language": "en", "text": body}
+        response = requests.post(url, json=payload, headers=headers)
+        result = json.loads(response.text)
+        if result['microsoft']['nsfw_likelihood'] >= 5:
+            flash("Please don't post abusive content!")
+            return redirect(url_for('post_question_comment',question_id=question_id))
         if not body:
             flash('Content is required.')
+            return redirect(url_for('post_question_comment',question_id=question_id))
         else:
             id=current_user.user_id
             Question_Comment.post_qcomment(user_id=id,body=body,question_id=question_id)
