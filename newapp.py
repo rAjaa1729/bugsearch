@@ -189,25 +189,25 @@ class User(UserMixin):
         fol_id=cursor.fetchall()
         u_list=[]
         my_db.close()
-        print(fol_id)
+        # print(fol_id)
         for f_id in fol_id:
             u_list.append(User.get(f_id['follower_id']))
         return u_list
 
     @staticmethod
     def find_followings(user_id):
-        print("raja is here")
+        # print("raja is here")
         my_db=get_db_connection()
         query = "SELECT following_id FROM Followertags WHERE follower_id = %s ORDER BY creation_date DESC LIMIT 10"
         cursor=my_db.cursor(dictionary=True)
         cursor.execute(query,(user_id,))
         foll_id=cursor.fetchall()
         u_list=[]
-        print(foll_id)
+        # print(foll_id)
         my_db.close()
         for f_id in foll_id:
             u_list.append(User.get(f_id['following_id']))
-        print(u_list)
+        # print(u_list)
         return u_list
     
     @staticmethod
@@ -598,7 +598,7 @@ class Tag():
         cursor = my_db.cursor()
         cursor.execute(query, (user_id,))
         tags = cursor.fetchall()
-        print(tags)
+        # print(tags)
         tag_list = [{'tag_name': tag[0]} for tag in tags]
         return tag_list
 
@@ -673,7 +673,7 @@ class QVote:
  
     @staticmethod
     def Qmanagereputation(question_id,points):
-        print(question_id,points,'managing reputation points')
+        # print(question_id,points,'managing reputation points')
         my_db=get_db_connection()
         cursor=my_db.cursor(dictionary=True)
         query="SELECT user_id FROM Questions WHERE question_id=%s" 
@@ -683,7 +683,7 @@ class QVote:
         cursor.execute(query,(points,user_id,))
         my_db.commit()
         my_db.close()
-        print('implemented points')
+        # print('implemented points')
 
 
 
@@ -695,7 +695,7 @@ class QVote:
         cursor.execute(query,(user_id,question_id))
         vote=cursor.fetchone()
         # my_db.close()
-        print(voting,user_id,question_id,"ahosahfjka",vote['vote_type'])
+        # print(voting,user_id,question_id,"ahosahfjka",vote['vote_type'])
         if(vote is None):
             if(voting=='up'):
                 query="INSERT INTO Question_votes (user_id,question_id,vote_type) values(%s,%s,%s)"
@@ -772,7 +772,7 @@ class QVote:
                 cursor.execute(query, (question_id,))
                 my_db.commit()
                 my_db.close()
-                print('hi ya  bye')
+                # print('hi ya  bye')
                 QVote.Qmanagereputation(question_id,points=2)
                 return 'neutral'
             else:
@@ -810,7 +810,7 @@ class AVote:
         
     @staticmethod
     def Amanagereputation(answer_id,points):
-        print(answer_id,points,'managing reputation points')
+        # print(answer_id,points,'managing reputation points')
         my_db=get_db_connection()
         cursor=my_db.cursor(dictionary=True)
         query="SELECT user_id FROM Answers WHERE answer_id=%s" 
@@ -820,7 +820,7 @@ class AVote:
         cursor.execute(query,(points,user_id,))
         my_db.commit()
         my_db.close()
-        print('implemented points')
+        # print('implemented points')
 
     @staticmethod
     def Aupdatevote(user_id,answer_id,voting):
@@ -948,9 +948,9 @@ class QBookmark:
         query="SELECT * FROM Question_bookmarks WHERE user_id=%s AND question_id=%s"
         cursor.execute(query,(user_id,question_id))
         bookmark=cursor.fetchone()
-        print("bookmark",bookmark)
+        # print("bookmark",bookmark)
         if bookmark is None:
-            print("nobe")
+            # print("nobe")
             query="INSERT INTO Question_bookmarks (user_id,question_id) values(%s,%s)"
             cursor.execute(query,(user_id,question_id))
             # cursor.fetchone()
@@ -962,7 +962,7 @@ class QBookmark:
             # print("bkq",bkq)
             return ({"bookmark":"yes"})
         else:
-            print('what is the issue')
+            # print('what is the issue')
             query="DELETE FROM Question_bookmarks WHERE user_id=%s AND question_id=%s"
             cursor.execute(query,(user_id,question_id))
             my_db.commit()
@@ -970,15 +970,15 @@ class QBookmark:
             return ({"bookmark":"no"})
     @staticmethod
     def Qfindmarked(user_id):
-        print('Raja kumar')
-        print(user_id)
+        # print('Raja kumar')
+        # print(user_id)
         my_db=get_db_connection()
         cursor=my_db.cursor(dictionary=True)
         query = "SELECT question_id FROM Question_bookmarks WHERE user_id = %s ORDER BY creation_date DESC LIMIT 10"
         cursor.execute(query,(user_id,))
         l_qid=cursor.fetchall()
-        print("checing for bookmarks")
-        print(l_qid)
+        # print("checing for bookmarks")
+        # print(l_qid)
         q_list=[]
         for id in l_qid:
             question=Question.find_by_question_id(id['question_id']) # fix the typo here
@@ -1015,9 +1015,9 @@ class ABookmark:
         query="SELECT * FROM Answer_bookmarks WHERE user_id=%s AND answer_id=%s"
         cursor.execute(query,(user_id,answer_id))
         bookmark=cursor.fetchone()
-        print("bookmark",bookmark)
+        # print("bookmark",bookmark)
         if bookmark is None:
-            print("nobe")
+            # print("nobe")
             query="INSERT INTO Answer_bookmarks (user_id,answer_id) values(%s,%s)"
             cursor.execute(query,(user_id,answer_id))
             # cursor.fetchone()
@@ -1028,7 +1028,7 @@ class ABookmark:
             my_db.close()
             return ({"bookmark":"yes"})
         else:
-            print('what is the issue')
+            # print('what is the issue')
             query="DELETE FROM Answer_bookmarks WHERE user_id=%s AND answer_id=%s"
             cursor.execute(query,(user_id,answer_id))
             my_db.commit()
@@ -1037,18 +1037,18 @@ class ABookmark:
         
     @staticmethod
     def Afindmarked(user_id):
-        print('Raja kumar')
-        print(user_id)
+        # print('Raja kumar')
+        # print(user_id)
         my_db=get_db_connection()
         cursor=my_db.cursor(dictionary=True)
         query = "SELECT answer_id FROM Answer_bookmarks WHERE user_id = %s ORDER BY creation_date DESC LIMIT 10"
         cursor.execute(query,(user_id,))
         l_qid=cursor.fetchall()
-        print("checing for aanswes bookmarks")
-        print(l_qid)
+        # print("checing for aanswes bookmarks")
+        # print(l_qid)
         q_list=[]
         for id in l_qid:
-            print(id)
+            # print(id)
             answer=Answer.find_by_answer_id(id['answer_id']) # fix the typo here
             q_list.append(answer)
         return q_list
@@ -1089,7 +1089,7 @@ def all_users():
     cursor=my_db.cursor(dictionary=True)
     query='SELECT * FROM Followertags WHERE follower_id = %s AND following_id=%s ' 
     for user in alluser_list:
-        print(user.reputation)
+        # print(user.reputation)
         cursor.execute(query,(user_id,user.user_id))
         row=cursor.fetchone()
         if row is None:
@@ -1275,7 +1275,7 @@ def search_login():
 @newapp.route('/users/<string:username>',methods=['GET',])
 def view_user(username):
     user = User.find_by_username(username)
-    print(user.username)
+    # print(user.username)
     tags = Tag.find_tags_by_user_id(user.user_id)
     return render_template('user.html',user=user,tags=tags)
 
@@ -1408,15 +1408,15 @@ def Qloadvote():
         post_id = data.get('post_id')
         post_type=data.get('post_type')
         user_id=current_user.user_id
-        print("raja kuamr ")
-        print(post_id,post_type,user_id)
+        # print("raja kuamr ")
+        # print(post_id,post_type,user_id)
         if(post_type=='question'):
             votetype=QVote.Qfindvote(user_id=user_id, question_id=post_id)
             bookmark=QBookmark.Qfindbookmark(user_id=user_id,question_id=post_id)
         else:
             votetype=AVote.Afindvote(user_id=user_id, answer_id=post_id)
             bookmark=ABookmark.Afindbookmark(user_id=user_id,answer_id=post_id) 
-        print({"votetype":votetype,"bookmark":bookmark})
+        # print({"votetype":votetype,"bookmark":bookmark})
         return jsonify({"votetype":votetype,"bookmark":bookmark})
     
     # elif request.method == 'POST':
@@ -1436,24 +1436,24 @@ def updatevote():
         user_id = current_user.user_id
         vote_type=data.get('vote_type')
         post_type=data.get('post_type')
-        print(post_type,vote_type)
-        print("raja kumar in updatevote",post_id,vote_type,post_type)
+        # print(post_type,vote_type)
+        # print("raja kumar in updatevote",post_id,vote_type,post_type)
         if(post_type=='question'):
-            print("i am hwer in question")
+            # print("i am hwer in question")
             vote=QVote.Qupdatevote(user_id=user_id,question_id=post_id,voting=vote_type)
             ObQ=Question.find_by_question_id(question_id=post_id)
             score=(ObQ.score)
             upvotes=ObQ.upvotes
             downvotes=ObQ.downvotes
-            print({"vote_type":vote,"upvotes":upvotes,"downvotes":downvotes,"score":score})
-            print('raja hi')
+            # print({"vote_type":vote,"upvotes":upvotes,"downvotes":downvotes,"score":score})
+            # print('raja hi')
         else:
             vote=AVote.Aupdatevote(user_id=user_id,answer_id=post_id,voting=vote_type)
             ObQ=Answer.find_by_answer_id(answer_id=post_id)
             score=(ObQ.score)
             upvotes=ObQ.upvotes
             downvotes=ObQ.downvotes
-            print({"vote_type":vote,"upvotes":upvotes,"downvotes":downvotes,"score":score})
+            # print({"vote_type":vote,"upvotes":upvotes,"downvotes":downvotes,"score":score})
         return jsonify({"vote_type":vote,"upvotes":upvotes,"downvotes":downvotes,"score":score})
 
 @login_required
@@ -1464,13 +1464,13 @@ def udpatebookmark():
         post_id=data.get('post_id')
         post_type=data.get('post_type')
         user_id=current_user.user_id
-        print("my name is raha kumart")
-        print(user_id,post_id,post_type)
+        # print("my name is raha kumart")
+        # print(user_id,post_id,post_type)
         if(post_type=='answer'):
             B=ABookmark.Aupdatebookmark(user_id=user_id,answer_id=post_id)
         else:
             B=QBookmark.Qupdatebookmark(user_id=user_id,question_id=post_id)
-        print(B)
+        # print(B)
         return jsonify({"bookmark":B['bookmark']})
 
 @login_required
@@ -1480,17 +1480,17 @@ def getcomments():
         data=request.get_json()
         post_id=data.get('post_id')
         post_type=data.get('post_type')
-        print("i am here what are you doing")
-        print(post_id,post_type)
+        # print("i am here what are you doing")
+        # print(post_id,post_type)
         if(post_type=='answer'):
             ac_list=Answer_Comment.find_acomment_by_id(answer_id=post_id)
-            print(ac_list)
-            print('answers')
+            # print(ac_list)
+            # print('answers')
             return jsonify(ac_list)
         else: 
             qc_list=Question_Comment.find_qcomment_by_id(question_id=post_id)
-            print(qc_list)
-            print('questions')
+            # print(qc_list)
+            # print('questions')
             return jsonify(qc_list) 
     else:
         return jsonify({'body':'my name is raja'})
