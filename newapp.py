@@ -662,7 +662,7 @@ class QVote:
                 query="INSERT INTO Question_votes (user_id,question_id,vote_type) values(%s,%s,%s)"
                 cursor.execute(query,(user_id,question_id,'upvote'))
                 my_db.commit()
-                query = "UPDATE Questions SET upvotes = upvotes + 1 WHERE question_id = %s"
+                query = "UPDATE Questions SET upvotes = upvotes + 1,score=score+1 WHERE question_id = %s"
                 cursor.execute(query, (question_id,))
                 my_db.commit()
                 my_db.close()
@@ -672,7 +672,7 @@ class QVote:
                 query="INSERT INTO Question_votes (user_id,question_id,vote_type) values(%s,%s,%s)"
                 cursor.execute(query,(user_id,question_id,'downvote'))
                 my_db.commit()
-                query = "UPDATE Questions SET downvotes = downvotes + 1 WHERE question_id = %s"
+                query = "UPDATE Questions SET downvotes = downvotes + 1,score=score-1 WHERE question_id = %s"
                 cursor.execute(query, (question_id,))
                 my_db.commit()
                 my_db.close()
@@ -683,7 +683,7 @@ class QVote:
                 query = "UPDATE Question_votes SET vote_type = %s WHERE user_id = %s AND question_id = %s"
                 cursor.execute(query, ('upvote', user_id, question_id))
                 my_db.commit()
-                query = "UPDATE Questions SET upvotes = upvotes + 1 WHERE question_id = %s"
+                query = "UPDATE Questions SET upvotes = upvotes + 1,score=score+1 WHERE question_id = %s"
                 cursor.execute(query, (question_id,))
                 my_db.commit()
                 my_db.close()
@@ -693,7 +693,7 @@ class QVote:
                 query = "UPDATE Question_votes SET vote_type = %s WHERE user_id = %s AND question_id = %s"
                 cursor.execute(query, ('downvote', user_id, question_id))
                 my_db.commit()
-                query = "UPDATE Questions SET downvotes = downvotes + 1 WHERE question_id = %s"
+                query = "UPDATE Questions SET downvotes = downvotes + 1,score=score-1 WHERE question_id = %s"
                 cursor.execute(query, (question_id,))
                 my_db.commit()
                 my_db.close()
@@ -705,7 +705,7 @@ class QVote:
                 query = "UPDATE Question_votes SET vote_type = %s WHERE user_id = %s AND question_id = %s"
                 cursor.execute(query, ('neutral', user_id, question_id))
                 my_db.commit()
-                query = "UPDATE Questions SET upvotes = upvotes - 1 WHERE question_id = %s"
+                query = "UPDATE Questions SET upvotes = upvotes - 1,score=score-1 WHERE question_id = %s"
                 cursor.execute(query, (question_id,))
                 my_db.commit()
                 my_db.close()
@@ -715,12 +715,12 @@ class QVote:
                 query = "UPDATE Question_votes SET vote_type = %s WHERE user_id = %s AND question_id = %s"
                 cursor.execute(query, ('downvote', user_id, question_id))
                 my_db.commit()
-                query = "UPDATE Questions SET upvotes = upvotes - 1 WHERE question_id = %s"
+                query = "UPDATE Questions SET upvotes = upvotes - 1,downvotes=downvotes +1,score=score-2 WHERE question_id = %s"
                 cursor.execute(query, (question_id,))
                 my_db.commit()
-                query = "UPDATE Questions SET downvotes = downvotes + 1 WHERE question_id = %s"
-                cursor.execute(query, (question_id,))
-                my_db.commit()
+                # query = "UPDATE Questions SET downvotes = downvotes + 1 WHERE question_id = %s"
+                # cursor.execute(query, (question_id,))
+                # my_db.commit()
                 my_db.close()
                 QVote.Qmanagereputation(question_id,points=-7)
                 return 'downvote'
@@ -729,7 +729,7 @@ class QVote:
                 query = "UPDATE Question_votes SET vote_type = %s WHERE user_id = %s AND question_id = %s"
                 cursor.execute(query, ('neutral', user_id, question_id))
                 my_db.commit()
-                query = "UPDATE Questions SET downvotes = downvotes - 1  WHERE question_id = %s"
+                query = "UPDATE Questions SET downvotes = downvotes - 1,score=score-1  WHERE question_id = %s"
                 cursor.execute(query, (question_id,))
                 my_db.commit()
                 my_db.close()
@@ -739,14 +739,14 @@ class QVote:
                 query = "UPDATE Question_votes SET vote_type = %s WHERE user_id = %s AND question_id = %s"
                 cursor.execute(query, ('upvote', user_id, question_id))
                 my_db.commit()
-                query = "UPDATE Questions SET upvotes = upvotes + 1 WHERE question_id = %s"
+                query = "UPDATE Questions SET upvotes = upvotes + 1,downvotes=downvotes-1,score=score+2 WHERE question_id = %s"
                 cursor.execute(query, (question_id,))
                 my_db.commit()
-                query = "UPDATE Questions SET downvotes = downvotes - 1 WHERE question_id = %s"
-                cursor.execute(query, (question_id,))
-                my_db.commit()
+                # query = "UPDATE Questions SET downvotes = downvotes - 1 WHERE question_id = %s"
+                # cursor.execute(query, (question_id,))
+                # my_db.commit()
                 my_db.close()
-                QVote.Qreputation(question_id,points=7)
+                QVote.Qmanagereputation(question_id,points=7)
                 return 'upvote'
 
 class AVote:
@@ -795,7 +795,7 @@ class AVote:
                 query="INSERT INTO Answer_votes (user_id,answer_id,vote_type) values(%s,%s,%s)"
                 cursor.execute(query,(user_id,answer_id,'upvote'))
                 my_db.commit()
-                query = "UPDATE Answers SET upvotes = upvotes + 1 WHERE answer_id = %s"
+                query = "UPDATE Answers SET upvotes = upvotes + 1, score =score+1  WHERE answer_id = %s"
                 cursor.execute(query, (answer_id,))
                 my_db.commit()
                 my_db.close()
@@ -805,7 +805,7 @@ class AVote:
                 query="INSERT INTO Answer_votes (user_id,answer_id,vote_type) values(%s,%s,%s)"
                 cursor.execute(query,(user_id,answer_id,'downvote'))
                 my_db.commit()
-                query = "UPDATE Answers SET downvotes = downvotes + 1 WHERE answer_id = %s"
+                query = "UPDATE Answers SET downvotes = downvotes + 1, score=score-1 WHERE answer_id = %s"
                 cursor.execute(query, (answer_id,))
                 my_db.commit()
                 my_db.close()
@@ -816,7 +816,7 @@ class AVote:
                 query = "UPDATE Answer_votes SET vote_type = %s WHERE user_id = %s AND answer_id = %s"
                 cursor.execute(query, ('upvote', user_id, answer_id))
                 my_db.commit()
-                query = "UPDATE Answers SET upvotes = upvotes + 1 WHERE answer_id = %s"
+                query = "UPDATE Answers SET upvotes = upvotes + 1, score=score+1 WHERE answer_id = %s"
                 cursor.execute(query, (answer_id,))
                 my_db.commit()
                 my_db.close()
@@ -826,7 +826,7 @@ class AVote:
                 query = "UPDATE Answer_votes SET vote_type = %s WHERE user_id = %s AND answer_id = %s"
                 cursor.execute(query, ('downvote', user_id, answer_id))
                 my_db.commit()
-                query = "UPDATE Answers SET downvotes = downvotes + 1 WHERE answer_id = %s"
+                query = "UPDATE Answers SET downvotes = downvotes + 1,score=score-1 WHERE answer_id = %s"
                 cursor.execute(query, (answer_id,))
                 my_db.commit()
                 my_db.close()
@@ -838,7 +838,7 @@ class AVote:
                 query = "UPDATE Answer_votes SET vote_type = %s WHERE user_id = %s AND answer_id = %s"
                 cursor.execute(query, ('neutral', user_id, answer_id))
                 my_db.commit()
-                query = "UPDATE Answers SET upvotes = upvotes - 1 WHERE answer_id = %s"
+                query = "UPDATE Answers SET upvotes = upvotes - 1,score=score-1 WHERE answer_id = %s"
                 cursor.execute(query, (answer_id,))
                 my_db.commit()
                 my_db.close()
@@ -848,12 +848,12 @@ class AVote:
                 query = "UPDATE Answer_votes SET vote_type = %s WHERE user_id = %s AND answer_id = %s"
                 cursor.execute(query, ('downvote', user_id, answer_id))
                 my_db.commit()
-                query = "UPDATE Answers SET upvotes = upvotes - 1 WHERE answer_id = %s"
+                query = "UPDATE Answers SET upvotes = upvotes - 1,downvotes=downvotes-1,score=score-2 WHERE answer_id = %s"
                 cursor.execute(query, (answer_id,))
                 my_db.commit()
-                query = "UPDATE Answers SET downvotes = downvotes + 1 WHERE answer_id = %s"
-                cursor.execute(query, (answer_id,))
-                my_db.commit()
+                # query = "UPDATE Answers SET downvotes = downvotes + 1 WHERE answer_id = %s"
+                # cursor.execute(query, (answer_id,))
+                # my_db.commit()
                 my_db.close()
                 AVote.Amanagereputation(answer_id,points=-7)
                 return 'downvote'
@@ -862,7 +862,7 @@ class AVote:
                 query = "UPDATE Answer_votes SET vote_type = %s WHERE user_id = %s AND answer_id = %s"
                 cursor.execute(query, ('neutral', user_id, answer_id))
                 my_db.commit()
-                query = "UPDATE Answers SET downvotes = downvotes - 1  WHERE answer_id = %s"
+                query = "UPDATE Answers SET downvotes = downvotes - 1, score=score-1  WHERE answer_id = %s"
                 cursor.execute(query, (answer_id,))
                 my_db.commit()
                 my_db.close()
@@ -872,12 +872,12 @@ class AVote:
                 query = "UPDATE Answer_votes SET vote_type = %s WHERE user_id = %s AND answer_id = %s"
                 cursor.execute(query, ('upvote', user_id, answer_id))
                 my_db.commit()
-                query = "UPDATE Answers SET upvotes = upvotes + 1 WHERE answer_id = %s"
+                query = "UPDATE Answers SET upvotes = upvotes + 1,downvotes = downvotes - 1, score=score+2 WHERE answer_id = %s"
                 cursor.execute(query, (answer_id,))
                 my_db.commit()
-                query = "UPDATE Answers SET downvotes = downvotes - 1 WHERE answer_id = %s"
-                cursor.execute(query, (answer_id,))
-                my_db.commit()
+                # query = "UPDATE Answers SET downvotes = downvotes - 1 WHERE answer_id = %s"
+                # cursor.execute(query, (answer_id,))
+                # my_db.commit()
                 my_db.close()
                 AVote.Amanagereputation(answer_id,points=7)
                 return 'upvote'
@@ -1350,7 +1350,7 @@ def updatevote():
         else:
             vote=AVote.Aupdatevote(user_id=user_id,answer_id=post_id,voting=vote_type)
             ObQ=Answer.find_by_answer_id(answer_id=post_id)
-            score=(ObQ.upvotes-ObQ.downvotes)
+            score=(ObQ.score)
             upvotes=ObQ.upvotes
             downvotes=ObQ.downvotes
             print({"vote_type":vote,"upvotes":upvotes,"downvotes":downvotes,"score":score})
