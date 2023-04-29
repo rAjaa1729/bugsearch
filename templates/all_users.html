@@ -95,7 +95,13 @@
               <ul class="social-icons">
               </ul>
             </div>
-          
+            {% if user.fstatus=='unfollow' %}
+            <script>
+              document.getElementById("user{{user.user_id}}").style.backgroundColor='#49BBBD';
+              document.getElementById("user{{user.user_id}}").innerHTML='Unfollow';
+            </script>
+
+            {% endif %}
           </div>
         </div>
         {% endfor %} 

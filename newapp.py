@@ -1057,7 +1057,21 @@ def logout():
 @login_required
 @newapp.route('/users/all_users',methods=["GET",])
 def all_users():
-    u_list=User.find_allusers()
+    # u_list=User.find_allusers()
+    alluser_list=User.find_allusers()
+    user_id=current_user.user_id
+    u_list=[]
+    my_db=get_db_connection()
+    cursor=my_db.cursor(dictionary=True)
+    query='SELECT * FROM Followertags WHERE follower_id = %s AND following_id=%s ' 
+    for user in alluser_list:
+        cursor.execute(query,(user_id,user.user_id))
+        row=cursor.fetchone()
+        if row is None:
+            user.fstatus='follow'
+        else:
+            user.fstatus='unfollow'
+        u_list.append(user)
     return render_template('all_users.html',user=current_user,u_list=u_list)
 
 @login_required
