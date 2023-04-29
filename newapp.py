@@ -38,9 +38,10 @@ newapp.config['SECRET_KEY'] = 'sql@Prism1920'
 
 def get_db_connection():
     mydb = mysql.connector.connect(
-        host = "localhost",
+        port = 4545,
+	host = "localhost",
         user = "root",
-        password= "sql@Prism1920",
+        password= "Pran@2010",
         database = "BugSearch"
     )
     return mydb
@@ -363,6 +364,19 @@ class Question():
     def find_recommend_ques():
         my_db=get_db_connection()
         query = "SELECT * FROM Questions ORDER BY upvotes DESC LIMIT 10"
+        cursor=my_db.cursor(dictionary=True)
+        cursor.execute(query)
+        questions=cursor.fetchall()
+        my_db.close()
+        q_list=[]
+        for q in questions:
+            q_list.append(Question(**q))
+        return q_list
+
+    @staticmethod 
+    def find_recent_ques():
+        my_db=get_db_connection()
+        query = "SELECT * FROM Questions ORDER BY creation_date DESC LIMIT 10"
         cursor=my_db.cursor(dictionary=True)
         cursor.execute(query)
         questions=cursor.fetchall()
@@ -1031,11 +1045,8 @@ class ABookmark:
 @login_required
 @newapp.route('/users/user_home',methods=["GET",])
 def user_home():
-    if request.method=="POST":
-        keyword = request.form['keyword']
-        return redirect(url_for('search_login' ,keyword=keyword))
-
-    return render_template('user_home.html',user=current_user)
+    q_list = Question.find_recent_ques()
+    return render_template('user_home.html',user=current_user,q_list=q_list)
 
 @login_required
 @newapp.route('/logout',methods=['GET',])
@@ -1046,6 +1057,7 @@ def logout():
 @login_required
 @newapp.route('/users/all_users',methods=["GET",])
 def all_users():
+    # u_list=User.find_allusers()
     alluser_list=User.find_allusers()
     user_id=current_user.user_id
     u_list=[]
@@ -1194,10 +1206,18 @@ def trending():
     return render_template('trending.html',user=current_user,q_list=q_list)
 
 @login_required
-@newapp.route('/users/search',methods=['GET',])
-def search_login(keyword):
+@newapp.route('/users/search',methods=['POST',])
+def search_login():
+    keyword = request.form['keyword']
     q_list = Question.find_by_keyword(keyword) 
-    return render_template('search_with_login.html',user=current_user,q_list=q_list)
+    return render_template('search_with_login.html',user=current_user,q_list=q_list,keyword=keyword)
+
+@login_required
+@newapp.route('/users/<int:user_id>',methods=['GET',])
+def view_user(user_id):
+    user = User.get(user_id)
+    tags = Tag.find_tags_by_user_id(user_id)
+    return render_template('user.html',user=user,tags=tags)
 
 @newapp.route('/signup', methods=('GET', 'POST'))
 def signup():
@@ -1207,16 +1227,12 @@ def signup():
         email_id = request.form['email_id']
         username = request.form['username']
         passcode = request.form['passcode']
-        if not email_id:
-            flash('email_id address is required!')
-        elif not username:
-            flash('Username is required!')
-        elif not passcode:
-            flash('Please set passcode!')
-        elif (User.find_by_email_id(email_id)) is not None :
+        if (User.find_by_email_id(email_id)) is not None :
             flash('This email_id address is already registered, please login!')
+            return render_template('signup.html')
         elif (User.find_by_username(username)) is not None :
             flash('Username already exists please enter other username!')
+            return render_template('signup.html')
         else:
             user=User.create(username=username,email_id=email_id,passcode=passcode)
             login_user(user)
@@ -1231,26 +1247,21 @@ def userlogin():
         username=request.form["username"]
         passcode=request.form["passcode"]
         remember = True if request.form.get('remember') else False
-        if not username:
-            flash("Username is required")
-        if not passcode:
-            flash("Password is required")
-        else:
-            user=User.find_by_username(username=username)
+        user=User.find_by_username(username=username)
             # hashfun.update(passcode.encode())
             # hashed_password=hashfun.hexdigest()
             # hashed_password = hashlib.sha256(password_salt.encode()).hexdigest()
-            if (user is None):
-                flash("Incorrect passcode ")
-                return render_template('login.html')
-            # elif (bcrypt.checkpw(passcode.encode('utf-8'), user.passcode)):
-            elif (passcode!=user.passcode):
-                flash("Incorrect password ")
-                return render_template('login.html')
-            else:
-                flash("Login successfully")
-                login_user(user,remember=remember) 
-                return redirect(url_for('user_home'))
+        if (user is None):
+            flash("Incorrect username!")
+            return render_template('login.html')
+        # elif (bcrypt.checkpw(passcode.encode('utf-8'), user.passcode)):
+        elif (passcode!=user.passcode):
+            flash("Incorrect password!")
+            return render_template('login.html')
+        else:
+            # flash("Login successfully")
+            login_user(user,remember=remember) 
+            return redirect(url_for('user_home'))
     return render_template("login.html")
 
 @newapp.route('/help',methods=["GET",])
