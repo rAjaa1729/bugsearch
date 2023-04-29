@@ -906,9 +906,6 @@ class AVote:
                 query = "UPDATE Answers SET upvotes = upvotes - 1,downvotes=downvotes-1,score=score-2 WHERE answer_id = %s"
                 cursor.execute(query, (answer_id,))
                 my_db.commit()
-                # query = "UPDATE Answers SET downvotes = downvotes + 1 WHERE answer_id = %s"
-                # cursor.execute(query, (answer_id,))
-                # my_db.commit()
                 my_db.close()
                 AVote.Amanagereputation(answer_id,points=-7)
                 return 'downvote'
@@ -930,9 +927,6 @@ class AVote:
                 query = "UPDATE Answers SET upvotes = upvotes + 1,downvotes = downvotes - 1, score=score+2 WHERE answer_id = %s"
                 cursor.execute(query, (answer_id,))
                 my_db.commit()
-                # query = "UPDATE Answers SET downvotes = downvotes - 1 WHERE answer_id = %s"
-                # cursor.execute(query, (answer_id,))
-                # my_db.commit()
                 my_db.close()
                 AVote.Amanagereputation(answer_id,points=7)
                 return 'upvote'
@@ -968,11 +962,7 @@ class QBookmark:
             print("nobe")
             query="INSERT INTO Question_bookmarks (user_id,question_id) values(%s,%s)"
             cursor.execute(query,(user_id,question_id))
-            # cursor.fetchone()
             my_db.commit()
-            # query="SELECT * FROM Question_bookmarks WHERE user_id=%s AND question_id=%s"
-            # cursor.execute(query,(user_id,question_id))
-            # bkq=cursor.fetchone()
             my_db.close()
             # print("bkq",bkq)
             return ({"bookmark":"yes"})

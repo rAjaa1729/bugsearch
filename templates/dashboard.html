@@ -203,8 +203,17 @@
         <div class="col-lg-4 col-md-6 hz">
           <div class="team-member">
             <div class="main-content modify3 bbadge">
+              {% if user.reputation <100 %}
+              <img src="{{ url_for('static',filename='assets/images/badge1.png' )}}" alt="" class="badge-img">
+              <h4>Bronze Badge</h4>
+              {% elif  user.reputation <300 %}
+              <img src="{{ url_for('static',filename='assets/images/badge2.png' )}}" alt="" class="badge-img">
+              <h4>Silver Badge</h4>
+              {% else %}
               <img src="{{ url_for('static',filename='assets/images/badge3.png' )}}" alt="" class="badge-img">
               <h4>Gold Badge</h4>
+              {% endif %}
+
               <ul class="social-icons">
             </div>
           </div>

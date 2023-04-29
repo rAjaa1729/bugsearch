@@ -351,7 +351,7 @@ function getcomments(post_type,post_id)
                 for (var i = 0; i < data.length; i++) 
                 {
                     total+='<div class="post">' +
-                            '<p class="post-body">' + data[i]['body'] + '</p>' +
+                            '<p class="post-body">'+i +".  "+ data[i]['body'] + '</p>' +
                             '</div>';
 ;
                 }
