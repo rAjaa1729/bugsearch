@@ -710,7 +710,7 @@ class QVote:
         cursor.execute(query,(user_id,question_id))
         vote=cursor.fetchone()
         # my_db.close()
-        print(voting,user_id,question_id,"ahosahfjka",vote['vote_type'])
+        print(voting,user_id,question_id,"ahosahfjka")
         if(vote is None):
             if(voting=='up'):
                 query="INSERT INTO Question_votes (user_id,question_id,vote_type) values(%s,%s,%s)"
