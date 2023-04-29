@@ -1125,12 +1125,12 @@ def complete_your_profile():
                 profile_img.save(os.path.join('static',newapp.config['UPLOAD_FOLDER'],filename))
                 profile_img_url = newapp.config['UPLOAD_FOLDER'] + '/' + filename
                 about=request.form['about']
-                tags=request.form['tags']
+                tags=request.form.getlist('tags[]')
                 user=User.update_profile(user=current_user,profile_image_url  = profile_img_url,tags=tags,about=about)
         else:
             profile_img_url = 'assets/images/default.jpg'
             about=request.form['about']
-            tags=request.form['tags']
+            tags=request.form.getlist('tags[]')
             user=User.update_profile(user=current_user,profile_image_url  = profile_img_url,tags=tags,about=about)
         return redirect(url_for('user_home',user=user))
     return render_template("complete_your_profile.html",user=current_user,tag_list=Tag.tags_by_userIdnot(current_user.user_id))
