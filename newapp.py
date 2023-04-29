@@ -87,7 +87,7 @@ class User(UserMixin):
         self.username = kwargs.get('username')
         self.creation_date = kwargs.get('creation_date')
         self.profile_image_url = kwargs.get('profile_image_url')
-        self.reputation_points = kwargs.get('reputation_points')
+        self.reputation = kwargs.get('reputation')
         self.about = kwargs.get('about')
         self.badge = kwargs.get('badge')
         self.nfollowing = kwargs.get('nfollowing')
@@ -1053,6 +1053,7 @@ def all_users():
     cursor=my_db.cursor(dictionary=True)
     query='SELECT * FROM Followertags WHERE follower_id = %s AND following_id=%s ' 
     for user in alluser_list:
+        print(user.reputation)
         cursor.execute(query,(user_id,user.user_id))
         row=cursor.fetchone()
         if row is None:

@@ -90,6 +90,7 @@
             
             <div class="main-content sel">
               <img src="{{url_for('static',filename=user.profile_image_url)}}" alt="">
+              <span class="category">{{user.reputation}} Reputation points</span>
               <button type="button" class="btn btn-primary btn-sm btn-search" style="border:4px solid #49BBBD; "  id="user{{user.user_id}}" onclick="updatefollow(user_id='{{user.user_id}}')">Follow</button>
 
               <ul class="social-icons">
