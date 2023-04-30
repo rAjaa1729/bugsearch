@@ -186,7 +186,7 @@ class User(UserMixin):
     @staticmethod
     def find_followers(user_id):
         my_db=get_db_connection()
-        query = "SELECT follower_id FROM Followertags WHERE following_id = %s ORDER BY creation_date DESC LIMIT 10"
+        query = "SELECT follower_id FROM Followertags WHERE following_id = %s ORDER BY creation_date DESC "
         cursor=my_db.cursor(dictionary=True)
         cursor.execute(query,(user_id,))
         fol_id=cursor.fetchall()
@@ -201,7 +201,7 @@ class User(UserMixin):
     def find_followings(user_id):
         # print("raja is here")
         my_db=get_db_connection()
-        query = "SELECT following_id FROM Followertags WHERE follower_id = %s ORDER BY creation_date DESC LIMIT 10"
+        query = "SELECT following_id FROM Followertags WHERE follower_id = %s ORDER BY creation_date DESC "
         cursor=my_db.cursor(dictionary=True)
         cursor.execute(query,(user_id,))
         foll_id=cursor.fetchall()
@@ -310,7 +310,7 @@ class Question():
     @staticmethod
     def get_comments_by_question_id(question_id):
         my_db=get_db_connection()
-        query = "SELECT * FROM Question_comments WHERE question_id = %s ORDER BY creation_date ASC LIMIT 10"
+        query = "SELECT * FROM Question_comments WHERE question_id = %s ORDER BY creation_date ASC"
         cursor=my_db.cursor(dictionary=True)
         cursor.execute(query,(question_id,))
         comments=cursor.fetchall()
@@ -324,7 +324,7 @@ class Question():
     @staticmethod
     def find_answers_by_question_id(question_id):
         my_db=get_db_connection()
-        query = "SELECT * FROM Answers WHERE question_id = %s ORDER BY creation_date ASC LIMIT 10"
+        query = "SELECT * FROM Answers WHERE question_id = %s ORDER BY creation_date ASC"
         cursor=my_db.cursor(dictionary=True)
         cursor.execute(query,(question_id,))
         answers=cursor.fetchall()
@@ -364,7 +364,7 @@ class Question():
     @staticmethod
     def find_trending_ques():
         my_db=get_db_connection()
-        query = "SELECT * FROM Questions ORDER BY creation_date DESC LIMIT 10"
+        query = "SELECT * FROM Questions ORDER BY creation_date DESC "
         cursor=my_db.cursor(dictionary=True)
         cursor.execute(query)
         questions=cursor.fetchall()
@@ -378,7 +378,7 @@ class Question():
     @staticmethod
     def find_recommend_ques():
         my_db=get_db_connection()
-        query = "SELECT * FROM Questions ORDER BY upvotes DESC LIMIT 10"
+        query = "SELECT * FROM Questions ORDER BY upvotes DESC"
         cursor=my_db.cursor(dictionary=True)
         cursor.execute(query)
         questions=cursor.fetchall()
@@ -391,7 +391,7 @@ class Question():
     @staticmethod 
     def find_recent_ques():
         my_db=get_db_connection()
-        query = "SELECT * FROM Questions ORDER BY creation_date DESC LIMIT 10"
+        query = "SELECT * FROM Questions ORDER BY creation_date DESC "
         cursor=my_db.cursor(dictionary=True)
         cursor.execute(query)
         questions=cursor.fetchall()
@@ -446,7 +446,7 @@ class Answer():
     @staticmethod
     def get_comments_by_answer_id(answer_id):
         my_db=get_db_connection()
-        query = "SELECT * FROM Answer_comments WHERE answer_id = %s ORDER BY creation_date ASC LIMIT 10"
+        query = "SELECT * FROM Answer_comments WHERE answer_id = %s ORDER BY creation_date ASC "
         cursor=my_db.cursor(dictionary=True)
         cursor.execute(query,(answer_id,))
         comments=cursor.fetchall()
@@ -469,7 +469,7 @@ class Answer():
     @staticmethod
     def find_answer_by_user_id(user_id):
         my_db=get_db_connection()
-        query = "SELECT * FROM answers WHERE user_id = %s ORDER BY creation_date DESC LIMIT 10"
+        query = "SELECT * FROM answers WHERE user_id = %s ORDER BY creation_date DESC "
         cursor=my_db.cursor(dictionary=True)
         cursor.execute(query,(user_id,))
         answers=cursor.fetchall()
@@ -973,7 +973,7 @@ class QBookmark:
         # print(user_id)
         my_db=get_db_connection()
         cursor=my_db.cursor(dictionary=True)
-        query = "SELECT question_id FROM Question_bookmarks WHERE user_id = %s ORDER BY creation_date DESC LIMIT 10"
+        query = "SELECT question_id FROM Question_bookmarks WHERE user_id = %s ORDER BY creation_date DESC"
         cursor.execute(query,(user_id,))
         l_qid=cursor.fetchall()
         # print("checing for bookmarks")
@@ -1040,7 +1040,7 @@ class ABookmark:
         # print(user_id)
         my_db=get_db_connection()
         cursor=my_db.cursor(dictionary=True)
-        query = "SELECT answer_id FROM Answer_bookmarks WHERE user_id = %s ORDER BY creation_date DESC LIMIT 10"
+        query = "SELECT answer_id FROM Answer_bookmarks WHERE user_id = %s ORDER BY creation_date DESC "
         cursor.execute(query,(user_id,))
         l_qid=cursor.fetchall()
         # print("checing for aanswes bookmarks")
