@@ -87,7 +87,7 @@
         <div class="bookmark_bar"></div>
         <div class="content-wrapper ">
             <br><br><br><br>
-            <h2 class="question_title">{{question.title}}</h2>
+            <h2 >{{question.title}}</h2>
             </div>        
             <div class="line"></div><br>
             <div class="row surf">
@@ -124,7 +124,7 @@
 
                 </script>
                 <div class="col-lg-11">
-                    <h4>{{question.body}}</h4>
+                    <h4 class="question_body">{{question.body}}</h4>
                     <br>
                     {% for tag in l_tags%} 
                     <button type="button" class="btn btn-primary btn-sm btn-search">{{ tag.tag_name }}</button>
