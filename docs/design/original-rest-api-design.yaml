@@ -1,0 +1,864 @@
+---
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: "API Endpoints for Bug Search"
+host: "example.com"
+basePath: "/api"
+schemes:
+- "http"
+paths:
+  /users:
+    get:
+      tags:
+      - "User"
+      summary: "Get a list of all Users"
+      operationId: "users_get"
+      parameters:
+      - name: "sortByUpvotes"
+        in: "query"
+        description: "Sort the questions by upvotes"
+        required: false
+        type: "boolean"
+        default: true
+      - name: "sortByCreationDate"
+        in: "query"
+        description: "Sort the questions by upvotes"
+        required: false
+        type: "boolean"
+        default: false
+      responses:
+        "200":
+          description: "OK"
+      x-swagger-router-controller: "swagger_server.controllers.user_controller"
+    post:
+      tags:
+      - "User"
+      summary: "Create a new user account"
+      operationId: "users_post"
+      consumes:
+      - "application/json"
+      parameters:
+      - name: "username"
+        in: "query"
+        description: "Username of the User"
+        required: true
+        type: "string"
+      - name: "password"
+        in: "query"
+        description: "password of the User"
+        required: true
+        type: "string"
+      - name: "email"
+        in: "query"
+        description: "email of the User"
+        required: true
+        type: "string"
+      responses:
+        "201":
+          description: "User created successfully"
+          schema:
+            $ref: "#/definitions/User"
+      x-swagger-router-controller: "swagger_server.controllers.user_controller"
+  /usrs/forgotpassword:
+    post:
+      tags:
+      - "User"
+      summary: "in case user forgot password"
+      operationId: "usrs_forgotpassword_post"
+      consumes:
+      - "application/json"
+      parameters:
+      - name: "username"
+        in: "query"
+        description: "Username of the User"
+        required: true
+        type: "string"
+      - name: "email"
+        in: "query"
+        description: "email of the User"
+        required: true
+        type: "string"
+      responses:
+        "201":
+          description: "User created successfully"
+          schema:
+            $ref: "#/definitions/User"
+      x-swagger-router-controller: "swagger_server.controllers.user_controller"
+  /users/{userid}/follower:
+    get:
+      tags:
+      - "User"
+      summary: "All the follower of the User"
+      operationId: "users_userid_follower_get"
+      parameters:
+      - name: "userid"
+        in: "path"
+        description: "username of user to get details for"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              type: "string"
+      x-swagger-router-controller: "swagger_server.controllers.user_controller"
+  /users/{userid}/following:
+    get:
+      tags:
+      - "User"
+      summary: "All the users whom the user is following"
+      operationId: "users_userid_following_get"
+      parameters:
+      - name: "userid"
+        in: "path"
+        description: "username of user to get details for"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              type: "string"
+      x-swagger-router-controller: "swagger_server.controllers.user_controller"
+  /users/login:
+    post:
+      tags:
+      - "User"
+      summary: "Logs user into the system"
+      description: ""
+      operationId: "login_user"
+      parameters:
+      - name: "username"
+        in: "query"
+        description: "The user name for login"
+        required: true
+        type: "string"
+      - name: "password"
+        in: "query"
+        description: "The password for login in clear text"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+        "400":
+          description: "Invalid username/password supplied"
+      x-swagger-router-controller: "swagger_server.controllers.user_controller"
+  /users/logout:
+    get:
+      tags:
+      - "User"
+      summary: "Logs out current logged in user session"
+      description: ""
+      operationId: "logout_user"
+      parameters: []
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "swagger_server.controllers.user_controller"
+  /users/{userid}:
+    get:
+      tags:
+      - "User"
+      summary: "Get user details by user ID"
+      operationId: "users_userid_get"
+      parameters:
+      - name: "userid"
+        in: "path"
+        description: "username of user to get details for"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "User details"
+          schema:
+            $ref: "#/definitions/User"
+      x-swagger-router-controller: "swagger_server.controllers.user_controller"
+    put:
+      tags:
+      - "User"
+      summary: "Update user details by user ID"
+      operationId: "users_userid_put"
+      consumes:
+      - "application/json"
+      parameters:
+      - name: "userid"
+        in: "path"
+        description: "username of user to get details for"
+        required: true
+        type: "integer"
+      - name: "username"
+        in: "query"
+        description: "User object that needs to be updated"
+        required: false
+        type: "string"
+      - name: "password"
+        in: "query"
+        description: "User object that needs to be updated"
+        required: false
+        type: "string"
+      - name: "about"
+        in: "query"
+        description: "User object that needs to be updated"
+        required: false
+        type: "string"
+      - name: "emailid"
+        in: "query"
+        description: "User object that needs to be updated"
+        required: false
+        type: "string"
+      - name: "imageurl"
+        in: "query"
+        description: "User object that needs to be updated"
+        required: false
+        type: "string"
+      responses:
+        "200":
+          description: "User updated successfully"
+          schema:
+            $ref: "#/definitions/User"
+      x-swagger-router-controller: "swagger_server.controllers.user_controller"
+  /questions:
+    get:
+      tags:
+      - "Questions"
+      summary: "Get a list of all questions"
+      operationId: "questions_get"
+      parameters:
+      - name: "sortByUpvotes"
+        in: "query"
+        description: "Sort the questions by upvotes"
+        required: false
+        type: "boolean"
+        default: true
+      - name: "sortByCreationDate"
+        in: "query"
+        description: "Sort the questions by upvotes"
+        required: false
+        type: "boolean"
+        default: false
+      responses:
+        "200":
+          description: "OK"
+      x-swagger-router-controller: "swagger_server.controllers.questions_controller"
+    post:
+      tags:
+      - "Questions"
+      summary: "Create a new question"
+      operationId: "questions_post"
+      parameters:
+      - name: "body"
+        in: "query"
+        description: "Question object that needs to be created"
+        required: true
+        type: "string"
+      - name: "title"
+        in: "query"
+        description: "Question object that needs to be created"
+        required: true
+        type: "string"
+      - name: "tags"
+        in: "query"
+        description: "Question object that needs to be created"
+        required: true
+        type: "string"
+      responses:
+        "201":
+          description: "Created"
+          headers:
+            Location:
+              type: "string"
+              description: "URL of the created resource"
+      x-swagger-router-controller: "swagger_server.controllers.questions_controller"
+  /questions/{questionId}:
+    get:
+      tags:
+      - "Questions"
+      summary: "Get details of a specific question by ID"
+      operationId: "questions_question_id_get"
+      parameters:
+      - name: "questionId"
+        in: "path"
+        description: "ID of question to get details for"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "get details of questions"
+      x-swagger-router-controller: "swagger_server.controllers.questions_controller"
+  /users/{userid}/questions/{questionId}:
+    delete:
+      tags:
+      - "Questions"
+      summary: "Delete a question by ID"
+      operationId: "users_userid_questions_question_id_delete"
+      parameters:
+      - name: "questionId"
+        in: "path"
+        description: "ID of question to get details for"
+        required: true
+        type: "integer"
+      - name: "userid"
+        in: "path"
+        description: "ID of userid"
+        required: true
+        type: "integer"
+      responses:
+        "204":
+          description: "No Content"
+      x-swagger-router-controller: "swagger_server.controllers.questions_controller"
+  /questions/{questionId}/answers:
+    get:
+      tags:
+      - "Answers"
+      summary: "Get a list of all answers to a specific question by ID"
+      operationId: "questions_question_id_answers_get"
+      parameters:
+      - name: "questionId"
+        in: "path"
+        description: "ID of question to get answers for"
+        required: true
+        type: "integer"
+      - name: "sortByUpvotes"
+        in: "query"
+        description: "Sort the questions by upvotes"
+        required: false
+        type: "boolean"
+        default: true
+      - name: "sortByCreationDate"
+        in: "query"
+        description: "Sort the questions by upvotes"
+        required: false
+        type: "boolean"
+        default: false
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Answer"
+      x-swagger-router-controller: "swagger_server.controllers.answers_controller"
+  /users/{userid}/questions/{questionId}/answers:
+    post:
+      tags:
+      - "Answers"
+      summary: "Post a new answer to a specific question"
+      operationId: "users_userid_questions_question_id_answers_post"
+      parameters:
+      - name: "questionId"
+        in: "path"
+        description: "ID of question to get answers for"
+        required: true
+        type: "integer"
+      - name: "userid"
+        in: "path"
+        description: "ID of userid"
+        required: true
+        type: "integer"
+      - name: "body"
+        in: "query"
+        description: "Question object that needs to be created"
+        required: false
+        type: "string"
+      responses:
+        "201":
+          description: "Answer created successfully"
+          schema:
+            $ref: "#/definitions/Answer"
+      x-swagger-router-controller: "swagger_server.controllers.answers_controller"
+  /questions/{questionId}/answers/{answerId}:
+    get:
+      tags:
+      - "Answers"
+      summary: "Get details of a specific answer to a specific question by ID"
+      operationId: "questions_question_id_answers_answer_id_get"
+      parameters:
+      - name: "questionId"
+        in: "path"
+        description: "ID of question to get answer for"
+        required: true
+        type: "integer"
+      - name: "answerId"
+        in: "path"
+        description: "ID of answer to get details for"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "Answer found"
+          schema:
+            $ref: "#/definitions/Answer"
+      x-swagger-router-controller: "swagger_server.controllers.answers_controller"
+  /user/{userid}/questions/{questionId}/answers/{answerId}:
+    delete:
+      tags:
+      - "Answers"
+      summary: "Delete an answer to a specific question by ID"
+      operationId: "user_userid_questions_question_id_answers_answer_id_delete"
+      parameters:
+      - name: "questionId"
+        in: "path"
+        description: "ID of question to get answer for"
+        required: true
+        type: "integer"
+      - name: "answerId"
+        in: "path"
+        description: "ID of answer to get details for"
+        required: true
+        type: "integer"
+      - name: "userid"
+        in: "path"
+        description: "ID of userid"
+        required: true
+        type: "integer"
+      responses:
+        "204":
+          description: "Answer deleted successfully"
+      x-swagger-router-controller: "swagger_server.controllers.answers_controller"
+  /user/{userid}/questions/{questionId}/comments:
+    post:
+      tags:
+      - "Comments"
+      summary: "Post a new comment on a question"
+      operationId: "user_userid_questions_question_id_comments_post"
+      parameters:
+      - name: "questionId"
+        in: "path"
+        description: "ID of the question to comment on"
+        required: true
+        type: "integer"
+      - name: "userid"
+        in: "path"
+        description: "ID of the user"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Comment"
+      x-swagger-router-controller: "swagger_server.controllers.comments_controller"
+  /questions/{questionId}/comments/{commentId}:
+    get:
+      tags:
+      - "Comments"
+      summary: "Get a comment by comment ID"
+      operationId: "questions_question_id_comments_comment_id_get"
+      parameters:
+      - name: "questionId"
+        in: "path"
+        description: "ID of the question to which the comment belongs"
+        required: true
+        type: "integer"
+      - name: "commentId"
+        in: "path"
+        description: "ID of the comment to get details for"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Comment"
+      x-swagger-router-controller: "swagger_server.controllers.comments_controller"
+  /user/{userid}/questions/{questionId}/comments/{commentId}:
+    delete:
+      tags:
+      - "Comments"
+      summary: "Delete a comment by comment ID"
+      operationId: "user_userid_questions_question_id_comments_comment_id_delete"
+      parameters:
+      - name: "questionId"
+        in: "path"
+        description: "ID of the question to comment on"
+        required: true
+        type: "integer"
+      - name: "userid"
+        in: "path"
+        description: "ID of the user"
+        required: true
+        type: "integer"
+      - name: "commentId"
+        in: "path"
+        description: "ID of the user"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "OK"
+      x-swagger-router-controller: "swagger_server.controllers.comments_controller"
+  /questions/{questionId}/answers/{answerId}/comments:
+    get:
+      tags:
+      - "Comments"
+      summary: "Get all comments on an answer"
+      operationId: "questions_question_id_answers_answer_id_comments_get"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "questionId"
+        in: "path"
+        description: "ID of question to get answer for"
+        required: true
+        type: "integer"
+      - name: "answerId"
+        in: "path"
+        description: "ID of answer to get details for"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Comment"
+      x-swagger-router-controller: "swagger_server.controllers.comments_controller"
+  /questions/{questionId}/answers/{answerId}/comments/{commentId}:
+    get:
+      tags:
+      - "Comments"
+      summary: "Get a particular comment on an answer"
+      operationId: "questions_question_id_answers_answer_id_comments_comment_id_get"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "questionId"
+        in: "path"
+        description: "ID of question to get answer for"
+        required: true
+        type: "integer"
+      - name: "answerId"
+        in: "path"
+        description: "ID of answer to get details for"
+        required: true
+        type: "integer"
+      - name: "commentId"
+        in: "path"
+        description: "ID of the comment to get details for"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Comment"
+      x-swagger-router-controller: "swagger_server.controllers.comments_controller"
+  /user/{userid}//questions/{questionId}/answers/{answerId}/comments/{commentId}:
+    delete:
+      tags:
+      - "Comments"
+      summary: "Delete a comment by comment ID"
+      operationId: "user_userid_questions_question_id_answers_answer_id_comments_comment_id_delete"
+      parameters:
+      - name: "userid"
+        in: "path"
+        description: "ID of question to get answer for"
+        required: true
+        type: "integer"
+      - name: "questionId"
+        in: "path"
+        description: "ID of question to get answer for"
+        required: true
+        type: "integer"
+      - name: "answerId"
+        in: "path"
+        description: "ID of answer to get details for"
+        required: true
+        type: "integer"
+      - name: "commentId"
+        in: "path"
+        description: "ID of the comment to get details for"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "OK"
+      x-swagger-router-controller: "swagger_server.controllers.comments_controller"
+  /search/questions:
+    get:
+      tags:
+      - "Search"
+      summary: "Search for questions by keyword"
+      operationId: "search_questions_get"
+      parameters:
+      - name: "keyword"
+        in: "query"
+        description: "Keyword to search for"
+        required: true
+        type: "string"
+      - name: "sortByUovote"
+        in: "query"
+        description: "Sort the questions by upvotes"
+        required: false
+        type: "boolean"
+        default: false
+      responses:
+        "200":
+          description: "Successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Question"
+        "400":
+          description: "Invalid input"
+      x-swagger-router-controller: "swagger_server.controllers.search_controller"
+  /search/tags:
+    get:
+      tags:
+      - "Search"
+      summary: "Search for tags by keyword"
+      operationId: "search_tags_get"
+      parameters:
+      - name: "keyword"
+        in: "query"
+        description: "Keyword to search for"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "Successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Tag"
+        "400":
+          description: "Invalid input"
+      x-swagger-router-controller: "swagger_server.controllers.search_controller"
+  /search/users:
+    get:
+      tags:
+      - "Search"
+      summary: "Search for users by keyword"
+      operationId: "search_users_get"
+      parameters:
+      - name: "keyword"
+        in: "query"
+        description: "Keyword to search for"
+        required: true
+        type: "string"
+      - name: "sortByCreationDate"
+        in: "query"
+        description: "Sort the questions by upvotes"
+        required: false
+        type: "boolean"
+        default: true
+      responses:
+        "200":
+          description: "Successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/User"
+        "400":
+          description: "Invalid input"
+      x-swagger-router-controller: "swagger_server.controllers.search_controller"
+  /users/{userid}/questions/{questionId}/vote/{vote_type}:
+    post:
+      tags:
+      - "vote"
+      operationId: "users_userid_questions_question_id_vote_vote_type_post"
+      parameters:
+      - name: "vote_type"
+        in: "path"
+        description: "vote a question"
+        required: true
+        type: "integer"
+      - name: "questionId"
+        in: "path"
+        description: "ID of question to get details for"
+        required: true
+        type: "integer"
+      - name: "userid"
+        in: "path"
+        description: "ID of userid"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "Successfully voted"
+      x-swagger-router-controller: "swagger_server.controllers.vote_controller"
+  /users/{userid}/questions/{questionId}/answers/{answerId}/vote/{vote_type}:
+    post:
+      tags:
+      - "vote"
+      operationId: "users_userid_questions_question_id_answers_answer_id_vote_vote_type_post"
+      parameters:
+      - name: "vote_type"
+        in: "path"
+        description: "vote a question"
+        required: true
+        type: "integer"
+      - name: "questionId"
+        in: "path"
+        description: "ID of question to get details for"
+        required: true
+        type: "integer"
+      - name: "answerId"
+        in: "path"
+        description: "ID of question to get details for"
+        required: true
+        type: "integer"
+      - name: "userid"
+        in: "path"
+        description: "ID of userid"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "Successfully voted"
+      x-swagger-router-controller: "swagger_server.controllers.vote_controller"
+definitions:
+  User:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      username:
+        type: "string"
+      email:
+        type: "string"
+      imageurl:
+        type: "string"
+      about:
+        type: "string"
+      password:
+        type: "string"
+      creationdate:
+        type: "string"
+      reputation_points:
+        type: "integer"
+      follower:
+        type: "integer"
+      following:
+        type: "integer"
+      badges:
+        type: "object"
+        properties: {}
+    example:
+      badges: "{}"
+      password: "password"
+      creationdate: "creationdate"
+      follower: 1
+      imageurl: "imageurl"
+      following: 5
+      about: "about"
+      id: 0
+      reputation_points: 6
+      email: "email"
+      username: "username"
+  Question:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      title:
+        type: "string"
+      body:
+        type: "string"
+      question_tags:
+        type: "object"
+        properties: {}
+      user_id:
+        type: "integer"
+      answercount:
+        type: "integer"
+      commentcount:
+        type: "integer"
+      answeracceptedid:
+        type: "integer"
+      creationdate:
+        type: "string"
+      upvote:
+        type: "integer"
+      downvote:
+        type: "integer"
+    example:
+      commentcount: 5
+      creationdate: "creationdate"
+      downvote: 7
+      question_tags: "{}"
+      answercount: 1
+      user_id: 6
+      answeracceptedid: 5
+      id: 0
+      title: "title"
+      body: "body"
+      upvote: 2
+  Answer:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      body:
+        type: "string"
+      user_id:
+        type: "integer"
+      commentcount:
+        type: "integer"
+      creationdate:
+        type: "string"
+      upvote:
+        type: "integer"
+      downvote:
+        type: "integer"
+    example:
+      commentcount: 1
+      creationdate: "creationdate"
+      downvote: 5
+      user_id: 6
+      id: 0
+      body: "body"
+      upvote: 5
+  Comment:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      body:
+        type: "string"
+      user_id:
+        type: "integer"
+      post_type_id:
+        type: "integer"
+      post_id:
+        type: "integer"
+    example:
+      post_id: 5
+      user_id: 6
+      post_type_id: 1
+      id: 0
+      body: "body"
+  Tag:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      name:
+        type: "string"
+      description:
+        type: "string"
+    example:
+      name: "name"
+      description: "description"
+      id: 0
+  usertags:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      tagid:
+        type: "string"
+      user_id:
+        type: "integer"
+  questiontags:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      tagid:
+        type: "string"
+      qn_id:
+        type: "integer"

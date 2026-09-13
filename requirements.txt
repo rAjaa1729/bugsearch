@@ -1,0 +1,8 @@
+Flask
+Flask-Login
+Flask-Mail
+mysql-connector-python
+PyJWT
+requests
+python-dotenv
+Werkzeug
